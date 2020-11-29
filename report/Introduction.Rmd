@@ -3,8 +3,24 @@
 ## Overview and Motivation
 
 
+## Data loadind
 
-## The data
+```{r data}
+# Boris Johnson's speech of March 16th
 
+boris16mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-16-march-2020")%>%            html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
+  html_text()
+
+macron <- read_html("https://franceintheus.org/spip.php?article9654") %>%
+           html_nodes("div.texte") %>%
+          html_text()
+
+```
+
+## Data cleaning
+
+```{r data}
+
+```
 
 
