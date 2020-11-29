@@ -9,7 +9,7 @@ packages <- c(
   "modelr", "broom", # for modeling
   "ggrepel", "gghighlight", "patchwork", "maps", # for plotting
   "knitr", "kableExtra", "bookdown", "rmarkdown", # for the report
-  "randomForest","janitor","caret","pdftools" )
+  "randomForest","janitor","caret","pdftools","rvest" )
 
 purrr::walk(packages, library, character.only = TRUE)
 
