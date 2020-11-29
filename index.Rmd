@@ -1,0 +1,11 @@
+--- 
+title: "Dicours Analysis"
+author: "Eugénie Mathieu, Maeva Marin, Hadrien Renger, Wajma Nazim"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+site: bookdown::bookdown_site
+output: bookdown::html_document2
+documentclass: book
+bibliography: [references.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+---

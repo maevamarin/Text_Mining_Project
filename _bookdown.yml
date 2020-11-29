@@ -1,0 +1,13 @@
+book_filename: "Text Mining"
+language:
+  ui:
+    chapter_name: "Chapter "
+delete_merged_file: true
+before_chapter_script: "scripts/setup.R"
+rmd_files: [
+  "index.Rmd",
+  "report/Introduction.Rmd",
+  "report/Exploration_analysis.Rmd",
+  "report/Conclusion.Rmd",
+  "report/references.Rmd"
+]
