@@ -17,10 +17,3 @@ macron <- read_html("https://franceintheus.org/spip.php?article9654") %>%
 
 ```
 
-## Data cleaning
-
-```{r data}
-
-```
-
-
