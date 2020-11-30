@@ -1,0 +1,75 @@
+---
+title: "Macron_EDA"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+library(rvest)
+library(stringr)
+library(dplyr)
+library(tibble)
+library(tidyr)
+library(tidyverse)
+library(tidytext)
+library(quanteda)
+library(lexicon)
+library(wordcloud)
+library(RColorBrewer)
+library(tm)
+library(ggplot2)
+
+# Data Acquisition
+corpus_macron <- read_html("https://franceintheus.org/spip.php?article9654") %>%
+  html_nodes("div.texte") %>%
+  html_text()
+str_replace_all(corpus_macron,"[\r\n\t]", "")
+
+# EDA
+## Tokenization
+corpus_macron <- corpus(corpus_macron)
+summary(corpus_macron) ###number of tokens and token types
+corpus_macron_0 <- tokens(corpus_macron, remove_numbers = TRUE, remove_punct = TRUE, remove_symbols = TRUE, remove_separators = TRUE)
+## Lemmatization
+corpus_macron_1 <- tokens_replace(corpus_macron_0, pattern=hash_lemmas$token, replacement = hash_lemmas$lemma)
+## Cleaning
+corpus_macron_2=corpus_macron_1 %>% 
+  tokens_tolower() %>% 
+  tokens_remove(stopwords("english")) 
+## Document-Term Matrix DTM
+corpus_macron.dfm <- dfm(corpus_macron_2)
+View(corpus_macron.dfm)
+## TFIDF no point when just on document, maybe add when combining texts
+#corpus_macron.tfidf <- dfm_tfidf(corpus_macron.dfm)
+#View(corpus_macron.tfidf)
+## Cloud of Words
+textplot_wordcloud(corpus_macron.dfm, colors=brewer.pal(8, "Dark2"))
+## Lexical Divesity Token Type Ratio TTR
+N <- ntoken(corpus_macron_2)
+V <- ntype(corpus_macron_2)
+TTR <- V/N
+TTR ###the text is quite poor, as TTR is of 0.4
+## Zipf's Law
+corpus_macron_freq <- textstat_frequency(corpus_macron.dfm)
+plot(frequency~rank, data=corpus_macron_freq, pch=20)
+ggplot(corpus_macron_freq,aes(x = rank, y = frequency, label=feature)) + geom_point(size=2, alpha =1) + theme_bw() + geom_text(aes(label=feature),hjust=0, vjust=0) + xlim(0,20)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
