@@ -36,6 +36,3 @@ RColorBrewer
 NLP
 tm
 printr
-usethis
-devtools
-wordcloud
