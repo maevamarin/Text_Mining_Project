@@ -5,7 +5,7 @@
 
 ## Data loadind
 
-```{r data}
+```{r data, echo=TRUE}
 # Boris Johnson's speech of March 16th
 
 boris16mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-16-march-2020")%>%            html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%

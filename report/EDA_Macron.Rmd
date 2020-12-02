@@ -1,4 +1,6 @@
-#Wajma
+# EDA Macron
+
+## Wajma
 
 ```{r}
 
@@ -38,12 +40,5 @@ plot(frequency~rank, data=corpus_macron_freq, pch=20)
 ggplot(corpus_macron_freq,aes(x = rank, y = frequency, label=feature)) + geom_point(size=2, alpha =1) + theme_bw() + geom_text(aes(label=feature),hjust=0, vjust=0) + xlim(0,20)
 ```
 
-## Including Plots
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+## Hadrien
