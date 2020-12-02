@@ -35,3 +35,7 @@ devtools
 NLP
 tm
 lexicon
+RColorBrewer
+wordcloud
+pdftools
+printr

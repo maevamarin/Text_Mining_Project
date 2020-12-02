@@ -1,37 +1,16 @@
----
-title: "EDA-Project Text Mining"
-author: "Eugénie Mathieu"
-date: "27 11 2020"
-output: html_document
----
 
-```{r setup, include=FALSE, echo = FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library(rvest)
-```
 
 ```{r load myData, include=FALSE}
 load("data.RData")
 ```
 
-```{r libraries,  echo = FALSE}
-library(tidyverse)
-library(tidytext)
-library(bookdown)
-library(tokenizers)
-library(wordcloud2)
-library(tibble)
-library(knitr)
-library(gghighlight)
-library(quanteda)
-library(devtools)
-library(kableExtra)
-library(tm)
-devtools::install_github("dgrtwo/drlib")
-force = TRUE
 
+
+## Test avec le whole set de Boris
+```{r echo=FALSE,warning=FALSE, message=FALSE,cache=TRUE}
+devtools::install_github("dgrtwo/drlib")
 ```
- ## Test avec le whole set de Boris
+
 ```{r fig= "15 most common words in Boris Johnson's speech on March 16th", echo = FALSE}
 boris16mars_dtm <- VectorSource(boris16mars) %>% VCorpus() %>%  DocumentTermMatrix(control=list(removePunctuation=TRUE, removeNumbers=TRUE, stopwords=TRUE))
 boris16mars_tidy <- tidy(boris16mars_dtm)
@@ -106,6 +85,7 @@ BORIS.freq %>% ggplot(aes(x= rank , y= frequency))+
 
 
 ```
+
 ```{r BORIS All speeches Sentiment plot, echo=FALSE}
 summary(BORISquanteda.cp)
 library(lexicon) 

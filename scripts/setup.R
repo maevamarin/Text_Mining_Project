@@ -6,10 +6,11 @@
 packages <- c(
   "here", "readr",# for the project's organization
   "tidyverse", "lubridate", # for wrangling
-  "modelr", "broom", # for modeling
+  "modelr", "broom",
+  "dplyr",# for modeling
   "ggrepel", "gghighlight", "patchwork", "maps", # for plotting
   "knitr", "kableExtra", "bookdown", "rmarkdown", # for the report
-  "randomForest","janitor","caret","pdftools","rvest" )
+  "randomForest","janitor","caret","pdftools","rvest","wordcloud2","tidytext","tokenizers","quanteda","stringr","lexicon","RColorBrewer","tm","printr" )
 
 purrr::walk(packages, library, character.only = TRUE)
 

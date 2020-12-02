@@ -7,8 +7,8 @@ before_chapter_script: "scripts/setup.R"
 rmd_files: [
   "index.Rmd",
   "report/Introduction.Rmd",
-  "report/Exploration_analysis.Rmd",
-  "report/Eugenie.rmd",
+  "report/EDA_John.Rmd",
+  "report/EDA_Macron.rmd",
   "report/Conclusion.Rmd",
   "report/references.Rmd"
 ]
