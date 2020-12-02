@@ -1,6 +1,6 @@
-# EDA jOHN 
+# Exploratory Data Analysis John Boris
 
-## Eugenie
+## Data manipulation
 ```{r include=FALSE}
 # Data Acquisition
 boris16mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-16-march-2020") %>%
@@ -37,6 +37,7 @@ boris22mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on
 
 boris<-corpus(c(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars))
 boris
+
 
 ```
 
@@ -87,30 +88,116 @@ inspect(BORIS.tfidf)
 
 
 
-## Maeva
-
 ```{r}
 #create a tibble
-crude.tb<- tibble(documents=1:7,data.frame(boris))
-names(crude.tb)[2] <- "Text"
-names(crude.tb)[1] <- "Document"
+Document <- c("doc1","doc2","doc3","doc4","doc5","doc6","doc7")
+Text<-c(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars)
+boris<-data.frame(Document,Text)
 
-#tokenization using unest-tokens
-boris<-corpus(c(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars),
-              meta=list())
+#Tokenization
+boris.tok<-unnest_tokens(boris,output = "word",input = "Text",to_lower = TRUE,strip_punct=TRUE,strip_numeric=TRUE)
 
-boris.tk<-tokens(boris,
-                 remove_numbers=TRUE,
-                 remove_punct=TRUE,
-                 remove_symbols=TRUE,
-                 remove_separators=TRUE) %>%
-  tokens_tolower()%>%
-  tokens_replace(pattern=hash_lemmas$token,
-                 replacement=hash_lemmas$lemma) %>%
-  tokens_remove(stopwords("english"))
+# Now we remove the stop words using the anti_join function and the built-in stop_word object.That will remove unimportant word like the "a","the" etc...
+boris.tok<-anti_join(boris.tok,stop_words,by="word")
 
-boris_dfm_gp<-dfm(boris.tk)
-
-boris_dfm_gp
+#Number of token in each document
+table(boris.tok$Document)
 
 ```
+
+Now let's compute the word frequencies (TF) by documents. First, the tokens are grouped by the indicator Document, which allows to count the words by documents. The the object is ungrouped.
+
+```{r}
+boris.fr<- boris.tok %>% group_by(Document) %>% count(word,sort = TRUE) %>% ungroup()
+
+```
+
+These frqeuencies are represented with barplots. We only keep the 15 most frequent words for redability purpose and create barplots using ggplot and geom_col. The facetwrap function split the barplots per Document.
+
+```{r}
+index<-top_n(boris.fr,15)
+boris.fr%>%
+filter(word %in% index$word) %>%
+ggplot( 
+  aes(x=word,y=n))+
+  geom_col() +
+  coord_flip() +
+  facet_wrap(~Document,ncol=2)
+
+boris.tok<-unnest_tokens(boris,output = "word",input = "Text",to_lower = TRUE,strip_punct=TRUE,strip_numeric=TRUE)
+
+boris%>% group_by(Document) %>% count(Text,sort=TRUE) %>%ungroup()
+## Zipf's Law
+
+```
+
+We see that the list of 15 most frequent term are due to doc 2 ,4 and 3. 
+
+Now we want to know which are  the most frequent term for each document
+
+```{r}
+index<-boris.fr %>% group_by(Document) %>% top_n(1)
+boris.fr%>%
+filter(word %in% index$word) %>%
+ggplot( 
+  aes(x=word,y=n))+
+  geom_col() +
+  coord_flip() +
+  facet_wrap(~Document,ncol=2)
+```
+
+
+Now we repeat the same analysis using the TF-IDF.
+
+```{r}
+boris.tfidf<- bind_tf_idf(tbl=boris.fr,term=word,document=Document,n=n)
+index<-boris.tfidf %>% group_by(Document) %>% top_n(1)
+boris.tfidf%>%
+filter(word %in% index$word) %>%
+ggplot( 
+  aes(x=word,y=n))+
+  geom_col() +
+  coord_flip() +
+  facet_wrap(~Document,ncol=2)
+
+```
+We can see that the term "measures" or "disease" appaear several times. It is normal since the could of words was built from the frequencies within each document. We need first to aggregate the frequencies per termms(i.e sum iver the documents). Then er produce the could
+
+```{r,warning=FALSE}
+wordcloud(words=boris.fr$word,freq=boris.fr$n)
+
+```
+
+```{r,warning=FALSE}
+boris.fr2<-aggregate(n~word,FUN=sum,data = boris.fr)
+wordcloud(words=boris.fr2$word,freq=boris.fr2$n)
+
+
+
+```
+
+## Zipf's law
+
+Now, we illustrate the Zipf's law on the discous of Boris Jonhson. The terms are ranked by their frequency (rank=1 for the most frequent), then plotted versus its rank. This is easily obtained using quanteda.
+
+```{r,warning=FALSE}
+boris.dfm<- dfm(boris.tok$word)
+boris.freq <- textstat_frequency(boris.dfm)
+plot(frequency~rank,data=boris.freq,pch=20)
+text(frequency~rank, data=boris.freq[1:5],label=feature,pos=4)
+```
+
+Now on the log scale this gives a linear relation
+
+```{r,warning=FALSE}
+plot(log(frequency)~log(rank),data=boris.freq,pch=20)
+text(log(frequency)~log(rank), data=boris.freq[1:5],label=feature,pos=4)
+```
+
+
+## Lexical Diversity
+A diversity index is a measure of richness of a text
+
+
+
+
