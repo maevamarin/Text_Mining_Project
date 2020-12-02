@@ -1,9 +1,116 @@
 # EDA jOHN 
 
 ## Eugenie
+```{r include=FALSE}
+# Data Acquisition
+boris16mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-16-march-2020") %>%
+                html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>% 
+                html_text()
+
+boris12mars<- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-12-march-2020") %>%   
+              html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
+              html_text()
+
+boris18mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-18-march-2020") %>%   
+              html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
+              html_text()
 
 
+boris9mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-9-march-2020") %>% 
+              html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
+              html_text()
+
+
+boris19mars<- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-19-march-2020") %>% 
+              html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
+              html_text()
+
+boris20mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-20-march-2020") %>% 
+              html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
+              html_text()
+
+
+boris22mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-22-march-2020") %>% 
+              html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
+              html_text()
+
+
+boris<-corpus(c(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars))
+boris
+
+```
+
+```{r  include=TRUE, warning=FALSE}
+boris16mars_dtm <- VectorSource(boris16mars) %>% VCorpus() %>%  DocumentTermMatrix(control=list(removePunctuation=TRUE, removeNumbers=TRUE, stopwords=TRUE))
+boris16mars_tidy <- tidy(boris16mars_dtm)
+boris16mars_tidy %>%
+  group_by(document) %>%
+  top_n(15) %>%
+  ungroup() %>%
+  mutate(document = factor(as.numeric(document), levels = 1:17)) %>%
+  ggplot(aes(drlib::reorder_within(term, count, document), count, fill =term)) +
+  theme(legend.position = "none") +
+  ggtitle("15 most common words in Boris Johnson's speech on March 16th") +
+  xlab("Word") + ylab("Frequency") +
+  geom_bar(stat = "identity") +
+  drlib::scale_x_reordered() +
+  coord_flip() +
+  facet_wrap(~ document, scales = "free")
+```
+
+
+```{r Boris tokenization and frequency}
+## tokenization of the speech of Boris Johnson
+boris <- tibble(txt = boris16mars)
+boris16mars.fr<- boris %>% unnest_tokens(word, txt) %>%
+  anti_join(stop_words, by = "word") %>%group_by(word) %>% summarize(Count =n()) %>% 
+  arrange(desc(Count)) 
+boris %>%
+  unnest_tokens(word, txt) %>%
+  anti_join(stop_words, by = "word") %>%group_by(word) %>% summarize(Count =n()) %>% 
+  arrange(desc(Count)) %>%
+  kable() %>% kable_styling()
+```
+
+
+```{r Full spring speech Boris Cleaning and DTM}
+BORIS.cp <- VCorpus(VectorSource(boris))
+BORIS.cp <- tm_map(BORIS.cp, removePunctuation) 
+BORIS.cp <- tm_map(BORIS.cp, removeNumbers)
+BORIS.cp <- tm_map(BORIS.cp, removeWords, stopwords("english"))
+BORIS.cp <- tm_map(BORIS.cp, content_transformer(tolower))
+BORIS.cp <- tm_map(BORIS.cp, stripWhitespace)
+BORIS.dtm <- DocumentTermMatrix(BORIS.cp) %>% tidy()
+BORIS.tfidf <- DocumentTermMatrix(BORIS.cp, control = list(weighting = weightTfIdf))
+inspect(BORIS.tfidf)
+```
 
 
 
 ## Maeva
+
+```{r}
+#create a tibble
+crude.tb<- tibble(documents=1:7,data.frame(boris))
+names(crude.tb)[2] <- "Text"
+names(crude.tb)[1] <- "Document"
+
+#tokenization using unest-tokens
+boris<-corpus(c(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars),
+              meta=list())
+
+boris.tk<-tokens(boris,
+                 remove_numbers=TRUE,
+                 remove_punct=TRUE,
+                 remove_symbols=TRUE,
+                 remove_separators=TRUE) %>%
+  tokens_tolower()%>%
+  tokens_replace(pattern=hash_lemmas$token,
+                 replacement=hash_lemmas$lemma) %>%
+  tokens_remove(stopwords("english"))
+
+boris_dfm_gp<-dfm(boris.tk)
+
+boris_dfm_gp
+
+```
