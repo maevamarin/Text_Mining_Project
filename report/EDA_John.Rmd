@@ -195,9 +195,4 @@ text(log(frequency)~log(rank), data=boris.freq[1:5],label=feature,pos=4)
 ```
 
 
-## Lexical Diversity
-A diversity index is a measure of richness of a text
-
-
-
 

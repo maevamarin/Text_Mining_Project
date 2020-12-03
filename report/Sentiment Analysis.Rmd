@@ -1,0 +1,61 @@
+# Sentiment Analasis
+
+We use the nrc dictionary. From the token list per document boris.tok, we join the corresponding qualifier in  nrc using inner.joint: 
+
+```{r}
+boris.sent<- boris.tok %>% inner_join(get_sentiments("nrc"))
+head(boris.sent)
+
+```
+
+Then several summaries can be obtained. Below, using a table version and a long format
+
+```{r}
+table(boris.sent$Document,boris.sent$sentiment)
+
+## Long format + barplots
+
+boris.sent %>% 
+  group_by(Document,sentiment) %>% 
+  summarize(n=n())%>%
+  ggplot(aes(x=sentiment,y=n,fill=sentiment)) +
+  geom_bar(stat="identity",alpha=0.8) +
+  facet_wrap(~ Document) +
+  coord_flip()
+
+```
+to compare the document, we rescale them by their lenght
+
+```{r}
+boris.sent %>% 
+  group_by(Document,sentiment) %>% 
+  summarize(n=n())%>%
+  mutate(freq=n/sum(n)) %>%
+  ggplot(aes(x=sentiment,y=freq,fill=sentiment)) +
+  geom_bar(stat="identity",alpha=0.8) +
+  facet_wrap(~ Document) + 
+  coord_flip()
+
+```
+
+## Value-based
+
+
+Now we use the afinn dictionary. The main difference is that rach word receives a value rather than a qualifier. Then the average score per document is computed.
+
+```{r}
+head(get_sentiments("afinn"))
+boris.sent <- boris.tok %>%
+  inner_join(get_sentiments("afinn"))
+
+aggregate(value~Document, data =boris.sent,FUN=mean) %>%
+  ggplot(aes(x=Document,y=value)) +
+  geom_bar(stat="identity") +
+  coord_flip()
+
+
+```
+```{r}
+
+
+```
