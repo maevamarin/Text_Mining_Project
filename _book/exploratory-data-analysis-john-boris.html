@@ -143,9 +143,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2" data-path="eda-macron.html"><a href="eda-macron.html#hadrien"><i class="fa fa-check"></i><b>4.2</b> Hadrien</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="sentiment-analasis.html"><a href="sentiment-analasis.html"><i class="fa fa-check"></i><b>5</b> Sentiment Analasis</a><ul>
-<li class="chapter" data-level="5.1" data-path="sentiment-analasis.html"><a href="sentiment-analasis.html#value-based"><i class="fa fa-check"></i><b>5.1</b> Value-based</a></li>
-<li class="chapter" data-level="5.2" data-path="sentiment-analasis.html"><a href="sentiment-analasis.html#with-quanteda"><i class="fa fa-check"></i><b>5.2</b> With quanteda</a></li>
-<li class="chapter" data-level="5.3" data-path="sentiment-analasis.html"><a href="sentiment-analasis.html#using-valence-shifter"><i class="fa fa-check"></i><b>5.3</b> Using valence shifter</a></li>
+<li class="chapter" data-level="5.1" data-path="sentiment-analasis.html"><a href="sentiment-analasis.html#boris-johnson"><i class="fa fa-check"></i><b>5.1</b> Boris Johnson</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="sentiment-analasis.html"><a href="sentiment-analasis.html#value-based"><i class="fa fa-check"></i><b>5.1.1</b> Value-based</a></li>
+<li class="chapter" data-level="5.1.2" data-path="sentiment-analasis.html"><a href="sentiment-analasis.html#with-quanteda"><i class="fa fa-check"></i><b>5.1.2</b> With quanteda</a></li>
+<li class="chapter" data-level="5.1.3" data-path="sentiment-analasis.html"><a href="sentiment-analasis.html#using-valence-shifter"><i class="fa fa-check"></i><b>5.1.3</b> Using valence shifter</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="sentiment-analasis.html"><a href="sentiment-analasis.html#macron"><i class="fa fa-check"></i><b>5.2</b> Macron</a></li>
+<li class="chapter" data-level="5.3" data-path="sentiment-analasis.html"><a href="sentiment-analasis.html#comparison"><i class="fa fa-check"></i><b>5.3</b> Comparison</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -170,7 +174,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 3</span> Exploratory Data Analysis John Boris</h1>
 <div id="data-manipulation" class="section level2">
 <h2><span class="header-section-number">3.1</span> Data manipulation</h2>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">boris16mars_dtm &lt;-<span class="st"> </span><span class="kw">VectorSource</span>(boris16mars) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">VCorpus</span>() <span class="op">%&gt;%</span><span class="st">  </span><span class="kw">DocumentTermMatrix</span>(<span class="dt">control=</span><span class="kw">list</span>(<span class="dt">removePunctuation=</span><span class="ot">TRUE</span>, <span class="dt">removeNumbers=</span><span class="ot">TRUE</span>, <span class="dt">stopwords=</span><span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">boris16mars_tidy &lt;-<span class="st"> </span><span class="kw">tidy</span>(boris16mars_dtm)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">boris16mars_tidy <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="st">  </span><span class="kw">group_by</span>(document) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="st">  </span><span class="kw">top_n</span>(<span class="dv">15</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">document =</span> <span class="kw">factor</span>(<span class="kw">as.numeric</span>(document), <span class="dt">levels =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">17</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(drlib<span class="op">::</span><span class="kw">reorder_within</span>(term, count, document), count, <span class="dt">fill =</span>term)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;15 most common words in Boris Johnson&#39;s speech on March 16th&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Word&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Frequency&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="st">  </span>drlib<span class="op">::</span><span class="kw">scale_x_reordered</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>document, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)</a></code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co">## tokenization of the speech of Boris Johnson</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">boris &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">txt =</span> boris16mars)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">boris16mars.fr&lt;-<span class="st"> </span>boris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unnest_tokens</span>(word, txt) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="st">  </span><span class="kw">anti_join</span>(stop_words, <span class="dt">by =</span> <span class="st">&quot;word&quot;</span>) <span class="op">%&gt;%</span><span class="kw">group_by</span>(word) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">Count =</span><span class="kw">n</span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(Count)) </a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">boris <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="st">  </span><span class="kw">unnest_tokens</span>(word, txt) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="st">  </span><span class="kw">anti_join</span>(stop_words, <span class="dt">by =</span> <span class="st">&quot;word&quot;</span>) <span class="op">%&gt;%</span><span class="kw">group_by</span>(word) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>(<span class="dt">Count =</span><span class="kw">n</span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(Count)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="st">  </span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable_styling</span>()</a></code></pre></div>
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -1865,123 +1894,143 @@ worth
 </tr>
 </tbody>
 </table>
-<pre><code>#&gt; &lt;&lt;DocumentTermMatrix (documents: 1, terms: 306)&gt;&gt;
-#&gt; Non-/sparse entries: 0/306
-#&gt; Sparsity           : 100%
-#&gt; Maximal term length: 14
-#&gt; Weighting          : term frequency - inverse document frequency (normalized) (tf-idf)
-#&gt; Sample             :
-#&gt;     Terms
-#&gt; Docs ’re ’ve access according across action active advice advise
-#&gt;    1   0   0      0         0      0      0      0      0      0
-#&gt;     Terms
-#&gt; Docs advisory afternoon ahead allies also always amazing amongst and
-#&gt;    1        0         0     0      0    0      0       0       0   0
-#&gt;     Terms
-#&gt; Docs answer anyone approaching around ask asked asking attention
-#&gt;    1      0      0           0      0   0     0      0         0
-#&gt;     Terms
-#&gt; Docs avoid avoiding away back based believe best biggest bodies
-#&gt;    1     0        0    0    0     0       0    0       0      0
-#&gt;     Terms
-#&gt; Docs bring bringing business businesses but buy campaign can case
-#&gt;    1     0        0        0          0   0   0        0   0    0
-#&gt;     Terms
-#&gt; Docs cases challenge chance clear clearly clubs cobr coincides
-#&gt;    1     0         0      0     0       0     0    0         0
-#&gt;     Terms
-#&gt; Docs coming comparing conditions confined contact continuous cope
-#&gt;    1      0         0          0        0       0          0    0
-#&gt;     Terms
-#&gt; Docs coronavirus cough country creativity critical curve daily date
-#&gt;    1           0     0       0          0        0     0     0    0
-#&gt;     Terms
-#&gt; Docs days days’ deal decisions delay deployed difference difficult
-#&gt;    1    0     0    0         0     0        0          0         0
-#&gt;     Terms
-#&gt; Docs disease disruptive distance don’t double draconian drastic
-#&gt;    1       0          0        0     0      0         0       0
-#&gt;     Terms
-#&gt; Docs drugs earlier economy effective effort emergencies emergency
-#&gt;    1     0       0       0         0      0           0         0
-#&gt;     Terms
-#&gt; Docs emphatically energy ensure epidemic essentials even events
-#&gt;    1            0      0      0        0          0    0      0
-#&gt;     Terms
-#&gt; Docs every everybody everyone everything excessive exercise
-#&gt;    1     0         0        0          0         0        0
-#&gt;     Terms
-#&gt; Docs experience extend face far fast faster fatalities feel fight
-#&gt;    1          0      0    0   0    0      0          0    0     0
-#&gt;     Terms
-#&gt; Docs first fit flatten focusing food forward fourteen friends front
-#&gt;    1     0   0       0        0    0       0        0       0     0
-#&gt;     Terms
-#&gt; Docs gatherings get give global goes going good got group growing
-#&gt;    1          0   0    0      0    0     0    0   0     0       0
-#&gt;     Terms
-#&gt; Docs growth hands health help high home house household humanity imf
-#&gt;    1      0     0      0    0    0    0     0         0        0   0
-#&gt;     Terms
-#&gt; Docs important including just keep key kinds know largely last
-#&gt;    1         0         0    0    0   0     0    0       0    0
-#&gt;     Terms
-#&gt; Docs lastly later leaders leading leave life limit listening lives
-#&gt;    1      0     0       0       0     0    0     0         0     0
-#&gt;     Terms
-#&gt; Docs logically london londoners longer looks lot low make many mass
-#&gt;    1         0      0         0      0     0   0   0    0    0    0
-#&gt;     Terms
-#&gt; Docs maximum may means measure measures might millions minimise
-#&gt;    1       0   0     0       0        0     0        0        0
-#&gt;     Terms
-#&gt; Docs moment moving much national necessary necessities need new next
-#&gt;    1      0      0    0        0         0           0    0   0    0
-#&gt;     Terms
-#&gt; Docs nhs nonessential normally notes now number objective obviously
-#&gt;    1   0            0        0     0   0      0         0         0
-#&gt;     Terms
-#&gt; Docs one online others otherwise over overwhelmingly part
-#&gt;    1   0      0      0         0    0              0    0
-#&gt;     Terms
-#&gt; Docs particularly parts pay peak people period play playing please
-#&gt;    1            0     0   0    0      0      0    0       0      0
-#&gt;     Terms
-#&gt; Docs possible possibly pregnant pressure protection pubs rather
-#&gt;    1        0        0        0        0          0    0      0
-#&gt;     Terms
-#&gt; Docs really reason reduce reducing relatively relieve remains
-#&gt;    1      0      0      0        0          0       0       0
-#&gt;     Terms
-#&gt; Docs responding restaurants right ringing risks role safe sage said
-#&gt;    1          0           0     0       0     0    0    0    0    0
-#&gt;     Terms
-#&gt; Docs save say saying scientific scrupulously second serious
-#&gt;    1    0   0      0          0            0      0       0
-#&gt;     Terms
-#&gt; Docs seriously shielded shielding significant slow slowing social
-#&gt;    1         0        0         0           0    0       0      0
-#&gt;     Terms
-#&gt; Docs something spaces special sporting spread start stay steps stop
-#&gt;    1         0      0       0        0      0     0    0     0    0
-#&gt;     Terms
-#&gt; Docs suffering supplies supporting sure symptoms system take taken
-#&gt;    1         0        0          0    0        0      0    0     0
-#&gt;     Terms
-#&gt; Docs talking tell temperature thank that the theatres think third
-#&gt;    1       0    0           0     0    0   0        0     0     0
-#&gt;     Terms
-#&gt; Docs though time today tomorrow transmission travel treatments true
-#&gt;    1      0    0     0        0            0      0          0    0
-#&gt;     Terms
-#&gt; Docs two unnecessary upward use venues victims vulnerable want
-#&gt;    1   0           0      0   0      0       0          0    0
-#&gt;     Terms
-#&gt; Docs wanted washing way we’re week weekend weeks well whether whole
-#&gt;    1      0       0   0     0    0       0     0    0       0     0
-#&gt;     Terms
-#&gt; Docs why will without women workers working world worth
-#&gt;    1   0    0       0     0       0       0     0     0</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">BORIS.cp &lt;-<span class="st"> </span><span class="kw">VCorpus</span>(<span class="kw">VectorSource</span>(boris))</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">BORIS.cp &lt;-<span class="st"> </span><span class="kw">tm_map</span>(BORIS.cp, removePunctuation) </a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">BORIS.cp &lt;-<span class="st"> </span><span class="kw">tm_map</span>(BORIS.cp, removeNumbers)</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">BORIS.cp &lt;-<span class="st"> </span><span class="kw">tm_map</span>(BORIS.cp, removeWords, <span class="kw">stopwords</span>(<span class="st">&quot;english&quot;</span>))</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">BORIS.cp &lt;-<span class="st"> </span><span class="kw">tm_map</span>(BORIS.cp, <span class="kw">content_transformer</span>(tolower))</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">BORIS.cp &lt;-<span class="st"> </span><span class="kw">tm_map</span>(BORIS.cp, stripWhitespace)</a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">BORIS.dtm &lt;-<span class="st"> </span><span class="kw">DocumentTermMatrix</span>(BORIS.cp) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tidy</span>()</a>
+<a class="sourceLine" id="cb4-8" data-line-number="8">BORIS.tfidf &lt;-<span class="st"> </span><span class="kw">DocumentTermMatrix</span>(BORIS.cp, <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">weighting =</span> weightTfIdf))</a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="kw">inspect</span>(BORIS.tfidf)</a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; &lt;&lt;DocumentTermMatrix (documents: 1, terms: 306)&gt;&gt;</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; Non-/sparse entries: 0/306</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; Sparsity           : 100%</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; Maximal term length: 14</span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; Weighting          : term frequency - inverse document frequency (normalized) (tf-idf)</span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; Sample             :</span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt; Docs ’re ’ve access according across action active advice advise</span></a>
+<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt;    1   0   0      0         0      0      0      0      0      0</span></a>
+<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt; Docs advisory afternoon ahead allies also always amazing amongst and</span></a>
+<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="co">#&gt;    1        0         0     0      0    0      0       0       0   0</span></a>
+<a class="sourceLine" id="cb4-22" data-line-number="22"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-23" data-line-number="23"><span class="co">#&gt; Docs answer anyone approaching around ask asked asking attention</span></a>
+<a class="sourceLine" id="cb4-24" data-line-number="24"><span class="co">#&gt;    1      0      0           0      0   0     0      0         0</span></a>
+<a class="sourceLine" id="cb4-25" data-line-number="25"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-26" data-line-number="26"><span class="co">#&gt; Docs avoid avoiding away back based believe best biggest bodies</span></a>
+<a class="sourceLine" id="cb4-27" data-line-number="27"><span class="co">#&gt;    1     0        0    0    0     0       0    0       0      0</span></a>
+<a class="sourceLine" id="cb4-28" data-line-number="28"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-29" data-line-number="29"><span class="co">#&gt; Docs bring bringing business businesses but buy campaign can case</span></a>
+<a class="sourceLine" id="cb4-30" data-line-number="30"><span class="co">#&gt;    1     0        0        0          0   0   0        0   0    0</span></a>
+<a class="sourceLine" id="cb4-31" data-line-number="31"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-32" data-line-number="32"><span class="co">#&gt; Docs cases challenge chance clear clearly clubs cobr coincides</span></a>
+<a class="sourceLine" id="cb4-33" data-line-number="33"><span class="co">#&gt;    1     0         0      0     0       0     0    0         0</span></a>
+<a class="sourceLine" id="cb4-34" data-line-number="34"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-35" data-line-number="35"><span class="co">#&gt; Docs coming comparing conditions confined contact continuous cope</span></a>
+<a class="sourceLine" id="cb4-36" data-line-number="36"><span class="co">#&gt;    1      0         0          0        0       0          0    0</span></a>
+<a class="sourceLine" id="cb4-37" data-line-number="37"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-38" data-line-number="38"><span class="co">#&gt; Docs coronavirus cough country creativity critical curve daily date</span></a>
+<a class="sourceLine" id="cb4-39" data-line-number="39"><span class="co">#&gt;    1           0     0       0          0        0     0     0    0</span></a>
+<a class="sourceLine" id="cb4-40" data-line-number="40"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-41" data-line-number="41"><span class="co">#&gt; Docs days days’ deal decisions delay deployed difference difficult</span></a>
+<a class="sourceLine" id="cb4-42" data-line-number="42"><span class="co">#&gt;    1    0     0    0         0     0        0          0         0</span></a>
+<a class="sourceLine" id="cb4-43" data-line-number="43"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-44" data-line-number="44"><span class="co">#&gt; Docs disease disruptive distance don’t double draconian drastic</span></a>
+<a class="sourceLine" id="cb4-45" data-line-number="45"><span class="co">#&gt;    1       0          0        0     0      0         0       0</span></a>
+<a class="sourceLine" id="cb4-46" data-line-number="46"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-47" data-line-number="47"><span class="co">#&gt; Docs drugs earlier economy effective effort emergencies emergency</span></a>
+<a class="sourceLine" id="cb4-48" data-line-number="48"><span class="co">#&gt;    1     0       0       0         0      0           0         0</span></a>
+<a class="sourceLine" id="cb4-49" data-line-number="49"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-50" data-line-number="50"><span class="co">#&gt; Docs emphatically energy ensure epidemic essentials even events</span></a>
+<a class="sourceLine" id="cb4-51" data-line-number="51"><span class="co">#&gt;    1            0      0      0        0          0    0      0</span></a>
+<a class="sourceLine" id="cb4-52" data-line-number="52"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-53" data-line-number="53"><span class="co">#&gt; Docs every everybody everyone everything excessive exercise</span></a>
+<a class="sourceLine" id="cb4-54" data-line-number="54"><span class="co">#&gt;    1     0         0        0          0         0        0</span></a>
+<a class="sourceLine" id="cb4-55" data-line-number="55"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-56" data-line-number="56"><span class="co">#&gt; Docs experience extend face far fast faster fatalities feel fight</span></a>
+<a class="sourceLine" id="cb4-57" data-line-number="57"><span class="co">#&gt;    1          0      0    0   0    0      0          0    0     0</span></a>
+<a class="sourceLine" id="cb4-58" data-line-number="58"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-59" data-line-number="59"><span class="co">#&gt; Docs first fit flatten focusing food forward fourteen friends front</span></a>
+<a class="sourceLine" id="cb4-60" data-line-number="60"><span class="co">#&gt;    1     0   0       0        0    0       0        0       0     0</span></a>
+<a class="sourceLine" id="cb4-61" data-line-number="61"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-62" data-line-number="62"><span class="co">#&gt; Docs gatherings get give global goes going good got group growing</span></a>
+<a class="sourceLine" id="cb4-63" data-line-number="63"><span class="co">#&gt;    1          0   0    0      0    0     0    0   0     0       0</span></a>
+<a class="sourceLine" id="cb4-64" data-line-number="64"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-65" data-line-number="65"><span class="co">#&gt; Docs growth hands health help high home house household humanity imf</span></a>
+<a class="sourceLine" id="cb4-66" data-line-number="66"><span class="co">#&gt;    1      0     0      0    0    0    0     0         0        0   0</span></a>
+<a class="sourceLine" id="cb4-67" data-line-number="67"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-68" data-line-number="68"><span class="co">#&gt; Docs important including just keep key kinds know largely last</span></a>
+<a class="sourceLine" id="cb4-69" data-line-number="69"><span class="co">#&gt;    1         0         0    0    0   0     0    0       0    0</span></a>
+<a class="sourceLine" id="cb4-70" data-line-number="70"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-71" data-line-number="71"><span class="co">#&gt; Docs lastly later leaders leading leave life limit listening lives</span></a>
+<a class="sourceLine" id="cb4-72" data-line-number="72"><span class="co">#&gt;    1      0     0       0       0     0    0     0         0     0</span></a>
+<a class="sourceLine" id="cb4-73" data-line-number="73"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-74" data-line-number="74"><span class="co">#&gt; Docs logically london londoners longer looks lot low make many mass</span></a>
+<a class="sourceLine" id="cb4-75" data-line-number="75"><span class="co">#&gt;    1         0      0         0      0     0   0   0    0    0    0</span></a>
+<a class="sourceLine" id="cb4-76" data-line-number="76"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-77" data-line-number="77"><span class="co">#&gt; Docs maximum may means measure measures might millions minimise</span></a>
+<a class="sourceLine" id="cb4-78" data-line-number="78"><span class="co">#&gt;    1       0   0     0       0        0     0        0        0</span></a>
+<a class="sourceLine" id="cb4-79" data-line-number="79"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-80" data-line-number="80"><span class="co">#&gt; Docs moment moving much national necessary necessities need new next</span></a>
+<a class="sourceLine" id="cb4-81" data-line-number="81"><span class="co">#&gt;    1      0      0    0        0         0           0    0   0    0</span></a>
+<a class="sourceLine" id="cb4-82" data-line-number="82"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-83" data-line-number="83"><span class="co">#&gt; Docs nhs nonessential normally notes now number objective obviously</span></a>
+<a class="sourceLine" id="cb4-84" data-line-number="84"><span class="co">#&gt;    1   0            0        0     0   0      0         0         0</span></a>
+<a class="sourceLine" id="cb4-85" data-line-number="85"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-86" data-line-number="86"><span class="co">#&gt; Docs one online others otherwise over overwhelmingly part</span></a>
+<a class="sourceLine" id="cb4-87" data-line-number="87"><span class="co">#&gt;    1   0      0      0         0    0              0    0</span></a>
+<a class="sourceLine" id="cb4-88" data-line-number="88"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-89" data-line-number="89"><span class="co">#&gt; Docs particularly parts pay peak people period play playing please</span></a>
+<a class="sourceLine" id="cb4-90" data-line-number="90"><span class="co">#&gt;    1            0     0   0    0      0      0    0       0      0</span></a>
+<a class="sourceLine" id="cb4-91" data-line-number="91"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-92" data-line-number="92"><span class="co">#&gt; Docs possible possibly pregnant pressure protection pubs rather</span></a>
+<a class="sourceLine" id="cb4-93" data-line-number="93"><span class="co">#&gt;    1        0        0        0        0          0    0      0</span></a>
+<a class="sourceLine" id="cb4-94" data-line-number="94"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-95" data-line-number="95"><span class="co">#&gt; Docs really reason reduce reducing relatively relieve remains</span></a>
+<a class="sourceLine" id="cb4-96" data-line-number="96"><span class="co">#&gt;    1      0      0      0        0          0       0       0</span></a>
+<a class="sourceLine" id="cb4-97" data-line-number="97"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-98" data-line-number="98"><span class="co">#&gt; Docs responding restaurants right ringing risks role safe sage said</span></a>
+<a class="sourceLine" id="cb4-99" data-line-number="99"><span class="co">#&gt;    1          0           0     0       0     0    0    0    0    0</span></a>
+<a class="sourceLine" id="cb4-100" data-line-number="100"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-101" data-line-number="101"><span class="co">#&gt; Docs save say saying scientific scrupulously second serious</span></a>
+<a class="sourceLine" id="cb4-102" data-line-number="102"><span class="co">#&gt;    1    0   0      0          0            0      0       0</span></a>
+<a class="sourceLine" id="cb4-103" data-line-number="103"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-104" data-line-number="104"><span class="co">#&gt; Docs seriously shielded shielding significant slow slowing social</span></a>
+<a class="sourceLine" id="cb4-105" data-line-number="105"><span class="co">#&gt;    1         0        0         0           0    0       0      0</span></a>
+<a class="sourceLine" id="cb4-106" data-line-number="106"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-107" data-line-number="107"><span class="co">#&gt; Docs something spaces special sporting spread start stay steps stop</span></a>
+<a class="sourceLine" id="cb4-108" data-line-number="108"><span class="co">#&gt;    1         0      0       0        0      0     0    0     0    0</span></a>
+<a class="sourceLine" id="cb4-109" data-line-number="109"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-110" data-line-number="110"><span class="co">#&gt; Docs suffering supplies supporting sure symptoms system take taken</span></a>
+<a class="sourceLine" id="cb4-111" data-line-number="111"><span class="co">#&gt;    1         0        0          0    0        0      0    0     0</span></a>
+<a class="sourceLine" id="cb4-112" data-line-number="112"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-113" data-line-number="113"><span class="co">#&gt; Docs talking tell temperature thank that the theatres think third</span></a>
+<a class="sourceLine" id="cb4-114" data-line-number="114"><span class="co">#&gt;    1       0    0           0     0    0   0        0     0     0</span></a>
+<a class="sourceLine" id="cb4-115" data-line-number="115"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-116" data-line-number="116"><span class="co">#&gt; Docs though time today tomorrow transmission travel treatments true</span></a>
+<a class="sourceLine" id="cb4-117" data-line-number="117"><span class="co">#&gt;    1      0    0     0        0            0      0          0    0</span></a>
+<a class="sourceLine" id="cb4-118" data-line-number="118"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-119" data-line-number="119"><span class="co">#&gt; Docs two unnecessary upward use venues victims vulnerable want</span></a>
+<a class="sourceLine" id="cb4-120" data-line-number="120"><span class="co">#&gt;    1   0           0      0   0      0       0          0    0</span></a>
+<a class="sourceLine" id="cb4-121" data-line-number="121"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-122" data-line-number="122"><span class="co">#&gt; Docs wanted washing way we’re week weekend weeks well whether whole</span></a>
+<a class="sourceLine" id="cb4-123" data-line-number="123"><span class="co">#&gt;    1      0       0   0     0    0       0     0    0       0     0</span></a>
+<a class="sourceLine" id="cb4-124" data-line-number="124"><span class="co">#&gt;     Terms</span></a>
+<a class="sourceLine" id="cb4-125" data-line-number="125"><span class="co">#&gt; Docs why will without women workers working world worth</span></a>
+<a class="sourceLine" id="cb4-126" data-line-number="126"><span class="co">#&gt;    1   0    0       0     0       0       0     0     0</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co">#create a tibble</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">Document &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;doc1&quot;</span>,<span class="st">&quot;doc2&quot;</span>,<span class="st">&quot;doc3&quot;</span>,<span class="st">&quot;doc4&quot;</span>,<span class="st">&quot;doc5&quot;</span>,<span class="st">&quot;doc6&quot;</span>,<span class="st">&quot;doc7&quot;</span>)</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">Text&lt;-<span class="kw">c</span>(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars)</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">boris&lt;-<span class="kw">data.frame</span>(Document,Text)</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co"># Now we remove the stop words using the anti_join function and the built-in stop_word object.That will remove unimportant word like the &quot;a&quot;,&quot;the&quot; etc...</span></a>
+<a class="sourceLine" id="cb5-8" data-line-number="8">boris.tok&lt;-<span class="kw">anti_join</span>(boris.tok,stop_words,<span class="dt">by=</span><span class="st">&quot;word&quot;</span>)</a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#Number of token in each document</span></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="kw">table</span>(boris.tok<span class="op">$</span>Document)</a></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -2035,7 +2084,18 @@ doc7
 </tbody>
 </table>
 <p>Now let’s compute the word frequencies (TF) by documents. First, the tokens are grouped by the indicator Document, which allows to count the words by documents. The the object is ungrouped.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">boris.fr&lt;-<span class="st"> </span>boris.tok <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(Document) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">count</span>(word,<span class="dt">sort =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ungroup</span>()</a></code></pre></div>
 <p>These frqeuencies are represented with barplots. We only keep the 15 most frequent words for redability purpose and create barplots using ggplot and geom_col. The facetwrap function split the barplots per Document.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">index&lt;-<span class="kw">top_n</span>(boris.fr,<span class="dv">15</span>)</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">boris.fr<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw">filter</span>(word <span class="op">%in%</span><span class="st"> </span>index<span class="op">$</span>word) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="kw">ggplot</span>( </a>
+<a class="sourceLine" id="cb7-5" data-line-number="5">  <span class="kw">aes</span>(<span class="dt">x=</span>word,<span class="dt">y=</span>n))<span class="op">+</span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_col</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Document,<span class="dt">ncol=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb7-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb7-10" data-line-number="10">boris<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(Document) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">count</span>(Text,<span class="dt">sort=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="kw">ungroup</span>()</a></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -2346,22 +2406,48 @@ Next Robert Jenrick to outline the shielding measures.
 </tr>
 </tbody>
 </table>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>We see that the list of 15 most frequent term are due to doc 2 ,4 and 3.</p>
 <p>Now we want to know which are the most frequent term for each document</p>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">index&lt;-boris.fr <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(Document) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">top_n</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">boris.fr<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="kw">filter</span>(word <span class="op">%in%</span><span class="st"> </span>index<span class="op">$</span>word) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="kw">ggplot</span>( </a>
+<a class="sourceLine" id="cb8-5" data-line-number="5">  <span class="kw">aes</span>(<span class="dt">x=</span>word,<span class="dt">y=</span>n))<span class="op">+</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_col</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Document,<span class="dt">ncol=</span><span class="dv">2</span>)</a></code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Now we repeat the same analysis using the TF-IDF.</p>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">boris.tfidf&lt;-<span class="st"> </span><span class="kw">bind_tf_idf</span>(<span class="dt">tbl=</span>boris.fr,<span class="dt">term=</span>word,<span class="dt">document=</span>Document,<span class="dt">n=</span>n)</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">index&lt;-boris.tfidf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(Document) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">top_n</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">boris.tfidf<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="kw">filter</span>(word <span class="op">%in%</span><span class="st"> </span>index<span class="op">$</span>word) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="kw">ggplot</span>( </a>
+<a class="sourceLine" id="cb9-6" data-line-number="6">  <span class="kw">aes</span>(<span class="dt">x=</span>word,<span class="dt">y=</span>n))<span class="op">+</span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_col</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Document,<span class="dt">ncol=</span><span class="dv">2</span>)</a></code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" />
 We can see that the term “measures” or “disease” appaear several times. It is normal since the could of words was built from the frequencies within each document. We need first to aggregate the frequencies per termms(i.e sum iver the documents). Then er produce the could</p>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">wordcloud</span>(<span class="dt">words=</span>boris.fr<span class="op">$</span>word,<span class="dt">freq=</span>boris.fr<span class="op">$</span>n)</a></code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">boris.fr2&lt;-<span class="kw">aggregate</span>(n<span class="op">~</span>word,<span class="dt">FUN=</span>sum,<span class="dt">data =</span> boris.fr)</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw">wordcloud</span>(<span class="dt">words=</span>boris.fr2<span class="op">$</span>word,<span class="dt">freq=</span>boris.fr2<span class="op">$</span>n)</a></code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="zipfs-law" class="section level2">
 <h2><span class="header-section-number">3.2</span> Zipf’s law</h2>
 <p>Now, we illustrate the Zipf’s law on the discous of Boris Jonhson. The terms are ranked by their frequency (rank=1 for the most frequent), then plotted versus its rank. This is easily obtained using quanteda.</p>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">boris.dfm&lt;-<span class="st"> </span><span class="kw">dfm</span>(boris.tok<span class="op">$</span>word)</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">boris.freq &lt;-<span class="st"> </span><span class="kw">textstat_frequency</span>(boris.dfm)</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="kw">plot</span>(frequency<span class="op">~</span>rank,<span class="dt">data=</span>boris.freq,<span class="dt">pch=</span><span class="dv">20</span>)</a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="kw">text</span>(frequency<span class="op">~</span>rank, <span class="dt">data=</span>boris.freq[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>],<span class="dt">label=</span>feature,<span class="dt">pos=</span><span class="dv">4</span>)</a></code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Now on the log scale this gives a linear relation</p>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">plot</span>(<span class="kw">log</span>(frequency)<span class="op">~</span><span class="kw">log</span>(rank),<span class="dt">data=</span>boris.freq,<span class="dt">pch=</span><span class="dv">20</span>)</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="kw">text</span>(<span class="kw">log</span>(frequency)<span class="op">~</span><span class="kw">log</span>(rank), <span class="dt">data=</span>boris.freq[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>],<span class="dt">label=</span>feature,<span class="dt">pos=</span><span class="dv">4</span>)</a></code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>

@@ -143,9 +143,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2" data-path="eda-macron.html"><a href="eda-macron.html#hadrien"><i class="fa fa-check"></i><b>4.2</b> Hadrien</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="sentiment-analasis.html"><a href="sentiment-analasis.html"><i class="fa fa-check"></i><b>5</b> Sentiment Analasis</a><ul>
-<li class="chapter" data-level="5.1" data-path="sentiment-analasis.html"><a href="sentiment-analasis.html#value-based"><i class="fa fa-check"></i><b>5.1</b> Value-based</a></li>
-<li class="chapter" data-level="5.2" data-path="sentiment-analasis.html"><a href="sentiment-analasis.html#with-quanteda"><i class="fa fa-check"></i><b>5.2</b> With quanteda</a></li>
-<li class="chapter" data-level="5.3" data-path="sentiment-analasis.html"><a href="sentiment-analasis.html#using-valence-shifter"><i class="fa fa-check"></i><b>5.3</b> Using valence shifter</a></li>
+<li class="chapter" data-level="5.1" data-path="sentiment-analasis.html"><a href="sentiment-analasis.html#boris-johnson"><i class="fa fa-check"></i><b>5.1</b> Boris Johnson</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="sentiment-analasis.html"><a href="sentiment-analasis.html#value-based"><i class="fa fa-check"></i><b>5.1.1</b> Value-based</a></li>
+<li class="chapter" data-level="5.1.2" data-path="sentiment-analasis.html"><a href="sentiment-analasis.html#with-quanteda"><i class="fa fa-check"></i><b>5.1.2</b> With quanteda</a></li>
+<li class="chapter" data-level="5.1.3" data-path="sentiment-analasis.html"><a href="sentiment-analasis.html#using-valence-shifter"><i class="fa fa-check"></i><b>5.1.3</b> Using valence shifter</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="sentiment-analasis.html"><a href="sentiment-analasis.html#macron"><i class="fa fa-check"></i><b>5.2</b> Macron</a></li>
+<li class="chapter" data-level="5.3" data-path="sentiment-analasis.html"><a href="sentiment-analasis.html#comparison"><i class="fa fa-check"></i><b>5.3</b> Comparison</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -168,7 +172,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="sentiment-analasis" class="section level1">
 <h1><span class="header-section-number">Chapter 5</span> Sentiment Analasis</h1>
+<div id="boris-johnson" class="section level2">
+<h2><span class="header-section-number">5.1</span> Boris Johnson</h2>
 <p>We use the nrc dictionary. From the token list per document boris.tok, we join the corresponding qualifier in nrc using inner.joint:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">boris.sent&lt;-<span class="st"> </span>boris.tok <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">inner_join</span>(<span class="kw">get_sentiments</span>(<span class="st">&quot;nrc&quot;</span>))</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="kw">head</span>(boris.sent)</a></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -253,6 +261,7 @@ trust
 </tbody>
 </table>
 <p>Then several summaries can be obtained. Below, using a table version and a long format</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">table</span>(boris.sent<span class="op">$</span>Document,boris.sent<span class="op">$</span>sentiment)</a></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -538,12 +547,31 @@ doc7
 </tr>
 </tbody>
 </table>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" />
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="co">## Long format + barplots</span></a>
+<a class="sourceLine" id="cb18-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb18-4" data-line-number="4">boris.sent <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb18-5" data-line-number="5"><span class="st">  </span><span class="kw">group_by</span>(Document,sentiment) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb18-6" data-line-number="6"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">n=</span><span class="kw">n</span>())<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-7" data-line-number="7"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>sentiment,<span class="dt">y=</span>n,<span class="dt">fill=</span>sentiment)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>,<span class="dt">alpha=</span><span class="fl">0.8</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-9" data-line-number="9"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>Document) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-10" data-line-number="10"><span class="st">  </span><span class="kw">coord_flip</span>()</a></code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" />
 to compare the document, we rescale them by their lenght</p>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div id="value-based" class="section level2">
-<h2><span class="header-section-number">5.1</span> Value-based</h2>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">boris.sent <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(Document,sentiment) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">n=</span><span class="kw">n</span>())<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">freq=</span>n<span class="op">/</span><span class="kw">sum</span>(n)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>sentiment,<span class="dt">y=</span>freq,<span class="dt">fill=</span>sentiment)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb19-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>,<span class="dt">alpha=</span><span class="fl">0.8</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb19-7" data-line-number="7"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>Document) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb19-8" data-line-number="8"><span class="st">  </span><span class="kw">coord_flip</span>()</a></code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div id="value-based" class="section level3">
+<h3><span class="header-section-number">5.1.1</span> Value-based</h3>
 <p>Now we use the afinn dictionary. The main difference is that rach word receives a value rather than a qualifier. Then the average score per document is computed.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">head</span>(<span class="kw">get_sentiments</span>(<span class="st">&quot;afinn&quot;</span>))</a></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -606,12 +634,21 @@ abductions
 </tr>
 </tbody>
 </table>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-29-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">boris.sent &lt;-<span class="st"> </span>boris.tok <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="st">  </span><span class="kw">inner_join</span>(<span class="kw">get_sentiments</span>(<span class="st">&quot;afinn&quot;</span>))</a>
+<a class="sourceLine" id="cb21-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb21-4" data-line-number="4"><span class="kw">aggregate</span>(value<span class="op">~</span>Document, <span class="dt">data =</span>boris.sent,<span class="dt">FUN=</span>mean) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb21-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Document,<span class="dt">y=</span>value)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb21-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb21-7" data-line-number="7"><span class="st">  </span><span class="kw">coord_flip</span>()</a></code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="with-quanteda" class="section level2">
-<h2><span class="header-section-number">5.2</span> With quanteda</h2>
+<div id="with-quanteda" class="section level3">
+<h3><span class="header-section-number">5.1.2</span> With quanteda</h3>
 <p>The difference with tidytext is essentially in the manipulation of the objects. Note that this condition storngly the capactiy of sentiment analysis. Dir example, below we use the dictionnary data_dictionary_LSD2015. It provides positive and negative values.</p>
 <p>Frsit, we prepare the date</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">boris.cp&lt;-<span class="kw">corpus</span>(<span class="kw">c</span>(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars))</a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="kw">summary</span>(boris.cp)</a></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -730,12 +767,41 @@ text7
 </tr>
 </tbody>
 </table>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb23-2" data-line-number="2">boris.tk&lt;-<span class="kw">tokens</span>(boris.cp,</a>
+<a class="sourceLine" id="cb23-3" data-line-number="3">                 <span class="dt">remove_numbers =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb23-4" data-line-number="4">                 <span class="dt">remove_punct =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb23-5" data-line-number="5">                 <span class="dt">remove_symbols =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb23-6" data-line-number="6">                 <span class="dt">remove_separators =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb23-7" data-line-number="7">boris.tk&lt;-<span class="kw">tokens_tolower</span>(boris.tk)</a>
+<a class="sourceLine" id="cb23-8" data-line-number="8">boris.tk&lt;-<span class="st"> </span><span class="kw">tokens_replace</span>(boris.tk,<span class="dt">pattern =</span> hash_lemmas<span class="op">$</span>token, <span class="dt">replacement =</span> hash_lemmas<span class="op">$</span>lemma)</a>
+<a class="sourceLine" id="cb23-9" data-line-number="9">boris.tk&lt;-boris.tk <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb23-10" data-line-number="10"><span class="st">  </span><span class="kw">tokens_remove</span>(<span class="kw">stopwords</span>(<span class="st">&quot;english&quot;</span>))</a></code></pre></div>
 <p>Now we the dunction tokens_lookup is used to match the tokens in the documents to the tokens in the dictionary and extract their corresponding value ( positive or negative)</p>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-31-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">boris.sent&lt;-<span class="st"> </span><span class="kw">tokens_lookup</span>(boris.tk,<span class="dt">dictionary =</span> data_dictionary_LSD2015) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">dfm</span>() <span class="op">%&gt;%</span><span class="st"> </span>tidy </a>
+<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="kw">ggplot</span>(boris.sent,<span class="kw">aes</span>(<span class="dt">x=</span>document,<span class="dt">y=</span>count, <span class="dt">fill=</span>term)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb24-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</a></code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="using-valence-shifter" class="section level2">
-<h2><span class="header-section-number">5.3</span> Using valence shifter</h2>
+<div id="using-valence-shifter" class="section level3">
+<h3><span class="header-section-number">5.1.3</span> Using valence shifter</h3>
 <p>The sentimentr library offers some function to compute sentiments integrating valence shiter. One important apsect is that it cannot be applied to a Bag Of Word model.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="co">#boris.text&lt;-get_sentences(boris.tk$Text)</span></a>
+<a class="sourceLine" id="cb25-3" data-line-number="3"><span class="co">#boris.senti&lt;-sentiment(boris.text)</span></a>
+<a class="sourceLine" id="cb25-4" data-line-number="4"><span class="co">#boris.senti&lt;-as_tibble(boris.senti)</span></a>
+<a class="sourceLine" id="cb25-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb25-6" data-line-number="6"><span class="co">#boris.senti%&gt;% group_by(element_id) %&gt;%</span></a>
+<a class="sourceLine" id="cb25-7" data-line-number="7">  <span class="co">#ggplot(aes(x=sentence_id,y=sentiment)) +</span></a>
+<a class="sourceLine" id="cb25-8" data-line-number="8">  <span class="co">#geom_line() +</span></a>
+<a class="sourceLine" id="cb25-9" data-line-number="9">  <span class="co">#facet_wrap(~element_id)</span></a></code></pre></div>
+</div>
+</div>
+<div id="macron" class="section level2">
+<h2><span class="header-section-number">5.2</span> Macron</h2>
+</div>
+<div id="comparison" class="section level2">
+<h2><span class="header-section-number">5.3</span> Comparison</h2>
 
 </div>
 </div>
