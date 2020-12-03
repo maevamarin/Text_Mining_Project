@@ -35,7 +35,7 @@ boris22mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on
               html_text()
 
 
-boris<-corpus(c(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars))
+BORIS<-corpus(c(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars))
 boris
 
 
