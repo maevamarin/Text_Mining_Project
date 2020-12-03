@@ -1,10 +1,27 @@
 # EDA
 
-## Boris Johnson
+##Data Acquisition
 
-## Data manipulation
 ```{r include=FALSE}
-# Data Acquisition
+# Data Acquisition Macron 
+
+macron12march <- read_html("https://franceintheus.org/spip.php?article9654") %>%
+  html_nodes("div.texte") %>%
+  html_text()
+macron12march <- str_replace_all(macron12march,"[\r\n\t]", "")
+macron12march <- substr(macron12march, 178, 20197)
+
+macron16march <- read_html("https://franceintheus.org/spip.php?article9659#1") %>%
+  html_nodes("div.texte") %>%
+  html_text()
+macron16march <- macron16march <- str_replace_all(macron16march,"[\r\n\t]", "")
+macron16march <- substr(macron16march, 131, 15719)
+
+macron <- corpus(c(macron12march,macron16march))
+macron
+
+# Data Acquisition Boris
+
 boris16mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-16-march-2020") %>%
                 html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>% 
                 html_text()
@@ -17,11 +34,9 @@ boris18mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on
               html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
               html_text()
 
-
 boris9mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-9-march-2020") %>% 
               html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
               html_text()
-
 
 boris19mars<- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-19-march-2020") %>% 
               html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
@@ -40,10 +55,14 @@ boris22mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on
 boris<-corpus(c(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars))
 boris
 
-
 ```
 
+## Boris Johnson
+
+## Data manipulation
+
 ```{r  include=TRUE, warning=FALSE}
+
 boris16mars_dtm <- VectorSource(boris16mars) %>% VCorpus() %>%  DocumentTermMatrix(control=list(removePunctuation=TRUE, removeNumbers=TRUE, stopwords=TRUE))
 boris16mars_tidy <- tidy(boris16mars_dtm)
 boris16mars_tidy %>%
@@ -51,24 +70,28 @@ boris16mars_tidy %>%
   top_n(15) %>%
   ungroup() %>%
   mutate(document = factor(as.numeric(document), levels = 1:17)) %>%
-  ggplot(aes(drlib::reorder_within(term, count, document), count, fill =term)) +
+  ggplot(aes(reorder_within(term, count, document), count, fill =term)) +
   theme(legend.position = "none") +
   ggtitle("15 most common words in Boris Johnson's speech on March 16th") +
   xlab("Word") + ylab("Frequency") +
   geom_bar(stat = "identity") +
-  drlib::scale_x_reordered() +
+  scale_x_reordered() +
   coord_flip() +
   facet_wrap(~ document, scales = "free")
+
 ```
 
 
 ```{r Boris tokenization and frequency}
 ## tokenization of the speech of Boris Johnson
-boris <- tibble(txt = boris16mars)
-boris16mars.fr<- boris %>% unnest_tokens(word, txt) %>%
+
+boris16mars <- tibble(txt = boris16mars)
+
+boris16mars.fr<- boris16mars %>% unnest_tokens(word, txt) %>%
   anti_join(stop_words, by = "word") %>%group_by(word) %>% summarize(Count =n()) %>% 
   arrange(desc(Count)) 
-boris %>%
+
+boris16mars %>%
   unnest_tokens(word, txt) %>%
   anti_join(stop_words, by = "word") %>%group_by(word) %>% summarize(Count =n()) %>% 
   arrange(desc(Count)) %>%
@@ -77,38 +100,109 @@ boris %>%
 
 
 ```{r Full spring speech Boris Cleaning and DTM}
-BORIS.cp <- VCorpus(VectorSource(boris))
-BORIS.cp <- tm_map(BORIS.cp, removePunctuation) 
-BORIS.cp <- tm_map(BORIS.cp, removeNumbers)
-BORIS.cp <- tm_map(BORIS.cp, removeWords, stopwords("english"))
-BORIS.cp <- tm_map(BORIS.cp, content_transformer(tolower))
-BORIS.cp <- tm_map(BORIS.cp, stripWhitespace)
-BORIS.dtm <- DocumentTermMatrix(BORIS.cp) %>% tidy()
-BORIS.tfidf <- DocumentTermMatrix(BORIS.cp, control = list(weighting = weightTfIdf))
-inspect(BORIS.tfidf)
+boris.cp <- VCorpus(VectorSource(boris))
+boris.cp <- tm_map(boris.cp, removePunctuation) 
+boris.cp <- tm_map(boris.cp, removeNumbers)
+boris.cp <- tm_map(boris.cp, removeWords, stopwords("english"))
+boris.cp <- tm_map(boris.cp, content_transformer(tolower))
+boris.cp <- tm_map(boris.cp, stripWhitespace)
+boris.dtm <- DocumentTermMatrix(boris.cp) %>% tidy()
+boris.tfidf <- DocumentTermMatrix(boris.cp, control = list(weighting = weightTfIdf))
+inspect(boris.tfidf)
 ```
 
 
 
 ```{r}
-#create a tibble
-Document <- c("doc1","doc2","doc3","doc4","doc5","doc6","doc7")
-Text<-c(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars)
-boris<-data.frame(Document,Text)
+
+## Tokenization
+corpus_boris <- corpus(boris)
+summary(corpus_boris) ###number of tokens and token types
+corpus_boris_0 <- tokens(corpus_boris, remove_numbers = TRUE, remove_punct = TRUE, remove_symbols = TRUE, remove_separators = TRUE)
+
+## Lemmatization
+corpus_boris_1 <- tokens_replace(corpus_boris_0, pattern=hash_lemmas$token, replacement = hash_lemmas$lemma)
+
+## Cleaning
+corpus_boris_2=corpus_boris_1 %>% 
+  tokens_tolower() %>% 
+  tokens_remove(stopwords("english")) 
+
+## Document-Term Matrix DTM
+corpus_boris.dfm <- dfm(corpus_boris_2)
+View(corpus_boris.dfm)
+
+## TFIDF no point when just on document, maybe add when combining texts
+corpus_boris.tfidf <- dfm_tfidf(corpus_boris.dfm)
+View(corpus_boris.tfidf)
+
+## Cloud of Words
+textplot_wordcloud(corpus_boris.dfm, color=brewer.pal(8, "Dark2"))
+
+## Lexical Divesity Token Type Ratio TTR
+N.boris <- ntoken(corpus_boris_2)
+V.boris <- ntype(corpus_boris_2)
+TTR.boris <- V.boris/N.boris
+TTR.boris ###the text is quite poor, as TTR is of 0.4
+
+## Zipf's Law
+corpus_boris_freq <- textstat_frequency(corpus_boris.dfm)
+plot(frequency~rank, data=corpus_boris_freq, pch=20)
+ggplot(corpus_boris_freq,aes(x = rank, y = frequency, label=feature)) + geom_point(size=2, alpha =1) + theme_bw() + geom_text(aes(label=feature),hjust=0, vjust=0) + xlim(0,20)
 
 
-# Now we remove the stop words using the anti_join function and the built-in stop_word object.That will remove unimportant word like the "a","the" etc...
-boris.tok<-anti_join(boris.tok,stop_words,by="word")
-
-#Number of token in each document
-table(boris.tok$Document)
 
 ```
 
+## Macron
+
+```{r}
+
+library("wordcloud")
+# EDA
+## Tokenization
+corpus_macron <- corpus(macron)
+summary(corpus_macron) ###number of tokens and token types
+corpus_macron_0 <- tokens(corpus_macron, remove_numbers = TRUE, remove_punct = TRUE, remove_symbols = TRUE, remove_separators = TRUE)
+
+## Lemmatization
+corpus_macron_1 <- tokens_replace(corpus_macron_0, pattern=hash_lemmas$token, replacement = hash_lemmas$lemma)
+
+## Cleaning
+corpus_macron_2=corpus_macron_1 %>% 
+  tokens_tolower() %>% 
+  tokens_remove(stopwords("english")) 
+
+## Document-Term Matrix DTM
+corpus_macron.dfm <- dfm(corpus_macron_2)
+View(corpus_macron.dfm)
+
+## TFIDF no point when just on document, maybe add when combining texts
+corpus_macron.tfidf <- dfm_tfidf(corpus_macron.dfm)
+View(corpus_macron.tfidf)
+
+## Cloud of Words
+textplot_wordcloud(corpus_macron.dfm, color=brewer.pal(8, "Dark2"))
+
+## Lexical Divesity Token Type Ratio TTR
+N.macron <- ntoken(corpus_macron_2)
+V.macron <- ntype(corpus_macron_2)
+TTR.macron <- V.macron/N.macron
+TTR.macron ###the text is quite poor, as TTR is of 0.4
+
+## Zipf's Law
+corpus_macron_freq <- textstat_frequency(corpus_macron.dfm)
+plot(frequency~rank, data=corpus_macron_freq, pch=20)
+ggplot(corpus_macron_freq,aes(x = rank, y = frequency, label=feature)) + geom_point(size=2, alpha =1) + theme_bw() + geom_text(aes(label=feature),hjust=0, vjust=0) + xlim(0,20)
+```
+
+
+#mae aut
+  
 Now let's compute the word frequencies (TF) by documents. First, the tokens are grouped by the indicator Document, which allows to count the words by documents. The the object is ungrouped.
 
 ```{r}
-boris.fr<- boris.tok %>% group_by(Document) %>% count(word,sort = TRUE) %>% ungroup()
+boris.fr<- corpus_boris_0 %>% group_by(text) %>% count(word,sort = TRUE) %>% ungroup()
 
 ```
 
@@ -162,7 +256,6 @@ We can see that the term "measures" or "disease" appaear several times. It is no
 
 ```{r,warning=FALSE}
 wordcloud(words=boris.fr$word,freq=boris.fr$n)
-
 ```
 
 ```{r,warning=FALSE}
@@ -190,65 +283,5 @@ Now on the log scale this gives a linear relation
 plot(log(frequency)~log(rank),data=boris.freq,pch=20)
 text(log(frequency)~log(rank), data=boris.freq[1:5],label=feature,pos=4)
 ```
-
-
-
-
-## Macron
-
-
-
-```{r}
-
-# Data Acquisition
-corpus_macron <- read_html("https://franceintheus.org/spip.php?article9654") %>%
-  html_nodes("div.texte") %>%
-  html_text()
-str_replace_all(corpus_macron,"[\r\n\t]", "")
-
-corpus_macron2 <- read_html("https://franceintheus.org/spip.php?article9659#1") %>%
-  html_nodes("div.texte") %>%
-  html_text()
-
-?substring
-
-%>%   html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>% 
-                html_text()
-
-
-
-library("wordcloud")
-# EDA
-## Tokenization
-corpus_macron <- corpus(corpus_macron)
-summary(corpus_macron) ###number of tokens and token types
-corpus_macron_0 <- tokens(corpus_macron, remove_numbers = TRUE, remove_punct = TRUE, remove_symbols = TRUE, remove_separators = TRUE)
-## Lemmatization
-corpus_macron_1 <- tokens_replace(corpus_macron_0, pattern=hash_lemmas$token, replacement = hash_lemmas$lemma)
-## Cleaning
-corpus_macron_2=corpus_macron_1 %>% 
-  tokens_tolower() %>% 
-  tokens_remove(stopwords("english")) 
-## Document-Term Matrix DTM
-corpus_macron.dfm <- dfm(corpus_macron_2)
-View(corpus_macron.dfm)
-## TFIDF no point when just on document, maybe add when combining texts
-#corpus_macron.tfidf <- dfm_tfidf(corpus_macron.dfm)
-#View(corpus_macron.tfidf)
-## Cloud of Words
-textplot_wordcloud(corpus_macron.dfm, color=brewer.pal(8, "Dark2"))
-## Lexical Divesity Token Type Ratio TTR
-N <- ntoken(corpus_macron_2)
-V <- ntype(corpus_macron_2)
-TTR <- V/N
-TTR ###the text is quite poor, as TTR is of 0.4
-## Zipf's Law
-corpus_macron_freq <- textstat_frequency(corpus_macron.dfm)
-plot(frequency~rank, data=corpus_macron_freq, pch=20)
-ggplot(corpus_macron_freq,aes(x = rank, y = frequency, label=feature)) + geom_point(size=2, alpha =1) + theme_bw() + geom_text(aes(label=feature),hjust=0, vjust=0) + xlim(0,20)
-```
-
-
-
 
 ## Comparison

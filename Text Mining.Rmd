@@ -1,0 +1,1104 @@
+--- 
+title: "Dicours Analysis"
+author: "Eugénie Mathieu, Maeva Marin, Hadrien Renger, Wajma Nazim"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+site: bookdown::bookdown_site
+output: bookdown::html_document2
+documentclass: book
+bibliography: [references.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+---
+```{r include=FALSE, cache=FALSE}
+#############################################
+## The following loads the needed packages ##
+#############################################
+
+# load the required packages
+packages <- c(
+  "here", "readr",# for the project's organization
+  "tidyverse", "lubridate", # for wrangling
+  "modelr", "broom",
+  "dplyr",# for modeling
+  "ggrepel", "gghighlight", "patchwork", "maps", # for plotting
+  "knitr", "kableExtra", "bookdown", "rmarkdown", # for the report
+  "randomForest","janitor","caret","pdftools","rvest","wordcloud2","tidytext","tokenizers","quanteda","sentimentr",
+  "stringr","lexicon","RColorBrewer","tm","printr","ggplot2" )
+
+purrr::walk(packages, library, character.only = TRUE)
+
+# automatically create a bib database for R packages
+write_bib(.packages(), here::here("packages.bib"))
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+# general options
+options(
+  digits = 3,
+  str = strOptions(strict.width = "cut"),
+  width = 69,
+  tibble.width = 69,
+  cli.unicode = FALSE
+)
+
+# ggplot options
+theme_set(theme_light())
+
+# knitr options
+opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  fig.retina = 0.8, # figures are either vectors or 300 dpi diagrams
+  dpi = 300,
+  out.width = "70%",
+  fig.align = "center",
+  fig.width = 6,
+  fig.asp = 0.618,
+  fig.show = "hold",
+  message = FALSE,
+  echo = TRUE,
+  warning = FALSE
+)
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+pval_star <- function (p, cutoffs = c(0.05, 0.01, 0.001)) {
+  stopifnot(length(cutoffs) == 3)
+  if (length(p) > 1) {
+    sapply(p, pval_star, cutoffs = cutoffs)
+  }
+  else {
+    ifelse(p > cutoffs[1], "", ifelse(p > cutoffs[2], 
+                                      " *", 
+                                      ifelse(p > cutoffs[3], 
+                                             " **", 
+                                             " ***")))
+  }
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Basic introduction
+
+<!--chapter:end:index.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+#############################################
+## The following loads the needed packages ##
+#############################################
+
+# load the required packages
+packages <- c(
+  "here", "readr",# for the project's organization
+  "tidyverse", "lubridate", # for wrangling
+  "modelr", "broom",
+  "dplyr",# for modeling
+  "ggrepel", "gghighlight", "patchwork", "maps", # for plotting
+  "knitr", "kableExtra", "bookdown", "rmarkdown", # for the report
+  "randomForest","janitor","caret","pdftools","rvest","wordcloud2","tidytext","tokenizers","quanteda","sentimentr",
+  "stringr","lexicon","RColorBrewer","tm","printr","ggplot2" )
+
+purrr::walk(packages, library, character.only = TRUE)
+
+# automatically create a bib database for R packages
+write_bib(.packages(), here::here("packages.bib"))
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+# general options
+options(
+  digits = 3,
+  str = strOptions(strict.width = "cut"),
+  width = 69,
+  tibble.width = 69,
+  cli.unicode = FALSE
+)
+
+# ggplot options
+theme_set(theme_light())
+
+# knitr options
+opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  fig.retina = 0.8, # figures are either vectors or 300 dpi diagrams
+  dpi = 300,
+  out.width = "70%",
+  fig.align = "center",
+  fig.width = 6,
+  fig.asp = 0.618,
+  fig.show = "hold",
+  message = FALSE,
+  echo = TRUE,
+  warning = FALSE
+)
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+pval_star <- function (p, cutoffs = c(0.05, 0.01, 0.001)) {
+  stopifnot(length(cutoffs) == 3)
+  if (length(p) > 1) {
+    sapply(p, pval_star, cutoffs = cutoffs)
+  }
+  else {
+    ifelse(p > cutoffs[1], "", ifelse(p > cutoffs[2], 
+                                      " *", 
+                                      ifelse(p > cutoffs[3], 
+                                             " **", 
+                                             " ***")))
+  }
+}
+```
+# Introduction
+
+## Overview and Motivation
+
+
+## Data loadind
+
+```{r data, echo=TRUE}
+# Boris Johnson's speech of March 16th
+
+boris16mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-16-march-2020")%>%            html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
+  html_text()
+
+macron <- read_html("https://franceintheus.org/spip.php?article9654") %>%
+           html_nodes("div.texte") %>%
+          html_text()
+
+```
+
+
+<!--chapter:end:report/Introduction.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+#############################################
+## The following loads the needed packages ##
+#############################################
+
+# load the required packages
+packages <- c(
+  "here", "readr",# for the project's organization
+  "tidyverse", "lubridate", # for wrangling
+  "modelr", "broom",
+  "dplyr",# for modeling
+  "ggrepel", "gghighlight", "patchwork", "maps", # for plotting
+  "knitr", "kableExtra", "bookdown", "rmarkdown", # for the report
+  "randomForest","janitor","caret","pdftools","rvest","wordcloud2","tidytext","tokenizers","quanteda","sentimentr",
+  "stringr","lexicon","RColorBrewer","tm","printr","ggplot2" )
+
+purrr::walk(packages, library, character.only = TRUE)
+
+# automatically create a bib database for R packages
+write_bib(.packages(), here::here("packages.bib"))
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+# general options
+options(
+  digits = 3,
+  str = strOptions(strict.width = "cut"),
+  width = 69,
+  tibble.width = 69,
+  cli.unicode = FALSE
+)
+
+# ggplot options
+theme_set(theme_light())
+
+# knitr options
+opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  fig.retina = 0.8, # figures are either vectors or 300 dpi diagrams
+  dpi = 300,
+  out.width = "70%",
+  fig.align = "center",
+  fig.width = 6,
+  fig.asp = 0.618,
+  fig.show = "hold",
+  message = FALSE,
+  echo = TRUE,
+  warning = FALSE
+)
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+pval_star <- function (p, cutoffs = c(0.05, 0.01, 0.001)) {
+  stopifnot(length(cutoffs) == 3)
+  if (length(p) > 1) {
+    sapply(p, pval_star, cutoffs = cutoffs)
+  }
+  else {
+    ifelse(p > cutoffs[1], "", ifelse(p > cutoffs[2], 
+                                      " *", 
+                                      ifelse(p > cutoffs[3], 
+                                             " **", 
+                                             " ***")))
+  }
+}
+```
+# EDA
+
+## Boris Johnson
+
+## Data manipulation
+```{r include=FALSE}
+# Data Acquisition
+boris16mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-16-march-2020") %>%
+                html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>% 
+                html_text()
+
+boris12mars<- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-12-march-2020") %>%   
+              html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
+              html_text()
+
+boris18mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-18-march-2020") %>%   
+              html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
+              html_text()
+
+
+boris9mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-9-march-2020") %>% 
+              html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
+              html_text()
+
+
+boris19mars<- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-19-march-2020") %>% 
+              html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
+              html_text()
+
+boris20mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-20-march-2020") %>% 
+              html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
+              html_text()
+
+
+boris22mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-22-march-2020") %>% 
+              html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
+              html_text()
+
+
+boris<-corpus(c(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars))
+boris
+
+
+```
+
+```{r  include=TRUE, warning=FALSE}
+boris16mars_dtm <- VectorSource(boris16mars) %>% VCorpus() %>%  DocumentTermMatrix(control=list(removePunctuation=TRUE, removeNumbers=TRUE, stopwords=TRUE))
+boris16mars_tidy <- tidy(boris16mars_dtm)
+boris16mars_tidy %>%
+  group_by(document) %>%
+  top_n(15) %>%
+  ungroup() %>%
+  mutate(document = factor(as.numeric(document), levels = 1:17)) %>%
+  ggplot(aes(drlib::reorder_within(term, count, document), count, fill =term)) +
+  theme(legend.position = "none") +
+  ggtitle("15 most common words in Boris Johnson's speech on March 16th") +
+  xlab("Word") + ylab("Frequency") +
+  geom_bar(stat = "identity") +
+  drlib::scale_x_reordered() +
+  coord_flip() +
+  facet_wrap(~ document, scales = "free")
+```
+
+
+```{r Boris tokenization and frequency}
+## tokenization of the speech of Boris Johnson
+boris <- tibble(txt = boris16mars)
+boris16mars.fr<- boris %>% unnest_tokens(word, txt) %>%
+  anti_join(stop_words, by = "word") %>%group_by(word) %>% summarize(Count =n()) %>% 
+  arrange(desc(Count)) 
+boris %>%
+  unnest_tokens(word, txt) %>%
+  anti_join(stop_words, by = "word") %>%group_by(word) %>% summarize(Count =n()) %>% 
+  arrange(desc(Count)) %>%
+  kable() %>% kable_styling()
+```
+
+
+```{r Full spring speech Boris Cleaning and DTM}
+BORIS.cp <- VCorpus(VectorSource(boris))
+BORIS.cp <- tm_map(BORIS.cp, removePunctuation) 
+BORIS.cp <- tm_map(BORIS.cp, removeNumbers)
+BORIS.cp <- tm_map(BORIS.cp, removeWords, stopwords("english"))
+BORIS.cp <- tm_map(BORIS.cp, content_transformer(tolower))
+BORIS.cp <- tm_map(BORIS.cp, stripWhitespace)
+BORIS.dtm <- DocumentTermMatrix(BORIS.cp) %>% tidy()
+BORIS.tfidf <- DocumentTermMatrix(BORIS.cp, control = list(weighting = weightTfIdf))
+inspect(BORIS.tfidf)
+```
+
+
+
+```{r}
+#create a tibble
+Document <- c("doc1","doc2","doc3","doc4","doc5","doc6","doc7")
+Text<-c(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars)
+boris<-data.frame(Document,Text)
+
+
+# Now we remove the stop words using the anti_join function and the built-in stop_word object.That will remove unimportant word like the "a","the" etc...
+boris.tok<-anti_join(boris.tok,stop_words,by="word")
+
+#Number of token in each document
+table(boris.tok$Document)
+
+```
+
+Now let's compute the word frequencies (TF) by documents. First, the tokens are grouped by the indicator Document, which allows to count the words by documents. The the object is ungrouped.
+
+```{r}
+boris.fr<- boris.tok %>% group_by(Document) %>% count(word,sort = TRUE) %>% ungroup()
+
+```
+
+These frqeuencies are represented with barplots. We only keep the 15 most frequent words for redability purpose and create barplots using ggplot and geom_col. The facetwrap function split the barplots per Document.
+
+```{r}
+index<-top_n(boris.fr,15)
+boris.fr%>%
+filter(word %in% index$word) %>%
+ggplot( 
+  aes(x=word,y=n))+
+  geom_col() +
+  coord_flip() +
+  facet_wrap(~Document,ncol=2)
+
+boris%>% group_by(Document) %>% count(Text,sort=TRUE) %>%ungroup()
+
+```
+
+We see that the list of 15 most frequent term are due to doc 2 ,4 and 3. 
+
+Now we want to know which are  the most frequent term for each document
+
+```{r}
+index<-boris.fr %>% group_by(Document) %>% top_n(1)
+boris.fr%>%
+filter(word %in% index$word) %>%
+ggplot( 
+  aes(x=word,y=n))+
+  geom_col() +
+  coord_flip() +
+  facet_wrap(~Document,ncol=2)
+```
+
+
+Now we repeat the same analysis using the TF-IDF.
+
+```{r}
+boris.tfidf<- bind_tf_idf(tbl=boris.fr,term=word,document=Document,n=n)
+index<-boris.tfidf %>% group_by(Document) %>% top_n(1)
+boris.tfidf%>%
+filter(word %in% index$word) %>%
+ggplot( 
+  aes(x=word,y=n))+
+  geom_col() +
+  coord_flip() +
+  facet_wrap(~Document,ncol=2)
+
+```
+We can see that the term "measures" or "disease" appaear several times. It is normal since the could of words was built from the frequencies within each document. We need first to aggregate the frequencies per termms(i.e sum iver the documents). Then er produce the could
+
+```{r,warning=FALSE}
+wordcloud(words=boris.fr$word,freq=boris.fr$n)
+
+```
+
+```{r,warning=FALSE}
+boris.fr2<-aggregate(n~word,FUN=sum,data = boris.fr)
+wordcloud(words=boris.fr2$word,freq=boris.fr2$n)
+
+
+
+```
+
+## Zipf's law
+
+Now, we illustrate the Zipf's law on the discous of Boris Jonhson. The terms are ranked by their frequency (rank=1 for the most frequent), then plotted versus its rank. This is easily obtained using quanteda.
+
+```{r,warning=FALSE}
+boris.dfm<- dfm(boris.tok$word)
+boris.freq <- textstat_frequency(boris.dfm)
+plot(frequency~rank,data=boris.freq,pch=20)
+text(frequency~rank, data=boris.freq[1:5],label=feature,pos=4)
+```
+
+Now on the log scale this gives a linear relation
+
+```{r,warning=FALSE}
+plot(log(frequency)~log(rank),data=boris.freq,pch=20)
+text(log(frequency)~log(rank), data=boris.freq[1:5],label=feature,pos=4)
+```
+
+
+
+
+## Macron
+
+
+
+```{r}
+
+# Data Acquisition
+corpus_macron <- read_html("https://franceintheus.org/spip.php?article9654") %>%
+  html_nodes("div.texte") %>%
+  html_text()
+str_replace_all(corpus_macron,"[\r\n\t]", "")
+
+corpus_macron2 <- read_html("https://franceintheus.org/spip.php?article9659#1") %>%
+  html_nodes("div.texte") %>%
+  html_text()
+
+?substring
+
+%>%   html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>% 
+                html_text()
+
+
+
+library("wordcloud")
+# EDA
+## Tokenization
+corpus_macron <- corpus(corpus_macron)
+summary(corpus_macron) ###number of tokens and token types
+corpus_macron_0 <- tokens(corpus_macron, remove_numbers = TRUE, remove_punct = TRUE, remove_symbols = TRUE, remove_separators = TRUE)
+## Lemmatization
+corpus_macron_1 <- tokens_replace(corpus_macron_0, pattern=hash_lemmas$token, replacement = hash_lemmas$lemma)
+## Cleaning
+corpus_macron_2=corpus_macron_1 %>% 
+  tokens_tolower() %>% 
+  tokens_remove(stopwords("english")) 
+## Document-Term Matrix DTM
+corpus_macron.dfm <- dfm(corpus_macron_2)
+View(corpus_macron.dfm)
+## TFIDF no point when just on document, maybe add when combining texts
+#corpus_macron.tfidf <- dfm_tfidf(corpus_macron.dfm)
+#View(corpus_macron.tfidf)
+## Cloud of Words
+textplot_wordcloud(corpus_macron.dfm, color=brewer.pal(8, "Dark2"))
+## Lexical Divesity Token Type Ratio TTR
+N <- ntoken(corpus_macron_2)
+V <- ntype(corpus_macron_2)
+TTR <- V/N
+TTR ###the text is quite poor, as TTR is of 0.4
+## Zipf's Law
+corpus_macron_freq <- textstat_frequency(corpus_macron.dfm)
+plot(frequency~rank, data=corpus_macron_freq, pch=20)
+ggplot(corpus_macron_freq,aes(x = rank, y = frequency, label=feature)) + geom_point(size=2, alpha =1) + theme_bw() + geom_text(aes(label=feature),hjust=0, vjust=0) + xlim(0,20)
+```
+
+
+
+
+## Comparison
+
+<!--chapter:end:report/EDA.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+#############################################
+## The following loads the needed packages ##
+#############################################
+
+# load the required packages
+packages <- c(
+  "here", "readr",# for the project's organization
+  "tidyverse", "lubridate", # for wrangling
+  "modelr", "broom",
+  "dplyr",# for modeling
+  "ggrepel", "gghighlight", "patchwork", "maps", # for plotting
+  "knitr", "kableExtra", "bookdown", "rmarkdown", # for the report
+  "randomForest","janitor","caret","pdftools","rvest","wordcloud2","tidytext","tokenizers","quanteda","sentimentr",
+  "stringr","lexicon","RColorBrewer","tm","printr","ggplot2" )
+
+purrr::walk(packages, library, character.only = TRUE)
+
+# automatically create a bib database for R packages
+write_bib(.packages(), here::here("packages.bib"))
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+# general options
+options(
+  digits = 3,
+  str = strOptions(strict.width = "cut"),
+  width = 69,
+  tibble.width = 69,
+  cli.unicode = FALSE
+)
+
+# ggplot options
+theme_set(theme_light())
+
+# knitr options
+opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  fig.retina = 0.8, # figures are either vectors or 300 dpi diagrams
+  dpi = 300,
+  out.width = "70%",
+  fig.align = "center",
+  fig.width = 6,
+  fig.asp = 0.618,
+  fig.show = "hold",
+  message = FALSE,
+  echo = TRUE,
+  warning = FALSE
+)
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+pval_star <- function (p, cutoffs = c(0.05, 0.01, 0.001)) {
+  stopifnot(length(cutoffs) == 3)
+  if (length(p) > 1) {
+    sapply(p, pval_star, cutoffs = cutoffs)
+  }
+  else {
+    ifelse(p > cutoffs[1], "", ifelse(p > cutoffs[2], 
+                                      " *", 
+                                      ifelse(p > cutoffs[3], 
+                                             " **", 
+                                             " ***")))
+  }
+}
+```
+# Sentiment Analasis
+
+## Boris Johnson
+
+We use the nrc dictionary. From the token list per document boris.tok, we join the corresponding qualifier in  nrc using inner.joint: 
+
+```{r}
+boris.sent<- boris.tok %>% inner_join(get_sentiments("nrc"))
+head(boris.sent)
+
+```
+
+Then several summaries can be obtained. Below, using a table version and a long format
+
+```{r}
+table(boris.sent$Document,boris.sent$sentiment)
+
+## Long format + barplots
+
+boris.sent %>% 
+  group_by(Document,sentiment) %>% 
+  summarize(n=n())%>%
+  ggplot(aes(x=sentiment,y=n,fill=sentiment)) +
+  geom_bar(stat="identity",alpha=0.8) +
+  facet_wrap(~ Document) +
+  coord_flip()
+
+```
+to compare the document, we rescale them by their lenght
+
+```{r}
+boris.sent %>% 
+  group_by(Document,sentiment) %>% 
+  summarize(n=n())%>%
+  mutate(freq=n/sum(n)) %>%
+  ggplot(aes(x=sentiment,y=freq,fill=sentiment)) +
+  geom_bar(stat="identity",alpha=0.8) +
+  facet_wrap(~ Document) + 
+  coord_flip()
+
+```
+
+### Value-based
+
+
+Now we use the afinn dictionary. The main difference is that rach word receives a value rather than a qualifier. Then the average score per document is computed.
+
+```{r}
+head(get_sentiments("afinn"))
+boris.sent <- boris.tok %>%
+  inner_join(get_sentiments("afinn"))
+
+aggregate(value~Document, data =boris.sent,FUN=mean) %>%
+  ggplot(aes(x=Document,y=value)) +
+  geom_bar(stat="identity") +
+  coord_flip()
+
+
+```
+
+### With quanteda
+
+The difference with tidytext is essentially in the manipulation of the objects. Note that this condition storngly the capactiy of sentiment analysis. Dir example, below we use the dictionnary data_dictionary_LSD2015. It provides positive and negative values. 
+
+Frsit, we prepare the date
+
+```{r}
+boris.cp<-corpus(c(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars))
+summary(boris.cp)
+
+boris.tk<-tokens(boris.cp,
+                 remove_numbers = TRUE,
+                 remove_punct = TRUE,
+                 remove_symbols = TRUE,
+                 remove_separators = TRUE)
+boris.tk<-tokens_tolower(boris.tk)
+boris.tk<- tokens_replace(boris.tk,pattern = hash_lemmas$token, replacement = hash_lemmas$lemma)
+boris.tk<-boris.tk %>%
+  tokens_remove(stopwords("english"))
+
+```
+
+Now we  the dunction tokens_lookup is used to match the tokens in the documents to the tokens in the dictionary and extract their corresponding value ( positive or negative)
+
+```{r}
+boris.sent<- tokens_lookup(boris.tk,dictionary = data_dictionary_LSD2015) %>% dfm() %>% tidy 
+ggplot(boris.sent,aes(x=document,y=count, fill=term)) +
+  geom_bar(stat="identity") + coord_flip()
+```
+
+
+### Using valence shifter
+
+
+The sentimentr library offers some function to compute sentiments integrating valence shiter. One important apsect is that it cannot be applied to a Bag Of Word model. 
+```{r}
+
+#boris.text<-get_sentences(boris.tk$Text)
+#boris.senti<-sentiment(boris.text)
+#boris.senti<-as_tibble(boris.senti)
+
+#boris.senti%>% group_by(element_id) %>%
+  #ggplot(aes(x=sentence_id,y=sentiment)) +
+  #geom_line() +
+  #facet_wrap(~element_id)
+
+```
+
+
+## Macron
+
+## Comparison
+
+<!--chapter:end:report/Sentiment_Analysis.rmd-->
+
+```{r include=FALSE, cache=FALSE}
+#############################################
+## The following loads the needed packages ##
+#############################################
+
+# load the required packages
+packages <- c(
+  "here", "readr",# for the project's organization
+  "tidyverse", "lubridate", # for wrangling
+  "modelr", "broom",
+  "dplyr",# for modeling
+  "ggrepel", "gghighlight", "patchwork", "maps", # for plotting
+  "knitr", "kableExtra", "bookdown", "rmarkdown", # for the report
+  "randomForest","janitor","caret","pdftools","rvest","wordcloud2","tidytext","tokenizers","quanteda","sentimentr",
+  "stringr","lexicon","RColorBrewer","tm","printr","ggplot2" )
+
+purrr::walk(packages, library, character.only = TRUE)
+
+# automatically create a bib database for R packages
+write_bib(.packages(), here::here("packages.bib"))
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+# general options
+options(
+  digits = 3,
+  str = strOptions(strict.width = "cut"),
+  width = 69,
+  tibble.width = 69,
+  cli.unicode = FALSE
+)
+
+# ggplot options
+theme_set(theme_light())
+
+# knitr options
+opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  fig.retina = 0.8, # figures are either vectors or 300 dpi diagrams
+  dpi = 300,
+  out.width = "70%",
+  fig.align = "center",
+  fig.width = 6,
+  fig.asp = 0.618,
+  fig.show = "hold",
+  message = FALSE,
+  echo = TRUE,
+  warning = FALSE
+)
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+pval_star <- function (p, cutoffs = c(0.05, 0.01, 0.001)) {
+  stopifnot(length(cutoffs) == 3)
+  if (length(p) > 1) {
+    sapply(p, pval_star, cutoffs = cutoffs)
+  }
+  else {
+    ifelse(p > cutoffs[1], "", ifelse(p > cutoffs[2], 
+                                      " *", 
+                                      ifelse(p > cutoffs[3], 
+                                             " **", 
+                                             " ***")))
+  }
+}
+```
+# Similarities
+
+## Boris Johnson
+
+## Macron
+
+## Comparison
+
+<!--chapter:end:report/Similarities.rmd-->
+
+```{r include=FALSE, cache=FALSE}
+#############################################
+## The following loads the needed packages ##
+#############################################
+
+# load the required packages
+packages <- c(
+  "here", "readr",# for the project's organization
+  "tidyverse", "lubridate", # for wrangling
+  "modelr", "broom",
+  "dplyr",# for modeling
+  "ggrepel", "gghighlight", "patchwork", "maps", # for plotting
+  "knitr", "kableExtra", "bookdown", "rmarkdown", # for the report
+  "randomForest","janitor","caret","pdftools","rvest","wordcloud2","tidytext","tokenizers","quanteda","sentimentr",
+  "stringr","lexicon","RColorBrewer","tm","printr","ggplot2" )
+
+purrr::walk(packages, library, character.only = TRUE)
+
+# automatically create a bib database for R packages
+write_bib(.packages(), here::here("packages.bib"))
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+# general options
+options(
+  digits = 3,
+  str = strOptions(strict.width = "cut"),
+  width = 69,
+  tibble.width = 69,
+  cli.unicode = FALSE
+)
+
+# ggplot options
+theme_set(theme_light())
+
+# knitr options
+opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  fig.retina = 0.8, # figures are either vectors or 300 dpi diagrams
+  dpi = 300,
+  out.width = "70%",
+  fig.align = "center",
+  fig.width = 6,
+  fig.asp = 0.618,
+  fig.show = "hold",
+  message = FALSE,
+  echo = TRUE,
+  warning = FALSE
+)
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+pval_star <- function (p, cutoffs = c(0.05, 0.01, 0.001)) {
+  stopifnot(length(cutoffs) == 3)
+  if (length(p) > 1) {
+    sapply(p, pval_star, cutoffs = cutoffs)
+  }
+  else {
+    ifelse(p > cutoffs[1], "", ifelse(p > cutoffs[2], 
+                                      " *", 
+                                      ifelse(p > cutoffs[3], 
+                                             " **", 
+                                             " ***")))
+  }
+}
+```
+# Topic Modelling
+
+## Boris Johnson
+
+## Macron
+
+## Comparison
+
+<!--chapter:end:report/Topic_modelling.rmd-->
+
+```{r include=FALSE, cache=FALSE}
+#############################################
+## The following loads the needed packages ##
+#############################################
+
+# load the required packages
+packages <- c(
+  "here", "readr",# for the project's organization
+  "tidyverse", "lubridate", # for wrangling
+  "modelr", "broom",
+  "dplyr",# for modeling
+  "ggrepel", "gghighlight", "patchwork", "maps", # for plotting
+  "knitr", "kableExtra", "bookdown", "rmarkdown", # for the report
+  "randomForest","janitor","caret","pdftools","rvest","wordcloud2","tidytext","tokenizers","quanteda","sentimentr",
+  "stringr","lexicon","RColorBrewer","tm","printr","ggplot2" )
+
+purrr::walk(packages, library, character.only = TRUE)
+
+# automatically create a bib database for R packages
+write_bib(.packages(), here::here("packages.bib"))
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+# general options
+options(
+  digits = 3,
+  str = strOptions(strict.width = "cut"),
+  width = 69,
+  tibble.width = 69,
+  cli.unicode = FALSE
+)
+
+# ggplot options
+theme_set(theme_light())
+
+# knitr options
+opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  fig.retina = 0.8, # figures are either vectors or 300 dpi diagrams
+  dpi = 300,
+  out.width = "70%",
+  fig.align = "center",
+  fig.width = 6,
+  fig.asp = 0.618,
+  fig.show = "hold",
+  message = FALSE,
+  echo = TRUE,
+  warning = FALSE
+)
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+pval_star <- function (p, cutoffs = c(0.05, 0.01, 0.001)) {
+  stopifnot(length(cutoffs) == 3)
+  if (length(p) > 1) {
+    sapply(p, pval_star, cutoffs = cutoffs)
+  }
+  else {
+    ifelse(p > cutoffs[1], "", ifelse(p > cutoffs[2], 
+                                      " *", 
+                                      ifelse(p > cutoffs[3], 
+                                             " **", 
+                                             " ***")))
+  }
+}
+```
+# Word Embedding
+
+## Boris Johnson
+
+## Macron
+
+## Comparison
+
+<!--chapter:end:report/Word_embedding.rmd-->
+
+```{r include=FALSE, cache=FALSE}
+#############################################
+## The following loads the needed packages ##
+#############################################
+
+# load the required packages
+packages <- c(
+  "here", "readr",# for the project's organization
+  "tidyverse", "lubridate", # for wrangling
+  "modelr", "broom",
+  "dplyr",# for modeling
+  "ggrepel", "gghighlight", "patchwork", "maps", # for plotting
+  "knitr", "kableExtra", "bookdown", "rmarkdown", # for the report
+  "randomForest","janitor","caret","pdftools","rvest","wordcloud2","tidytext","tokenizers","quanteda","sentimentr",
+  "stringr","lexicon","RColorBrewer","tm","printr","ggplot2" )
+
+purrr::walk(packages, library, character.only = TRUE)
+
+# automatically create a bib database for R packages
+write_bib(.packages(), here::here("packages.bib"))
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+# general options
+options(
+  digits = 3,
+  str = strOptions(strict.width = "cut"),
+  width = 69,
+  tibble.width = 69,
+  cli.unicode = FALSE
+)
+
+# ggplot options
+theme_set(theme_light())
+
+# knitr options
+opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  fig.retina = 0.8, # figures are either vectors or 300 dpi diagrams
+  dpi = 300,
+  out.width = "70%",
+  fig.align = "center",
+  fig.width = 6,
+  fig.asp = 0.618,
+  fig.show = "hold",
+  message = FALSE,
+  echo = TRUE,
+  warning = FALSE
+)
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+pval_star <- function (p, cutoffs = c(0.05, 0.01, 0.001)) {
+  stopifnot(length(cutoffs) == 3)
+  if (length(p) > 1) {
+    sapply(p, pval_star, cutoffs = cutoffs)
+  }
+  else {
+    ifelse(p > cutoffs[1], "", ifelse(p > cutoffs[2], 
+                                      " *", 
+                                      ifelse(p > cutoffs[3], 
+                                             " **", 
+                                             " ***")))
+  }
+}
+```
+# Conclusion
+
+
+<!--chapter:end:report/Conclusion.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+#############################################
+## The following loads the needed packages ##
+#############################################
+
+# load the required packages
+packages <- c(
+  "here", "readr",# for the project's organization
+  "tidyverse", "lubridate", # for wrangling
+  "modelr", "broom",
+  "dplyr",# for modeling
+  "ggrepel", "gghighlight", "patchwork", "maps", # for plotting
+  "knitr", "kableExtra", "bookdown", "rmarkdown", # for the report
+  "randomForest","janitor","caret","pdftools","rvest","wordcloud2","tidytext","tokenizers","quanteda","sentimentr",
+  "stringr","lexicon","RColorBrewer","tm","printr","ggplot2" )
+
+purrr::walk(packages, library, character.only = TRUE)
+
+# automatically create a bib database for R packages
+write_bib(.packages(), here::here("packages.bib"))
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+# general options
+options(
+  digits = 3,
+  str = strOptions(strict.width = "cut"),
+  width = 69,
+  tibble.width = 69,
+  cli.unicode = FALSE
+)
+
+# ggplot options
+theme_set(theme_light())
+
+# knitr options
+opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  fig.retina = 0.8, # figures are either vectors or 300 dpi diagrams
+  dpi = 300,
+  out.width = "70%",
+  fig.align = "center",
+  fig.width = 6,
+  fig.asp = 0.618,
+  fig.show = "hold",
+  message = FALSE,
+  echo = TRUE,
+  warning = FALSE
+)
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+pval_star <- function (p, cutoffs = c(0.05, 0.01, 0.001)) {
+  stopifnot(length(cutoffs) == 3)
+  if (length(p) > 1) {
+    sapply(p, pval_star, cutoffs = cutoffs)
+  }
+  else {
+    ifelse(p > cutoffs[1], "", ifelse(p > cutoffs[2], 
+                                      " *", 
+                                      ifelse(p > cutoffs[3], 
+                                             " **", 
+                                             " ***")))
+  }
+}
+```
+`r if (knitr:::is_html_output()) '
+# References {-}
+'`
+
+
+<!--chapter:end:report/references.Rmd-->
+
