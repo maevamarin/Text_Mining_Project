@@ -94,8 +94,6 @@ Document <- c("doc1","doc2","doc3","doc4","doc5","doc6","doc7")
 Text<-c(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars)
 boris<-data.frame(Document,Text)
 
-#Tokenization
-boris.tok<-unnest_tokens(boris,output = "word",input = "Text",to_lower = TRUE,strip_punct=TRUE,strip_numeric=TRUE)
 
 # Now we remove the stop words using the anti_join function and the built-in stop_word object.That will remove unimportant word like the "a","the" etc...
 boris.tok<-anti_join(boris.tok,stop_words,by="word")
@@ -124,10 +122,7 @@ ggplot(
   coord_flip() +
   facet_wrap(~Document,ncol=2)
 
-boris.tok<-unnest_tokens(boris,output = "word",input = "Text",to_lower = TRUE,strip_punct=TRUE,strip_numeric=TRUE)
-
 boris%>% group_by(Document) %>% count(Text,sort=TRUE) %>%ungroup()
-## Zipf's Law
 
 ```
 

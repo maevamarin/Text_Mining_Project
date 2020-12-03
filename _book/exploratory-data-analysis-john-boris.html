@@ -1,0 +1,2426 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Exploratory Data Analysis John Boris | Dicours Analysis</title>
+  <meta name="description" content="Chapter 3 Exploratory Data Analysis John Boris | Dicours Analysis" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Exploratory Data Analysis John Boris | Dicours Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Exploratory Data Analysis John Boris | Dicours Analysis" />
+  
+  
+  
+
+<meta name="author" content="Eugénie Mathieu, Maeva Marin, Hadrien Renger, Wajma Nazim" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introduction.html"/>
+<link rel="next" href="eda-macron.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Basic introduction</a></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
+<li class="chapter" data-level="2.1" data-path="introduction.html"><a href="introduction.html#overview-and-motivation"><i class="fa fa-check"></i><b>2.1</b> Overview and Motivation</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction.html"><a href="introduction.html#data-loadind"><i class="fa fa-check"></i><b>2.2</b> Data loadind</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="exploratory-data-analysis-john-boris.html"><a href="exploratory-data-analysis-john-boris.html"><i class="fa fa-check"></i><b>3</b> Exploratory Data Analysis John Boris</a><ul>
+<li class="chapter" data-level="3.1" data-path="exploratory-data-analysis-john-boris.html"><a href="exploratory-data-analysis-john-boris.html#data-manipulation"><i class="fa fa-check"></i><b>3.1</b> Data manipulation</a></li>
+<li class="chapter" data-level="3.2" data-path="exploratory-data-analysis-john-boris.html"><a href="exploratory-data-analysis-john-boris.html#zipfs-law"><i class="fa fa-check"></i><b>3.2</b> Zipf’s law</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="eda-macron.html"><a href="eda-macron.html"><i class="fa fa-check"></i><b>4</b> EDA Macron</a><ul>
+<li class="chapter" data-level="4.1" data-path="eda-macron.html"><a href="eda-macron.html#wajma"><i class="fa fa-check"></i><b>4.1</b> Wajma</a></li>
+<li class="chapter" data-level="4.2" data-path="eda-macron.html"><a href="eda-macron.html#hadrien"><i class="fa fa-check"></i><b>4.2</b> Hadrien</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="sentiment-analasis.html"><a href="sentiment-analasis.html"><i class="fa fa-check"></i><b>5</b> Sentiment Analasis</a><ul>
+<li class="chapter" data-level="5.1" data-path="sentiment-analasis.html"><a href="sentiment-analasis.html#value-based"><i class="fa fa-check"></i><b>5.1</b> Value-based</a></li>
+<li class="chapter" data-level="5.2" data-path="sentiment-analasis.html"><a href="sentiment-analasis.html#with-quanteda"><i class="fa fa-check"></i><b>5.2</b> With quanteda</a></li>
+<li class="chapter" data-level="5.3" data-path="sentiment-analasis.html"><a href="sentiment-analasis.html#using-valence-shifter"><i class="fa fa-check"></i><b>5.3</b> Using valence shifter</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Dicours Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="exploratory-data-analysis-john-boris" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Exploratory Data Analysis John Boris</h1>
+<div id="data-manipulation" class="section level2">
+<h2><span class="header-section-number">3.1</span> Data manipulation</h2>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+word
+</th>
+<th style="text-align:right;">
+Count
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+people
+</td>
+<td style="text-align:right;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+contact
+</td>
+<td style="text-align:right;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+days
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+disease
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gatherings
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+social
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+advice
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ensure
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+home
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mass
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+peak
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+symptoms
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+avoiding
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+coming
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+conditions
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+health
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+it’s
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+london
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+nhs
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+spread
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+time
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+uk
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+unnecessary
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+we’ve
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+weeks
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+70
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bring
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+campaign
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+country
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+difficult
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+disruptive
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+earlier
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+economy
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+emergency
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+epidemic
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+essential
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fight
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+growing
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+hands
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+household
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+leading
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lives
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+measures
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+minimise
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+period
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+play
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pubs
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+reducing
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+remains
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+save
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+scientific
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+slow
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+stay
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+stop
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+suffering
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+washing
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+we’re
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+week
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+workers
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+111
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+12
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+access
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+action
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+active
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+advise
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+advisory
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+afternoon
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ahead
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+allies
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+amazing
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+answer
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+approaching
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+attention
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+avoid
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+based
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+biggest
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bodies
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bringing
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+business
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+businesses
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+buy
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+challenge
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+chance
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+clubs
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cobr
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+coincides
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+comparing
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+confined
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+continuous
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cope
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+coronavirus
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cough
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+creativity
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+critical
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+curve
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+daily
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+date
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+deal
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+decisions
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+delay
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+deployed
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+difference
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+distance
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+don’t
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+double
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+draconian
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+drastic
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+drugs
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+effective
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+effort
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+emergencies
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+emphatically
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+energy
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+essentials
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+events
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+excessive
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+exercise
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+experience
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+extend
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fast
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+faster
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fatalities
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+feel
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fit
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+flatten
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+focusing
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+food
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+forward
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fourteen
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+friends
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+front
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+g20
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+g7
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+global
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+growth
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+house
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+humanity
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+imf
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+including
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+key
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+kinds
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lastly
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+leaders
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+leave
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+life
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+limit
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+listening
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+logically
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+londoners
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lot
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+low
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+maximum
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+means
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+measure
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+millions
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+moment
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+moving
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+national
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+necessities
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+notes
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+objective
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+online
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+overwhelmingly
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pay
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+playing
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+possibly
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pregnant
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pressure
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+protection
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+reason
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+reduce
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+relieve
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+responding
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+restaurants
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ringing
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+risks
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+role
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+safe
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sage
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+scrupulously
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+shielded
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+shielding
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+significant
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+slowing
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+spaces
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+special
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sporting
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+start
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+steps
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+supplies
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+supporting
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+system
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+talking
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+temperature
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+theatres
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tomorrow
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+transmission
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+travel
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+treatments
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+true
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+upward
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+venues
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+victims
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+vulnerable
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+weekend
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+women
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+world
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+worth
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+</tbody>
+</table>
+<pre><code>#&gt; &lt;&lt;DocumentTermMatrix (documents: 1, terms: 306)&gt;&gt;
+#&gt; Non-/sparse entries: 0/306
+#&gt; Sparsity           : 100%
+#&gt; Maximal term length: 14
+#&gt; Weighting          : term frequency - inverse document frequency (normalized) (tf-idf)
+#&gt; Sample             :
+#&gt;     Terms
+#&gt; Docs ’re ’ve access according across action active advice advise
+#&gt;    1   0   0      0         0      0      0      0      0      0
+#&gt;     Terms
+#&gt; Docs advisory afternoon ahead allies also always amazing amongst and
+#&gt;    1        0         0     0      0    0      0       0       0   0
+#&gt;     Terms
+#&gt; Docs answer anyone approaching around ask asked asking attention
+#&gt;    1      0      0           0      0   0     0      0         0
+#&gt;     Terms
+#&gt; Docs avoid avoiding away back based believe best biggest bodies
+#&gt;    1     0        0    0    0     0       0    0       0      0
+#&gt;     Terms
+#&gt; Docs bring bringing business businesses but buy campaign can case
+#&gt;    1     0        0        0          0   0   0        0   0    0
+#&gt;     Terms
+#&gt; Docs cases challenge chance clear clearly clubs cobr coincides
+#&gt;    1     0         0      0     0       0     0    0         0
+#&gt;     Terms
+#&gt; Docs coming comparing conditions confined contact continuous cope
+#&gt;    1      0         0          0        0       0          0    0
+#&gt;     Terms
+#&gt; Docs coronavirus cough country creativity critical curve daily date
+#&gt;    1           0     0       0          0        0     0     0    0
+#&gt;     Terms
+#&gt; Docs days days’ deal decisions delay deployed difference difficult
+#&gt;    1    0     0    0         0     0        0          0         0
+#&gt;     Terms
+#&gt; Docs disease disruptive distance don’t double draconian drastic
+#&gt;    1       0          0        0     0      0         0       0
+#&gt;     Terms
+#&gt; Docs drugs earlier economy effective effort emergencies emergency
+#&gt;    1     0       0       0         0      0           0         0
+#&gt;     Terms
+#&gt; Docs emphatically energy ensure epidemic essentials even events
+#&gt;    1            0      0      0        0          0    0      0
+#&gt;     Terms
+#&gt; Docs every everybody everyone everything excessive exercise
+#&gt;    1     0         0        0          0         0        0
+#&gt;     Terms
+#&gt; Docs experience extend face far fast faster fatalities feel fight
+#&gt;    1          0      0    0   0    0      0          0    0     0
+#&gt;     Terms
+#&gt; Docs first fit flatten focusing food forward fourteen friends front
+#&gt;    1     0   0       0        0    0       0        0       0     0
+#&gt;     Terms
+#&gt; Docs gatherings get give global goes going good got group growing
+#&gt;    1          0   0    0      0    0     0    0   0     0       0
+#&gt;     Terms
+#&gt; Docs growth hands health help high home house household humanity imf
+#&gt;    1      0     0      0    0    0    0     0         0        0   0
+#&gt;     Terms
+#&gt; Docs important including just keep key kinds know largely last
+#&gt;    1         0         0    0    0   0     0    0       0    0
+#&gt;     Terms
+#&gt; Docs lastly later leaders leading leave life limit listening lives
+#&gt;    1      0     0       0       0     0    0     0         0     0
+#&gt;     Terms
+#&gt; Docs logically london londoners longer looks lot low make many mass
+#&gt;    1         0      0         0      0     0   0   0    0    0    0
+#&gt;     Terms
+#&gt; Docs maximum may means measure measures might millions minimise
+#&gt;    1       0   0     0       0        0     0        0        0
+#&gt;     Terms
+#&gt; Docs moment moving much national necessary necessities need new next
+#&gt;    1      0      0    0        0         0           0    0   0    0
+#&gt;     Terms
+#&gt; Docs nhs nonessential normally notes now number objective obviously
+#&gt;    1   0            0        0     0   0      0         0         0
+#&gt;     Terms
+#&gt; Docs one online others otherwise over overwhelmingly part
+#&gt;    1   0      0      0         0    0              0    0
+#&gt;     Terms
+#&gt; Docs particularly parts pay peak people period play playing please
+#&gt;    1            0     0   0    0      0      0    0       0      0
+#&gt;     Terms
+#&gt; Docs possible possibly pregnant pressure protection pubs rather
+#&gt;    1        0        0        0        0          0    0      0
+#&gt;     Terms
+#&gt; Docs really reason reduce reducing relatively relieve remains
+#&gt;    1      0      0      0        0          0       0       0
+#&gt;     Terms
+#&gt; Docs responding restaurants right ringing risks role safe sage said
+#&gt;    1          0           0     0       0     0    0    0    0    0
+#&gt;     Terms
+#&gt; Docs save say saying scientific scrupulously second serious
+#&gt;    1    0   0      0          0            0      0       0
+#&gt;     Terms
+#&gt; Docs seriously shielded shielding significant slow slowing social
+#&gt;    1         0        0         0           0    0       0      0
+#&gt;     Terms
+#&gt; Docs something spaces special sporting spread start stay steps stop
+#&gt;    1         0      0       0        0      0     0    0     0    0
+#&gt;     Terms
+#&gt; Docs suffering supplies supporting sure symptoms system take taken
+#&gt;    1         0        0          0    0        0      0    0     0
+#&gt;     Terms
+#&gt; Docs talking tell temperature thank that the theatres think third
+#&gt;    1       0    0           0     0    0   0        0     0     0
+#&gt;     Terms
+#&gt; Docs though time today tomorrow transmission travel treatments true
+#&gt;    1      0    0     0        0            0      0          0    0
+#&gt;     Terms
+#&gt; Docs two unnecessary upward use venues victims vulnerable want
+#&gt;    1   0           0      0   0      0       0          0    0
+#&gt;     Terms
+#&gt; Docs wanted washing way we’re week weekend weeks well whether whole
+#&gt;    1      0       0   0     0    0       0     0    0       0     0
+#&gt;     Terms
+#&gt; Docs why will without women workers working world worth
+#&gt;    1   0    0       0     0       0       0     0     0</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+doc1
+</th>
+<th style="text-align:right;">
+doc2
+</th>
+<th style="text-align:right;">
+doc3
+</th>
+<th style="text-align:right;">
+doc4
+</th>
+<th style="text-align:right;">
+doc5
+</th>
+<th style="text-align:right;">
+doc6
+</th>
+<th style="text-align:right;">
+doc7
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+179
+</td>
+<td style="text-align:right;">
+327
+</td>
+<td style="text-align:right;">
+308
+</td>
+<td style="text-align:right;">
+335
+</td>
+<td style="text-align:right;">
+241
+</td>
+<td style="text-align:right;">
+260
+</td>
+<td style="text-align:right;">
+203
+</td>
+</tr>
+</tbody>
+</table>
+<p>Now let’s compute the word frequencies (TF) by documents. First, the tokens are grouped by the indicator Document, which allows to count the words by documents. The the object is ungrouped.</p>
+<p>These frqeuencies are represented with barplots. We only keep the 15 most frequent words for redability purpose and create barplots using ggplot and geom_col. The facetwrap function split the barplots per Document.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Document
+</th>
+<th style="text-align:left;">
+Text
+</th>
+<th style="text-align:right;">
+n
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+doc1
+</td>
+<td style="text-align:left;">
+<p>This morning I chaired a meeting of the government’s COBR emergency committee on the Coronavirus outbreak.</p>
+<p>The First Ministers of Scotland and Wales and the First Minister and deputy First Minister of Northern Ireland also attended and we agreed to continue to work closely in the weeks and months ahead.</p>
+<p>We received a detailed briefing from the Chief Medical Officer and the Chief Scientific Advisor. And again I repeat my gratitude to both Chris and to Patrick.</p>
+<p>There have now been four deaths from coronavirus in the UK, and our deepest sympathies are obviously with their friends and families.</p>
+<p>Our action plan as you know sets out the four phases of our approach to tackling the virus: Contain, Delay, Research, and Mitigate.</p>
+<p>We remain in the Contain phase of the outbreak, but watching what is happening around the world, our scientists think containment is extremely unlikely to work on its own, and that is why we are making extensive preparations for a move to the delay phase.</p>
+<p>We are preparing various actions to slow the spread of this disease in order to reduce the strain it places on the NHS. The more we can delay the peak of the spread to the summer, the better the NHS will be able to manage.</p>
+<p>Patrick and Chris will give you some more detailed information on the latest advice we are giving the public today - and how we expect that advice to change as the outbreak develops.</p>
+<p>As things stand I’m afraid it bears repeating that the best thing we can all do is wash our hands for 20 seconds with soap and water. We will also take questions, because I know there are lots of things the public want to hear from our advisors about.</p>
+<p>But before that I want to stress the following things:</p>
+<p>First, we are doing everything we can to combat this outbreak, based on the very latest scientific and medical advice.</p>
+<p>Second, we have a truly brilliant NHS, where staff have responded with all the determination, compassion and skill that makes their service so revered across the world. And they will continue to have this government’s full support, my support, in tackling this virus on the frontline.</p>
+<p>Third, we will set out further steps in the days and weeks ahead to help people protect themselves, their family and in particular the elderly and vulnerable.</p>
+<p>And finally, while it is absolutely critical, it’s absolutely critical in managing the spread of this virus that we take the right decisions at the right time, based on the latest and best evidence. So we must not do things which have no or limited medical benefit, nor things which could turn out to be counterproductive.</p>
+<p>There is no hiding from the fact that the coronavirus outbreak will present significant challenges for the UK, just as it does in other countries.</p>
+But if we continue to look out for one another, to pull together in a united and national effort, I have no doubt that we can and will rise to that challenge. And I’m now going to ask Patrick and then Chris to give their own perspective on where we are.
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+doc2
+</td>
+<td style="text-align:left;">
+<p>Good afternoon everybody and thank you very much for coming.</p>
+<p>I’ve just chaired a meeting of the government’s emergency committee including ministers from Scotland, Wales and Northern Ireland.</p>
+<p>And it’s clear that coronavirus, COVID-19, continues and will continue to spread across the world and our country over the next few months. We’ve done what can be done to contain this disease and this has bought us valuable time.</p>
+<p>But it is now a global pandemic.</p>
+<p>And the number of cases will rise sharply and indeed the true number of cases is higher - perhaps much higher - than the number of cases we have so far confirmed with tests.</p>
+<p>I’ve got to be clear, we’ve all got to be clear, that this is the worst public health crisis for a generation.</p>
+<p>Some people compare it to seasonal flu. Alas, that is not right. Owing to the lack of immunity, this disease is more dangerous.</p>
+<p>And it’s going to spread further and I must level with you, level with the British public, many more families are going to lose loved ones before their time. And the Chief Scientific Adviser will set out the best information we have on that in a moment.</p>
+<p>But as we’ve said over the last few weeks, we have a clear plan that we are now working through.</p>
+<p>And we are now moving to the next phase in that plan.</p>
+<p>Because this is now not just to attempt to contain the disease as far as possible, but to delay its spread and thereby minimise the suffering. If we delay the peak even by a few weeks, then our NHS will be in a stronger state as the weather improves and fewer people suffer from normal respiratory diseases, more beds are available and we’ll have more time for medical research.</p>
+<p>We can also act to stretch the peak of the disease over a longer period so that our society is better able to cope.</p>
+<p>The Chief Medical Officer will set out our lines of defence. We have to deploy these at the right time to maximise their effect. The most important task will be to protect our elderly and most vulnerable people during the peak weeks when there is the maximum risk of exposure to the disease and when the NHS will be under the most pressure. So the most dangerous period is not now but some weeks away depending on how fast it spreads.</p>
+<p>Today therefore we are moving forward with our plan. From tomorrow, if you have coronavirus symptoms, however mild – either a new continuous cough or a high temperature – then you should stay at home for at least 7 days to protect others and help slow the spread of the disease.</p>
+<p>We advise all those over 70 and those with serious medical conditions against going on cruises and we advise against international school trips.</p>
+<p>At some point in the next few weeks, we are likely to go further and if someone in a household has those symptoms, we will be asking everyone in the household to stay at home. We are not introducing this yet for reasons Sir Patrick will explain, but I want to signal now that this is coming down the track.</p>
+<p>We are considering the question of banning major public events such as sporting fixtures. The scientific advice as we’ve said over the last couple of weeks is that banning such events will have little effect on the spread.</p>
+<p>But there is also the issue of the burden that such events can place on public services. So we’re discussing these issues with colleagues in all parts of the United Kingdom and will have more to say shortly about the timing of further action in that respect.</p>
+<p>At all stages, we have been guided by the science, and we will do the right thing at the right time.</p>
+<p>We are not - repeat not - closing schools now. The scientific advice is that this could do more harm than good at this time. But we are of course keeping this under review and this again may change as the disease spreads. Schools should only close if they are specifically advised to do so. And that remains our advice.</p>
+<p>There is no escaping the reality that these measures will cause severe disruption across our country for many months.</p>
+<p>The best scientific advice is that this will help us slow the disease and save lives. There will be detailed information available on the NHS website and from 111 online. But I want to stress something that is very important in the wake of what we’re saying this afternoon – I urge people, who think in view of what we’re saying about their potential symptoms that they should stay at home, not to call 111 but to use the internet for information if they can.</p>
+<p>I also want at this stage to speak directly to older people. Because this disease is particularly dangerous for you, for older people, even though the vast majority this will be a mild to moderate illness, I know that many people will be very worried. And I think we should all be thinking about our elderly relatives, the more vulnerable members of their family, our neighbours, and everything we can do to protect them over the next few months. We’re going to need to mobilise millions of people to help and support each other. And I just want to you to know that the government will do all we can to help you and your family during this period. We’re not just going to be as you saw yesterday supporting the economy during this period, we will be providing money and many other forms of support, and helping communities to support each other.</p>
+<p>And as we have done over the last few weeks, we will continue to provide, as soon as we have it, as much clear scientific and medical information as we can.</p>
+<p>So I’d like to end by repeating the two important messages, with which you will have become familiar – it is still vital, perhaps more vital than ever – that we remember to wash our hands.</p>
+And lastly of course even if things seem tough now, just to remember, that we will get through this, this country will get through this epidemic, just as it has got through many tougher experiences before if we look out for each other and commit wholeheartedly to a full national effort.
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+doc3
+</td>
+<td style="text-align:left;">
+<p>Good afternoon everybody, thank you very much for coming. I wanted to bring everyone up to date with the national fight back against the new coronavirus and the decisions that we’ve just taken in COBR for the whole of the UK.</p>
+<p>As we said last week, our objective is to delay and flatten the peak of the epidemic by bringing forward the right measures at the right time, so that we minimise suffering and save lives. And everything we do is based scrupulously on the best scientific advice.</p>
+<p>Last week we asked everyone to stay at home if you had one of two key symptoms: a high temperature or a new and continuous cough.</p>
+<p>Today, we need to go further, because according to SAGE [the Scientific Advisory Group for Emergencies] it looks as though we’re now approaching the fast growth part of the upward curve.</p>
+<p>And without drastic action, cases could double every 5 or 6 days.</p>
+<p>So, first, we need to ask you to ensure that if you or anyone in your household has one of those two symptoms, then you should stay at home for fourteen days.</p>
+<p>That means that if possible you should not go out even to buy food or essentials, other than for exercise, and in that case at a safe distance from others. If necessary, you should ask for help from others for your daily necessities. And if that is not possible, then you should do what you can to limit your social contact when you leave the house to get supplies.</p>
+<p>And even if you don’t have symptoms and if no one in your household has symptoms, there is more that we need you to do now.</p>
+<p>So, second, now is the time for everyone to stop non-essential contact with others and to stop all unnecessary travel.</p>
+<p>We need people to start working from home where they possibly can. And you should avoid pubs, clubs, theatres and other such social venues.</p>
+<p>It goes without saying, we should all only use the NHS when we really need to. And please go online rather than ringing NHS 111.</p>
+<p>Now, this advice about avoiding all unnecessary social contact, is particularly important for people over 70, for pregnant women and for those with some health conditions.</p>
+<p>And if you ask, why are we doing this now, why now, why not earlier, or later? Why bring in this very draconian measure?</p>
+<p>The answer is that we are asking people to do something that is difficult and disruptive of their lives.</p>
+<p>And the right moment, as we’ve always said, is to do it when it is most effective, when we think it can make the biggest difference to slowing the spread of the disease, reducing the number of victims, reducing the number of fatalities.</p>
+<p>And as we take these steps we should be focusing on the most vulnerable.</p>
+<p>So third, in a few days’ time – by this coming weekend – it will be necessary to go further and to ensure that those with the most serious health conditions are largely shielded from social contact for around 12 weeks.</p>
+<p>And again the reason for doing this in the next few days, rather than earlier or later, is that this is going to be very disruptive for people who have such conditions, and difficult for them, but, I believe, it’s now necessary.</p>
+<p>And we want to ensure that this period of shielding, this period of maximum protection coincides with the peak of the disease.</p>
+<p>And it’s now clear that the peak of the epidemic is coming faster in some parts of the country than in others.</p>
+<p>And it looks as though London is now a few weeks ahead.</p>
+<p>So, to relieve the pressure on the London health system and to slow the spread in London, it’s important that Londoners now pay special attention to what we are saying about avoiding non-essential contact, and to take particularly seriously the advice about working from home, and avoiding confined spaces such as pubs and restaurants.</p>
+<p>Lastly, it remains true as we have said in the last few weeks that risks of transmission of the disease at mass gatherings such as sporting events are relatively low.</p>
+<p>But obviously, logically as we advise against unnecessary social contact of all kinds, it is right that we should extend this advice to mass gatherings as well.</p>
+<p>And so we’ve also got to ensure that we have the critical workers we need, that might otherwise be deployed at those gatherings, to deal with this emergency.</p>
+<p>So from tomorrow, we will no longer be supporting mass gatherings with emergency workers in the way that we normally do. So mass gatherings, we are now moving emphatically away from.</p>
+<p>And I know that many people – including millions of fit and active people over 70 – may feel, listening to what I have just said, that there is something excessive about these measures.</p>
+<p>But I have to say, I believe that they are overwhelmingly worth it to slow the spread of the disease, to reduce the peak, to save life, minimise suffering and to give our NHS the chance to cope.</p>
+<p>Over the last few days, I have been comparing notes and talking to leaders around the world and I can tell you that the UK is now leading a growing global campaign amongst all our friends and allies, whether in the G7, the G20, the UN, the IMF – all those bodies in which we play a significant role.</p>
+<p>We’re leading a campaign to fight back against this disease.</p>
+<p>To keep the economy growing, to make sure that humanity has access to the drugs and the treatments that we all need, and the UK is also at the front of the effort to back business, to back our economy, to make sure that we get through it.</p>
+<p>I know that today we are asking a lot of everybody. It is far more now than just washing your hands - though clearly washing your hands remains important.</p>
+But I can tell you that across this country, people and businesses in my experience are responding with amazing energy and creativity to the challenge that we face, and I want to thank everybody for the part that you are playing and are going to play.
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+doc4
+</td>
+<td style="text-align:left;">
+<p>Good afternoon. And thanks for coming or for indeed tuning in to these daily updates. I want to introduce, I’m sure you know Jenny Harries, Deputy Chief Medical Officer for England, and you know Sir Patrick Vallance, Chief Scientific Advisor.</p>
+<p>I want to tell you where we got to in our national fightback against the coronavirus. Today the Scientific Advisory Group for Emergencies met to discuss the latest evidence on the spread of the virus and the effects of the measures we have already taken to slow its spread. And Patrick is going to update us in a second about that.</p>
+<p>I want to repeat that everyone – everyone – must follow the advice to protect themselves and their families, but also – more importantly – to protect the wider public. So stay at home for seven days if you think you have the symptoms. Remember the two key symptoms are high temperature, a continuous new cough.</p>
+<p>Whole household to stay at home for 14 days if one member in that household thinks he/she has the symptoms. Avoid all unnecessary gatherings – pubs, clubs, bars, restaurants, theatres and so on and work from home if you can. Wash your hands.</p>
+<p>And we have already announced in the last few days we will massively scale up our testing capacity in the weeks ahead so we hit 25,000 tests a day.</p>
+<p>A huge public information campaign is being rolled out so people get all the information they need to protect themselves and others.</p>
+<p>We are asking retired healthcare professionals to come back and help us cope, help the NHS to cope, with this unprecedented challenge.</p>
+<p>And we will continue as we have from the beginning to do the right thing at the right time and to follow the best scientific advice.</p>
+<p>And we come today to the key issue of schools where we have been consistently advised that there is an important trade off. And so far the judgment of our advisers has been that closing schools is actually of limited value in slowing the spread of the epidemic.</p>
+<p>And that is partly because counterintuitively schools are actually very safe environments. And in this disease and epidemic children and young people are much less vulnerable.</p>
+<p>And hitherto the advice has been that we should keep schools open if possible in order to reduce the pressure on the NHS and on all other public services. But I think you’ll agree I have always been very clear that this is a balanced judgment and one that we have kept under constant review.</p>
+<p>So looking at the curve of the disease and looking at where we are now – we think now that we must apply downward pressure, further downward pressure on that upward curve by closing the schools.</p>
+<p>So I can announce today and Gavin Williamson making statement now in House of Commons that after schools shut their gates from Friday afternoon, they will remain closed for most pupils – for the vast majority of pupils- until further notice. I will explain what I mean by the vast majority of pupils.</p>
+<p>The objective is to slow the spread of the virus and we judge it is the right moment to do that.</p>
+<p>But of course, as I’ve always said, we also need to keep the NHS going and to treat the number of rising cases. So we need health workers who are also parents to continue to go to work.</p>
+<p>And we need other critical workers with children to keep doing their jobs too – from police officers who are keeping us safe to the supermarket delivery drivers, social care workers who look after the elderly and who are so vital. We will be setting out more details shortly about who we mean in these groups.</p>
+<p>So we therefore need schools to make provision for the children of these key workers who would otherwise be forced to stay home. And they will also need to look after the most vulnerable children.</p>
+<p>This will mean there will of course be are far fewer children in schools and that will help us to slow the spread of the disease. And these measures are crucial to make sure the critical parts of the economy keep functioning and public services keep functioning.</p>
+<p>So we are simultaneously asking nurseries and private schools to do the same, and we are providing financial support where it is needed. We are making provisions to supply meals and vouchers for children eligible for free school meals. And where some schools are already doing this, I want to make it clear we will reimburse the cost.
+And of course this does mean that exams will not take place as planned in May and June. Though we will make sure that pupils get the qualifications they need and deserve for their academic career.</p>
+<p>Now I know that these steps will not be easy for parents or teachers. And for many parents, this will be frustrating, and it will make it harder for them to go out to work.</p>
+<p>And of course that is one of the reasons we haven’t wanted to go ahead and that’s why we are working now on further measures to ensure that we support not just businesses but also individuals and their families to keep our economy going as Rishi Sunak the Chancellor outlined yesterday.</p>
+<p>I also need to remind parents that, as we have already advised, children should not be left with older grandparents, or older relatives, who may be particularly vulnerable or fall into some of the vulnerable groups and I know that will be difficult too. And I want to thank families for their sacrifice at this difficult time. I want to thank whole country for the efforts people are making to comply with these measures.</p>
+<p>I particularly want to thank the teachers, head teachers and all the support staff who keep schools going who will make these exceptional arrangements work, for the benefit of us all.</p>
+<p>By looking after the children of key workers they will be a critical part of our fightback against Coronavirus. As I have said, we will take the right steps at the right time, guided by the science.</p>
+<p>We believe the steps we have already taken, together with those I am announcing today, are already slowing the spread of the disease.</p>
+<p>But we will not hesitate to go further, and faster, in the days and weeks ahead.</p>
+And we will do whatever it takes to so that we beat it together.
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+doc5
+</td>
+<td style="text-align:left;">
+<p>I want to begin by thanking everyone, by thanking you, in the media, and also thanking everyone for the huge efforts that the country is making to comply with the advice that we’ve been given</p>
+<p>And we’re asking such a huge amount,</p>
+<p>asking students to put their education on hold,</p>
+<p>we’re asking people not to socialise in the normal way</p>
+<p>And already we can see the impact that this is having on the UK economy and on business, on great, great companies</p>
+<p>And so it’s vital that we in Government stand behind them when what we are asking everyone to do is so crucial for saving literally thousands of lives by defeating this virus</p>
+<p>And I am conscious as the days have gone by that people will want to know how long we are expecting them to keep it up</p>
+<p>And I wanted to try to say something today about how I see the timescale of this campaign and where we’re going and what we need to do</p>
+<p>I do think, looking at it all, that we can turn the tide within the next 12 weeks</p>
+<p>And I am absolutely confident that we can send coronavirus packing in this country but only if we take the steps, we all take the steps we have outlined,</p>
+<p>And that is vital because that is how we are going to reduce the peak</p>
+<p>and once we’ve achieved that, and I think that we will, if take the steps that I have said,</p>
+<p>then the scientific progress that we’re making will really start to come into play and I wanted to discuss a little bit of that this afternoon with you</p>
+<p>because we are rapidly becoming so much better at understanding the genomics at the heart of this virus, a lot of that is going on in this country,</p>
+<p>we’re getting better at understanding the medicines that may treat and cure it</p>
+<p>And today we have put the first British corona patient into a randomised trial for drugs that may treat the disease</p>
+<p>UK experts and scientists expect to start trials for the first vaccine within a month</p>
+<p>And above all we are getting better at testing</p>
+<p>This crisis is so difficult because the enemy is invisible</p>
+<p>And the answer is to remove the cloak of invisibility</p>
+<p>And to identify the virus, and to be able to know which of us, is carrying it or who has actually had it and now got over it</p>
+<p>And to give you an idea of what is coming down the track</p>
+<p>We are in negotiations today to buy a so called antibody test</p>
+<p>As simple as a pregnancy test</p>
+<p>That could tell whether you have had the disease</p>
+<p>And it’s early days, but if it works as its proponents claim then we will buy literally hundreds of thousands of these kits as soon as practicable because obviously it has the potential to be a total gamechanger</p>
+<p>Because once you know that you have had it, you know that you are likely to be less vulnerable, you’re less likely to pass it on, and you can go back to work</p>
+<p>And of course by the same token we are massively increasing the testing to see whether you have it now</p>
+<p>And ramping up daily testing from 5000 a day to 10,000 to 25,000 and then up to 250,000</p>
+<p>And that knowledge of where the virus is, will make a huge difference to our management of the disease and our ability to reduce disruption and economic difficulties</p>
+<p>And I wanted to set that out because this is rapidly coming down the track as I say, but it will take time to come on stream</p>
+<p>And that is why in the meantime, to get back to a theme that you know I’m going to repeat, it is absolutely vital that we follow the advice that we’ve been hearing over the last few days,</p>
+<p>The announcements we’ve already made about staying at home if you have the symptoms, if your family has the symptoms,</p>
+<p>about avoiding unnecessary contact</p>
+<p>Avoiding gatherings where you may pick up the disease</p>
+<p>pubs, bars, restaurants</p>
+<p>Please, please follow all that advice scrupulously</p>
+<p>Work from home if you possibly can</p>
+<p>Wash your hands, wash your hands</p>
+<p>And it’s by this combination of ruthless, determined, collective action and scientific progress that we’re already seeing that we will succeed</p>
+<p>And I know how difficult it may be, or it may seem right now, but if we do this together we will save, as I say, many many thousands of lives</p>
+<p>and to everybody in the UK, business world, everybody who is worried about their jobs, and everybody who faces difficulties because of the advice that we are giving,</p>
+<p>I say to business, stand by your employees, stand by your workers because we will stand by you</p>
+<p>And you’ll be hearing more about that in the course of the next day or so</p>
+And that is how, by a mixture of determined, collective action and scientific progress, I have absolutely no doubt that we will turn the tide of this disease and beat it together.
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+doc6
+</td>
+<td style="text-align:left;">
+<p>Good afternoon and thank you for coming again,</p>
+<p>Today I am joined by the Chancellor of the Exchequer Rishi Sunak and Jennie Harries deputy chief medical officer.</p>
+<p>Yesterday I set out the ambition of this government to turn the tide against coronavirus within 3 months.
+And I want to repeat that determination today.</p>
+<p>We are going to do it with testing. We are going to do it with new medicines, and with new digital technology that will help us to see the disease as it is transmitted, and thereby, by eliminating it, to stamp it out.</p>
+<p>And above all, now we are going to defeat this disease with a huge national effort to slow the spread by reducing unnecessary social contact.</p>
+<p>And I want to thank everyone for following the guidance we issued on Monday:</p>
+<p>to stay at home for 7 days if you think you have the symptoms,</p>
+<p>for 14 days if anyone in your household has either of the symptoms – a new continuous cough or a high temperature.</p>
+<p>To avoid pubs, bars, clubs and restaurants.</p>
+<p>To work from home if at all possible.</p>
+<p>Keep washing your hands.</p>
+<p>I know it has been tough.</p>
+<p>I know it has been inconvenient.</p>
+<p>But these actions that we’re all taking together are already helping to take the strain off our NHS.</p>
+<p>Bit by bit, day by day, by your actions, your restraint and your sacrifice, we are putting this country in a better and stronger position, where we will be able to save literally thousands of lives, of people of all ages, people who don’t deserve to die now.</p>
+<p>People whose lives can, must, and will be saved.</p>
+<p>And as we take these actions together and as we make these sacrifices, we can see the impact on the real economy.</p>
+<p>Already, fantastic British companies, already under huge strain, big and small.</p>
+<p>Workers who are finding that their jobs are under threat or are going, through no fault of their own.
+And to all of them, we in government say: We will stand by you.</p>
+<p>And I say that to companies, remember our joint objective: to beat this virus. And we will do everything in our power to help.</p>
+<p>And in just a minute, Rishi is going to explain how we are going to help workers of all kinds to get through this crisis,</p>
+<p>Supporting you directly in a way that Government has never been done before, in addition to the package we have already set out for business.</p>
+<p>And of course these measures are intended to be temporary and of course I am confident that, in time, the UK economy is going to bounce back.</p>
+<p>Of course it is.</p>
+<p>But I must be absolutely clear with you: the speed of that eventual recovery depends entirely on our ability, our collective ability, to get on top of the virus now.</p>
+<p>And that means we have to take the next steps, on scientific advice and following our plan, we are strengthening the measures announced on Monday which you will remember.</p>
+<p>And of course people have already made a huge effort to comply with those measures for avoiding unnecessary social contact.</p>
+<p>But we need now to push down further on that curve of transmission between us.</p>
+<p>And so following agreement between all the formations of the United Kingdom, all the devolved administrations,</p>
+<p>We are collectively telling, telling cafes, pubs, bars, restaurants to close tonight as soon as they reasonably can, and not to open tomorrow.</p>
+<p>Though to be clear, they can continue to provide take-out services.</p>
+<p>We’re also telling nightclubs, theatres, cinemas, gyms and leisure centres to close on the same timescale.</p>
+<p>Now, these are places where people come together, and indeed the whole purpose of these businesses is to bring people together. But the sad things is that today for now, at least physically, we need to keep people apart.</p>
+<p>And I want to stress that we will review the situation each month, to see if we can relax any of these measures.</p>
+<p>And listening to what I have just said, some people may of course be tempted to go out tonight. But please don’t.</p>
+<p>You may think you are invincible, but there is no guarantee you will get mild symptoms, and you can still be a carrier of the disease and pass it on to others</p>
+<p>So that’s why, as far as possible, we want you to stay at home, that’s how we can protect our NHS and save lives.</p>
+<p>To repeat, I know how difficult this is, how it seems to go against the freedom-loving instincts of the British people. And I also know much, right now, workers and business deserve the financial reassurance we are giving them.</p>
+<p>But we will get through this.</p>
+<p>We will get through it together, and we will beat this virus.</p>
+And to ram that point home: the more effectively we follow the advice that we are given, the faster this country will stage both a medical and an economic recovery in full.
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+doc7
+</td>
+<td style="text-align:left;">
+<p>Good afternoon everyone</p>
+<p>Thank you for coming, and thank you to Robert Jenrick, the Communities Secretary, and Dr Jenny Harries, the Deputy Chief Medical Officer.</p>
+<p>I want again to thank everyone in the country today for the huge effort that we are collectively making.</p>
+<p>I want to thank the amazing workers in the NHS, everybody working in social care, in every sector, in food distribution, transport, you name it – absolutely everyone who is keeping this country going today.</p>
+<p>And I want to thank everyone who is being forced to do something differently today.</p>
+<p>Everyone who didn’t visit their mum for Mother’s Day but Facetimed them, Skyped them, rang them instead.</p>
+<p>Thank you for your restraint and for what you did.</p>
+<p>Everyone who was forced to close a pub or a restaurant or a gym or any other business that could have done fantastic businesses on a great day like this.</p>
+<p>Thank you for your sacrifice, I know how tough it must be.</p>
+<p>And I can tell you again that this government will be standing behind you – behind British business, behind British workers, employees, self-employed – throughout this crisis.</p>
+<p>And the reason we are taking these unprecedented steps to prop up businesses, support businesses and support our economy and these preventative measures is because we have to slow the spread of the disease and to save thousands of lives.</p>
+<p>Today we have come to the stage of our plan that I advertised at the outset, when we first set out the plan of the UK government.</p>
+<p>When we have to take special steps to protect the particularly vulnerable.</p>
+<p>I said the moment would come where we needed to shield those with serious conditions. There are probably about 1.5 million in all.</p>
+<p>And in a minute Robert Jenrick will set out the plan in detail.</p>
+<p>But this shielding will do more than any other single measure that we are setting out to save life. That is what we want to do.</p>
+<p>Also to reduce infection and to slow the spread of the disease.</p>
+<p>We have to do more to make sure that the existing measures that we are taking are having the effect that we want.</p>
+<p>So it is crucial that people understand tomorrow that the schools are closed.</p>
+<p>And tomorrow you should not send your child to school unless you have been identified as a key worker.</p>
+<p>And more generally in the view of the way people have responded over the last few days to the measures we have set out I want to say a bit more about how we interact outdoors.</p>
+<p>Of course I want people to be able to go to the parks and open spaces and to enjoy themselves – it is crucial for health and mental and physical wellbeing.</p>
+<p>But please follow the advice and don’t think that fresh air in itself automatically provides some immunity.</p>
+<p>You have to stay two metres apart; you have to follow the social distancing advice.</p>
+<p>And even if you think you are personally invulnerable, there are plenty of people you can infect and whose lives will then be put at risk.</p>
+<p>And I say this now – on Sunday evening – take this advice seriously, follow it, because it is absolutely crucial.</p>
+<p>And as I have said throughout this process we will keep the implementation of these measures under constant review and, yes of course, we will bring forward further measures if we think that is necessary.</p>
+<p>Always remember that in following this advice- and I know how difficult that is – that each and every one of us.</p>
+<p>You are doing your bit in following this advice to slow the spread of this disease.</p>
+<p>The more we collectively slow the spread, the more time we give the NHS to prepare, the more lives we will save, the faster we will get through this.</p>
+<p>And always remember – we will get through this, and we will beat it together.</p>
+Next Robert Jenrick to outline the shielding measures.
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+</tbody>
+</table>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>We see that the list of 15 most frequent term are due to doc 2 ,4 and 3.</p>
+<p>Now we want to know which are the most frequent term for each document</p>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Now we repeat the same analysis using the TF-IDF.</p>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
+We can see that the term “measures” or “disease” appaear several times. It is normal since the could of words was built from the frequencies within each document. We need first to aggregate the frequencies per termms(i.e sum iver the documents). Then er produce the could</p>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="zipfs-law" class="section level2">
+<h2><span class="header-section-number">3.2</span> Zipf’s law</h2>
+<p>Now, we illustrate the Zipf’s law on the discous of Boris Jonhson. The terms are ranked by their frequency (rank=1 for the most frequent), then plotted versus its rank. This is easily obtained using quanteda.</p>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Now on the log scale this gives a linear relation</p>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="eda-macron.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

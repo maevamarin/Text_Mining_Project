@@ -9,7 +9,7 @@ rmd_files: [
   "report/Introduction.Rmd",
   "report/EDA_John.Rmd",
   "report/EDA_Macron.rmd",
-  "report/Sentiment Analysis",
+  "report/Sentiment_Analysis.rmd",
   "report/Conclusion.Rmd",
   "report/references.Rmd"
 ]

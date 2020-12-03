@@ -92,13 +92,14 @@ ggplot(boris.sent,aes(x=document,y=count, fill=term)) +
 
 The sentimentr library offers some function to compute sentiments integrating valence shiter. One important apsect is that it cannot be applied to a Bag Of Word model. 
 ```{r}
-boris.text<-get_sentences(boris$Text)
-boris.senti<-sentiment(boris.text)
-boris.senti<-as_tibble(boris.senti)
 
-boris.senti%>% group_by(element_id) %>%
-  ggplot(aes(x=sentence_id,y=sentiment)) +
-  geom_line() +
-  facet_wrap(~element_id)
+#boris.text<-get_sentences(boris.tk$Text)
+#boris.senti<-sentiment(boris.text)
+#boris.senti<-as_tibble(boris.senti)
+
+#boris.senti%>% group_by(element_id) %>%
+  #ggplot(aes(x=sentence_id,y=sentiment)) +
+  #geom_line() +
+  #facet_wrap(~element_id)
 
 ```
