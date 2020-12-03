@@ -7,9 +7,11 @@ before_chapter_script: "scripts/setup.R"
 rmd_files: [
   "index.Rmd",
   "report/Introduction.Rmd",
-  "report/EDA_John.Rmd",
-  "report/EDA_Macron.rmd",
+  "report/EDA.Rmd",
   "report/Sentiment_Analysis.rmd",
+  "report/Similarities.rmd",
+  "report/Topic_modelling.rmd",
+  "report/Word_embedding.rmd",
   "report/Conclusion.Rmd",
   "report/references.Rmd"
 ]

@@ -1,5 +1,7 @@
 # Sentiment Analasis
 
+## Boris Johnson
+
 We use the nrc dictionary. From the token list per document boris.tok, we join the corresponding qualifier in  nrc using inner.joint: 
 
 ```{r}
@@ -38,7 +40,7 @@ boris.sent %>%
 
 ```
 
-## Value-based
+### Value-based
 
 
 Now we use the afinn dictionary. The main difference is that rach word receives a value rather than a qualifier. Then the average score per document is computed.
@@ -56,7 +58,7 @@ aggregate(value~Document, data =boris.sent,FUN=mean) %>%
 
 ```
 
-## With quanteda
+### With quanteda
 
 The difference with tidytext is essentially in the manipulation of the objects. Note that this condition storngly the capactiy of sentiment analysis. Dir example, below we use the dictionnary data_dictionary_LSD2015. It provides positive and negative values. 
 
@@ -87,7 +89,7 @@ ggplot(boris.sent,aes(x=document,y=count, fill=term)) +
 ```
 
 
-## Using valence shifter
+### Using valence shifter
 
 
 The sentimentr library offers some function to compute sentiments integrating valence shiter. One important apsect is that it cannot be applied to a Bag Of Word model. 
@@ -103,3 +105,8 @@ The sentimentr library offers some function to compute sentiments integrating va
   #facet_wrap(~element_id)
 
 ```
+
+
+## Macron
+
+## Comparison
