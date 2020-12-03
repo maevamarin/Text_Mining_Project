@@ -55,7 +55,50 @@ aggregate(value~Document, data =boris.sent,FUN=mean) %>%
 
 
 ```
-```{r}
 
+## With quanteda
+
+The difference with tidytext is essentially in the manipulation of the objects. Note that this condition storngly the capactiy of sentiment analysis. Dir example, below we use the dictionnary data_dictionary_LSD2015. It provides positive and negative values. 
+
+Frsit, we prepare the date
+
+```{r}
+boris.cp<-corpus(c(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars))
+summary(boris.cp)
+
+boris.tk<-tokens(boris.cp,
+                 remove_numbers = TRUE,
+                 remove_punct = TRUE,
+                 remove_symbols = TRUE,
+                 remove_separators = TRUE)
+boris.tk<-tokens_tolower(boris.tk)
+boris.tk<- tokens_replace(boris.tk,pattern = hash_lemmas$token, replacement = hash_lemmas$lemma)
+boris.tk<-boris.tk %>%
+  tokens_remove(stopwords("english"))
+
+```
+
+Now we  the dunction tokens_lookup is used to match the tokens in the documents to the tokens in the dictionary and extract their corresponding value ( positive or negative)
+
+```{r}
+boris.sent<- tokens_lookup(boris.tk,dictionary = data_dictionary_LSD2015) %>% dfm() %>% tidy 
+ggplot(boris.sent,aes(x=document,y=count, fill=term)) +
+  geom_bar(stat="identity") + coord_flip()
+```
+
+
+## Using valence shifter
+
+
+The sentimentr library offers some function to compute sentiments integrating valence shiter. One important apsect is that it cannot be applied to a Bag Of Word model. 
+```{r}
+boris.text<-get_sentences(boris$Text)
+boris.senti<-sentiment(boris.text)
+boris.senti<-as_tibble(boris.senti)
+
+boris.senti%>% group_by(element_id) %>%
+  ggplot(aes(x=sentence_id,y=sentiment)) +
+  geom_line() +
+  facet_wrap(~element_id)
 
 ```

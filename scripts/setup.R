@@ -10,7 +10,8 @@ packages <- c(
   "dplyr",# for modeling
   "ggrepel", "gghighlight", "patchwork", "maps", # for plotting
   "knitr", "kableExtra", "bookdown", "rmarkdown", # for the report
-  "randomForest","janitor","caret","pdftools","rvest","wordcloud2","tidytext","tokenizers","quanteda","stringr","lexicon","RColorBrewer","tm","printr","ggplot2" )
+  "randomForest","janitor","caret","pdftools","rvest","wordcloud2","tidytext","tokenizers","quanteda","sentimentr"
+  "stringr","lexicon","RColorBrewer","tm","printr","ggplot2" )
 
 purrr::walk(packages, library, character.only = TRUE)
 
