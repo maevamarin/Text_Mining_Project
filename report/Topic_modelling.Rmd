@@ -1,6 +1,93 @@
 # Topic Modelling
 
+In this chapter, we analzye the topics of the speechs of Boris Jonhson and Macron using LSA and LDA.
+
 ## Boris Johnson
+
+### LSA
+
+First, we make the DTM matrix. We are goin to use 3 dimensions.
+
+```{r,warning=FALSE}
+bmod<-textmodel_lsa(corpus_boris.dfm,nd=3)
+
+```
+
+To inspect the results, we can extract the matrices involved in the LSA decomposition
+```{r,warning=FALSE}
+head(bmod$docs)
+
+head(bmod$features)
+
+```
+Often the first dimension in LSA is associated with the document lenght. To see if it is true, we build a scatter-plot between the document lengt and Dimension 1.
+
+```{r,warning=FALSE}
+ns<-apply(corpus_boris.dfm,1,sum) 
+plot(ns~bmod$docs [,1])
+
+```
+We clearly observe that the dimension 1 is negatively correlated with the document lenght.
+
+Now in order to make the link between the topics and the documents and the topics with term, we use biplot
+
+```{r,warning=FALSE}
+biplot(y=bmod$docs[,2:3],x=bmod$features[,2:3],
+       col=c("grey","red"),
+       xlab = "Dimension 2",
+       ylab="Dimension 3")
+```
+
+We repeat the same analysis with TF-IDF
+
+```{r,warning=FALSE}
+bmod_2<- textmodel_lsa(corpus_boris.tfidf, nd=3)
+
+head(bmod_2$docs)
+
+head(bmod_2$features)
+```
+
+### LDA
+
+We now turn to the LDA. For illustration, we will make K=5 topis. 
+```{r,warning=FALSE}
+K<-5
+corpus_boris.dtm<- convert(corpus_boris.dfm, to="topicmodels")
+lda_boris<- LDA(corpus_boris.dtm ,k=K)
+
+```
+
+Top terms per topic and top topic per document can be easily obtained. Belo, the six top terms and the top topic are extracted.
+
+```{r,warning=FALSE}
+terms(lda_boris,6)
+
+topics(lda_boris,1)  ## To see the topics related to each document
+```
+
+We now build the bar plot to inspect the per-topic-per-word probabilities (beta's). We take the 10 top terms and rearrange the beta per topic according to this order. 
+```{r,warning=FALSE}
+beta.td.boris<-tidy(lda_boris,matrix="beta")
+
+beta.top.term.boris<-beta.td.boris %>%
+  group_by(topic) %>%
+  top_n(10, beta) %>%
+  ungroup() %>%
+  arrange(topic, -beta)
+
+beta.top.term.boris
+
+beta.top.term.boris %>%
+  mutate(term=reorder_within(term, beta, topic)) %>%
+  ggplot(aes(term,beta,fill=factor(topic))) +
+  facet_wrap(~topic, scales = "free") +
+  coord_flip()+
+  scale_x_reordered()
+
+```
+
+
 
 ## Macron
 
