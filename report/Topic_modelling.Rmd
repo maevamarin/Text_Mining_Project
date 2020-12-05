@@ -87,8 +87,18 @@ beta.top.term.boris %>%
 
 ```
 
+```{r,warning=FALSE}
+gamma.td.boris<- tidy(lda_boris,matrix="gamma")
+gamma.td.boris
 
 
+gamma.td.boris %>%
+  ggplot(aes(document,gamma,fill=factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~topic,scales = "free")+
+  coord_flip()+
+  scale_x_reordered()
+```
 ## Macron
 
 ## Comparison
