@@ -17,7 +17,14 @@ macron16march <- read_html("https://franceintheus.org/spip.php?article9659#1") %
 macron16march <- macron16march <- str_replace_all(macron16march,"[\r\n\t]", "")
 macron16march <- substr(macron16march, 131, 15719)
 
-macron <- corpus(c(macron12march,macron16march))
+macron13april <- read_html("https://franceintheus.org/spip.php?article9710") %>%
+  html_nodes("div.texte") %>%
+  html_text() 
+macron13april <- macron13april <- str_replace_all(macron13april,"[\r\n\t]", "")
+macron13april <- substr(macron13april, 117, 20000)
+
+
+macron <- corpus(c(macron12march,macron16march,macron13april))
 macron
 
 # Data Acquisition Boris
@@ -59,13 +66,102 @@ boris
 
 ## Boris Johnson
 
+
+```{r}
+
+## Tokenization
+corpus_boris <- corpus(boris)
+summary(corpus_boris) ###number of tokens and token types
+corpus_boris <- tokens(corpus_boris, remove_numbers = TRUE, remove_punct = TRUE, remove_symbols = TRUE, remove_separators = TRUE)
+
+## Lemmatization
+corpus_boris <- tokens_replace(corpus_boris, pattern=hash_lemmas$token, replacement = hash_lemmas$lemma)
+
+## Cleaning
+corpus_boris = corpus_boris %>% 
+  tokens_tolower() %>% 
+  tokens_remove(stopwords("english")) 
+
+## Document-Term Matrix DTM
+corpus_boris.dfm <- dfm(corpus_boris)
+View(corpus_boris.dfm)
+
+## TFIDF no point when just on document, maybe add when combining texts
+corpus_boris.tfidf <- dfm_tfidf(corpus_boris.dfm)
+View(corpus_boris.tfidf)
+
+## Cloud of Words
+textplot_wordcloud(corpus_boris.dfm, color=brewer.pal(8, "Dark2"))
+
+## Lexical Divesity Token Type Ratio TTR
+N.boris <- ntoken(corpus_boris)
+V.boris <- ntype(corpus_boris)
+TTR.boris <- V.boris/N.boris
+TTR.boris ###the text is quite rich, as TTR is of 0.6
+
+## Zipf's Law
+corpus_boris_freq <- textstat_frequency(corpus_boris.dfm)
+plot(frequency~rank, data=corpus_boris_freq, pch=20)
+ggplot(corpus_boris_freq,aes(x = rank, y = frequency, label=feature)) + geom_point(size=2, alpha =1) + theme_bw() + geom_text(aes(label=feature),hjust=0, vjust=0) + xlim(0,20)
+
+
+
+```
+
+
+## Macron
+
+```{r}
+
+# EDA
+## Tokenization
+corpus_macron <- corpus(macron)
+summary(corpus_macron) ###number of tokens and token types
+corpus_macron <- tokens(corpus_macron, remove_numbers = TRUE, remove_punct = TRUE, remove_symbols = TRUE, remove_separators = TRUE)
+
+## Lemmatization
+corpus_macron <- tokens_replace(corpus_macron, pattern=hash_lemmas$token, replacement = hash_lemmas$lemma)
+
+## Cleaning
+corpus_macron=corpus_macron %>% 
+  tokens_tolower() %>% 
+  tokens_remove(stopwords("english")) 
+
+## Document-Term Matrix DTM
+corpus_macron.dfm <- dfm(corpus_macron)
+View(corpus_macron.dfm)
+
+## TFIDF no point when just on document, maybe add when combining texts
+corpus_macron.tfidf <- dfm_tfidf(corpus_macron.dfm)
+View(corpus_macron.tfidf)
+
+## Cloud of Words
+textplot_wordcloud(corpus_macron.dfm, color=brewer.pal(8, "Dark2"))
+
+## Lexical Divesity Token Type Ratio TTR
+N.macron <- ntoken(corpus_macron)
+N.macron
+V.macron <- ntype(corpus_macron)
+V.macron
+TTR.macron <- V.macron/N.macron
+TTR.macron ###the text is quite poor, as TTR is of 0.4
+
+## Zipf's Law
+corpus_macron_freq <- textstat_frequency(corpus_macron.dfm)
+plot(frequency~rank, data=corpus_macron_freq, pch=20)
+ggplot(corpus_macron_freq,aes(x = rank, y = frequency, label=feature)) + geom_point(size=2, alpha =1) + theme_bw() + geom_text(aes(label=feature),hjust=0, vjust=0) + xlim(0,20)
+
+
+
+```
+
 ## Data manipulation
 
 ```{r  include=TRUE, warning=FALSE}
 
-boris16mars_dtm <- VectorSource(boris16mars) %>% VCorpus() %>%  DocumentTermMatrix(control=list(removePunctuation=TRUE, removeNumbers=TRUE, stopwords=TRUE))
-boris16mars_tidy <- tidy(boris16mars_dtm)
-boris16mars_tidy %>%
+boris_dtm <- VectorSource(boris) %>% VCorpus() %>%  DocumentTermMatrix(control=list(removePunctuation=TRUE, removeNumbers=TRUE, stopwords=TRUE))
+boris_tidy <- tidy(boris_dtm)
+boris_tidy %>%
   group_by(document) %>%
   top_n(15) %>%
   ungroup() %>%
@@ -82,206 +178,90 @@ boris16mars_tidy %>%
 ```
 
 
-```{r Boris tokenization and frequency}
-## tokenization of the speech of Boris Johnson
-
-boris16mars <- tibble(txt = boris16mars)
-
-boris16mars.fr<- boris16mars %>% unnest_tokens(word, txt) %>%
-  anti_join(stop_words, by = "word") %>%group_by(word) %>% summarize(Count =n()) %>% 
-  arrange(desc(Count)) 
-
-boris16mars %>%
-  unnest_tokens(word, txt) %>%
-  anti_join(stop_words, by = "word") %>%group_by(word) %>% summarize(Count =n()) %>% 
-  arrange(desc(Count)) %>%
-  kable() %>% kable_styling()
-```
-
-
-```{r Full spring speech Boris Cleaning and DTM}
-boris.cp <- VCorpus(VectorSource(boris))
-boris.cp <- tm_map(boris.cp, removePunctuation) 
-boris.cp <- tm_map(boris.cp, removeNumbers)
-boris.cp <- tm_map(boris.cp, removeWords, stopwords("english"))
-boris.cp <- tm_map(boris.cp, content_transformer(tolower))
-boris.cp <- tm_map(boris.cp, stripWhitespace)
-boris.dtm <- DocumentTermMatrix(boris.cp) %>% tidy()
-boris.tfidf <- DocumentTermMatrix(boris.cp, control = list(weighting = weightTfIdf))
-inspect(boris.tfidf)
-```
-
-
-
-```{r}
-
-## Tokenization
-corpus_boris <- corpus(boris)
-summary(corpus_boris) ###number of tokens and token types
-corpus_boris_0 <- tokens(corpus_boris, remove_numbers = TRUE, remove_punct = TRUE, remove_symbols = TRUE, remove_separators = TRUE)
-
-## Lemmatization
-corpus_boris_1 <- tokens_replace(corpus_boris_0, pattern=hash_lemmas$token, replacement = hash_lemmas$lemma)
-
-## Cleaning
-corpus_boris_2=corpus_boris_1 %>% 
-  tokens_tolower() %>% 
-  tokens_remove(stopwords("english")) 
-
-## Document-Term Matrix DTM
-corpus_boris.dfm <- dfm(corpus_boris_2)
-View(corpus_boris.dfm)
-
-## TFIDF no point when just on document, maybe add when combining texts
-corpus_boris.tfidf <- dfm_tfidf(corpus_boris.dfm)
-View(corpus_boris.tfidf)
-
-## Cloud of Words
-textplot_wordcloud(corpus_boris.dfm, color=brewer.pal(8, "Dark2"))
-
-## Lexical Divesity Token Type Ratio TTR
-N.boris <- ntoken(corpus_boris_2)
-V.boris <- ntype(corpus_boris_2)
-TTR.boris <- V.boris/N.boris
-TTR.boris ###the text is quite poor, as TTR is of 0.4
-
-## Zipf's Law
-corpus_boris_freq <- textstat_frequency(corpus_boris.dfm)
-plot(frequency~rank, data=corpus_boris_freq, pch=20)
-ggplot(corpus_boris_freq,aes(x = rank, y = frequency, label=feature)) + geom_point(size=2, alpha =1) + theme_bw() + geom_text(aes(label=feature),hjust=0, vjust=0) + xlim(0,20)
-
-
-
-```
-
-## Macron
-
-```{r}
-
-library("wordcloud")
-# EDA
-## Tokenization
-corpus_macron <- corpus(macron)
-summary(corpus_macron) ###number of tokens and token types
-corpus_macron_0 <- tokens(corpus_macron, remove_numbers = TRUE, remove_punct = TRUE, remove_symbols = TRUE, remove_separators = TRUE)
-
-## Lemmatization
-corpus_macron_1 <- tokens_replace(corpus_macron_0, pattern=hash_lemmas$token, replacement = hash_lemmas$lemma)
-
-## Cleaning
-corpus_macron_2=corpus_macron_1 %>% 
-  tokens_tolower() %>% 
-  tokens_remove(stopwords("english")) 
-
-## Document-Term Matrix DTM
-corpus_macron.dfm <- dfm(corpus_macron_2)
-View(corpus_macron.dfm)
-
-## TFIDF no point when just on document, maybe add when combining texts
-corpus_macron.tfidf <- dfm_tfidf(corpus_macron.dfm)
-View(corpus_macron.tfidf)
-
-## Cloud of Words
-textplot_wordcloud(corpus_macron.dfm, color=brewer.pal(8, "Dark2"))
-
-## Lexical Divesity Token Type Ratio TTR
-N.macron <- ntoken(corpus_macron_2)
-V.macron <- ntype(corpus_macron_2)
-TTR.macron <- V.macron/N.macron
-TTR.macron ###the text is quite poor, as TTR is of 0.4
-
-## Zipf's Law
-corpus_macron_freq <- textstat_frequency(corpus_macron.dfm)
-plot(frequency~rank, data=corpus_macron_freq, pch=20)
-ggplot(corpus_macron_freq,aes(x = rank, y = frequency, label=feature)) + geom_point(size=2, alpha =1) + theme_bw() + geom_text(aes(label=feature),hjust=0, vjust=0) + xlim(0,20)
-```
-
-
-#mae aut
+#maeva  aut
   
-Now let's compute the word frequencies (TF) by documents. First, the tokens are grouped by the indicator Document, which allows to count the words by documents. The the object is ungrouped.
+#Now let's compute the word frequencies (TF) by documents. First, the tokens are grouped by the indicator Document, which allows to count the words by documents. The the object is ungrouped.
 
 ```{r}
-boris.fr<- corpus_boris_0 %>% group_by(text) %>% count(word,sort = TRUE) %>% ungroup()
+#boris.fr<- corpus_boris %>% group_by(text) %>% count(word,sort = TRUE) %>% ungroup()
 
 ```
 
-These frqeuencies are represented with barplots. We only keep the 15 most frequent words for redability purpose and create barplots using ggplot and geom_col. The facetwrap function split the barplots per Document.
+#These frqeuencies are represented with barplots. We only keep the 15 most frequent words for redability purpose and create barplots using ggplot and geom_col. The facetwrap function split the barplots per Document.
 
 ```{r}
-index<-top_n(boris.fr,15)
-boris.fr%>%
-filter(word %in% index$word) %>%
-ggplot( 
-  aes(x=word,y=n))+
-  geom_col() +
-  coord_flip() +
-  facet_wrap(~Document,ncol=2)
+#index<-top_n(boris.fr,15)
+#boris.fr%>%
+#filter(word %in% index$word) %>%
+#ggplot( 
+ # aes(x=word,y=n))+
+ # geom_col() +
+ # coord_flip() +
+ # facet_wrap(~Document,ncol=2)
 
-boris%>% group_by(Document) %>% count(Text,sort=TRUE) %>%ungroup()
+#boris%>% group_by(Document) %>% count(Text,sort=TRUE) %>%ungroup()
 
 ```
 
-We see that the list of 15 most frequent term are due to doc 2 ,4 and 3. 
+#We see that the list of 15 most frequent term are due to doc 2 ,4 and 3. 
 
-Now we want to know which are  the most frequent term for each document
+#Now we want to know which are  the most frequent term for each document
 
 ```{r}
-index<-boris.fr %>% group_by(Document) %>% top_n(1)
-boris.fr%>%
-filter(word %in% index$word) %>%
-ggplot( 
-  aes(x=word,y=n))+
-  geom_col() +
-  coord_flip() +
-  facet_wrap(~Document,ncol=2)
+#index<-boris.fr %>% group_by(Document) %>% top_n(1)
+
+#boris.fr%>%
+#filter(word %in% index$word) %>%
+#ggplot( 
+#  aes(x=word,y=n))+
+#  geom_col() +
+#  coord_flip() +
+# facet_wrap(~Document,ncol=2)
 ```
 
 
-Now we repeat the same analysis using the TF-IDF.
+#Now we repeat the same analysis using the TF-IDF.
 
 ```{r}
-boris.tfidf<- bind_tf_idf(tbl=boris.fr,term=word,document=Document,n=n)
-index<-boris.tfidf %>% group_by(Document) %>% top_n(1)
-boris.tfidf%>%
-filter(word %in% index$word) %>%
-ggplot( 
-  aes(x=word,y=n))+
-  geom_col() +
-  coord_flip() +
-  facet_wrap(~Document,ncol=2)
+#boris.tfidf<- bind_tf_idf(tbl=boris.fr,term=word,document=Document,n=n)
+#index<-boris.tfidf %>% group_by(Document) %>% top_n(1)
+#boris.tfidf%>%
+#filter(word %in% index$word) %>%
+#ggplot( 
+#  aes(x=word,y=n))+
+#  geom_col() +
+#  coord_flip() +
+#  facet_wrap(~Document,ncol=2)
 
 ```
-We can see that the term "measures" or "disease" appaear several times. It is normal since the could of words was built from the frequencies within each document. We need first to aggregate the frequencies per termms(i.e sum iver the documents). Then er produce the could
+#We can see that the term "measures" or "disease" appaear several times. It is normal since the could of words was built from the frequencies within each document. We need first to aggregate the frequencies per termms(i.e sum iver the documents). Then er produce the could
 
 ```{r,warning=FALSE}
-wordcloud(words=boris.fr$word,freq=boris.fr$n)
+#wordcloud(words=boris.fr$word,freq=boris.fr$n)
 ```
 
 ```{r,warning=FALSE}
-boris.fr2<-aggregate(n~word,FUN=sum,data = boris.fr)
-wordcloud(words=boris.fr2$word,freq=boris.fr2$n)
-
-
+#boris.fr2<-aggregate(n~word,FUN=sum,data = boris.fr)
+#wordcloud(words=boris.fr2$word,freq=boris.fr2$n)
 
 ```
 
 ## Zipf's law
 
-Now, we illustrate the Zipf's law on the discous of Boris Jonhson. The terms are ranked by their frequency (rank=1 for the most frequent), then plotted versus its rank. This is easily obtained using quanteda.
+#Now, we illustrate the Zipf's law on the discous of Boris Jonhson. The terms are ranked by their frequency (rank=1 for the most frequent), then plotted versus its rank. This is easily obtained using quanteda.
 
 ```{r,warning=FALSE}
-boris.dfm<- dfm(boris.tok$word)
-boris.freq <- textstat_frequency(boris.dfm)
-plot(frequency~rank,data=boris.freq,pch=20)
-text(frequency~rank, data=boris.freq[1:5],label=feature,pos=4)
+#boris.dfm<- dfm(boris.tok$word)
+#boris.freq <- textstat_frequency(boris.dfm)
+#plot(frequency~rank,data=boris.freq,pch=20)
+#text(frequency~rank, data=boris.freq[1:5],label=feature,pos=4)
 ```
 
-Now on the log scale this gives a linear relation
+#Now on the log scale this gives a linear relation
 
 ```{r,warning=FALSE}
-plot(log(frequency)~log(rank),data=boris.freq,pch=20)
-text(log(frequency)~log(rank), data=boris.freq[1:5],label=feature,pos=4)
+#plot(log(frequency)~log(rank),data=boris.freq,pch=20)
+#text(log(frequency)~log(rank), data=boris.freq[1:5],label=feature,pos=4)
 ```
 
 ## Comparison
