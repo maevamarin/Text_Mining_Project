@@ -2,6 +2,50 @@
 
 ## Boris Johnson
 
+## Word embedding
+
+Here, we compute the co-occurence matrix. We use the fcm function from quanteda. We use a window lenght 5. 
+
+
+```{r,warning=FALSE}
+speech.coo.boris<-fcm(corpus_boris,context="window",window=5, tri=FALSE)
+```
+
+```{r,warning=FALSE}
+p<-2 #word embedding dimension
+speech.glove.boris<-GlobalVectors$new(rank = p,x_max = 10) #xmas is a neede technical option
+speech.weC.boris<-speech.glove.boris$fit_transform(speech.coo.boris)
+```
+For illustration purpose, we now plot the 50 most used terms
+
+```{r,warning=FALSE}
+n.w.boris<-apply(corpus_boris.dfm,2,sum) #compute the number of times each term is used
+index<-order(n.w.boris,decreasing = TRUE)[1:50]
+plot(speech.weC.boris[index,],type = "n",xlab = "Dimension 1", ylab = "Dimendion 2")
+text(x=speech.weC.boris[index,],labels = rownames(speech.weC.boris[index,]))
+```
+
+
+## Document embedding
+
+We now build the document ebedding by computing the centroids. 
+
+First, we compute the number of documents. Then we prepare a matrix that will contain the results ( one row per document, two columns corresponding to the dimensionof the embedding). Then, for each document (loop=, we identify the words in the document i)....
+
+```{r,warning=FALSE}
+nd.boris<-length(corpus_boris) #number of documents
+nd.boris
+speech.de.boris<- matrix(nr=nd.boris,nc=p) #document embedding matrix(1 document per row)
+
+for(i in 1:nd.boris){
+  words_in_i<-speech.weC.boris[corpus_boris[[i]],]
+  speech.de.boris[i,]<-apply(words_in_i, 2, mean)                             
+}
+
+row.names(speech.de.boris)<-names(speech.c)
+```
+
+
 ## Macron
 
 ## Comparison
