@@ -101,4 +101,104 @@ gamma.td.boris %>%
 ```
 ## Macron
 
+
+### LSA
+
+```{r,warning=FALSE}
+mmod<-textmodel_lsa(corpus_macron.dfm,nd=3)
+
+```
+
+To inspect the results, we can extract the matrices involved in the LSA decomposition
+```{r,warning=FALSE}
+head(mmod$docs)
+
+head(mmod$features)
+
+```
+
+Often the first dimension in LSA is associated with the document lenght. To see if it is true, we build a scatter-plot between the document lengt and Dimension 1.
+
+```{r,warning=FALSE}
+ns_macron<-apply(corpus_macron.dfm,1,sum) 
+plot(ns_macron~mmod$docs [,1])
+
+```
+
+We clearly observe that the dimension 1 is negatively correlated with the document lenght.
+
+Now in order to make the link between the topics and the documents and the topics with term, we use biplot
+
+```{r,warning=FALSE}
+biplot(y=mmod$docs[,2:3],x=mmod$features[,2:3],
+       col=c("grey","red"),
+       xlab = "Dimension 2",
+       ylab="Dimension 3")
+```
+We repeat the same analysis with TF-IDF
+
+```{r,warning=FALSE}
+mmod_2<- textmodel_lsa(corpus_macron.tfidf, nd=3)
+
+head(mmod_2$docs)
+
+head(mmod_2$features)
+```
+
+
+### LDA
+
+We now turn to the LDA. For illustration, we will make K=5 topis. 
+```{r,warning=FALSE}
+K<-5
+corpus_macron.dtm<- convert(corpus_macron.dfm, to="topicmodels")
+lda_macron<- LDA(corpus_macron.dtm ,k=K)
+
+lda_macron
+
+
+```
+Top terms per topic and top topic per document can be easily obtained. Belo, the six top terms and the top topic are extracted.
+
+```{r,warning=FALSE}
+terms(lda_macron,6)
+
+topics(lda_macron,1)  ## To see the topics related to each document
+```
+
+We now build the bar plot to inspect the per-topic-per-word probabilities (beta's). We take the 10 top terms and rearrange the beta per topic according to this order. 
+```{r,warning=FALSE}
+
+beta.td.macron<-tidy(lda_macron,matrix="beta")
+
+beta.top.term.macron<-beta.td.macron %>%
+  group_by(topic) %>%
+  top_n(10, beta) %>%
+  ungroup() %>%
+  arrange(topic, -beta)
+
+beta.top.term.macron
+
+beta.top.term.macron %>%
+  mutate(term=reorder_within(term, beta, topic)) %>%
+  ggplot(aes(term,beta,fill=factor(topic))) +
+  facet_wrap(~topic, scales = "free") +
+  coord_flip()+
+  scale_x_reordered()
+
+```
+
+```{r,warning=FALSE}
+gamma.td.macron<- tidy(lda_macron,matrix="gamma")
+gamma.td.macron
+
+
+gamma.td.macron %>%
+  ggplot(aes(document,gamma,fill=factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~topic,scales = "free")+
+  coord_flip()+
+  scale_x_reordered()
+```
+
 ## Comparison
