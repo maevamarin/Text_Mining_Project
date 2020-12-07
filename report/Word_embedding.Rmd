@@ -2,8 +2,6 @@
 
 ## Boris Johnson
 
-## Word embedding
-
 Here, we compute the co-occurence matrix. We use the fcm function from quanteda. We use a window lenght 5. 
 
 

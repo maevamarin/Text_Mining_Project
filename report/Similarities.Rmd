@@ -43,19 +43,19 @@ plot(boris.hc)
 boris.clust <- cutree(boris.hc, k=3)
 boris.clust
 ## K-means Method = Partitionning 
-boris.km <- kmeans(boris.tfidf, centers=3)
+boris.km <- kmeans(corpus_boris.tfidf, centers=3)
 boris.km$cluster
 ### Extracting the 10 most used words - Dendrogram
 data.frame(
-  clust1 = names(sort(apply(boris.tfidf[boris.clust==1,],2,sum), decreasing = TRUE)[1:10]),
-  clust2 = names(sort(apply(boris.tfidf[boris.clust==2,],2,sum), decreasing = TRUE)[1:10]),
-  clust3 = names(sort(apply(boris.tfidf[boris.clust==3,],2,sum), decreasing = TRUE)[1:10])
+  clust1 = names(sort(apply(corpus_boris.tfidf[boris.clust==1,],2,sum), decreasing = TRUE)[1:10]),
+  clust2 = names(sort(apply(corpus_boris.tfidf[boris.clust==2,],2,sum), decreasing = TRUE)[1:10]),
+  clust3 = names(sort(apply(corpus_boris.tfidf[boris.clust==3,],2,sum), decreasing = TRUE)[1:10])
 )
 ### Extracting the 10 most used words - K-Means
 data.frame(
-  clust1 = names(sort(apply(boris.tfidf[boris.km$cluster==1,],2,sum), decreasing = TRUE)[1:10]),
-  clust2 = names(sort(apply(boris.tfidf[boris.km$cluster==2,],2,sum), decreasing = TRUE)[1:10]),
-  clust3 = names(sort(apply(boris.tfidf[boris.km$cluster==3,],2,sum), decreasing = TRUE)[1:10])
+  clust1 = names(sort(apply(corpus_boris.tfidf[boris.km$cluster==1,],2,sum), decreasing = TRUE)[1:10]),
+  clust2 = names(sort(apply(corpus_boris.tfidf[boris.km$cluster==2,],2,sum), decreasing = TRUE)[1:10]),
+  clust3 = names(sort(apply(corpus_boris.tfidf[boris.km$cluster==3,],2,sum), decreasing = TRUE)[1:10])
 )
 
 ```

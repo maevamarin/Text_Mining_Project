@@ -183,7 +183,7 @@ boris_tidy %>%
 #Now let's compute the word frequencies (TF) by documents. First, the tokens are grouped by the indicator Document, which allows to count the words by documents. The the object is ungrouped.
 
 ```{r}
-#boris.fr<- corpus_boris %>% group_by(text) %>% count(word,sort = TRUE) %>% ungroup()
+#boris.fr<- boris %>% group_by() %>% count(word,sort = TRUE) %>% ungroup()
 
 ```
 

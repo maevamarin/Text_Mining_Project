@@ -99,8 +99,8 @@ gamma.td.boris %>%
   coord_flip()+
   scale_x_reordered()
 ```
-## Macron
 
+## Macron
 
 ### LSA
 
