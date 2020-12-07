@@ -47,4 +47,43 @@ corpus_boris.dfm[speech.cl.boris==1,]
 
 ## Macron
 
+```{r,warning=FALSE}
+speech.coo.macron<-fcm(corpus_macron,context="window",window=5, tri=FALSE)
+```
+
+```{r,warning=FALSE}
+p<-2 #word embedding dimension
+speech.glove.macron<-GlobalVectors$new(rank = p,x_max = 10) #xmas is a neede technical option
+speech.weC.macron<-speech.glove.macron$fit_transform(speech.coo.macron)
+```
+
+For illustration purpose, we now plot the 50 most used terms
+
+```{r,warning=FALSE}
+n.w.macron<-apply(corpus_macron.dfm,2,sum) #compute the number of times each term is used
+index<-order(n.w.macron,decreasing = TRUE)[1:50]
+plot(speech.weC.macron[index,],type = "n",xlab = "Dimension 1", ylab = "Dimendion 2")
+text(x=speech.weC.macron[index,],labels = rownames(speech.weC.macron[index,]))
+```
+
+
+```{r,warning=FALSE}
+speech.dtm.macron <- corpus_macron.dfm
+speech.rwmd.model.macron<-RelaxedWordMoversDistance$new(corpus_macron.dfm,speech.weC.macron)
+speech.rwms.macron<-speech.rwmd.model.macron$sim2(corpus_macron.dfm)
+speech.rwmd.macron<-speech.rwmd.model.macron$dist2(corpus_macron.dfm)
+
+speech.hc.macron<-hclust(as.dist(speech.rwmd.macron))
+plot(speech.hc.macron,cex=0.8)
+
+```
+We can observe that there is some coherence within the groups in terms the date of the speech. 
+
+```{r,warning=FALSE}
+speech.cl.macron<- cutree(speech.hc.macron,k=2)
+corpus_macron.dfm[speech.cl.macron==1,]
+```
+
 ## Comparison
+
+
