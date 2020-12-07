@@ -1,0 +1,13 @@
+# Supervised learning
+
+## John Bors
+
+### Random forest
+
+First we need to shape tje data in a dataframe. Then we call for the training. In this simple context, in order to illustrate the concepts without too long computation times, we will limit ourselves to just one training set and one test set in a 08/02 pattern. 
+
+```{r,warning=FALSE}
+#y<- factor(docvars(corpus_boris),"documents")
+#df.boris<-data.frame(Class=y, x=bmod$docs)
+
+```
