@@ -25,25 +25,24 @@ plot(speech.weC.boris[index,],type = "n",xlab = "Dimension 1", ylab = "Dimendion
 text(x=speech.weC.boris[index,],labels = rownames(speech.weC.boris[index,]))
 ```
 
+```{r,warning=FALSE}
+speech.dtm <- corpus_boris.dfm
+speech.rwmd.model.boris<-RelaxedWordMoversDistance$new(corpus_boris.dfm,speech.weC.boris)
+speech.rwms.boris<-speech.rwmd.model.boris$sim2(corpus_boris.dfm)
+speech.rwmd.boris<-speech.rwmd.model.boris$dist2(corpus_boris.dfm)
 
-## Document embedding
+speech.hc.boris<-hclust(as.dist(speech.rwmd.boris))
+plot(speech.hc.boris,cex=0.8)
 
-We now build the document ebedding by computing the centroids. 
+```
 
-First, we compute the number of documents. Then we prepare a matrix that will contain the results ( one row per document, two columns corresponding to the dimensionof the embedding). Then, for each document (loop=, we identify the words in the document i)....
+We can observe that there is some coherence within the groups in terms the date of the speech. 
 
 ```{r,warning=FALSE}
-nd.boris<-length(corpus_boris) #number of documents
-nd.boris
-speech.de.boris<- matrix(nr=nd.boris,nc=p) #document embedding matrix(1 document per row)
-
-for(i in 1:nd.boris){
-  words_in_i<-speech.weC.boris[corpus_boris[[i]],]
-  speech.de.boris[i,]<-apply(words_in_i, 2, mean)                             
-}
-
-row.names(speech.de.boris)<-names(speech.c)
+speech.cl.boris<- cutree(speech.hc.boris,k=4)
+corpus_boris.dfm[speech.cl.boris==1,]
 ```
+
 
 
 ## Macron
