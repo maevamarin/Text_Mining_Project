@@ -7,7 +7,8 @@ library(kableExtra)
 library(reshape2)
 library(ggplot2)
 ```
-# Boris
+
+## Boris
 ```{r}
 ## Jaccard Similarity
 boris.jac <- textstat_simil(corpus_boris.tfidf, method = "jaccard", margin = "documents")
@@ -58,7 +59,8 @@ data.frame(
 )
 
 ```
-# Macron
+
+## Macron
 ```{r}
 ## Jaccard Similarity
 macron.jac <- textstat_simil(corpus_macron.tfidf, method = "jaccard", margin = "documents")
@@ -79,3 +81,4 @@ macron.euc.mat$value.std <- (M-macron.euc.mat$value)/M
 ggplot(data=macron.euc.mat, aes(x=Var1, y=Var2, fill=macron.euc.mat$value.std)) + scale_fill_gradient2(low="yellow", high="red", mid="orange", midpoint=0.5, limit=c(0,1),name ="Euclidean") + geom_tile()
 ```
 
+## Comparison
