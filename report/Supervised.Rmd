@@ -1,0 +1,71 @@
+# Supervised learning
+
+## Random forest
+
+First we need to shape tje data in a dataframe. Then we call for the training. In this simple context, in order to illustrate the concepts without too long computation times, we will limit ourselves to just one training set and one test set in a 08/02 pattern. 
+
+```{r,warning=FALSE}
+# Add the speecher of each dataframe
+
+
+boris_2<-as_tibble(c(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars)) %>%
+  rename(
+  text=value)
+author="Boris Johnson"
+boris_supervised<- cbind(boris_2, author)
+
+Macron_2<-as_tibble(c(macron12march,macron16march,macron13april)) %>% 
+  rename(
+    text = value)
+
+author="Macron"
+macron_supervised<- cbind(Macron_2, author)
+
+combine <- rbind(boris_supervised, macron_supervised)
+
+
+## Tokenization
+combine_corpus<-corpus(combine)
+combine_tokens<- tokens(combine_corpus, remove_numbers = TRUE, remove_punct = TRUE, remove_symbols = TRUE, remove_separators = TRUE)
+##combi Lemmatization
+combine_tokens <- tokens_replace(combine_tokens, pattern=hash_lemmas$token, replacement = hash_lemmas$lemma)
+
+## Cleaning
+combine_tokens = combine_tokens %>% 
+  tokens_tolower() %>% 
+  tokens_remove(stopwords("english"))
+
+y<-factor(docvars(combine_tokens,"author"))
+
+```
+
+Now, we build the featues. To this aim, we first compute the DTM matrix.
+
+```{r,warning=FALSE}
+combine.dfm<-dfm(combine_tokens)
+combine.dfm
+
+```
+
+```{r,warning=FALSE}
+df<-data.frame(Class=y, x=combine)
+index.tr<-sample(size = round(0.8*length(y)),x=c(1:length(y)),replace = FALSE)
+
+df.tr<-df[index.tr,]
+df.te<-df[-index.tr,]
+
+library(ranger)
+
+combine.fit<-ranger(Class~.,
+                    data = df.tr)
+pred.te<-predict(combine.fit,df.te)
+
+```
+In order to see the prediction quality of the model, we call the confusionMatrix function in the caret package
+
+
+```{r,warning=FALSE}
+library(caret)
+confusionMatrix(data=pred.te$predictions,reference = df.te$Class)
+
+```

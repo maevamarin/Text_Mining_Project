@@ -52,8 +52,13 @@ macron13april <- substr(macron13april, 117, 20000)
 macron <- corpus(c(macron12march,macron16march,macron13april))
 ```
 
+<<<<<<< HEAD
 ```{r, echo=FALSE}
 knitr::kable(summary(macron), caption = "Macron's speeches" ,align = "lccrr",digits = 4)
+=======
+```{r }
+summary(macron)
+>>>>>>> ba644744bc6b2bdde9824683238b51668384f55a
 ```
 
 The first speaches from Macron was quite long , 162 sentences and the two next were shorter: 107 sentences. Each speech consists approximatly of an average of 3200 words.
@@ -165,7 +170,15 @@ Now let's compute the word frequencies (TF) by documents. First, the tokens are 
 
 *Emmanuel Macron*
 
+<<<<<<< HEAD
 ```{r, echo=FALSE, warning=FALSE}
+=======
+Now we want to know which are  the most frequent term for each document
+
+### Emmanuel Macron
+
+```{r  include=TRUE, warning=FALSE}
+>>>>>>> ba644744bc6b2bdde9824683238b51668384f55a
 ## Document-Term Matrix DTM
 corpus_macron.dfm <- dfm(corpus_macron)
 
@@ -227,7 +240,22 @@ macron_tidy %>% filter(term %in% macron_index$term) %>%
    guides(fill=FALSE, color=FALSE) 
 ```
 
+<<<<<<< HEAD
 *Boris Johnson*
+=======
+### Boris Johnson
+
+```{r}
+
+## Document-Term Matrix DTM
+corpus_boris.dfm <- dfm(corpus_boris)
+
+boris_dtm <- VectorSource(corpus_boris) %>% VCorpus() %>%  DocumentTermMatrix(control=list(removePunctuation=TRUE, removeNumbers=TRUE, stopwords=TRUE))
+boris_tidy <- tidy(boris_dtm)
+
+datatable(boris_tidy, class = "cell-border stripe")
+
+>>>>>>> ba644744bc6b2bdde9824683238b51668384f55a
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 #top 15
@@ -304,13 +332,30 @@ boris_tidy %>%
 ```
 
 
+<<<<<<< HEAD
+=======
+boris_index = top_n(boris_count, 15)
+
+boris_tidy %>% filter(term %in% boris_index$term) %>%
+  ggplot(aes(x=term, y = count)) +
+  geom_col()+
+  coord_flip()+
+  facet_wrap(~document, ncol=2)
+
+```
+>>>>>>> ba644744bc6b2bdde9824683238b51668384f55a
 ## TF-IDF
 
 Now we repeat the same analysis using the TF-IDF.
 
+<<<<<<< HEAD
 ### Emmanuel Macron
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
+=======
+### Emmanuel Macron 
+```{r  include=TRUE, warning=FALSE}
+>>>>>>> ba644744bc6b2bdde9824683238b51668384f55a
 ## TFIDF no point when just on document, maybe add when combining texts
 corpus_macron.tfidf <- dfm_tfidf(corpus_macron.dfm)
 
@@ -349,13 +394,22 @@ tidy(corpus_boris.tfidf) %>% filter(term %in% boris_index_tfidf$term) %>%
 
 ## Cloud of Words
 
+<<<<<<< HEAD
 ### Usind DFM
+=======
+### Emmanuel Macron 
+```{r}
+>>>>>>> ba644744bc6b2bdde9824683238b51668384f55a
 
 *Emmanuel macron*
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 textplot_wordcloud(corpus_macron.dfm, color=brewer.pal(8, "Dark2"))
 ```
+<<<<<<< HEAD
+=======
+### Boris Johnson
+>>>>>>> ba644744bc6b2bdde9824683238b51668384f55a
 
 *Boris Johnson*
 
@@ -363,6 +417,7 @@ textplot_wordcloud(corpus_macron.dfm, color=brewer.pal(8, "Dark2"))
 textplot_wordcloud(corpus_boris.dfm, color=brewer.pal(8, "Dark2"))
 ```
 
+<<<<<<< HEAD
 ### Using  TF-IDF
 
 *Emmanuel macron*
@@ -377,6 +432,12 @@ textplot_wordcloud(corpus_macron.tfidf, color=brewer.pal(8, "Dark2"))
 textplot_wordcloud(corpus_boris.tfidf, color=brewer.pal(8, "Dark2"))
 ```
 
+=======
+## Lexical Divesity Token Type Ratio TTR
+
+### Emmanuel Macron 
+```{r}
+>>>>>>> ba644744bc6b2bdde9824683238b51668384f55a
 ## Lexical Divesity Token Type Ratio TTR
 
 A TTR is comprised beetween o and 1.When equal to 1 it correspond to a rich diversity, every token is from a different type. In opposit if equal to 0, it mean a poor diversity ( he use only one word).
@@ -390,6 +451,10 @@ TTR.macron <- V.macron/N.macron
 knitr::kable(TTR.macron, caption = "Lexical diversity of Macron." ,align = "lccrr",digits = 4) ###the text is quite poor, as TTR is of 0.4
 
 ```
+<<<<<<< HEAD
+=======
+### Boris Johnson
+>>>>>>> ba644744bc6b2bdde9824683238b51668384f55a
 
 Macron have a mean TTR of 0,45 which is quite poor.
 ### Boris Johnson
@@ -412,7 +477,12 @@ Thanks on the log scale this gives a linear relation.
 
 ### Emmanuel Macron 
 
+<<<<<<< HEAD
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
+=======
+### Emmanuel Macron 
+```{r}
+>>>>>>> ba644744bc6b2bdde9824683238b51668384f55a
 corpus_macron_freq <- textstat_frequency(corpus_macron.dfm)
 
 
@@ -420,6 +490,10 @@ ggplot(corpus_macron_freq,aes(x = rank, y = frequency, label=feature)) + geom_po
 
 plot(log(frequency)~log(rank), data=corpus_macron_freq, pch=20)
 ```
+<<<<<<< HEAD
+=======
+### Boris Johnson
+>>>>>>> ba644744bc6b2bdde9824683238b51668384f55a
 
 ### Boris Johnson
 
@@ -435,8 +509,17 @@ plot(log(frequency)~log(rank), data=corpus_boris_freq, pch=20)
 
 A larger index mean more diversity.
 
+<<<<<<< HEAD
 ### Emmanuel Macron 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
+=======
+
+
+## yule's index
+
+### Emmanuel Macron 
+```{r}
+>>>>>>> ba644744bc6b2bdde9824683238b51668384f55a
 textstat_lexdiv(corpus_macron.dfm, measure = "I") %>% 
   ggplot(aes(x=reorder(document,I), y=I))+
   geom_point()+
@@ -458,11 +541,16 @@ textstat_lexdiv(corpus_boris.dfm, measure = "I") %>%
 
 ## MATTR
 
+<<<<<<< HEAD
 It is the Moving Average Type-Token Ratio 
 
 ### Emmanuel Macron 
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
+=======
+### Emmanuel Macron 
+```{r}
+>>>>>>> ba644744bc6b2bdde9824683238b51668384f55a
 textstat_lexdiv(corpus_macron, measure = "MATTR", MATTR_window = 10)  %>%
   ggplot(aes(x=reorder(document,MATTR), y=MATTR))+
   geom_point()+
@@ -470,6 +558,10 @@ textstat_lexdiv(corpus_macron, measure = "MATTR", MATTR_window = 10)  %>%
   xlab("Text")+
   ylab("MATTR")
 ```
+<<<<<<< HEAD
+=======
+### Boris Johnson
+>>>>>>> ba644744bc6b2bdde9824683238b51668384f55a
 
 ### Boris Johnson
 
