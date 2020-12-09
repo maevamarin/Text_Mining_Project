@@ -36,10 +36,10 @@ gov7.html <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-c
 boris22mars <- gov7.html %>% html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>% html_text()
 boris22mars
 
-BORIS<-corpus(c(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars))
+boris<-corpus(c(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars))
 BORIS
 
-save(BORIS, boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars,file = "data.RData")
+save(boris, boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars,file = "data.RData")
 
 # Macron speech of March 12th
 library(rvest)
