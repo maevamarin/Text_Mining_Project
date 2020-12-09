@@ -1,13 +1,95 @@
-# Sentiment Analasis
+# Sentiment Analysis
 
-## Boris Johnson
+## Sentiment analysis with the sentiment library "nrc" 
 
-We use the nrc dictionary. From the token list per document boris.tok, we join the corresponding qualifier in  nrc using inner.joint: 
+We use the "nrc"  dictionary to start our sentiment analysis on the discourses of our two politicians. It is a dictionnary qualifying tokens by specific sentiments and by labelling them "negative" or "positive".
+To do so, we will match the tokens of both corpuses with the dictionnary by applying an inner join. However, to use the inner_join function, we need a table object, what our objects are not primarily. We reload the data to create objects specific to this stage, boris_2 and macron_2, which are registered as tibble and allowing the use of the inner_join function.
+From the token list per document boris.tok, we join the corresponding qualifier in  nrc using inner_joint: 
 
 ```{r}
-boris.sent<- boris.tok %>% inner_join(get_sentiments("nrc"))
-head(boris.sent)
+library(dplyr)
+library(tidyverse)
+library(tidytext)
+library(readr)
+#####################################################################################################################################
+##########################################  Let's start with the Boris Johnson's discourses    ######################################
+#####################################################################################################################################
 
+boris_2<-as.tibble(
+  c(boris9mars,
+    boris12mars,
+    boris16mars,
+    boris18mars,
+    boris19mars,
+    boris20mars,
+    boris22mars) ) # trick to get a "tbl_df","tbl","data.frame" compatible with the inner_join function
+View(boris_2)
+Document <-rownames_to_column(boris_2)
+chh <- cbind(Document,boris_2)
+chh[,2]
+View(chh)
+boris_2$Document <- Document
+boris_2
+boris_2.tok <- unnest_tokens(boris_2, 
+                             output="word", 
+                             input="value", 
+                             to_lower=TRUE, 
+                             strip_punct=TRUE, 
+                             strip_numeric=TRUE) # unnest tokens of the table
+View(boris_2.tok)
+get_sentiments("nrc")     # load the sentiment library "nrc"
+boris_2.sent<- boris_2.tok %>% 
+  inner_join(get_sentiments("nrc")) # do the inner join to merge the two tables
+View(boris_2.sent)
+##########################################  Another object compatible with another objects  ######################################
+Document <- t(c("Text1","Text2","Text3","Text4","Text5","Text6","Text7"))
+as.factor(Document)
+boris
+class(boris.cp)
+boris
+boris.cp <- VCorpus(VectorSource(boris))
+boris.cp <- tm_map(boris.cp, removePunctuation) 
+boris.cp <- tm_map(boris.cp, removeNumbers)
+boris.cp <- tm_map(boris.cp, removeWords, stopwords("english"))
+boris.cp <- tm_map(boris.cp, content_transformer(tolower))
+boris.cp <- tm_map(boris.cp, stripWhitespace)
+boris.cp
+boris.dtm <- DocumentTermMatrix(boris.cp) %>% tidy()
+boris.tk <- tokens(boris.cp, remove_numbers=TRUE, remove_punct=TRUE, remove_symbols=TRUE, remove_separators=TRUE) %>% tokens_tolower() %>% tokens_remove(stopwords("english"))
+boris.dfm <- dfm(boris.tk)
+BORISquanteda.cp
+
+######################################################################################################################################
+##########################################  Let's continue with the Macron's discourses    ###########################################
+######################################################################################################################################
+macron_2<-as.tibble(
+  c(macron12march,
+    macron13april,
+    macron16march))         # trick to get a "tbl_df","tbl","data.frame" compatible with the inner_join function
+macron_2.tok <- unnest_tokens(macron_2, 
+                             output="word", 
+                             input="value", 
+                             to_lower=TRUE, 
+                             strip_punct=TRUE, 
+                             strip_numeric=TRUE) # unnest tokens of the table
+
+class(macron_2.tok)        # Verfification of the class: we still have a tbl object
+
+macron_2.sent<- macron_2.tok %>% 
+  inner_join(get_sentiments("nrc")) # do the inner join to merge the two tables
+
+##########################################  Another object compatible with another objects  ######################################
+
+class(macron.cp)
+macron.cp <- corpus(macron)
+macron.cp <- tm_map(macron.cp, removePunctuation) 
+macron.cp <- tm_map(macron.cp, removeNumbers)
+macron.cp <- tm_map(macron.cp, removeWords, stopwords("english"))
+macron.cp <- tm_map(macron.cp, content_transformer(tolower))
+macron.cp <- tm_map(macron.cp, stripWhitespace)
+macron.dtm <- DocumentTermMatrix(macron.cp) %>% tidy()
+macron.tk <- unnest_tokens(macron.cp,remove_numbers=TRUE, remove_punct=TRUE, remove_symbols=TRUE, remove_separators=TRUE) %>% tokens_tolower() %>% tokens_remove(stopwords("english"))
+macron.dfm <- dfm(macron.tk)
 ```
 
 Then several summaries can be obtained. Below, using a table version and a long format
@@ -17,7 +99,7 @@ table(boris.sent$Document,boris.sent$sentiment)
 
 ## Long format + barplots
 
-boris.sent %>% 
+boris_2.sent %>% 
   group_by(Document,sentiment) %>% 
   summarize(n=n())%>%
   ggplot(aes(x=sentiment,y=n,fill=sentiment)) +
@@ -47,10 +129,10 @@ Now we use the afinn dictionary. The main difference is that rach word receives 
 
 ```{r}
 head(get_sentiments("afinn"))
-boris.sent <- boris.tok %>%
+boris_2.sent <- boris_2.tok %>%
   inner_join(get_sentiments("afinn"))
 
-aggregate(value~Document, data =boris.sent,FUN=mean) %>%
+aggregate(value~Document, data =boris_2.sent,FUN=mean) %>%
   ggplot(aes(x=Document,y=value)) +
   geom_bar(stat="identity") +
   coord_flip()

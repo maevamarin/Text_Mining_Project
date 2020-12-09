@@ -41,3 +41,7 @@ devtools
 wordcloud
 janeaustenr
 sentimentr
+quanteda.textmodels
+topicmodels
+text2vec
+reshape2
