@@ -1,0 +1,1444 @@
+--- 
+title: "Dicours Analysis"
+author: "Eugénie Mathieu, Maeva Marin, Hadrien Renger, Wajma Nazim"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+site: bookdown::bookdown_site
+output: bookdown::html_document2
+documentclass: book
+bibliography: [references.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+---
+```{r include=FALSE, cache=FALSE}
+#############################################
+## The following loads the needed packages ##
+#############################################
+
+# load the required packages
+packages <- c(
+  "here", "readr",# for the project's organization
+  "tidyverse", "lubridate", # for wrangling
+  "modelr", "broom",
+  "dplyr",# for modeling
+  "ggrepel", "gghighlight", "patchwork", "maps", # for plotting
+  "knitr", "kableExtra", "bookdown", "rmarkdown", # for the report
+  "randomForest","janitor","caret","pdftools","rvest","wordcloud2","tidytext","tokenizers","quanteda","sentimentr",
+  "stringr","lexicon","RColorBrewer","tm","printr","ggplot2","quanteda.textmodels","topicmodels","text2vec", "DT")
+
+purrr::walk(packages, library, character.only = TRUE)
+
+# automatically create a bib database for R packages
+write_bib(.packages(), here::here("packages.bib"))
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+# general options
+options(
+  digits = 3,
+  str = strOptions(strict.width = "cut"),
+  width = 69,
+  tibble.width = 69,
+  cli.unicode = FALSE
+)
+
+# ggplot options
+theme_set(theme_light())
+
+# knitr options
+opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  fig.retina = 0.8, # figures are either vectors or 300 dpi diagrams
+  dpi = 300,
+  out.width = "70%",
+  fig.align = "center",
+  fig.width = 6,
+  fig.asp = 0.618,
+  fig.show = "hold",
+  message = FALSE,
+  echo = TRUE,
+  warning = FALSE
+)
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+pval_star <- function (p, cutoffs = c(0.05, 0.01, 0.001)) {
+  stopifnot(length(cutoffs) == 3)
+  if (length(p) > 1) {
+    sapply(p, pval_star, cutoffs = cutoffs)
+  }
+  else {
+    ifelse(p > cutoffs[1], "", ifelse(p > cutoffs[2], 
+                                      " *", 
+                                      ifelse(p > cutoffs[3], 
+                                             " **", 
+                                             " ***")))
+  }
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Basic introduction
+
+<!--chapter:end:index.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+#############################################
+## The following loads the needed packages ##
+#############################################
+
+# load the required packages
+packages <- c(
+  "here", "readr",# for the project's organization
+  "tidyverse", "lubridate", # for wrangling
+  "modelr", "broom",
+  "dplyr",# for modeling
+  "ggrepel", "gghighlight", "patchwork", "maps", # for plotting
+  "knitr", "kableExtra", "bookdown", "rmarkdown", # for the report
+  "randomForest","janitor","caret","pdftools","rvest","wordcloud2","tidytext","tokenizers","quanteda","sentimentr",
+  "stringr","lexicon","RColorBrewer","tm","printr","ggplot2","quanteda.textmodels","topicmodels","text2vec", "DT")
+
+purrr::walk(packages, library, character.only = TRUE)
+
+# automatically create a bib database for R packages
+write_bib(.packages(), here::here("packages.bib"))
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+# general options
+options(
+  digits = 3,
+  str = strOptions(strict.width = "cut"),
+  width = 69,
+  tibble.width = 69,
+  cli.unicode = FALSE
+)
+
+# ggplot options
+theme_set(theme_light())
+
+# knitr options
+opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  fig.retina = 0.8, # figures are either vectors or 300 dpi diagrams
+  dpi = 300,
+  out.width = "70%",
+  fig.align = "center",
+  fig.width = 6,
+  fig.asp = 0.618,
+  fig.show = "hold",
+  message = FALSE,
+  echo = TRUE,
+  warning = FALSE
+)
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+pval_star <- function (p, cutoffs = c(0.05, 0.01, 0.001)) {
+  stopifnot(length(cutoffs) == 3)
+  if (length(p) > 1) {
+    sapply(p, pval_star, cutoffs = cutoffs)
+  }
+  else {
+    ifelse(p > cutoffs[1], "", ifelse(p > cutoffs[2], 
+                                      " *", 
+                                      ifelse(p > cutoffs[3], 
+                                             " **", 
+                                             " ***")))
+  }
+}
+```
+# Introduction
+
+## Overview and Motivation
+
+
+## Data loadind
+
+```{r data, echo=TRUE}
+# Boris Johnson's speech of March 16th
+
+boris16mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-16-march-2020")%>%            html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
+  html_text()
+
+macron <- read_html("https://franceintheus.org/spip.php?article9654") %>%
+           html_nodes("div.texte") %>%
+          html_text()
+
+```
+
+
+<!--chapter:end:report/Introduction.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+#############################################
+## The following loads the needed packages ##
+#############################################
+
+# load the required packages
+packages <- c(
+  "here", "readr",# for the project's organization
+  "tidyverse", "lubridate", # for wrangling
+  "modelr", "broom",
+  "dplyr",# for modeling
+  "ggrepel", "gghighlight", "patchwork", "maps", # for plotting
+  "knitr", "kableExtra", "bookdown", "rmarkdown", # for the report
+  "randomForest","janitor","caret","pdftools","rvest","wordcloud2","tidytext","tokenizers","quanteda","sentimentr",
+  "stringr","lexicon","RColorBrewer","tm","printr","ggplot2","quanteda.textmodels","topicmodels","text2vec", "DT")
+
+purrr::walk(packages, library, character.only = TRUE)
+
+# automatically create a bib database for R packages
+write_bib(.packages(), here::here("packages.bib"))
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+# general options
+options(
+  digits = 3,
+  str = strOptions(strict.width = "cut"),
+  width = 69,
+  tibble.width = 69,
+  cli.unicode = FALSE
+)
+
+# ggplot options
+theme_set(theme_light())
+
+# knitr options
+opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  fig.retina = 0.8, # figures are either vectors or 300 dpi diagrams
+  dpi = 300,
+  out.width = "70%",
+  fig.align = "center",
+  fig.width = 6,
+  fig.asp = 0.618,
+  fig.show = "hold",
+  message = FALSE,
+  echo = TRUE,
+  warning = FALSE
+)
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+pval_star <- function (p, cutoffs = c(0.05, 0.01, 0.001)) {
+  stopifnot(length(cutoffs) == 3)
+  if (length(p) > 1) {
+    sapply(p, pval_star, cutoffs = cutoffs)
+  }
+  else {
+    ifelse(p > cutoffs[1], "", ifelse(p > cutoffs[2], 
+                                      " *", 
+                                      ifelse(p > cutoffs[3], 
+                                             " **", 
+                                             " ***")))
+  }
+}
+```
+# EDA
+
+##Data Acquisition
+
+To download the differents speaches we scrap the speaches on 2 differents websites.
+The speaches from Macron come from the website of the Embassy of France in Washington DC (USA) and regarding Boris Johnson speaches, it comes from the official website of the governement of the United-Kingdom.
+
+###Emmanuel Macron
+
+We choose the 3 first speaches from Macron about the corona virus dating from the:
+  * 12 march (text1)
+  * 16 march (text2)
+  * 13 april (text3)
+
+```{r include=FALSE}
+packages <- c(
+  "here", "readr",# for the project's organization
+  "tidyverse", "lubridate", # for wrangling
+  "modelr", "broom",
+  "dplyr",# for modeling
+  "ggrepel", "gghighlight", "patchwork", "maps", # for plotting
+  "knitr", "kableExtra", "bookdown", "rmarkdown", # for the report
+  "randomForest","janitor","caret","pdftools","rvest","wordcloud2","tidytext","tokenizers","quanteda","sentimentr",
+  "stringr","lexicon","RColorBrewer","tm","printr","ggplot2","quanteda.textmodels","topicmodels","text2vec", "DT")
+
+purrr::walk(packages, library, character.only = TRUE)
+
+# automatically create a bib database for R packages
+write_bib(.packages(), here::here("packages.bib"))
+
+# Data Acquisition Macron 
+
+macron12march <- read_html("https://franceintheus.org/spip.php?article9654") %>%
+  html_nodes("div.texte") %>%
+  html_text()
+macron12march <- str_replace_all(macron12march,"[\r\n\t]", "")
+macron12march <- substr(macron12march, 178, 20197)
+
+macron16march <- read_html("https://franceintheus.org/spip.php?article9659#1") %>%
+  html_nodes("div.texte") %>%
+  html_text()
+macron16march <- macron16march <- str_replace_all(macron16march,"[\r\n\t]", "")
+macron16march <- substr(macron16march, 131, 15719)
+
+macron13april <- read_html("https://franceintheus.org/spip.php?article9710") %>%
+  html_nodes("div.texte") %>%
+  html_text() 
+macron13april <- macron13april <- str_replace_all(macron13april,"[\r\n\t]", "")
+macron13april <- substr(macron13april, 117, 20000)
+
+
+macron <- corpus(c(macron12march,macron16march,macron13april))
+```
+
+```{r, echo=FALSE}
+summary(macron)
+```
+The first speaches from Macron was quite long , 162 sentences and the two next were shorter: 107 sentences. Each speech consists approximatly of an average of 3200 words.
+
+###Boris Johnson
+
+We choose the 7 first speaches from president Johnson about the corona virus dating from the:
+  * 09 march (text1)
+  * 12 march (text2)
+  * 16 march (text3)
+  * 18 march (text5)
+  * 19 march (text6)
+  * 20 march (text7)
+  * 22 march (text8)
+
+```{r include=FALSE}
+
+# Data Acquisition Boris
+
+boris16mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-16-march-2020") %>%
+                html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>% 
+                html_text()
+
+boris12mars<- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-12-march-2020") %>%   
+              html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
+              html_text()
+
+boris18mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-18-march-2020") %>%   
+              html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
+              html_text()
+
+boris9mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-9-march-2020") %>% 
+              html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
+              html_text()
+
+boris19mars<- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-19-march-2020") %>% 
+              html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
+              html_text()
+
+boris20mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-20-march-2020") %>% 
+              html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
+              html_text()
+
+
+boris22mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-22-march-2020") %>% 
+              html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
+              html_text()
+
+
+boris<-corpus(c(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars))
+```
+
+```{r, echo=FALSE}
+summary(boris) ###number of tokens and token types
+```
+Johnson made more speeches but shorter. His first speech was 577 words, then the following ones ranged from 729 to 1175 words.
+
+## Tokenisation, Lemmatization & Cleaning
+
+### Emmanuel Macron
+
+
+```{r, echo=FALSE}
+
+## Tokenization
+corpus_macron <- corpus(macron)
+corpus_macron <- tokens(corpus_macron, remove_numbers = TRUE, remove_punct = TRUE, remove_symbols = TRUE, remove_separators = TRUE)
+
+## Lemmatization
+corpus_macron <- tokens_replace(corpus_macron, pattern=hash_lemmas$token, replacement = hash_lemmas$lemma)
+
+## Cleaning
+corpus_macron=corpus_macron %>% 
+  tokens_tolower() %>% 
+  tokens_remove(stopwords("english")) 
+
+corpus_macron
+
+```
+
+###Boris Johnson
+
+```{r, echo=FALSE}
+
+## Tokenization
+corpus_boris <- corpus(boris)
+corpus_boris <- tokens(corpus_boris, remove_numbers = TRUE, remove_punct = TRUE, remove_symbols = TRUE, remove_separators = TRUE)
+
+## Lemmatization
+corpus_boris <- tokens_replace(corpus_boris, pattern=hash_lemmas$token, replacement = hash_lemmas$lemma)
+
+## Cleaning
+corpus_boris = corpus_boris %>% 
+  tokens_tolower() %>% 
+  tokens_remove(stopwords("english")) 
+
+corpus_boris
+
+```
+
+## Document-Term Matrix DTM
+
+Now let's compute the word frequencies (TF) by documents. First, the tokens are grouped by the indicator Document, which allows to count the words by documents. The the object is ungrouped.
+
+
+These frqeuencies are represented with barplots. We only keep the 15 most frequent words for redability purpose and create barplots using ggplot and geom_col. The facetwrap function split the barplots per Document.
+
+We see that the list of 15 most frequent term are due to doc 2 ,4 and 3. 
+
+Now we want to know which are  the most frequent term for each document
+
+###Emmanuel Macron
+
+```{r, echo=FALSE, warning=FALSE}
+## Document-Term Matrix DTM
+corpus_macron.dfm <- dfm(corpus_macron)
+
+macron_dtm <- VectorSource(corpus_macron) %>% VCorpus() %>%  DocumentTermMatrix(control=list(removePunctuation=TRUE, removeNumbers=TRUE, stopwords=TRUE))
+macron_tidy <- tidy(macron_dtm)
+
+datatable(macron_tidy, class = "cell-border stripe")
+
+#top 15 
+macron_tidy %>%
+  group_by(term) %>%
+  summarise("count"=sum(`count`)) %>%
+  top_n(15)  %>%
+  ggplot(aes(x=count, y=term)) +
+  theme(legend.position = "none") +
+  ggtitle("15 most common words in Macron's speeches") +
+  xlab("Frequency") + ylab("Word") +
+  geom_bar(stat = "identity") +
+  scale_y_reordered() 
+
+#top 15 par texte 
+macron_tidy %>%
+  group_by(document) %>%
+  top_n(15) %>%
+  ungroup() %>%
+  mutate(document = factor(as.numeric(document), levels = 1:17)) %>%
+  ggplot(aes(reorder_within(term, count, document), count, fill =term)) +
+  theme(legend.position = "none") +
+  ggtitle("15 most common words in Macron's speech") +
+  xlab("Word") + ylab("Frequency") +
+  geom_bar(stat = "identity") +
+  scale_x_reordered() +
+  coord_flip() +
+  facet_wrap(~ document, scales = "free")
+
+#top 16 mots plus utilisés par texte
+macron_count  = macron_tidy %>%
+  group_by(term) %>%
+  summarise("count"=sum(`count`))
+
+macron_index = top_n(macron_count, 15)
+
+macron_tidy %>% filter(term %in% macron_index$term) %>%
+  ggplot(aes(x=term, y = count)) +
+  geom_col()+
+  coord_flip()+
+  facet_wrap(~document, ncol=2)
+
+```
+
+###Boris Johnson
+
+```{r, echo=FALSE, warning=FALSE}
+
+## Document-Term Matrix DTM
+corpus_boris.dfm <- dfm(corpus_boris)
+
+boris_dtm <- VectorSource(corpus_boris) %>% VCorpus() %>%  DocumentTermMatrix(control=list(removePunctuation=TRUE, removeNumbers=TRUE, stopwords=TRUE))
+boris_tidy <- tidy(boris_dtm)
+
+datatable(boris_tidy, class = "cell-border stripe")
+
+
+#top 15
+boris_tidy %>%
+  group_by(term) %>%
+  summarise("count"=sum(`count`)) %>%
+  top_n(15)  %>%
+  ggplot(aes(x=count, y=term)) +
+  theme(legend.position = "none") +
+  ggtitle("15 most common words in Boris Johnson's speeches") +
+  xlab("Frequency") + ylab("Word") +
+  geom_bar(stat = "identity") +
+  scale_y_reordered() 
+
+#top 15 par texte
+boris_tidy %>%
+  group_by(document) %>%
+  top_n(15) %>%
+  ungroup() %>%
+  mutate(document = factor(as.numeric(document), levels = 1:17)) %>%
+  ggplot(aes(reorder_within(term, count, document), count, fill =term)) +
+  theme(legend.position = "none") +
+  ggtitle("15 most common words in Boris Johnson's speeches") +
+  xlab("Word") + ylab("Frequency") +
+  geom_bar(stat = "identity") +
+  scale_x_reordered() +
+  coord_flip() +
+  facet_wrap(~ document, scales = "free")
+
+#top 16 mots plus utilisés par texte
+boris_count  = boris_tidy %>%
+  group_by(term) %>%
+  summarise("count"=sum(`count`))
+
+boris_index = top_n(boris_count, 15)
+
+boris_tidy %>% filter(term %in% boris_index$term) %>%
+  ggplot(aes(x=term, y = count)) +
+  geom_col()+
+  coord_flip()+
+  facet_wrap(~document, ncol=2)
+
+```
+##TF-IDF
+
+Now we repeat the same analysis using the TF-IDF.
+
+###Emmanuel Macron 
+```{r, echo=FALSE, warning=FALSE}
+## TFIDF no point when just on document, maybe add when combining texts
+corpus_macron.tfidf <- dfm_tfidf(corpus_macron.dfm)
+
+#tfidf
+macron_index_tfidf = tidy(corpus_macron.tfidf) %>% group_by(document) %>% top_n(1)
+
+tidy(corpus_macron.tfidf) %>% filter(term %in% macron_index_tfidf$term) %>%
+  ggplot( aes(term, count)) +
+  geom_col()+
+  coord_flip()+
+  facet_wrap(~document, ncol=2)
+
+```
+###Boris Johnson
+
+
+```{r, echo=FALSE, warning=FALSE}
+## TFIDF no point when just on document, maybe add when combining texts
+corpus_boris.tfidf <- dfm_tfidf(corpus_boris.dfm)
+
+#tfidf
+boris_index_tfidf = tidy(corpus_boris.tfidf) %>% group_by(document) %>% top_n(1)
+
+tidy(corpus_boris.tfidf) %>% filter(term %in% boris_index_tfidf$term) %>%
+  ggplot( aes(term, count)) +
+  geom_col()+
+  coord_flip()+
+  facet_wrap(~document, ncol=2)
+
+```
+## Cloud of Words
+
+###Emmanuel Macron 
+```{r, echo=FALSE, warning=FALSE}
+
+## Cloud of Words
+textplot_wordcloud(corpus_macron.dfm, color=brewer.pal(8, "Dark2"))
+textplot_wordcloud(corpus_macron.tfidf, color=brewer.pal(8, "Dark2"))
+
+```
+###Boris Johnson
+
+```{r, echo=FALSE, warning=FALSE}
+
+## Cloud of Words
+textplot_wordcloud(corpus_boris.dfm, color=brewer.pal(8, "Dark2"))
+textplot_wordcloud(corpus_boris.tfidf, color=brewer.pal(8, "Dark2"))
+```
+
+##Lexical Divesity Token Type Ratio TTR
+
+###Emmanuel Macron 
+```{r, echo=FALSE, warning=FALSE}
+## Lexical Divesity Token Type Ratio TTR
+N.macron <- ntoken(corpus_macron)
+V.macron <- ntype(corpus_macron)
+TTR.macron <- V.macron/N.macron
+TTR.macron ###the text is quite poor, as TTR is of 0.4
+
+```
+###Boris Johnson
+
+```{r, echo=FALSE, warning=FALSE}
+## Lexical Divesity Token Type Ratio TTR
+N.boris <- ntoken(corpus_boris)
+V.boris <- ntype(corpus_boris)
+TTR.boris <- V.boris/N.boris
+TTR.boris ###the text is quite rich, as TTR is of 0.6
+
+```
+
+
+##Zipf's Law
+
+Now, we illustrate the Zipf's law on the discous of Boris Jonhson. The terms are ranked by their frequency (rank=1 for the most frequent), then plotted versus its rank. This is easily obtained using quanteda.
+
+Now on the log scale this gives a linear relation
+
+###Emmanuel Macron 
+```{r, echo=FALSE, warning=FALSE}
+corpus_macron_freq <- textstat_frequency(corpus_macron.dfm)
+plot(log(frequency)~log(rank), data=corpus_macron_freq, pch=20)
+
+ggplot(corpus_macron_freq,aes(x = rank, y = frequency, label=feature)) + geom_point(size=2, alpha =1) + theme_bw() + geom_text(aes(label=feature),hjust=0, vjust=0) + xlim(0,20)
+
+
+```
+###Boris Johnson
+
+```{r, echo=FALSE, warning=FALSE}
+corpus_boris_freq <- textstat_frequency(corpus_boris.dfm)
+plot(log(frequency)~log(rank), data=corpus_boris_freq, pch=20)
+
+ggplot(corpus_boris_freq,aes(x = rank, y = frequency, label=feature)) + geom_point(size=2, alpha =1) + theme_bw() + geom_text(aes(label=feature),hjust=0, vjust=0) + xlim(0,20)
+
+
+```
+
+
+
+
+
+##yule's index
+
+###Emmanuel Macron 
+```{r, echo=FALSE, warning=FALSE}
+textstat_lexdiv(corpus_macron.dfm, measure = "I") %>% 
+  ggplot(aes(x=reorder(document,I), y=I))+
+  geom_point()+
+  coord_flip()+
+  xlab("Text")+
+  ylab("Yule's index")
+```
+###Boris Johnson
+
+```{r, echo=FALSE, warning=FALSE}
+textstat_lexdiv(corpus_boris.dfm, measure = "I") %>% 
+  ggplot(aes(x=reorder(document,I), y=I))+
+  geom_point()+
+  coord_flip()+
+  xlab("Text")+
+  ylab("Yule's index")
+```
+
+
+##MATTR
+
+###Emmanuel Macron 
+```{r, echo=FALSE, warning=FALSE}
+textstat_lexdiv(corpus_macron, measure = "MATTR", MATTR_window = 10)  %>%
+  ggplot(aes(x=reorder(document,MATTR), y=MATTR))+
+  geom_point()+
+  coord_flip()+
+  xlab("Text")+
+  ylab("MATTR")
+```
+###Boris Johnson
+
+```{r, echo=FALSE, warning=FALSE}
+textstat_lexdiv(corpus_boris, measure = "MATTR", MATTR_window = 10)  %>%
+  ggplot(aes(x=reorder(document,MATTR), y=MATTR))+
+  geom_point()+
+  coord_flip()+
+  xlab("Text")+
+  ylab("MATTR")
+
+```
+
+
+<!--chapter:end:report/EDA.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+#############################################
+## The following loads the needed packages ##
+#############################################
+
+# load the required packages
+packages <- c(
+  "here", "readr",# for the project's organization
+  "tidyverse", "lubridate", # for wrangling
+  "modelr", "broom",
+  "dplyr",# for modeling
+  "ggrepel", "gghighlight", "patchwork", "maps", # for plotting
+  "knitr", "kableExtra", "bookdown", "rmarkdown", # for the report
+  "randomForest","janitor","caret","pdftools","rvest","wordcloud2","tidytext","tokenizers","quanteda","sentimentr",
+  "stringr","lexicon","RColorBrewer","tm","printr","ggplot2","quanteda.textmodels","topicmodels","text2vec", "DT")
+
+purrr::walk(packages, library, character.only = TRUE)
+
+# automatically create a bib database for R packages
+write_bib(.packages(), here::here("packages.bib"))
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+# general options
+options(
+  digits = 3,
+  str = strOptions(strict.width = "cut"),
+  width = 69,
+  tibble.width = 69,
+  cli.unicode = FALSE
+)
+
+# ggplot options
+theme_set(theme_light())
+
+# knitr options
+opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  fig.retina = 0.8, # figures are either vectors or 300 dpi diagrams
+  dpi = 300,
+  out.width = "70%",
+  fig.align = "center",
+  fig.width = 6,
+  fig.asp = 0.618,
+  fig.show = "hold",
+  message = FALSE,
+  echo = TRUE,
+  warning = FALSE
+)
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+pval_star <- function (p, cutoffs = c(0.05, 0.01, 0.001)) {
+  stopifnot(length(cutoffs) == 3)
+  if (length(p) > 1) {
+    sapply(p, pval_star, cutoffs = cutoffs)
+  }
+  else {
+    ifelse(p > cutoffs[1], "", ifelse(p > cutoffs[2], 
+                                      " *", 
+                                      ifelse(p > cutoffs[3], 
+                                             " **", 
+                                             " ***")))
+  }
+}
+```
+# Similarities
+```{r}
+library(readr)
+library(quanteda)
+library(knitr)
+library(kableExtra)
+library(reshape2)
+library(ggplot2)
+```
+
+## Boris
+```{r}
+## Jaccard Similarity
+boris.jac <- textstat_simil(corpus_boris.tfidf, method = "jaccard", margin = "documents")
+## Cosine Similarity
+boris.cos <- textstat_simil(corpus_boris.tfidf, method = "cosine", margin = "documents")
+## Euclidean Distance
+boris.euc <- textstat_dist(corpus_boris.tfidf, method = "euclidean", margin = "documents")
+## Jaccard Matrix
+boris.jac.mat <- melt(as.matrix(boris.jac))
+ggplot(data=boris.jac.mat, aes(x=Var1, y=Var2, fill=value)) + scale_fill_gradient2(low="yellow", high="red", mid="orange", midpoint =0.5, limit=c(0,1), name="Jaccard") + geom_tile()
+## Cosine Matrix
+boris.cos.mat <- melt(as.matrix(boris.cos))
+ggplot(data=boris.cos.mat, aes(x=Var1, y=Var2, fill=value)) + scale_fill_gradient2(low="yellow", high="red", mid="orange", midpoint=0.5, limit=c(0,1), name="Cosine") + geom_tile()
+## Euclidean Matrix
+boris.euc.mat <- melt(as.matrix(boris.euc))
+M <- max(boris.euc.mat$value)
+boris.euc.mat$value.std <- (M-boris.euc.mat$value)/M
+ggplot(data=boris.euc.mat, aes(x=Var1, y=Var2, fill=boris.euc.mat$value.std)) + scale_fill_gradient2(low="yellow", high="red", mid="orange", midpoint=0.5, limit=c(0,1),name ="Euclidean") + geom_tile()
+```
+
+```{r}
+## Clustering
+## Jaccard Method
+boris.hc <- hclust(dist(boris.euc))
+boris.hc <- hclust(dist(1 - boris.jac))
+plot(boris.hc)
+## Cosine Method
+boris.hc <- hclust(dist(boris.euc))
+boris.hc <- hclust(dist(1 - boris.cos))
+plot(boris.hc)
+## Dendrogram = Hierarchical Clustering
+boris.clust <- cutree(boris.hc, k=3)
+boris.clust
+## K-means Method = Partitionning 
+boris.km <- kmeans(corpus_boris.tfidf, centers=3)
+boris.km$cluster
+### Extracting the 10 most used words - Dendrogram
+data.frame(
+  clust1 = names(sort(apply(corpus_boris.tfidf[boris.clust==1,],2,sum), decreasing = TRUE)[1:10]),
+  clust2 = names(sort(apply(corpus_boris.tfidf[boris.clust==2,],2,sum), decreasing = TRUE)[1:10]),
+  clust3 = names(sort(apply(corpus_boris.tfidf[boris.clust==3,],2,sum), decreasing = TRUE)[1:10])
+)
+### Extracting the 10 most used words - K-Means
+data.frame(
+  clust1 = names(sort(apply(corpus_boris.tfidf[boris.km$cluster==1,],2,sum), decreasing = TRUE)[1:10]),
+  clust2 = names(sort(apply(corpus_boris.tfidf[boris.km$cluster==2,],2,sum), decreasing = TRUE)[1:10]),
+  clust3 = names(sort(apply(corpus_boris.tfidf[boris.km$cluster==3,],2,sum), decreasing = TRUE)[1:10])
+)
+
+```
+
+## Macron
+```{r}
+## Jaccard Similarity
+macron.jac <- textstat_simil(corpus_macron.tfidf, method = "jaccard", margin = "documents")
+## Cosine Similarity
+macron.cos <- textstat_simil(corpus_macron.tfidf, method = "cosine", margin = "documents")
+## Euclidean Distance
+macron.euc <- textstat_dist(corpus_macron.tfidf, method = "euclidean", margin = "documents")
+## Jaccard Matrix
+macron.jac.mat <- melt(as.matrix(macron.jac))
+ggplot(data=macron.jac.mat, aes(x=Var1, y=Var2, fill=value)) + scale_fill_gradient2(low="yellow", high="red", mid="orange", midpoint =0.5, limit=c(0,1), name="Jaccard") + geom_tile()
+## Cosine Matrix
+macron.cos.mat <- melt(as.matrix(macron.cos))
+ggplot(data=macron.cos.mat, aes(x=Var1, y=Var2, fill=value)) + scale_fill_gradient2(low="yellow", high="red", mid="orange", midpoint=0.5, limit=c(0,1), name="Cosine") + geom_tile()
+## Euclidean Matrix
+macron.euc.mat <- melt(as.matrix(macron.euc))
+M <- max(macron.euc.mat$value)
+macron.euc.mat$value.std <- (M-macron.euc.mat$value)/M
+ggplot(data=macron.euc.mat, aes(x=Var1, y=Var2, fill=macron.euc.mat$value.std)) + scale_fill_gradient2(low="yellow", high="red", mid="orange", midpoint=0.5, limit=c(0,1),name ="Euclidean") + geom_tile()
+```
+
+## Comparison
+
+<!--chapter:end:report/Similarities.rmd-->
+
+```{r include=FALSE, cache=FALSE}
+#############################################
+## The following loads the needed packages ##
+#############################################
+
+# load the required packages
+packages <- c(
+  "here", "readr",# for the project's organization
+  "tidyverse", "lubridate", # for wrangling
+  "modelr", "broom",
+  "dplyr",# for modeling
+  "ggrepel", "gghighlight", "patchwork", "maps", # for plotting
+  "knitr", "kableExtra", "bookdown", "rmarkdown", # for the report
+  "randomForest","janitor","caret","pdftools","rvest","wordcloud2","tidytext","tokenizers","quanteda","sentimentr",
+  "stringr","lexicon","RColorBrewer","tm","printr","ggplot2","quanteda.textmodels","topicmodels","text2vec", "DT")
+
+purrr::walk(packages, library, character.only = TRUE)
+
+# automatically create a bib database for R packages
+write_bib(.packages(), here::here("packages.bib"))
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+# general options
+options(
+  digits = 3,
+  str = strOptions(strict.width = "cut"),
+  width = 69,
+  tibble.width = 69,
+  cli.unicode = FALSE
+)
+
+# ggplot options
+theme_set(theme_light())
+
+# knitr options
+opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  fig.retina = 0.8, # figures are either vectors or 300 dpi diagrams
+  dpi = 300,
+  out.width = "70%",
+  fig.align = "center",
+  fig.width = 6,
+  fig.asp = 0.618,
+  fig.show = "hold",
+  message = FALSE,
+  echo = TRUE,
+  warning = FALSE
+)
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+pval_star <- function (p, cutoffs = c(0.05, 0.01, 0.001)) {
+  stopifnot(length(cutoffs) == 3)
+  if (length(p) > 1) {
+    sapply(p, pval_star, cutoffs = cutoffs)
+  }
+  else {
+    ifelse(p > cutoffs[1], "", ifelse(p > cutoffs[2], 
+                                      " *", 
+                                      ifelse(p > cutoffs[3], 
+                                             " **", 
+                                             " ***")))
+  }
+}
+```
+# Topic Modelling
+
+In this chapter, we analzye the topics of the speechs of Boris Jonhson and Macron using LSA and LDA.
+
+## Boris Johnson
+
+### LSA
+
+First, we make the DTM matrix. We are goin to use 3 dimensions.
+
+```{r,warning=FALSE}
+bmod<-textmodel_lsa(corpus_boris.dfm,nd=3)
+
+```
+
+To inspect the results, we can extract the matrices involved in the LSA decomposition
+```{r,warning=FALSE}
+head(bmod$docs)
+
+head(bmod$features)
+
+```
+Often the first dimension in LSA is associated with the document lenght. To see if it is true, we build a scatter-plot between the document lengt and Dimension 1.
+
+```{r,warning=FALSE}
+ns<-apply(corpus_boris.dfm,1,sum) 
+plot(ns~bmod$docs [,1])
+
+```
+We clearly observe that the dimension 1 is negatively correlated with the document lenght.
+
+Now in order to make the link between the topics and the documents and the topics with term, we use biplot
+
+```{r,warning=FALSE}
+biplot(y=bmod$docs[,2:3],x=bmod$features[,2:3],
+       col=c("grey","red"),
+       xlab = "Dimension 2",
+       ylab="Dimension 3")
+```
+
+We repeat the same analysis with TF-IDF
+
+```{r,warning=FALSE}
+bmod_2<- textmodel_lsa(corpus_boris.tfidf, nd=3)
+
+head(bmod_2$docs)
+
+head(bmod_2$features)
+```
+
+### LDA
+
+We now turn to the LDA. For illustration, we will make K=5 topis. 
+```{r,warning=FALSE}
+K<-5
+corpus_boris.dtm<- convert(corpus_boris.dfm, to="topicmodels")
+lda_boris<- LDA(corpus_boris.dtm ,k=K)
+
+```
+
+Top terms per topic and top topic per document can be easily obtained. Belo, the six top terms and the top topic are extracted.
+
+```{r,warning=FALSE}
+terms(lda_boris,6)
+
+topics(lda_boris,1)  ## To see the topics related to each document
+```
+
+We now build the bar plot to inspect the per-topic-per-word probabilities (beta's). We take the 10 top terms and rearrange the beta per topic according to this order. 
+```{r,warning=FALSE}
+beta.td.boris<-tidy(lda_boris,matrix="beta")
+
+beta.top.term.boris<-beta.td.boris %>%
+  group_by(topic) %>%
+  top_n(10, beta) %>%
+  ungroup() %>%
+  arrange(topic, -beta)
+
+beta.top.term.boris
+
+beta.top.term.boris %>%
+  mutate(term=reorder_within(term, beta, topic)) %>%
+  ggplot(aes(term,beta,fill=factor(topic))) +
+  facet_wrap(~topic, scales = "free") +
+  coord_flip()+
+  scale_x_reordered()
+
+```
+
+```{r,warning=FALSE}
+gamma.td.boris<- tidy(lda_boris,matrix="gamma")
+gamma.td.boris
+
+
+gamma.td.boris %>%
+  ggplot(aes(document,gamma,fill=factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~topic,scales = "free")+
+  coord_flip()+
+  scale_x_reordered()
+```
+
+## Macron
+
+### LSA
+
+```{r,warning=FALSE}
+mmod<-textmodel_lsa(corpus_macron.dfm,nd=3)
+
+```
+
+To inspect the results, we can extract the matrices involved in the LSA decomposition
+```{r,warning=FALSE}
+head(mmod$docs)
+
+head(mmod$features)
+
+```
+
+Often the first dimension in LSA is associated with the document lenght. To see if it is true, we build a scatter-plot between the document lengt and Dimension 1.
+
+```{r,warning=FALSE}
+ns_macron<-apply(corpus_macron.dfm,1,sum) 
+plot(ns_macron~mmod$docs [,1])
+
+```
+
+We clearly observe that the dimension 1 is negatively correlated with the document lenght.
+
+Now in order to make the link between the topics and the documents and the topics with term, we use biplot
+
+```{r,warning=FALSE}
+biplot(y=mmod$docs[,2:3],x=mmod$features[,2:3],
+       col=c("grey","red"),
+       xlab = "Dimension 2",
+       ylab="Dimension 3")
+```
+We repeat the same analysis with TF-IDF
+
+```{r,warning=FALSE}
+mmod_2<- textmodel_lsa(corpus_macron.tfidf, nd=3)
+
+head(mmod_2$docs)
+
+head(mmod_2$features)
+```
+
+
+### LDA
+
+We now turn to the LDA. For illustration, we will make K=5 topis. 
+```{r,warning=FALSE}
+K<-5
+corpus_macron.dtm<- convert(corpus_macron.dfm, to="topicmodels")
+lda_macron<- LDA(corpus_macron.dtm ,k=K)
+
+lda_macron
+
+
+```
+Top terms per topic and top topic per document can be easily obtained. Belo, the six top terms and the top topic are extracted.
+
+```{r,warning=FALSE}
+terms(lda_macron,6)
+
+topics(lda_macron,1)  ## To see the topics related to each document
+```
+
+We now build the bar plot to inspect the per-topic-per-word probabilities (beta's). We take the 10 top terms and rearrange the beta per topic according to this order. 
+```{r,warning=FALSE}
+
+beta.td.macron<-tidy(lda_macron,matrix="beta")
+
+beta.top.term.macron<-beta.td.macron %>%
+  group_by(topic) %>%
+  top_n(10, beta) %>%
+  ungroup() %>%
+  arrange(topic, -beta)
+
+beta.top.term.macron
+
+beta.top.term.macron %>%
+  mutate(term=reorder_within(term, beta, topic)) %>%
+  ggplot(aes(term,beta,fill=factor(topic))) +
+  facet_wrap(~topic, scales = "free") +
+  coord_flip()+
+  scale_x_reordered()
+
+```
+
+```{r,warning=FALSE}
+gamma.td.macron<- tidy(lda_macron,matrix="gamma")
+gamma.td.macron
+
+
+gamma.td.macron %>%
+  ggplot(aes(document,gamma,fill=factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~topic,scales = "free")+
+  coord_flip()+
+  scale_x_reordered()
+```
+
+## Comparison
+
+<!--chapter:end:report/Topic_modelling.rmd-->
+
+```{r include=FALSE, cache=FALSE}
+#############################################
+## The following loads the needed packages ##
+#############################################
+
+# load the required packages
+packages <- c(
+  "here", "readr",# for the project's organization
+  "tidyverse", "lubridate", # for wrangling
+  "modelr", "broom",
+  "dplyr",# for modeling
+  "ggrepel", "gghighlight", "patchwork", "maps", # for plotting
+  "knitr", "kableExtra", "bookdown", "rmarkdown", # for the report
+  "randomForest","janitor","caret","pdftools","rvest","wordcloud2","tidytext","tokenizers","quanteda","sentimentr",
+  "stringr","lexicon","RColorBrewer","tm","printr","ggplot2","quanteda.textmodels","topicmodels","text2vec", "DT")
+
+purrr::walk(packages, library, character.only = TRUE)
+
+# automatically create a bib database for R packages
+write_bib(.packages(), here::here("packages.bib"))
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+# general options
+options(
+  digits = 3,
+  str = strOptions(strict.width = "cut"),
+  width = 69,
+  tibble.width = 69,
+  cli.unicode = FALSE
+)
+
+# ggplot options
+theme_set(theme_light())
+
+# knitr options
+opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  fig.retina = 0.8, # figures are either vectors or 300 dpi diagrams
+  dpi = 300,
+  out.width = "70%",
+  fig.align = "center",
+  fig.width = 6,
+  fig.asp = 0.618,
+  fig.show = "hold",
+  message = FALSE,
+  echo = TRUE,
+  warning = FALSE
+)
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+pval_star <- function (p, cutoffs = c(0.05, 0.01, 0.001)) {
+  stopifnot(length(cutoffs) == 3)
+  if (length(p) > 1) {
+    sapply(p, pval_star, cutoffs = cutoffs)
+  }
+  else {
+    ifelse(p > cutoffs[1], "", ifelse(p > cutoffs[2], 
+                                      " *", 
+                                      ifelse(p > cutoffs[3], 
+                                             " **", 
+                                             " ***")))
+  }
+}
+```
+# Word Embedding
+
+## Boris Johnson
+
+Here, we compute the co-occurence matrix. We use the fcm function from quanteda. We use a window lenght 5. 
+
+
+```{r,warning=FALSE}
+speech.coo.boris<-fcm(corpus_boris,context="window",window=5, tri=FALSE)
+```
+
+```{r,warning=FALSE}
+p<-2 #word embedding dimension
+speech.glove.boris<-GlobalVectors$new(rank = p,x_max = 10) #xmas is a neede technical option
+speech.weC.boris<-speech.glove.boris$fit_transform(speech.coo.boris)
+```
+For illustration purpose, we now plot the 50 most used terms
+
+```{r,warning=FALSE}
+n.w.boris<-apply(corpus_boris.dfm,2,sum) #compute the number of times each term is used
+index<-order(n.w.boris,decreasing = TRUE)[1:50]
+plot(speech.weC.boris[index,],type = "n",xlab = "Dimension 1", ylab = "Dimendion 2")
+text(x=speech.weC.boris[index,],labels = rownames(speech.weC.boris[index,]))
+```
+
+```{r,warning=FALSE}
+speech.dtm <- corpus_boris.dfm
+speech.rwmd.model.boris<-RelaxedWordMoversDistance$new(corpus_boris.dfm,speech.weC.boris)
+speech.rwms.boris<-speech.rwmd.model.boris$sim2(corpus_boris.dfm)
+speech.rwmd.boris<-speech.rwmd.model.boris$dist2(corpus_boris.dfm)
+
+speech.hc.boris<-hclust(as.dist(speech.rwmd.boris))
+plot(speech.hc.boris,cex=0.8)
+
+```
+
+We can observe that there is some coherence within the groups in terms the date of the speech. 
+
+```{r,warning=FALSE}
+speech.cl.boris<- cutree(speech.hc.boris,k=4)
+corpus_boris.dfm[speech.cl.boris==1,]
+```
+
+
+
+## Macron
+
+```{r,warning=FALSE}
+speech.coo.macron<-fcm(corpus_macron,context="window",window=5, tri=FALSE)
+```
+
+```{r,warning=FALSE}
+p<-2 #word embedding dimension
+speech.glove.macron<-GlobalVectors$new(rank = p,x_max = 10) #xmas is a neede technical option
+speech.weC.macron<-speech.glove.macron$fit_transform(speech.coo.macron)
+```
+
+For illustration purpose, we now plot the 50 most used terms
+
+```{r,warning=FALSE}
+n.w.macron<-apply(corpus_macron.dfm,2,sum) #compute the number of times each term is used
+index<-order(n.w.macron,decreasing = TRUE)[1:50]
+plot(speech.weC.macron[index,],type = "n",xlab = "Dimension 1", ylab = "Dimendion 2")
+text(x=speech.weC.macron[index,],labels = rownames(speech.weC.macron[index,]))
+```
+
+
+```{r,warning=FALSE}
+speech.dtm.macron <- corpus_macron.dfm
+speech.rwmd.model.macron<-RelaxedWordMoversDistance$new(corpus_macron.dfm,speech.weC.macron)
+speech.rwms.macron<-speech.rwmd.model.macron$sim2(corpus_macron.dfm)
+speech.rwmd.macron<-speech.rwmd.model.macron$dist2(corpus_macron.dfm)
+
+speech.hc.macron<-hclust(as.dist(speech.rwmd.macron))
+plot(speech.hc.macron,cex=0.8)
+
+```
+We can observe that there is some coherence within the groups in terms the date of the speech. 
+
+```{r,warning=FALSE}
+speech.cl.macron<- cutree(speech.hc.macron,k=2)
+corpus_macron.dfm[speech.cl.macron==1,]
+```
+
+## Comparison
+
+
+
+<!--chapter:end:report/Word_embedding.rmd-->
+
+```{r include=FALSE, cache=FALSE}
+#############################################
+## The following loads the needed packages ##
+#############################################
+
+# load the required packages
+packages <- c(
+  "here", "readr",# for the project's organization
+  "tidyverse", "lubridate", # for wrangling
+  "modelr", "broom",
+  "dplyr",# for modeling
+  "ggrepel", "gghighlight", "patchwork", "maps", # for plotting
+  "knitr", "kableExtra", "bookdown", "rmarkdown", # for the report
+  "randomForest","janitor","caret","pdftools","rvest","wordcloud2","tidytext","tokenizers","quanteda","sentimentr",
+  "stringr","lexicon","RColorBrewer","tm","printr","ggplot2","quanteda.textmodels","topicmodels","text2vec", "DT")
+
+purrr::walk(packages, library, character.only = TRUE)
+
+# automatically create a bib database for R packages
+write_bib(.packages(), here::here("packages.bib"))
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+# general options
+options(
+  digits = 3,
+  str = strOptions(strict.width = "cut"),
+  width = 69,
+  tibble.width = 69,
+  cli.unicode = FALSE
+)
+
+# ggplot options
+theme_set(theme_light())
+
+# knitr options
+opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  fig.retina = 0.8, # figures are either vectors or 300 dpi diagrams
+  dpi = 300,
+  out.width = "70%",
+  fig.align = "center",
+  fig.width = 6,
+  fig.asp = 0.618,
+  fig.show = "hold",
+  message = FALSE,
+  echo = TRUE,
+  warning = FALSE
+)
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+pval_star <- function (p, cutoffs = c(0.05, 0.01, 0.001)) {
+  stopifnot(length(cutoffs) == 3)
+  if (length(p) > 1) {
+    sapply(p, pval_star, cutoffs = cutoffs)
+  }
+  else {
+    ifelse(p > cutoffs[1], "", ifelse(p > cutoffs[2], 
+                                      " *", 
+                                      ifelse(p > cutoffs[3], 
+                                             " **", 
+                                             " ***")))
+  }
+}
+```
+# Conclusion
+
+
+<!--chapter:end:report/Conclusion.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+#############################################
+## The following loads the needed packages ##
+#############################################
+
+# load the required packages
+packages <- c(
+  "here", "readr",# for the project's organization
+  "tidyverse", "lubridate", # for wrangling
+  "modelr", "broom",
+  "dplyr",# for modeling
+  "ggrepel", "gghighlight", "patchwork", "maps", # for plotting
+  "knitr", "kableExtra", "bookdown", "rmarkdown", # for the report
+  "randomForest","janitor","caret","pdftools","rvest","wordcloud2","tidytext","tokenizers","quanteda","sentimentr",
+  "stringr","lexicon","RColorBrewer","tm","printr","ggplot2","quanteda.textmodels","topicmodels","text2vec", "DT")
+
+purrr::walk(packages, library, character.only = TRUE)
+
+# automatically create a bib database for R packages
+write_bib(.packages(), here::here("packages.bib"))
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+# general options
+options(
+  digits = 3,
+  str = strOptions(strict.width = "cut"),
+  width = 69,
+  tibble.width = 69,
+  cli.unicode = FALSE
+)
+
+# ggplot options
+theme_set(theme_light())
+
+# knitr options
+opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  fig.retina = 0.8, # figures are either vectors or 300 dpi diagrams
+  dpi = 300,
+  out.width = "70%",
+  fig.align = "center",
+  fig.width = 6,
+  fig.asp = 0.618,
+  fig.show = "hold",
+  message = FALSE,
+  echo = TRUE,
+  warning = FALSE
+)
+
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+pval_star <- function (p, cutoffs = c(0.05, 0.01, 0.001)) {
+  stopifnot(length(cutoffs) == 3)
+  if (length(p) > 1) {
+    sapply(p, pval_star, cutoffs = cutoffs)
+  }
+  else {
+    ifelse(p > cutoffs[1], "", ifelse(p > cutoffs[2], 
+                                      " *", 
+                                      ifelse(p > cutoffs[3], 
+                                             " **", 
+                                             " ***")))
+  }
+}
+```
+`r if (knitr:::is_html_output()) '
+# References {-}
+'`
+
+
+<!--chapter:end:report/references.Rmd-->
+
