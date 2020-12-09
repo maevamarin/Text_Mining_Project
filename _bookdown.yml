@@ -11,7 +11,7 @@ rmd_files: [
   "report/Similarities.rmd",
   "report/Topic_modelling.rmd",
   "report/Word_embedding.rmd",
-  "report/Supervised learning",
+  "report/Supervised",
   "report/Conclusion.Rmd",
   "report/references.Rmd"
 ]

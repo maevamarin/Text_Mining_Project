@@ -1,6 +1,6 @@
 # EDA
 
-##Data Acquisition
+## Data Acquisition
 
 To download the differents speaches we scrap the speaches on 2 differents websites.
 The speaches from Macron come from the website of the Embassy of France in Washington DC (USA) and regarding Boris Johnson speaches, it comes from the official website of the governement of the United-Kingdom.
@@ -54,11 +54,10 @@ macron <- corpus(c(macron12march,macron16march,macron13april))
 
 ```{r }
 summary(macron)
-
 ```
 The first speaches from Macron was quite long , 162 sentences and the two next were shorter: 107 sentences. Each speech consists approximatly of an average of 3200 words.
 
-###Boris Johnson
+### Boris Johnson
 
 We choose the 7 first speaches from president Johnson about the corona virus dating from the:
   - 09 march (text1)
@@ -134,7 +133,7 @@ corpus_macron
 
 ```
 
-###Boris Johnson
+### Boris Johnson
 
 ```{r}
 
@@ -165,7 +164,7 @@ We see that the list of 15 most frequent term are due to doc 2 ,4 and 3.
 
 Now we want to know which are  the most frequent term for each document
 
-###Emmanuel Macron
+### Emmanuel Macron
 
 ```{r  include=TRUE, warning=FALSE}
 ## Document-Term Matrix DTM
@@ -218,7 +217,7 @@ macron_tidy %>% filter(term %in% macron_index$term) %>%
 
 ```
 
-###Boris Johnson
+### Boris Johnson
 
 ```{r}
 
@@ -272,11 +271,11 @@ boris_tidy %>% filter(term %in% boris_index$term) %>%
   facet_wrap(~document, ncol=2)
 
 ```
-##TF-IDF
+## TF-IDF
 
 Now we repeat the same analysis using the TF-IDF.
 
-###Emmanuel Macron 
+### Emmanuel Macron 
 ```{r  include=TRUE, warning=FALSE}
 ## TFIDF no point when just on document, maybe add when combining texts
 corpus_macron.tfidf <- dfm_tfidf(corpus_macron.dfm)
@@ -310,7 +309,7 @@ tidy(corpus_boris.tfidf) %>% filter(term %in% boris_index_tfidf$term) %>%
 ```
 ## Cloud of Words
 
-###Emmanuel Macron 
+### Emmanuel Macron 
 ```{r}
 
 ## Cloud of Words
@@ -318,7 +317,7 @@ textplot_wordcloud(corpus_macron.dfm, color=brewer.pal(8, "Dark2"))
 textplot_wordcloud(corpus_macron.tfidf, color=brewer.pal(8, "Dark2"))
 
 ```
-###Boris Johnson
+### Boris Johnson
 
 ```{r}
 
@@ -327,9 +326,9 @@ textplot_wordcloud(corpus_boris.dfm, color=brewer.pal(8, "Dark2"))
 textplot_wordcloud(corpus_boris.tfidf, color=brewer.pal(8, "Dark2"))
 ```
 
-##Lexical Divesity Token Type Ratio TTR
+## Lexical Divesity Token Type Ratio TTR
 
-###Emmanuel Macron 
+### Emmanuel Macron 
 ```{r}
 ## Lexical Divesity Token Type Ratio TTR
 N.macron <- ntoken(corpus_macron)
@@ -338,7 +337,7 @@ TTR.macron <- V.macron/N.macron
 TTR.macron ###the text is quite poor, as TTR is of 0.4
 
 ```
-###Boris Johnson
+### Boris Johnson
 
 ```{r}
 ## Lexical Divesity Token Type Ratio TTR
@@ -356,7 +355,7 @@ Now, we illustrate the Zipf's law on the discous of Boris Jonhson. The terms are
 
 Now on the log scale this gives a linear relation
 
-###Emmanuel Macron 
+### Emmanuel Macron 
 ```{r}
 corpus_macron_freq <- textstat_frequency(corpus_macron.dfm)
 plot(log(frequency)~log(rank), data=corpus_macron_freq, pch=20)
@@ -365,7 +364,7 @@ ggplot(corpus_macron_freq,aes(x = rank, y = frequency, label=feature)) + geom_po
 
 
 ```
-###Boris Johnson
+### Boris Johnson
 
 ```{r}
 
@@ -381,9 +380,9 @@ ggplot(corpus_boris_freq,aes(x = rank, y = frequency, label=feature)) + geom_poi
 
 
 
-##yule's index
+## yule's index
 
-###Emmanuel Macron 
+### Emmanuel Macron 
 ```{r}
 textstat_lexdiv(corpus_macron.dfm, measure = "I") %>% 
   ggplot(aes(x=reorder(document,I), y=I))+
@@ -392,7 +391,7 @@ textstat_lexdiv(corpus_macron.dfm, measure = "I") %>%
   xlab("Text")+
   ylab("Yule's index")
 ```
-###Boris Johnson
+### Boris Johnson
 
 ```{r}
 textstat_lexdiv(corpus_boris.dfm, measure = "I") %>% 
@@ -404,9 +403,9 @@ textstat_lexdiv(corpus_boris.dfm, measure = "I") %>%
 ```
 
 
-##MATTR
+## MATTR
 
-###Emmanuel Macron 
+### Emmanuel Macron 
 ```{r}
 textstat_lexdiv(corpus_macron, measure = "MATTR", MATTR_window = 10)  %>%
   ggplot(aes(x=reorder(document,MATTR), y=MATTR))+
@@ -415,7 +414,7 @@ textstat_lexdiv(corpus_macron, measure = "MATTR", MATTR_window = 10)  %>%
   xlab("Text")+
   ylab("MATTR")
 ```
-###Boris Johnson
+### Boris Johnson
 
 ```{r}
 textstat_lexdiv(corpus_boris, measure = "MATTR", MATTR_window = 10)  %>%
