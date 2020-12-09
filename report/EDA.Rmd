@@ -448,7 +448,7 @@ textstat_lexdiv(corpus_boris.dfm, measure = "I") %>%
 
 ## MATTR
 
-It is the Moving Average Type-Token Ratio 
+It is the Moving Average Type-Token Ratio. 
 
 ### Emmanuel Macron 
 
