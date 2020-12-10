@@ -22,7 +22,7 @@ boris_2<-as.tibble(
     boris18mars,
     boris19mars,
     boris20mars,
-    boris22mars) ) # trick to get a "tbl_df","tbl","data.frame" compatible with the inner_join function
+    boris22mars)) # trick to get a "tbl_df","tbl","data.frame" compatible with the inner_join function
 
 DocumentB <- c("Text1","Text2","Text3","Text4","Text5","Text6","Text7") # adding a column "Document" to have a landmark for the tokens
 boris_2$Document <- DocumentB
