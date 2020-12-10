@@ -51,6 +51,14 @@
 
 <link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.15/datatables.js"></script>
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
 
 
 <style type="text/css">
@@ -134,32 +142,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2" data-path="introduction.html"><a href="introduction.html#data-loadind"><i class="fa fa-check"></i><b>2.2</b> Data loadind</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>3</b> EDA</a><ul>
-<li class="chapter" data-level="3.1" data-path="eda.html"><a href="eda.html#boris-johnson"><i class="fa fa-check"></i><b>3.1</b> Boris Johnson</a></li>
-<li class="chapter" data-level="3.2" data-path="eda.html"><a href="eda.html#macron"><i class="fa fa-check"></i><b>3.2</b> Macron</a></li>
-<li class="chapter" data-level="3.3" data-path="eda.html"><a href="eda.html#data-manipulation"><i class="fa fa-check"></i><b>3.3</b> Data manipulation</a></li>
-<li class="chapter" data-level="3.4" data-path="eda.html"><a href="eda.html#zipfs-law"><i class="fa fa-check"></i><b>3.4</b> Zipf’s law</a></li>
-<li class="chapter" data-level="3.5" data-path="eda.html"><a href="eda.html#comparison"><i class="fa fa-check"></i><b>3.5</b> Comparison</a></li>
+<li class="chapter" data-level="3.1" data-path="eda.html"><a href="eda.html#data-acquisition"><i class="fa fa-check"></i><b>3.1</b> Data Acquisition</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="eda.html"><a href="eda.html#emmanuel-macron"><i class="fa fa-check"></i><b>3.1.1</b> Emmanuel Macron</a></li>
+<li class="chapter" data-level="3.1.2" data-path="eda.html"><a href="eda.html#boris-johnson"><i class="fa fa-check"></i><b>3.1.2</b> Boris Johnson</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="eda.html"><a href="eda.html#tokenisation-lemmatization-cleaning"><i class="fa fa-check"></i><b>3.2</b> Tokenisation, Lemmatization &amp; Cleaning</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="eda.html"><a href="eda.html#emmanuel-macron-1"><i class="fa fa-check"></i><b>3.2.1</b> Emmanuel Macron</a></li>
+<li class="chapter" data-level="3.2.2" data-path="eda.html"><a href="eda.html#boris-johnson-1"><i class="fa fa-check"></i><b>3.2.2</b> Boris Johnson</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="eda.html"><a href="eda.html#document-term-matrix-dtm"><i class="fa fa-check"></i><b>3.3</b> Document-Term Matrix DTM</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="eda.html"><a href="eda.html#emmanuel-macron-2"><i class="fa fa-check"></i><b>3.3.1</b> Emmanuel Macron</a></li>
+<li class="chapter" data-level="3.3.2" data-path="eda.html"><a href="eda.html#boris-johnson-2"><i class="fa fa-check"></i><b>3.3.2</b> Boris Johnson</a></li>
+<li class="chapter" data-level="3.3.3" data-path="eda.html"><a href="eda.html#emmanuel-macron-3"><i class="fa fa-check"></i><b>3.3.3</b> Emmanuel Macron</a></li>
+<li class="chapter" data-level="3.3.4" data-path="eda.html"><a href="eda.html#emmanuel-macron-4"><i class="fa fa-check"></i><b>3.3.4</b> Emmanuel Macron</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="eda.html"><a href="eda.html#lexical-divesity-token-type-ratio-ttr"><i class="fa fa-check"></i><b>3.4</b> Lexical Divesity Token Type Ratio TTR</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="eda.html"><a href="eda.html#emmanuel-macron-5"><i class="fa fa-check"></i><b>3.4.1</b> Emmanuel Macron</a></li>
+<li class="chapter" data-level="3.4.2" data-path="eda.html"><a href="eda.html#boris-johnson-3"><i class="fa fa-check"></i><b>3.4.2</b> Boris Johnson</a></li>
+<li class="chapter" data-level="3.4.3" data-path="eda.html"><a href="eda.html#emmanuel-macron-6"><i class="fa fa-check"></i><b>3.4.3</b> Emmanuel Macron</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="eda.html"><a href="eda.html#yules-index"><i class="fa fa-check"></i><b>3.5</b> yule’s index</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="eda.html"><a href="eda.html#emmanuel-macron-7"><i class="fa fa-check"></i><b>3.5.1</b> Emmanuel Macron</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="eda.html"><a href="eda.html#mattr"><i class="fa fa-check"></i><b>3.6</b> MATTR</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="eda.html"><a href="eda.html#emmanuel-macron-8"><i class="fa fa-check"></i><b>3.6.1</b> Emmanuel Macron</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="similarities.html"><a href="similarities.html"><i class="fa fa-check"></i><b>4</b> Similarities</a><ul>
 <li class="chapter" data-level="4.1" data-path="similarities.html"><a href="similarities.html#boris"><i class="fa fa-check"></i><b>4.1</b> Boris</a></li>
-<li class="chapter" data-level="4.2" data-path="similarities.html"><a href="similarities.html#macron-1"><i class="fa fa-check"></i><b>4.2</b> Macron</a></li>
-<li class="chapter" data-level="4.3" data-path="similarities.html"><a href="similarities.html#comparison-1"><i class="fa fa-check"></i><b>4.3</b> Comparison</a></li>
+<li class="chapter" data-level="4.2" data-path="similarities.html"><a href="similarities.html#macron"><i class="fa fa-check"></i><b>4.2</b> Macron</a></li>
+<li class="chapter" data-level="4.3" data-path="similarities.html"><a href="similarities.html#comparison"><i class="fa fa-check"></i><b>4.3</b> Comparison</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="topic-modelling.html"><a href="topic-modelling.html"><i class="fa fa-check"></i><b>5</b> Topic Modelling</a><ul>
-<li class="chapter" data-level="5.1" data-path="topic-modelling.html"><a href="topic-modelling.html#boris-johnson-1"><i class="fa fa-check"></i><b>5.1</b> Boris Johnson</a><ul>
+<li class="chapter" data-level="5.1" data-path="topic-modelling.html"><a href="topic-modelling.html#boris-johnson-4"><i class="fa fa-check"></i><b>5.1</b> Boris Johnson</a><ul>
 <li class="chapter" data-level="5.1.1" data-path="topic-modelling.html"><a href="topic-modelling.html#lsa"><i class="fa fa-check"></i><b>5.1.1</b> LSA</a></li>
 <li class="chapter" data-level="5.1.2" data-path="topic-modelling.html"><a href="topic-modelling.html#lda"><i class="fa fa-check"></i><b>5.1.2</b> LDA</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="topic-modelling.html"><a href="topic-modelling.html#macron-2"><i class="fa fa-check"></i><b>5.2</b> Macron</a><ul>
+<li class="chapter" data-level="5.2" data-path="topic-modelling.html"><a href="topic-modelling.html#macron-1"><i class="fa fa-check"></i><b>5.2</b> Macron</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="topic-modelling.html"><a href="topic-modelling.html#lsa-1"><i class="fa fa-check"></i><b>5.2.1</b> LSA</a></li>
 <li class="chapter" data-level="5.2.2" data-path="topic-modelling.html"><a href="topic-modelling.html#lda-1"><i class="fa fa-check"></i><b>5.2.2</b> LDA</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="topic-modelling.html"><a href="topic-modelling.html#comparison-2"><i class="fa fa-check"></i><b>5.3</b> Comparison</a></li>
+<li class="chapter" data-level="5.3" data-path="topic-modelling.html"><a href="topic-modelling.html#comparison-1"><i class="fa fa-check"></i><b>5.3</b> Comparison</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="word-embedding.html"><a href="word-embedding.html"><i class="fa fa-check"></i><b>6</b> Word Embedding</a><ul>
-<li class="chapter" data-level="6.1" data-path="word-embedding.html"><a href="word-embedding.html#boris-johnson-2"><i class="fa fa-check"></i><b>6.1</b> Boris Johnson</a></li>
-<li class="chapter" data-level="6.2" data-path="word-embedding.html"><a href="word-embedding.html#macron-3"><i class="fa fa-check"></i><b>6.2</b> Macron</a></li>
-<li class="chapter" data-level="6.3" data-path="word-embedding.html"><a href="word-embedding.html#comparison-3"><i class="fa fa-check"></i><b>6.3</b> Comparison</a></li>
+<li class="chapter" data-level="6.1" data-path="word-embedding.html"><a href="word-embedding.html#boris-johnson-5"><i class="fa fa-check"></i><b>6.1</b> Boris Johnson</a></li>
+<li class="chapter" data-level="6.2" data-path="word-embedding.html"><a href="word-embedding.html#macron-2"><i class="fa fa-check"></i><b>6.2</b> Macron</a></li>
+<li class="chapter" data-level="6.3" data-path="word-embedding.html"><a href="word-embedding.html#comparison-2"><i class="fa fa-check"></i><b>6.3</b> Comparison</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>

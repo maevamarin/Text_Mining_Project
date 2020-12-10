@@ -51,6 +51,14 @@
 
 <link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.15/datatables.js"></script>
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
 
 
 <style type="text/css">
@@ -134,32 +142,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2" data-path="introduction.html"><a href="introduction.html#data-loadind"><i class="fa fa-check"></i><b>2.2</b> Data loadind</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>3</b> EDA</a><ul>
-<li class="chapter" data-level="3.1" data-path="eda.html"><a href="eda.html#boris-johnson"><i class="fa fa-check"></i><b>3.1</b> Boris Johnson</a></li>
-<li class="chapter" data-level="3.2" data-path="eda.html"><a href="eda.html#macron"><i class="fa fa-check"></i><b>3.2</b> Macron</a></li>
-<li class="chapter" data-level="3.3" data-path="eda.html"><a href="eda.html#data-manipulation"><i class="fa fa-check"></i><b>3.3</b> Data manipulation</a></li>
-<li class="chapter" data-level="3.4" data-path="eda.html"><a href="eda.html#zipfs-law"><i class="fa fa-check"></i><b>3.4</b> Zipf’s law</a></li>
-<li class="chapter" data-level="3.5" data-path="eda.html"><a href="eda.html#comparison"><i class="fa fa-check"></i><b>3.5</b> Comparison</a></li>
+<li class="chapter" data-level="3.1" data-path="eda.html"><a href="eda.html#data-acquisition"><i class="fa fa-check"></i><b>3.1</b> Data Acquisition</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="eda.html"><a href="eda.html#emmanuel-macron"><i class="fa fa-check"></i><b>3.1.1</b> Emmanuel Macron</a></li>
+<li class="chapter" data-level="3.1.2" data-path="eda.html"><a href="eda.html#boris-johnson"><i class="fa fa-check"></i><b>3.1.2</b> Boris Johnson</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="eda.html"><a href="eda.html#tokenisation-lemmatization-cleaning"><i class="fa fa-check"></i><b>3.2</b> Tokenisation, Lemmatization &amp; Cleaning</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="eda.html"><a href="eda.html#emmanuel-macron-1"><i class="fa fa-check"></i><b>3.2.1</b> Emmanuel Macron</a></li>
+<li class="chapter" data-level="3.2.2" data-path="eda.html"><a href="eda.html#boris-johnson-1"><i class="fa fa-check"></i><b>3.2.2</b> Boris Johnson</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="eda.html"><a href="eda.html#document-term-matrix-dtm"><i class="fa fa-check"></i><b>3.3</b> Document-Term Matrix DTM</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="eda.html"><a href="eda.html#emmanuel-macron-2"><i class="fa fa-check"></i><b>3.3.1</b> Emmanuel Macron</a></li>
+<li class="chapter" data-level="3.3.2" data-path="eda.html"><a href="eda.html#boris-johnson-2"><i class="fa fa-check"></i><b>3.3.2</b> Boris Johnson</a></li>
+<li class="chapter" data-level="3.3.3" data-path="eda.html"><a href="eda.html#emmanuel-macron-3"><i class="fa fa-check"></i><b>3.3.3</b> Emmanuel Macron</a></li>
+<li class="chapter" data-level="3.3.4" data-path="eda.html"><a href="eda.html#emmanuel-macron-4"><i class="fa fa-check"></i><b>3.3.4</b> Emmanuel Macron</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="eda.html"><a href="eda.html#lexical-divesity-token-type-ratio-ttr"><i class="fa fa-check"></i><b>3.4</b> Lexical Divesity Token Type Ratio TTR</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="eda.html"><a href="eda.html#emmanuel-macron-5"><i class="fa fa-check"></i><b>3.4.1</b> Emmanuel Macron</a></li>
+<li class="chapter" data-level="3.4.2" data-path="eda.html"><a href="eda.html#boris-johnson-3"><i class="fa fa-check"></i><b>3.4.2</b> Boris Johnson</a></li>
+<li class="chapter" data-level="3.4.3" data-path="eda.html"><a href="eda.html#emmanuel-macron-6"><i class="fa fa-check"></i><b>3.4.3</b> Emmanuel Macron</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="eda.html"><a href="eda.html#yules-index"><i class="fa fa-check"></i><b>3.5</b> yule’s index</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="eda.html"><a href="eda.html#emmanuel-macron-7"><i class="fa fa-check"></i><b>3.5.1</b> Emmanuel Macron</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="eda.html"><a href="eda.html#mattr"><i class="fa fa-check"></i><b>3.6</b> MATTR</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="eda.html"><a href="eda.html#emmanuel-macron-8"><i class="fa fa-check"></i><b>3.6.1</b> Emmanuel Macron</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="similarities.html"><a href="similarities.html"><i class="fa fa-check"></i><b>4</b> Similarities</a><ul>
 <li class="chapter" data-level="4.1" data-path="similarities.html"><a href="similarities.html#boris"><i class="fa fa-check"></i><b>4.1</b> Boris</a></li>
-<li class="chapter" data-level="4.2" data-path="similarities.html"><a href="similarities.html#macron-1"><i class="fa fa-check"></i><b>4.2</b> Macron</a></li>
-<li class="chapter" data-level="4.3" data-path="similarities.html"><a href="similarities.html#comparison-1"><i class="fa fa-check"></i><b>4.3</b> Comparison</a></li>
+<li class="chapter" data-level="4.2" data-path="similarities.html"><a href="similarities.html#macron"><i class="fa fa-check"></i><b>4.2</b> Macron</a></li>
+<li class="chapter" data-level="4.3" data-path="similarities.html"><a href="similarities.html#comparison"><i class="fa fa-check"></i><b>4.3</b> Comparison</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="topic-modelling.html"><a href="topic-modelling.html"><i class="fa fa-check"></i><b>5</b> Topic Modelling</a><ul>
-<li class="chapter" data-level="5.1" data-path="topic-modelling.html"><a href="topic-modelling.html#boris-johnson-1"><i class="fa fa-check"></i><b>5.1</b> Boris Johnson</a><ul>
+<li class="chapter" data-level="5.1" data-path="topic-modelling.html"><a href="topic-modelling.html#boris-johnson-4"><i class="fa fa-check"></i><b>5.1</b> Boris Johnson</a><ul>
 <li class="chapter" data-level="5.1.1" data-path="topic-modelling.html"><a href="topic-modelling.html#lsa"><i class="fa fa-check"></i><b>5.1.1</b> LSA</a></li>
 <li class="chapter" data-level="5.1.2" data-path="topic-modelling.html"><a href="topic-modelling.html#lda"><i class="fa fa-check"></i><b>5.1.2</b> LDA</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="topic-modelling.html"><a href="topic-modelling.html#macron-2"><i class="fa fa-check"></i><b>5.2</b> Macron</a><ul>
+<li class="chapter" data-level="5.2" data-path="topic-modelling.html"><a href="topic-modelling.html#macron-1"><i class="fa fa-check"></i><b>5.2</b> Macron</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="topic-modelling.html"><a href="topic-modelling.html#lsa-1"><i class="fa fa-check"></i><b>5.2.1</b> LSA</a></li>
 <li class="chapter" data-level="5.2.2" data-path="topic-modelling.html"><a href="topic-modelling.html#lda-1"><i class="fa fa-check"></i><b>5.2.2</b> LDA</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="topic-modelling.html"><a href="topic-modelling.html#comparison-2"><i class="fa fa-check"></i><b>5.3</b> Comparison</a></li>
+<li class="chapter" data-level="5.3" data-path="topic-modelling.html"><a href="topic-modelling.html#comparison-1"><i class="fa fa-check"></i><b>5.3</b> Comparison</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="word-embedding.html"><a href="word-embedding.html"><i class="fa fa-check"></i><b>6</b> Word Embedding</a><ul>
-<li class="chapter" data-level="6.1" data-path="word-embedding.html"><a href="word-embedding.html#boris-johnson-2"><i class="fa fa-check"></i><b>6.1</b> Boris Johnson</a></li>
-<li class="chapter" data-level="6.2" data-path="word-embedding.html"><a href="word-embedding.html#macron-3"><i class="fa fa-check"></i><b>6.2</b> Macron</a></li>
-<li class="chapter" data-level="6.3" data-path="word-embedding.html"><a href="word-embedding.html#comparison-3"><i class="fa fa-check"></i><b>6.3</b> Comparison</a></li>
+<li class="chapter" data-level="6.1" data-path="word-embedding.html"><a href="word-embedding.html#boris-johnson-5"><i class="fa fa-check"></i><b>6.1</b> Boris Johnson</a></li>
+<li class="chapter" data-level="6.2" data-path="word-embedding.html"><a href="word-embedding.html#macron-2"><i class="fa fa-check"></i><b>6.2</b> Macron</a></li>
+<li class="chapter" data-level="6.3" data-path="word-embedding.html"><a href="word-embedding.html#comparison-2"><i class="fa fa-check"></i><b>6.3</b> Comparison</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -182,96 +210,96 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="word-embedding" class="section level1">
 <h1><span class="header-section-number">Chapter 6</span> Word Embedding</h1>
-<div id="boris-johnson-2" class="section level2">
+<div id="boris-johnson-5" class="section level2">
 <h2><span class="header-section-number">6.1</span> Boris Johnson</h2>
 <p>Here, we compute the co-occurence matrix. We use the fcm function from quanteda. We use a window lenght 5.</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1">speech.coo.boris&lt;-<span class="kw">fcm</span>(corpus_boris,<span class="dt">context=</span><span class="st">&quot;window&quot;</span>,<span class="dt">window=</span><span class="dv">5</span>, <span class="dt">tri=</span><span class="ot">FALSE</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">p&lt;-<span class="dv">2</span> <span class="co">#word embedding dimension</span></a>
-<a class="sourceLine" id="cb49-2" data-line-number="2">speech.glove.boris&lt;-GlobalVectors<span class="op">$</span><span class="kw">new</span>(<span class="dt">rank =</span> p,<span class="dt">x_max =</span> <span class="dv">10</span>) <span class="co">#xmas is a neede technical option</span></a>
-<a class="sourceLine" id="cb49-3" data-line-number="3">speech.weC.boris&lt;-speech.glove.boris<span class="op">$</span><span class="kw">fit_transform</span>(speech.coo.boris)</a>
-<a class="sourceLine" id="cb49-4" data-line-number="4"><span class="co">#&gt; INFO  [16:30:19.222] epoch 1, loss 0.0345 </span></a>
-<a class="sourceLine" id="cb49-5" data-line-number="5"><span class="co">#&gt; INFO  [16:30:19.491] epoch 2, loss 0.0243 </span></a>
-<a class="sourceLine" id="cb49-6" data-line-number="6"><span class="co">#&gt; INFO  [16:30:19.530] epoch 3, loss 0.0224 </span></a>
-<a class="sourceLine" id="cb49-7" data-line-number="7"><span class="co">#&gt; INFO  [16:30:19.537] epoch 4, loss 0.0214 </span></a>
-<a class="sourceLine" id="cb49-8" data-line-number="8"><span class="co">#&gt; INFO  [16:30:19.546] epoch 5, loss 0.0207 </span></a>
-<a class="sourceLine" id="cb49-9" data-line-number="9"><span class="co">#&gt; INFO  [16:30:19.553] epoch 6, loss 0.0201 </span></a>
-<a class="sourceLine" id="cb49-10" data-line-number="10"><span class="co">#&gt; INFO  [16:30:19.560] epoch 7, loss 0.0196 </span></a>
-<a class="sourceLine" id="cb49-11" data-line-number="11"><span class="co">#&gt; INFO  [16:30:19.568] epoch 8, loss 0.0192 </span></a>
-<a class="sourceLine" id="cb49-12" data-line-number="12"><span class="co">#&gt; INFO  [16:30:19.577] epoch 9, loss 0.0187 </span></a>
-<a class="sourceLine" id="cb49-13" data-line-number="13"><span class="co">#&gt; INFO  [16:30:19.585] epoch 10, loss 0.0183</span></a></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">speech.coo.boris&lt;-<span class="kw">fcm</span>(corpus_boris,<span class="dt">context=</span><span class="st">&quot;window&quot;</span>,<span class="dt">window=</span><span class="dv">5</span>, <span class="dt">tri=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1">p&lt;-<span class="dv">2</span> <span class="co">#word embedding dimension</span></a>
+<a class="sourceLine" id="cb56-2" data-line-number="2">speech.glove.boris&lt;-GlobalVectors<span class="op">$</span><span class="kw">new</span>(<span class="dt">rank =</span> p,<span class="dt">x_max =</span> <span class="dv">10</span>) <span class="co">#xmas is a neede technical option</span></a>
+<a class="sourceLine" id="cb56-3" data-line-number="3">speech.weC.boris&lt;-speech.glove.boris<span class="op">$</span><span class="kw">fit_transform</span>(speech.coo.boris)</a>
+<a class="sourceLine" id="cb56-4" data-line-number="4"><span class="co">#&gt; INFO  [17:51:46.617] epoch 1, loss 0.0339 </span></a>
+<a class="sourceLine" id="cb56-5" data-line-number="5"><span class="co">#&gt; INFO  [17:51:46.699] epoch 2, loss 0.0241 </span></a>
+<a class="sourceLine" id="cb56-6" data-line-number="6"><span class="co">#&gt; INFO  [17:51:46.717] epoch 3, loss 0.0223 </span></a>
+<a class="sourceLine" id="cb56-7" data-line-number="7"><span class="co">#&gt; INFO  [17:51:46.720] epoch 4, loss 0.0211 </span></a>
+<a class="sourceLine" id="cb56-8" data-line-number="8"><span class="co">#&gt; INFO  [17:51:46.723] epoch 5, loss 0.0202 </span></a>
+<a class="sourceLine" id="cb56-9" data-line-number="9"><span class="co">#&gt; INFO  [17:51:46.726] epoch 6, loss 0.0194 </span></a>
+<a class="sourceLine" id="cb56-10" data-line-number="10"><span class="co">#&gt; INFO  [17:51:46.729] epoch 7, loss 0.0185 </span></a>
+<a class="sourceLine" id="cb56-11" data-line-number="11"><span class="co">#&gt; INFO  [17:51:46.733] epoch 8, loss 0.0178 </span></a>
+<a class="sourceLine" id="cb56-12" data-line-number="12"><span class="co">#&gt; INFO  [17:51:46.736] epoch 9, loss 0.0171 </span></a>
+<a class="sourceLine" id="cb56-13" data-line-number="13"><span class="co">#&gt; INFO  [17:51:46.739] epoch 10, loss 0.0166</span></a></code></pre></div>
 <p>For illustration purpose, we now plot the 50 most used terms</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1">n.w.boris&lt;-<span class="kw">apply</span>(corpus_boris.dfm,<span class="dv">2</span>,sum) <span class="co">#compute the number of times each term is used</span></a>
-<a class="sourceLine" id="cb50-2" data-line-number="2">index&lt;-<span class="kw">order</span>(n.w.boris,<span class="dt">decreasing =</span> <span class="ot">TRUE</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>]</a>
-<a class="sourceLine" id="cb50-3" data-line-number="3"><span class="kw">plot</span>(speech.weC.boris[index,],<span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,<span class="dt">xlab =</span> <span class="st">&quot;Dimension 1&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Dimendion 2&quot;</span>)</a>
-<a class="sourceLine" id="cb50-4" data-line-number="4"><span class="kw">text</span>(<span class="dt">x=</span>speech.weC.boris[index,],<span class="dt">labels =</span> <span class="kw">rownames</span>(speech.weC.boris[index,]))</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-43-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">speech.dtm &lt;-<span class="st"> </span>corpus_boris.dfm</a>
-<a class="sourceLine" id="cb51-2" data-line-number="2">speech.rwmd.model.boris&lt;-RelaxedWordMoversDistance<span class="op">$</span><span class="kw">new</span>(corpus_boris.dfm,speech.weC.boris)</a>
-<a class="sourceLine" id="cb51-3" data-line-number="3">speech.rwms.boris&lt;-speech.rwmd.model.boris<span class="op">$</span><span class="kw">sim2</span>(corpus_boris.dfm)</a>
-<a class="sourceLine" id="cb51-4" data-line-number="4">speech.rwmd.boris&lt;-speech.rwmd.model.boris<span class="op">$</span><span class="kw">dist2</span>(corpus_boris.dfm)</a>
-<a class="sourceLine" id="cb51-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb51-6" data-line-number="6">speech.hc.boris&lt;-<span class="kw">hclust</span>(<span class="kw">as.dist</span>(speech.rwmd.boris))</a>
-<a class="sourceLine" id="cb51-7" data-line-number="7"><span class="kw">plot</span>(speech.hc.boris,<span class="dt">cex=</span><span class="fl">0.8</span>)</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-44-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1">n.w.boris&lt;-<span class="kw">apply</span>(corpus_boris.dfm,<span class="dv">2</span>,sum) <span class="co">#compute the number of times each term is used</span></a>
+<a class="sourceLine" id="cb57-2" data-line-number="2">index&lt;-<span class="kw">order</span>(n.w.boris,<span class="dt">decreasing =</span> <span class="ot">TRUE</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>]</a>
+<a class="sourceLine" id="cb57-3" data-line-number="3"><span class="kw">plot</span>(speech.weC.boris[index,],<span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,<span class="dt">xlab =</span> <span class="st">&quot;Dimension 1&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Dimendion 2&quot;</span>)</a>
+<a class="sourceLine" id="cb57-4" data-line-number="4"><span class="kw">text</span>(<span class="dt">x=</span>speech.weC.boris[index,],<span class="dt">labels =</span> <span class="kw">rownames</span>(speech.weC.boris[index,]))</a></code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-51-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1">speech.dtm &lt;-<span class="st"> </span>corpus_boris.dfm</a>
+<a class="sourceLine" id="cb58-2" data-line-number="2">speech.rwmd.model.boris&lt;-RelaxedWordMoversDistance<span class="op">$</span><span class="kw">new</span>(corpus_boris.dfm,speech.weC.boris)</a>
+<a class="sourceLine" id="cb58-3" data-line-number="3">speech.rwms.boris&lt;-speech.rwmd.model.boris<span class="op">$</span><span class="kw">sim2</span>(corpus_boris.dfm)</a>
+<a class="sourceLine" id="cb58-4" data-line-number="4">speech.rwmd.boris&lt;-speech.rwmd.model.boris<span class="op">$</span><span class="kw">dist2</span>(corpus_boris.dfm)</a>
+<a class="sourceLine" id="cb58-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb58-6" data-line-number="6">speech.hc.boris&lt;-<span class="kw">hclust</span>(<span class="kw">as.dist</span>(speech.rwmd.boris))</a>
+<a class="sourceLine" id="cb58-7" data-line-number="7"><span class="kw">plot</span>(speech.hc.boris,<span class="dt">cex=</span><span class="fl">0.8</span>)</a></code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-52-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>We can observe that there is some coherence within the groups in terms the date of the speech.</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1">speech.cl.boris&lt;-<span class="st"> </span><span class="kw">cutree</span>(speech.hc.boris,<span class="dt">k=</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb52-2" data-line-number="2">corpus_boris.dfm[speech.cl.boris<span class="op">==</span><span class="dv">1</span>,]</a>
-<a class="sourceLine" id="cb52-3" data-line-number="3"><span class="co">#&gt; Document-feature matrix of: 2 documents, 797 features (72.0% sparse).</span></a>
-<a class="sourceLine" id="cb52-4" data-line-number="4"><span class="co">#&gt;        features</span></a>
-<a class="sourceLine" id="cb52-5" data-line-number="5"><span class="co">#&gt; docs    morning government&#39;s cobr emergency committee coronavirus</span></a>
-<a class="sourceLine" id="cb52-6" data-line-number="6"><span class="co">#&gt;   text1       1            2    1         1         1           3</span></a>
-<a class="sourceLine" id="cb52-7" data-line-number="7"><span class="co">#&gt;   text3       0            0    1         3         0           1</span></a>
-<a class="sourceLine" id="cb52-8" data-line-number="8"><span class="co">#&gt;        features</span></a>
-<a class="sourceLine" id="cb52-9" data-line-number="9"><span class="co">#&gt; docs    outbreak first scotland minister</span></a>
-<a class="sourceLine" id="cb52-10" data-line-number="10"><span class="co">#&gt;   text1        5     4        1        3</span></a>
-<a class="sourceLine" id="cb52-11" data-line-number="11"><span class="co">#&gt;   text3        0     1        0        0</span></a>
-<a class="sourceLine" id="cb52-12" data-line-number="12"><span class="co">#&gt; [ reached max_nfeat ... 787 more features ]</span></a></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1">speech.cl.boris&lt;-<span class="st"> </span><span class="kw">cutree</span>(speech.hc.boris,<span class="dt">k=</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb59-2" data-line-number="2">corpus_boris.dfm[speech.cl.boris<span class="op">==</span><span class="dv">1</span>,]</a>
+<a class="sourceLine" id="cb59-3" data-line-number="3"><span class="co">#&gt; Document-feature matrix of: 2 documents, 797 features (71.5% sparse).</span></a>
+<a class="sourceLine" id="cb59-4" data-line-number="4"><span class="co">#&gt;        features</span></a>
+<a class="sourceLine" id="cb59-5" data-line-number="5"><span class="co">#&gt; docs    morning government&#39;s cobr emergency committee coronavirus</span></a>
+<a class="sourceLine" id="cb59-6" data-line-number="6"><span class="co">#&gt;   text1       1            2    1         1         1           3</span></a>
+<a class="sourceLine" id="cb59-7" data-line-number="7"><span class="co">#&gt;   text2       0            1    0         1         1           2</span></a>
+<a class="sourceLine" id="cb59-8" data-line-number="8"><span class="co">#&gt;        features</span></a>
+<a class="sourceLine" id="cb59-9" data-line-number="9"><span class="co">#&gt; docs    outbreak first scotland minister</span></a>
+<a class="sourceLine" id="cb59-10" data-line-number="10"><span class="co">#&gt;   text1        5     4        1        3</span></a>
+<a class="sourceLine" id="cb59-11" data-line-number="11"><span class="co">#&gt;   text2        0     0        1        1</span></a>
+<a class="sourceLine" id="cb59-12" data-line-number="12"><span class="co">#&gt; [ reached max_nfeat ... 787 more features ]</span></a></code></pre></div>
 </div>
-<div id="macron-3" class="section level2">
+<div id="macron-2" class="section level2">
 <h2><span class="header-section-number">6.2</span> Macron</h2>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">speech.coo.macron&lt;-<span class="kw">fcm</span>(corpus_macron,<span class="dt">context=</span><span class="st">&quot;window&quot;</span>,<span class="dt">window=</span><span class="dv">5</span>, <span class="dt">tri=</span><span class="ot">FALSE</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1">p&lt;-<span class="dv">2</span> <span class="co">#word embedding dimension</span></a>
-<a class="sourceLine" id="cb54-2" data-line-number="2">speech.glove.macron&lt;-GlobalVectors<span class="op">$</span><span class="kw">new</span>(<span class="dt">rank =</span> p,<span class="dt">x_max =</span> <span class="dv">10</span>) <span class="co">#xmas is a neede technical option</span></a>
-<a class="sourceLine" id="cb54-3" data-line-number="3">speech.weC.macron&lt;-speech.glove.macron<span class="op">$</span><span class="kw">fit_transform</span>(speech.coo.macron)</a>
-<a class="sourceLine" id="cb54-4" data-line-number="4"><span class="co">#&gt; INFO  [16:30:21.600] epoch 1, loss 0.0241 </span></a>
-<a class="sourceLine" id="cb54-5" data-line-number="5"><span class="co">#&gt; INFO  [16:30:21.620] epoch 2, loss 0.0177 </span></a>
-<a class="sourceLine" id="cb54-6" data-line-number="6"><span class="co">#&gt; INFO  [16:30:21.635] epoch 3, loss 0.0161 </span></a>
-<a class="sourceLine" id="cb54-7" data-line-number="7"><span class="co">#&gt; INFO  [16:30:21.657] epoch 4, loss 0.0151 </span></a>
-<a class="sourceLine" id="cb54-8" data-line-number="8"><span class="co">#&gt; INFO  [16:30:21.676] epoch 5, loss 0.0146 </span></a>
-<a class="sourceLine" id="cb54-9" data-line-number="9"><span class="co">#&gt; INFO  [16:30:21.692] epoch 6, loss 0.0139 </span></a>
-<a class="sourceLine" id="cb54-10" data-line-number="10"><span class="co">#&gt; INFO  [16:30:21.705] epoch 7, loss 0.0133 </span></a>
-<a class="sourceLine" id="cb54-11" data-line-number="11"><span class="co">#&gt; INFO  [16:30:21.715] epoch 8, loss 0.0127 </span></a>
-<a class="sourceLine" id="cb54-12" data-line-number="12"><span class="co">#&gt; INFO  [16:30:21.729] epoch 9, loss 0.0121 </span></a>
-<a class="sourceLine" id="cb54-13" data-line-number="13"><span class="co">#&gt; INFO  [16:30:21.739] epoch 10, loss 0.0116</span></a></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1">speech.coo.macron&lt;-<span class="kw">fcm</span>(corpus_macron,<span class="dt">context=</span><span class="st">&quot;window&quot;</span>,<span class="dt">window=</span><span class="dv">5</span>, <span class="dt">tri=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">p&lt;-<span class="dv">2</span> <span class="co">#word embedding dimension</span></a>
+<a class="sourceLine" id="cb61-2" data-line-number="2">speech.glove.macron&lt;-GlobalVectors<span class="op">$</span><span class="kw">new</span>(<span class="dt">rank =</span> p,<span class="dt">x_max =</span> <span class="dv">10</span>) <span class="co">#xmas is a neede technical option</span></a>
+<a class="sourceLine" id="cb61-3" data-line-number="3">speech.weC.macron&lt;-speech.glove.macron<span class="op">$</span><span class="kw">fit_transform</span>(speech.coo.macron)</a>
+<a class="sourceLine" id="cb61-4" data-line-number="4"><span class="co">#&gt; INFO  [17:51:47.869] epoch 1, loss 0.0246 </span></a>
+<a class="sourceLine" id="cb61-5" data-line-number="5"><span class="co">#&gt; INFO  [17:51:47.879] epoch 2, loss 0.0176 </span></a>
+<a class="sourceLine" id="cb61-6" data-line-number="6"><span class="co">#&gt; INFO  [17:51:47.887] epoch 3, loss 0.0157 </span></a>
+<a class="sourceLine" id="cb61-7" data-line-number="7"><span class="co">#&gt; INFO  [17:51:47.921] epoch 4, loss 0.0145 </span></a>
+<a class="sourceLine" id="cb61-8" data-line-number="8"><span class="co">#&gt; INFO  [17:51:47.931] epoch 5, loss 0.0136 </span></a>
+<a class="sourceLine" id="cb61-9" data-line-number="9"><span class="co">#&gt; INFO  [17:51:47.948] epoch 6, loss 0.0127 </span></a>
+<a class="sourceLine" id="cb61-10" data-line-number="10"><span class="co">#&gt; INFO  [17:51:47.958] epoch 7, loss 0.0121 </span></a>
+<a class="sourceLine" id="cb61-11" data-line-number="11"><span class="co">#&gt; INFO  [17:51:47.967] epoch 8, loss 0.0115 </span></a>
+<a class="sourceLine" id="cb61-12" data-line-number="12"><span class="co">#&gt; INFO  [17:51:47.977] epoch 9, loss 0.0110 </span></a>
+<a class="sourceLine" id="cb61-13" data-line-number="13"><span class="co">#&gt; INFO  [17:51:47.991] epoch 10, loss 0.0107</span></a></code></pre></div>
 <p>For illustration purpose, we now plot the 50 most used terms</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">n.w.macron&lt;-<span class="kw">apply</span>(corpus_macron.dfm,<span class="dv">2</span>,sum) <span class="co">#compute the number of times each term is used</span></a>
-<a class="sourceLine" id="cb55-2" data-line-number="2">index&lt;-<span class="kw">order</span>(n.w.macron,<span class="dt">decreasing =</span> <span class="ot">TRUE</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>]</a>
-<a class="sourceLine" id="cb55-3" data-line-number="3"><span class="kw">plot</span>(speech.weC.macron[index,],<span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,<span class="dt">xlab =</span> <span class="st">&quot;Dimension 1&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Dimendion 2&quot;</span>)</a>
-<a class="sourceLine" id="cb55-4" data-line-number="4"><span class="kw">text</span>(<span class="dt">x=</span>speech.weC.macron[index,],<span class="dt">labels =</span> <span class="kw">rownames</span>(speech.weC.macron[index,]))</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-48-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1">speech.dtm.macron &lt;-<span class="st"> </span>corpus_macron.dfm</a>
-<a class="sourceLine" id="cb56-2" data-line-number="2">speech.rwmd.model.macron&lt;-RelaxedWordMoversDistance<span class="op">$</span><span class="kw">new</span>(corpus_macron.dfm,speech.weC.macron)</a>
-<a class="sourceLine" id="cb56-3" data-line-number="3">speech.rwms.macron&lt;-speech.rwmd.model.macron<span class="op">$</span><span class="kw">sim2</span>(corpus_macron.dfm)</a>
-<a class="sourceLine" id="cb56-4" data-line-number="4">speech.rwmd.macron&lt;-speech.rwmd.model.macron<span class="op">$</span><span class="kw">dist2</span>(corpus_macron.dfm)</a>
-<a class="sourceLine" id="cb56-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb56-6" data-line-number="6">speech.hc.macron&lt;-<span class="kw">hclust</span>(<span class="kw">as.dist</span>(speech.rwmd.macron))</a>
-<a class="sourceLine" id="cb56-7" data-line-number="7"><span class="kw">plot</span>(speech.hc.macron,<span class="dt">cex=</span><span class="fl">0.8</span>)</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-49-1.png" width="70%" style="display: block; margin: auto;" />
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1">n.w.macron&lt;-<span class="kw">apply</span>(corpus_macron.dfm,<span class="dv">2</span>,sum) <span class="co">#compute the number of times each term is used</span></a>
+<a class="sourceLine" id="cb62-2" data-line-number="2">index&lt;-<span class="kw">order</span>(n.w.macron,<span class="dt">decreasing =</span> <span class="ot">TRUE</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>]</a>
+<a class="sourceLine" id="cb62-3" data-line-number="3"><span class="kw">plot</span>(speech.weC.macron[index,],<span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,<span class="dt">xlab =</span> <span class="st">&quot;Dimension 1&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Dimendion 2&quot;</span>)</a>
+<a class="sourceLine" id="cb62-4" data-line-number="4"><span class="kw">text</span>(<span class="dt">x=</span>speech.weC.macron[index,],<span class="dt">labels =</span> <span class="kw">rownames</span>(speech.weC.macron[index,]))</a></code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-56-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1">speech.dtm.macron &lt;-<span class="st"> </span>corpus_macron.dfm</a>
+<a class="sourceLine" id="cb63-2" data-line-number="2">speech.rwmd.model.macron&lt;-RelaxedWordMoversDistance<span class="op">$</span><span class="kw">new</span>(corpus_macron.dfm,speech.weC.macron)</a>
+<a class="sourceLine" id="cb63-3" data-line-number="3">speech.rwms.macron&lt;-speech.rwmd.model.macron<span class="op">$</span><span class="kw">sim2</span>(corpus_macron.dfm)</a>
+<a class="sourceLine" id="cb63-4" data-line-number="4">speech.rwmd.macron&lt;-speech.rwmd.model.macron<span class="op">$</span><span class="kw">dist2</span>(corpus_macron.dfm)</a>
+<a class="sourceLine" id="cb63-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb63-6" data-line-number="6">speech.hc.macron&lt;-<span class="kw">hclust</span>(<span class="kw">as.dist</span>(speech.rwmd.macron))</a>
+<a class="sourceLine" id="cb63-7" data-line-number="7"><span class="kw">plot</span>(speech.hc.macron,<span class="dt">cex=</span><span class="fl">0.8</span>)</a></code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-57-1.png" width="70%" style="display: block; margin: auto;" />
 We can observe that there is some coherence within the groups in terms the date of the speech.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1">speech.cl.macron&lt;-<span class="st"> </span><span class="kw">cutree</span>(speech.hc.macron,<span class="dt">k=</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb57-2" data-line-number="2">corpus_macron.dfm[speech.cl.macron<span class="op">==</span><span class="dv">1</span>,]</a>
-<a class="sourceLine" id="cb57-3" data-line-number="3"><span class="co">#&gt; Document-feature matrix of: 2 documents, 1,469 features (47.4% sparse).</span></a>
-<a class="sourceLine" id="cb57-4" data-line-number="4"><span class="co">#&gt;        features</span></a>
-<a class="sourceLine" id="cb57-5" data-line-number="5"><span class="co">#&gt; docs    france dear past country spread virus covid-19 several</span></a>
-<a class="sourceLine" id="cb57-6" data-line-number="6"><span class="co">#&gt;   text1     10    6    3       4      8    13        4       5</span></a>
-<a class="sourceLine" id="cb57-7" data-line-number="7"><span class="co">#&gt;   text3      7    5    3      12      2    11        1       5</span></a>
-<a class="sourceLine" id="cb57-8" data-line-number="8"><span class="co">#&gt;        features</span></a>
-<a class="sourceLine" id="cb57-9" data-line-number="9"><span class="co">#&gt; docs    thousand fellow</span></a>
-<a class="sourceLine" id="cb57-10" data-line-number="10"><span class="co">#&gt;   text1        2      4</span></a>
-<a class="sourceLine" id="cb57-11" data-line-number="11"><span class="co">#&gt;   text3        1      1</span></a>
-<a class="sourceLine" id="cb57-12" data-line-number="12"><span class="co">#&gt; [ reached max_nfeat ... 1,459 more features ]</span></a></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1">speech.cl.macron&lt;-<span class="st"> </span><span class="kw">cutree</span>(speech.hc.macron,<span class="dt">k=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb64-2" data-line-number="2">corpus_macron.dfm[speech.cl.macron<span class="op">==</span><span class="dv">1</span>,]</a>
+<a class="sourceLine" id="cb64-3" data-line-number="3"><span class="co">#&gt; Document-feature matrix of: 2 documents, 1,469 features (47.4% sparse).</span></a>
+<a class="sourceLine" id="cb64-4" data-line-number="4"><span class="co">#&gt;        features</span></a>
+<a class="sourceLine" id="cb64-5" data-line-number="5"><span class="co">#&gt; docs    france dear past country spread virus covid-19 several</span></a>
+<a class="sourceLine" id="cb64-6" data-line-number="6"><span class="co">#&gt;   text1     10    6    3       4      8    13        4       5</span></a>
+<a class="sourceLine" id="cb64-7" data-line-number="7"><span class="co">#&gt;   text3      7    5    3      12      2    11        1       5</span></a>
+<a class="sourceLine" id="cb64-8" data-line-number="8"><span class="co">#&gt;        features</span></a>
+<a class="sourceLine" id="cb64-9" data-line-number="9"><span class="co">#&gt; docs    thousand fellow</span></a>
+<a class="sourceLine" id="cb64-10" data-line-number="10"><span class="co">#&gt;   text1        2      4</span></a>
+<a class="sourceLine" id="cb64-11" data-line-number="11"><span class="co">#&gt;   text3        1      1</span></a>
+<a class="sourceLine" id="cb64-12" data-line-number="12"><span class="co">#&gt; [ reached max_nfeat ... 1,459 more features ]</span></a></code></pre></div>
 </div>
-<div id="comparison-3" class="section level2">
+<div id="comparison-2" class="section level2">
 <h2><span class="header-section-number">6.3</span> Comparison</h2>
 
 </div>

@@ -45,5 +45,9 @@ quanteda.textmodels
 topicmodels
 text2vec
 reshape2
+<<<<<<< HEAD
+ranger
+=======
 corpus
+>>>>>>> 2092689b879909b6518a3b123eb363f00aa91dd1
 DT
