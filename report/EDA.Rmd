@@ -2,15 +2,15 @@
 
 ## Data Acquisition
 
-To download the different speaches, we scrap the speaches from two different websites.
-The speaches from Macron come from the website of the Embassy of France in Washington DC (USA) and regarding Boris Johnson's speaches, they come from the official website of the governement of the United-Kingdom.
+To download the differents speaches we scrap the speaches on 2 differents websites.
+The speaches from Macron come from the website of the Embassy of France in Washington DC (USA) and regarding Boris Johnson speaches, it comes from the official website of the governement of the United-Kingdom.
 
 ### Emmanuel Macron
 
 We choose the 3 first speaches from Macron about the corona virus dating from the:
-* 12 March (text1)
-* 16 March (text2)
-* 13 April (text3)
+* 12 march (text1)
+* 16 march (text2)
+* 13 april (text3)
 
 ```{r include=FALSE}
 # Data Acquisition Macron 
@@ -41,18 +41,18 @@ macron <- corpus(c(macron12march,macron16march,macron13april))
 knitr::kable(summary(macron), caption = "Macron's speeches" ,align = "lccrr",digits = 4)
 ```
 
-The first speach of Macron was quite long , 162 sentences and the two next were shorter: 107 sentences. Each speech consists approximatly of an average of 3200 words.
+The first speaches from Macron was quite long , 162 sentences and the two next were shorter: 107 sentences. Each speech consists approximatly of an average of 3200 words.
 
 ### Boris Johnson
 
-We choose the 7 first speaches of president Johnson about the corona virus dating from the:
-  * 09 March (text1)
-  * 12 March (text2)
-  * 16 March (text3)
-  * 18 March (text5)
-  * 19 March (text6)
-  * 20 March (text7)
-  * 22 March (text8)
+We choose the 7 first speaches from president Johnson about the corona virus dating from the:
+  * 09 march (text1)
+  * 12 march (text2)
+  * 16 march (text3)
+  * 18 march (text5)
+  * 19 march (text6)
+  * 20 march (text7)
+  * 22 march (text8)
 
 ```{r include=FALSE}
 
@@ -99,7 +99,8 @@ Johnson made more speeches but shorter. His first speech was 577 words, then the
 
 ## Tokenisation, Lemmatization & Cleaning
 
-Numbers, punctuation, symbols and separators are removed, as well as unimportant words. Moreover, we cast all letters to their corresponding lower case version.
+The numbers, the punctuation,the symbols and the separators are remove.
+As well as unimportant words. Moreover we cast all letters to their lower option.
 
 ### Emmanuel Macron
 
@@ -243,11 +244,11 @@ boris_tidy %>% filter(term %in% boris_index$term) %>%
    guides(fill=FALSE, color=FALSE)
 ```
 
-We see that the list of the 15 most frequent terms is due to doc 2 ,4 and 3. 
+We see that the list of 15 most frequent term are due to doc 2 ,4 and 3. 
 
 #### Per text 
 
-Now we want to know which are the most frequent terms for each speach.
+Now we want to know which are the most frequent term for each speach.
 
 *Emmanuel Macron*
 
@@ -364,7 +365,7 @@ textplot_wordcloud(corpus_boris.tfidf, color=brewer.pal(8, "Dark2"))
 
 ## Lexical Divesity Token Type Ratio TTR
 
-A TTR is comprised beetween 0 and 1. When equal to 1, it corresponds to a rich lexical diversity, this is to say that each token is from a different type. In opposite, if equal to 0, it mean that the corpus presents a poor lexical diversity (if he would use one word only).
+A TTR is comprised beetween o and 1.When equal to 1 it correspond to a rich diversity, every token is from a different type. In opposit if equal to 0, it mean a poor diversity ( he use only one word).
 
 ### Emmanuel Macron 
 
@@ -376,7 +377,7 @@ knitr::kable(TTR.macron, caption = "Lexical diversity of Macron." ,align = "lccr
 
 ```
 
-Macron has a mean TTR of 0,45, which is quite poor.
+Macron have a mean TTR of 0,45 which is quite poor.
 
 ### Boris Johnson
 
@@ -389,13 +390,13 @@ knitr::kable(TTR.boris, caption = "Lexical diversity of Johnson." ,align = "lccr
 
 ```
 
-Johnson has quite a richer vocabulary, an average of 0,6 over the different corpuses.
+Johnson have quite a rich vocabulary, a mean of 0,6.
 
 ## Zipf's Law
 
-Now, we illustrate the Zipf's law on the discourses. The terms are ranked by their corresponding frequency (rank=1 for the most frequent), then plotted versus tehir rank. This is easily obtained using quanteda.
+Now, we illustrate the Zipf's law on the discours. The terms are ranked by their frequency (rank=1 for the most frequent), then plotted versus its rank. This is easily obtained using quanteda.
 
-Using a log-log relation, this gives us a linear regression.
+Thanks on the log scale this gives a linear relation.
 
 ### Emmanuel Macron 
 
@@ -420,7 +421,7 @@ plot(log(frequency)~log(rank), data=corpus_boris_freq, pch=20)
 
 ## Yule's index
 
-A larger index means more diversity.
+A larger index mean more diversity.
 
 ### Emmanuel Macron 
 
