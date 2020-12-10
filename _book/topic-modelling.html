@@ -51,6 +51,14 @@
 
 <link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.15/datatables.js"></script>
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
 
 
 <style type="text/css">
@@ -134,32 +142,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2" data-path="introduction.html"><a href="introduction.html#data-loadind"><i class="fa fa-check"></i><b>2.2</b> Data loadind</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>3</b> EDA</a><ul>
-<li class="chapter" data-level="3.1" data-path="eda.html"><a href="eda.html#boris-johnson"><i class="fa fa-check"></i><b>3.1</b> Boris Johnson</a></li>
-<li class="chapter" data-level="3.2" data-path="eda.html"><a href="eda.html#macron"><i class="fa fa-check"></i><b>3.2</b> Macron</a></li>
-<li class="chapter" data-level="3.3" data-path="eda.html"><a href="eda.html#data-manipulation"><i class="fa fa-check"></i><b>3.3</b> Data manipulation</a></li>
-<li class="chapter" data-level="3.4" data-path="eda.html"><a href="eda.html#zipfs-law"><i class="fa fa-check"></i><b>3.4</b> Zipf’s law</a></li>
-<li class="chapter" data-level="3.5" data-path="eda.html"><a href="eda.html#comparison"><i class="fa fa-check"></i><b>3.5</b> Comparison</a></li>
+<li class="chapter" data-level="3.1" data-path="eda.html"><a href="eda.html#data-acquisition"><i class="fa fa-check"></i><b>3.1</b> Data Acquisition</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="eda.html"><a href="eda.html#emmanuel-macron"><i class="fa fa-check"></i><b>3.1.1</b> Emmanuel Macron</a></li>
+<li class="chapter" data-level="3.1.2" data-path="eda.html"><a href="eda.html#boris-johnson"><i class="fa fa-check"></i><b>3.1.2</b> Boris Johnson</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="eda.html"><a href="eda.html#tokenisation-lemmatization-cleaning"><i class="fa fa-check"></i><b>3.2</b> Tokenisation, Lemmatization &amp; Cleaning</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="eda.html"><a href="eda.html#emmanuel-macron-1"><i class="fa fa-check"></i><b>3.2.1</b> Emmanuel Macron</a></li>
+<li class="chapter" data-level="3.2.2" data-path="eda.html"><a href="eda.html#boris-johnson-1"><i class="fa fa-check"></i><b>3.2.2</b> Boris Johnson</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="eda.html"><a href="eda.html#document-term-matrix-dtm"><i class="fa fa-check"></i><b>3.3</b> Document-Term Matrix DTM</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="eda.html"><a href="eda.html#emmanuel-macron-2"><i class="fa fa-check"></i><b>3.3.1</b> Emmanuel Macron</a></li>
+<li class="chapter" data-level="3.3.2" data-path="eda.html"><a href="eda.html#boris-johnson-2"><i class="fa fa-check"></i><b>3.3.2</b> Boris Johnson</a></li>
+<li class="chapter" data-level="3.3.3" data-path="eda.html"><a href="eda.html#emmanuel-macron-3"><i class="fa fa-check"></i><b>3.3.3</b> Emmanuel Macron</a></li>
+<li class="chapter" data-level="3.3.4" data-path="eda.html"><a href="eda.html#emmanuel-macron-4"><i class="fa fa-check"></i><b>3.3.4</b> Emmanuel Macron</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="eda.html"><a href="eda.html#lexical-divesity-token-type-ratio-ttr"><i class="fa fa-check"></i><b>3.4</b> Lexical Divesity Token Type Ratio TTR</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="eda.html"><a href="eda.html#emmanuel-macron-5"><i class="fa fa-check"></i><b>3.4.1</b> Emmanuel Macron</a></li>
+<li class="chapter" data-level="3.4.2" data-path="eda.html"><a href="eda.html#boris-johnson-3"><i class="fa fa-check"></i><b>3.4.2</b> Boris Johnson</a></li>
+<li class="chapter" data-level="3.4.3" data-path="eda.html"><a href="eda.html#emmanuel-macron-6"><i class="fa fa-check"></i><b>3.4.3</b> Emmanuel Macron</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="eda.html"><a href="eda.html#yules-index"><i class="fa fa-check"></i><b>3.5</b> yule’s index</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="eda.html"><a href="eda.html#emmanuel-macron-7"><i class="fa fa-check"></i><b>3.5.1</b> Emmanuel Macron</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="eda.html"><a href="eda.html#mattr"><i class="fa fa-check"></i><b>3.6</b> MATTR</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="eda.html"><a href="eda.html#emmanuel-macron-8"><i class="fa fa-check"></i><b>3.6.1</b> Emmanuel Macron</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="similarities.html"><a href="similarities.html"><i class="fa fa-check"></i><b>4</b> Similarities</a><ul>
 <li class="chapter" data-level="4.1" data-path="similarities.html"><a href="similarities.html#boris"><i class="fa fa-check"></i><b>4.1</b> Boris</a></li>
-<li class="chapter" data-level="4.2" data-path="similarities.html"><a href="similarities.html#macron-1"><i class="fa fa-check"></i><b>4.2</b> Macron</a></li>
-<li class="chapter" data-level="4.3" data-path="similarities.html"><a href="similarities.html#comparison-1"><i class="fa fa-check"></i><b>4.3</b> Comparison</a></li>
+<li class="chapter" data-level="4.2" data-path="similarities.html"><a href="similarities.html#macron"><i class="fa fa-check"></i><b>4.2</b> Macron</a></li>
+<li class="chapter" data-level="4.3" data-path="similarities.html"><a href="similarities.html#comparison"><i class="fa fa-check"></i><b>4.3</b> Comparison</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="topic-modelling.html"><a href="topic-modelling.html"><i class="fa fa-check"></i><b>5</b> Topic Modelling</a><ul>
-<li class="chapter" data-level="5.1" data-path="topic-modelling.html"><a href="topic-modelling.html#boris-johnson-1"><i class="fa fa-check"></i><b>5.1</b> Boris Johnson</a><ul>
+<li class="chapter" data-level="5.1" data-path="topic-modelling.html"><a href="topic-modelling.html#boris-johnson-4"><i class="fa fa-check"></i><b>5.1</b> Boris Johnson</a><ul>
 <li class="chapter" data-level="5.1.1" data-path="topic-modelling.html"><a href="topic-modelling.html#lsa"><i class="fa fa-check"></i><b>5.1.1</b> LSA</a></li>
 <li class="chapter" data-level="5.1.2" data-path="topic-modelling.html"><a href="topic-modelling.html#lda"><i class="fa fa-check"></i><b>5.1.2</b> LDA</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="topic-modelling.html"><a href="topic-modelling.html#macron-2"><i class="fa fa-check"></i><b>5.2</b> Macron</a><ul>
+<li class="chapter" data-level="5.2" data-path="topic-modelling.html"><a href="topic-modelling.html#macron-1"><i class="fa fa-check"></i><b>5.2</b> Macron</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="topic-modelling.html"><a href="topic-modelling.html#lsa-1"><i class="fa fa-check"></i><b>5.2.1</b> LSA</a></li>
 <li class="chapter" data-level="5.2.2" data-path="topic-modelling.html"><a href="topic-modelling.html#lda-1"><i class="fa fa-check"></i><b>5.2.2</b> LDA</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="topic-modelling.html"><a href="topic-modelling.html#comparison-2"><i class="fa fa-check"></i><b>5.3</b> Comparison</a></li>
+<li class="chapter" data-level="5.3" data-path="topic-modelling.html"><a href="topic-modelling.html#comparison-1"><i class="fa fa-check"></i><b>5.3</b> Comparison</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="word-embedding.html"><a href="word-embedding.html"><i class="fa fa-check"></i><b>6</b> Word Embedding</a><ul>
-<li class="chapter" data-level="6.1" data-path="word-embedding.html"><a href="word-embedding.html#boris-johnson-2"><i class="fa fa-check"></i><b>6.1</b> Boris Johnson</a></li>
-<li class="chapter" data-level="6.2" data-path="word-embedding.html"><a href="word-embedding.html#macron-3"><i class="fa fa-check"></i><b>6.2</b> Macron</a></li>
-<li class="chapter" data-level="6.3" data-path="word-embedding.html"><a href="word-embedding.html#comparison-3"><i class="fa fa-check"></i><b>6.3</b> Comparison</a></li>
+<li class="chapter" data-level="6.1" data-path="word-embedding.html"><a href="word-embedding.html#boris-johnson-5"><i class="fa fa-check"></i><b>6.1</b> Boris Johnson</a></li>
+<li class="chapter" data-level="6.2" data-path="word-embedding.html"><a href="word-embedding.html#macron-2"><i class="fa fa-check"></i><b>6.2</b> Macron</a></li>
+<li class="chapter" data-level="6.3" data-path="word-embedding.html"><a href="word-embedding.html#comparison-2"><i class="fa fa-check"></i><b>6.3</b> Comparison</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -183,14 +211,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="topic-modelling" class="section level1">
 <h1><span class="header-section-number">Chapter 5</span> Topic Modelling</h1>
 <p>In this chapter, we analzye the topics of the speechs of Boris Jonhson and Macron using LSA and LDA.</p>
-<div id="boris-johnson-1" class="section level2">
+<div id="boris-johnson-4" class="section level2">
 <h2><span class="header-section-number">5.1</span> Boris Johnson</h2>
 <div id="lsa" class="section level3">
 <h3><span class="header-section-number">5.1.1</span> LSA</h3>
 <p>First, we make the DTM matrix. We are goin to use 3 dimensions.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">bmod&lt;-<span class="kw">textmodel_lsa</span>(corpus_boris.dfm,<span class="dt">nd=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">bmod&lt;-<span class="kw">textmodel_lsa</span>(corpus_boris.dfm,<span class="dt">nd=</span><span class="dv">3</span>)</a></code></pre></div>
 <p>To inspect the results, we can extract the matrices involved in the LSA decomposition</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw">head</span>(bmod<span class="op">$</span>docs)</a></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw">head</span>(bmod<span class="op">$</span>docs)</a></code></pre></div>
 <table>
 <tbody>
 <tr>
@@ -279,8 +307,8 @@ text6
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="kw">head</span>(bmod<span class="op">$</span>features)</a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="kw">head</span>(bmod<span class="op">$</span>features)</a></code></pre></div>
 <table>
 <tbody>
 <tr>
@@ -370,20 +398,20 @@ coronavirus
 </tbody>
 </table>
 <p>Often the first dimension in LSA is associated with the document lenght. To see if it is true, we build a scatter-plot between the document lengt and Dimension 1.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">ns&lt;-<span class="kw">apply</span>(corpus_boris.dfm,<span class="dv">1</span>,sum) </a>
-<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="kw">plot</span>(ns<span class="op">~</span>bmod<span class="op">$</span>docs [,<span class="dv">1</span>])</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" />
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">ns&lt;-<span class="kw">apply</span>(corpus_boris.dfm,<span class="dv">1</span>,sum) </a>
+<a class="sourceLine" id="cb30-2" data-line-number="2"><span class="kw">plot</span>(ns<span class="op">~</span>bmod<span class="op">$</span>docs [,<span class="dv">1</span>])</a></code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" />
 We clearly observe that the dimension 1 is negatively correlated with the document lenght.</p>
 <p>Now in order to make the link between the topics and the documents and the topics with term, we use biplot</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw">biplot</span>(<span class="dt">y=</span>bmod<span class="op">$</span>docs[,<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>],<span class="dt">x=</span>bmod<span class="op">$</span>features[,<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>],</a>
-<a class="sourceLine" id="cb24-2" data-line-number="2">       <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;grey&quot;</span>,<span class="st">&quot;red&quot;</span>),</a>
-<a class="sourceLine" id="cb24-3" data-line-number="3">       <span class="dt">xlab =</span> <span class="st">&quot;Dimension 2&quot;</span>,</a>
-<a class="sourceLine" id="cb24-4" data-line-number="4">       <span class="dt">ylab=</span><span class="st">&quot;Dimension 3&quot;</span>)</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">biplot</span>(<span class="dt">y=</span>bmod<span class="op">$</span>docs[,<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>],<span class="dt">x=</span>bmod<span class="op">$</span>features[,<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>],</a>
+<a class="sourceLine" id="cb31-2" data-line-number="2">       <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;grey&quot;</span>,<span class="st">&quot;red&quot;</span>),</a>
+<a class="sourceLine" id="cb31-3" data-line-number="3">       <span class="dt">xlab =</span> <span class="st">&quot;Dimension 2&quot;</span>,</a>
+<a class="sourceLine" id="cb31-4" data-line-number="4">       <span class="dt">ylab=</span><span class="st">&quot;Dimension 3&quot;</span>)</a></code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>We repeat the same analysis with TF-IDF</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">bmod_<span class="dv">2</span>&lt;-<span class="st"> </span><span class="kw">textmodel_lsa</span>(corpus_boris.tfidf, <span class="dt">nd=</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb25-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb25-3" data-line-number="3"><span class="kw">head</span>(bmod_<span class="dv">2</span><span class="op">$</span>docs)</a></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">bmod_<span class="dv">2</span>&lt;-<span class="st"> </span><span class="kw">textmodel_lsa</span>(corpus_boris.tfidf, <span class="dt">nd=</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb32-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb32-3" data-line-number="3"><span class="kw">head</span>(bmod_<span class="dv">2</span><span class="op">$</span>docs)</a></code></pre></div>
 <table>
 <tbody>
 <tr>
@@ -472,8 +500,8 @@ text6
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb26-2" data-line-number="2"><span class="kw">head</span>(bmod_<span class="dv">2</span><span class="op">$</span>features)</a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="kw">head</span>(bmod_<span class="dv">2</span><span class="op">$</span>features)</a></code></pre></div>
 <table>
 <tbody>
 <tr>
@@ -566,11 +594,11 @@ coronavirus
 <div id="lda" class="section level3">
 <h3><span class="header-section-number">5.1.2</span> LDA</h3>
 <p>We now turn to the LDA. For illustration, we will make K=5 topis.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">K&lt;-<span class="dv">5</span></a>
-<a class="sourceLine" id="cb27-2" data-line-number="2">corpus_boris.dtm&lt;-<span class="st"> </span><span class="kw">convert</span>(corpus_boris.dfm, <span class="dt">to=</span><span class="st">&quot;topicmodels&quot;</span>)</a>
-<a class="sourceLine" id="cb27-3" data-line-number="3">lda_boris&lt;-<span class="st"> </span><span class="kw">LDA</span>(corpus_boris.dtm ,<span class="dt">k=</span>K)</a></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">K&lt;-<span class="dv">5</span></a>
+<a class="sourceLine" id="cb34-2" data-line-number="2">corpus_boris.dtm&lt;-<span class="st"> </span><span class="kw">convert</span>(corpus_boris.dfm, <span class="dt">to=</span><span class="st">&quot;topicmodels&quot;</span>)</a>
+<a class="sourceLine" id="cb34-3" data-line-number="3">lda_boris&lt;-<span class="st"> </span><span class="kw">LDA</span>(corpus_boris.dtm ,<span class="dt">k=</span>K)</a></code></pre></div>
 <p>Top terms per topic and top topic per document can be easily obtained. Belo, the six top terms and the top topic are extracted.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw">terms</span>(lda_boris,<span class="dv">6</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">terms</span>(lda_boris,<span class="dv">6</span>)</a></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -597,19 +625,25 @@ Topic 5
 will
 </td>
 <td style="text-align:left;">
+will
+</td>
+<td style="text-align:left;">
+will
+</td>
+<td style="text-align:left;">
 now
-</td>
-<td style="text-align:left;">
-will
-</td>
-<td style="text-align:left;">
-will
 </td>
 <td style="text-align:left;">
 will
 </td>
 </tr>
 <tr>
+<td style="text-align:left;">
+go
+</td>
+<td style="text-align:left;">
+much
+</td>
 <td style="text-align:left;">
 school
 </td>
@@ -617,33 +651,33 @@ school
 people
 </td>
 <td style="text-align:left;">
-much
+want
 </td>
+</tr>
+<tr>
 <td style="text-align:left;">
-go
+can
 </td>
 <td style="text-align:left;">
 can
 </td>
-</tr>
-<tr>
 <td style="text-align:left;">
-keep
+need
 </td>
 <td style="text-align:left;">
 go
 </td>
 <td style="text-align:left;">
-disease
-</td>
-<td style="text-align:left;">
-may
-</td>
-<td style="text-align:left;">
-people
+thank
 </td>
 </tr>
 <tr>
+<td style="text-align:left;">
+people
+</td>
+<td style="text-align:left;">
+disease
+</td>
 <td style="text-align:left;">
 make
 </td>
@@ -651,65 +685,59 @@ make
 say
 </td>
 <td style="text-align:left;">
+much
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 now
 </td>
 <td style="text-align:left;">
-know
+now
 </td>
 <td style="text-align:left;">
-want
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-need
+keep
 </td>
 <td style="text-align:left;">
 need
-</td>
-<td style="text-align:left;">
-can
-</td>
-<td style="text-align:left;">
-can
-</td>
-<td style="text-align:left;">
-go
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-child
-</td>
-<td style="text-align:left;">
-can
-</td>
-<td style="text-align:left;">
-people
-</td>
-<td style="text-align:left;">
-test
 </td>
 <td style="text-align:left;">
 measure
 </td>
 </tr>
+<tr>
+<td style="text-align:left;">
+know
+</td>
+<td style="text-align:left;">
+spread
+</td>
+<td style="text-align:left;">
+want
+</td>
+<td style="text-align:left;">
+can
+</td>
+<td style="text-align:left;">
+everyone
+</td>
+</tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="kw">topics</span>(lda_boris,<span class="dv">1</span>)  <span class="co">## To see the topics related to each document</span></a>
-<a class="sourceLine" id="cb29-3" data-line-number="3"><span class="co">#&gt; text1 text2 text3 text4 text5 text6 text7 </span></a>
-<a class="sourceLine" id="cb29-4" data-line-number="4"><span class="co">#&gt;     5     3     2     1     4     5     5</span></a></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb36-2" data-line-number="2"><span class="kw">topics</span>(lda_boris,<span class="dv">1</span>)  <span class="co">## To see the topics related to each document</span></a>
+<a class="sourceLine" id="cb36-3" data-line-number="3"><span class="co">#&gt; text1 text2 text3 text4 text5 text6 text7 </span></a>
+<a class="sourceLine" id="cb36-4" data-line-number="4"><span class="co">#&gt;     2     2     4     3     1     1     5</span></a></code></pre></div>
 <p>We now build the bar plot to inspect the per-topic-per-word probabilities (beta’s). We take the 10 top terms and rearrange the beta per topic according to this order.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">beta.td.boris&lt;-<span class="kw">tidy</span>(lda_boris,<span class="dt">matrix=</span><span class="st">&quot;beta&quot;</span>)</a>
-<a class="sourceLine" id="cb30-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb30-3" data-line-number="3">beta.top.term.boris&lt;-beta.td.boris <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb30-4" data-line-number="4"><span class="st">  </span><span class="kw">group_by</span>(topic) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb30-5" data-line-number="5"><span class="st">  </span><span class="kw">top_n</span>(<span class="dv">10</span>, beta) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb30-6" data-line-number="6"><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb30-7" data-line-number="7"><span class="st">  </span><span class="kw">arrange</span>(topic, <span class="op">-</span>beta)</a>
-<a class="sourceLine" id="cb30-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb30-9" data-line-number="9">beta.top.term.boris</a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">beta.td.boris&lt;-<span class="kw">tidy</span>(lda_boris,<span class="dt">matrix=</span><span class="st">&quot;beta&quot;</span>)</a>
+<a class="sourceLine" id="cb37-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb37-3" data-line-number="3">beta.top.term.boris&lt;-beta.td.boris <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb37-4" data-line-number="4"><span class="st">  </span><span class="kw">group_by</span>(topic) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb37-5" data-line-number="5"><span class="st">  </span><span class="kw">top_n</span>(<span class="dv">10</span>, beta) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb37-6" data-line-number="6"><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb37-7" data-line-number="7"><span class="st">  </span><span class="kw">arrange</span>(topic, <span class="op">-</span>beta)</a>
+<a class="sourceLine" id="cb37-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb37-9" data-line-number="9">beta.top.term.boris</a></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -733,7 +761,7 @@ beta
 will
 </td>
 <td style="text-align:right;">
-0.039
+0.028
 </td>
 </tr>
 <tr>
@@ -741,10 +769,10 @@ will
 1
 </td>
 <td style="text-align:left;">
-school
+go
 </td>
 <td style="text-align:right;">
-0.025
+0.019
 </td>
 </tr>
 <tr>
@@ -752,7 +780,7 @@ school
 1
 </td>
 <td style="text-align:left;">
-keep
+can
 </td>
 <td style="text-align:right;">
 0.017
@@ -761,6 +789,270 @@ keep
 <tr>
 <td style="text-align:right;">
 1
+</td>
+<td style="text-align:left;">
+people
+</td>
+<td style="text-align:right;">
+0.014
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+now
+</td>
+<td style="text-align:right;">
+0.013
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+know
+</td>
+<td style="text-align:right;">
+0.013
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+want
+</td>
+<td style="text-align:right;">
+0.012
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+get
+</td>
+<td style="text-align:right;">
+0.012
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+day
+</td>
+<td style="text-align:right;">
+0.012
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+disease
+</td>
+<td style="text-align:right;">
+0.010
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+take
+</td>
+<td style="text-align:right;">
+0.010
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+say
+</td>
+<td style="text-align:right;">
+0.010
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+already
+</td>
+<td style="text-align:right;">
+0.010
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+will
+</td>
+<td style="text-align:right;">
+0.039
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+much
+</td>
+<td style="text-align:right;">
+0.022
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+can
+</td>
+<td style="text-align:right;">
+0.017
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+disease
+</td>
+<td style="text-align:right;">
+0.014
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+now
+</td>
+<td style="text-align:right;">
+0.013
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+spread
+</td>
+<td style="text-align:right;">
+0.013
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+people
+</td>
+<td style="text-align:right;">
+0.012
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+week
+</td>
+<td style="text-align:right;">
+0.012
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+thing
+</td>
+<td style="text-align:right;">
+0.010
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+time
+</td>
+<td style="text-align:right;">
+0.010
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+good
+</td>
+<td style="text-align:right;">
+0.010
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+will
+</td>
+<td style="text-align:right;">
+0.039
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+school
+</td>
+<td style="text-align:right;">
+0.022
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+need
+</td>
+<td style="text-align:right;">
+0.017
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
 </td>
 <td style="text-align:left;">
 make
@@ -771,10 +1063,10 @@ make
 </tr>
 <tr>
 <td style="text-align:right;">
-1
+3
 </td>
 <td style="text-align:left;">
-need
+keep
 </td>
 <td style="text-align:right;">
 0.017
@@ -782,18 +1074,7 @@ need
 </tr>
 <tr>
 <td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-child
-</td>
-<td style="text-align:right;">
-0.016
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-1
+3
 </td>
 <td style="text-align:left;">
 want
@@ -804,7 +1085,7 @@ want
 </tr>
 <tr>
 <td style="text-align:right;">
-1
+3
 </td>
 <td style="text-align:left;">
 go
@@ -815,7 +1096,29 @@ go
 </tr>
 <tr>
 <td style="text-align:right;">
-1
+3
+</td>
+<td style="text-align:left;">
+child
+</td>
+<td style="text-align:right;">
+0.015
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+also
+</td>
+<td style="text-align:right;">
+0.011
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
 </td>
 <td style="text-align:left;">
 spread
@@ -826,7 +1129,7 @@ spread
 </tr>
 <tr>
 <td style="text-align:right;">
-1
+3
 </td>
 <td style="text-align:left;">
 far
@@ -837,7 +1140,18 @@ far
 </tr>
 <tr>
 <td style="text-align:right;">
-2
+3
+</td>
+<td style="text-align:left;">
+already
+</td>
+<td style="text-align:right;">
+0.011
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
 </td>
 <td style="text-align:left;">
 now
@@ -848,7 +1162,7 @@ now
 </tr>
 <tr>
 <td style="text-align:right;">
-2
+4
 </td>
 <td style="text-align:left;">
 people
@@ -859,7 +1173,7 @@ people
 </tr>
 <tr>
 <td style="text-align:right;">
-2
+4
 </td>
 <td style="text-align:left;">
 go
@@ -870,7 +1184,7 @@ go
 </tr>
 <tr>
 <td style="text-align:right;">
-2
+4
 </td>
 <td style="text-align:left;">
 say
@@ -881,7 +1195,7 @@ say
 </tr>
 <tr>
 <td style="text-align:right;">
-2
+4
 </td>
 <td style="text-align:left;">
 need
@@ -892,7 +1206,7 @@ need
 </tr>
 <tr>
 <td style="text-align:right;">
-2
+4
 </td>
 <td style="text-align:left;">
 can
@@ -903,7 +1217,7 @@ can
 </tr>
 <tr>
 <td style="text-align:right;">
-2
+4
 </td>
 <td style="text-align:left;">
 ask
@@ -914,7 +1228,7 @@ ask
 </tr>
 <tr>
 <td style="text-align:right;">
-2
+4
 </td>
 <td style="text-align:left;">
 much
@@ -925,7 +1239,7 @@ much
 </tr>
 <tr>
 <td style="text-align:right;">
-2
+4
 </td>
 <td style="text-align:left;">
 contact
@@ -936,7 +1250,7 @@ contact
 </tr>
 <tr>
 <td style="text-align:right;">
-2
+4
 </td>
 <td style="text-align:left;">
 disease
@@ -947,7 +1261,7 @@ disease
 </tr>
 <tr>
 <td style="text-align:right;">
-2
+4
 </td>
 <td style="text-align:left;">
 week
@@ -958,7 +1272,7 @@ week
 </tr>
 <tr>
 <td style="text-align:right;">
-2
+4
 </td>
 <td style="text-align:left;">
 social
@@ -969,7 +1283,7 @@ social
 </tr>
 <tr>
 <td style="text-align:right;">
-2
+4
 </td>
 <td style="text-align:left;">
 day
@@ -980,7 +1294,7 @@ day
 </tr>
 <tr>
 <td style="text-align:right;">
-2
+4
 </td>
 <td style="text-align:left;">
 gathering
@@ -991,288 +1305,46 @@ gathering
 </tr>
 <tr>
 <td style="text-align:right;">
-3
+5
 </td>
 <td style="text-align:left;">
 will
 </td>
 <td style="text-align:right;">
-0.045
+0.031
 </td>
 </tr>
 <tr>
 <td style="text-align:right;">
-3
+5
+</td>
+<td style="text-align:left;">
+want
+</td>
+<td style="text-align:right;">
+0.022
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+thank
+</td>
+<td style="text-align:right;">
+0.022
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
 </td>
 <td style="text-align:left;">
 much
 </td>
 <td style="text-align:right;">
-0.029
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:left;">
-disease
-</td>
-<td style="text-align:right;">
-0.019
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:left;">
-now
-</td>
-<td style="text-align:right;">
-0.016
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:left;">
-can
-</td>
-<td style="text-align:right;">
-0.016
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:left;">
-people
-</td>
-<td style="text-align:right;">
-0.016
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:left;">
-spread
-</td>
-<td style="text-align:right;">
-0.014
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:left;">
-time
-</td>
-<td style="text-align:right;">
-0.014
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:left;">
-week
-</td>
-<td style="text-align:right;">
-0.014
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:left;">
-just
-</td>
-<td style="text-align:right;">
-0.012
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:left;">
-go
-</td>
-<td style="text-align:right;">
-0.012
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:left;">
-will
-</td>
-<td style="text-align:right;">
-0.027
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:left;">
-go
-</td>
-<td style="text-align:right;">
-0.017
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:left;">
-may
-</td>
-<td style="text-align:right;">
-0.017
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:left;">
-know
-</td>
-<td style="text-align:right;">
-0.016
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:left;">
-can
-</td>
-<td style="text-align:right;">
-0.016
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:left;">
-test
-</td>
-<td style="text-align:right;">
-0.015
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:left;">
-day
-</td>
-<td style="text-align:right;">
-0.014
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:left;">
-disease
-</td>
-<td style="text-align:right;">
-0.014
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:left;">
-say
-</td>
-<td style="text-align:right;">
-0.014
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:left;">
-want
-</td>
-<td style="text-align:right;">
-0.013
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-will
-</td>
-<td style="text-align:right;">
-0.029
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-can
-</td>
-<td style="text-align:right;">
-0.015
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-people
-</td>
-<td style="text-align:right;">
-0.015
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-want
-</td>
-<td style="text-align:right;">
-0.013
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-go
-</td>
-<td style="text-align:right;">
-0.012
+0.022
 </td>
 </tr>
 <tr>
@@ -1283,7 +1355,7 @@ go
 measure
 </td>
 <td style="text-align:right;">
-0.011
+0.022
 </td>
 </tr>
 <tr>
@@ -1291,10 +1363,21 @@ measure
 5
 </td>
 <td style="text-align:left;">
-much
+everyone
 </td>
 <td style="text-align:right;">
-0.011
+0.019
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+business
+</td>
+<td style="text-align:right;">
+0.016
 </td>
 </tr>
 <tr>
@@ -1305,7 +1388,7 @@ much
 follow
 </td>
 <td style="text-align:right;">
-0.010
+0.016
 </td>
 </tr>
 <tr>
@@ -1313,10 +1396,43 @@ follow
 5
 </td>
 <td style="text-align:left;">
-now
+slow
 </td>
 <td style="text-align:right;">
-0.010
+0.013
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+spread
+</td>
+<td style="text-align:right;">
+0.013
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+advice
+</td>
+<td style="text-align:right;">
+0.013
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+today
+</td>
+<td style="text-align:right;">
+0.013
 </td>
 </tr>
 <tr>
@@ -1327,21 +1443,65 @@ now
 take
 </td>
 <td style="text-align:right;">
-0.010
+0.013
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+set
+</td>
+<td style="text-align:right;">
+0.013
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+people
+</td>
+<td style="text-align:right;">
+0.013
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+say
+</td>
+<td style="text-align:right;">
+0.013
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+life
+</td>
+<td style="text-align:right;">
+0.013
 </td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb31-2" data-line-number="2">beta.top.term.boris <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb31-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">term=</span><span class="kw">reorder_within</span>(term, beta, topic)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb31-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(term,beta,<span class="dt">fill=</span><span class="kw">factor</span>(topic))) <span class="op">+</span></a>
-<a class="sourceLine" id="cb31-5" data-line-number="5"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>topic, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb31-6" data-line-number="6"><span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span></a>
-<a class="sourceLine" id="cb31-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_x_reordered</span>()</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-29-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">gamma.td.boris&lt;-<span class="st"> </span><span class="kw">tidy</span>(lda_boris,<span class="dt">matrix=</span><span class="st">&quot;gamma&quot;</span>)</a>
-<a class="sourceLine" id="cb32-2" data-line-number="2">gamma.td.boris</a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb38-2" data-line-number="2">beta.top.term.boris <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb38-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">term=</span><span class="kw">reorder_within</span>(term, beta, topic)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb38-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(term,beta,<span class="dt">fill=</span><span class="kw">factor</span>(topic))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb38-5" data-line-number="5"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>topic, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb38-6" data-line-number="6"><span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span></a>
+<a class="sourceLine" id="cb38-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_x_reordered</span>()</a></code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">gamma.td.boris&lt;-<span class="st"> </span><span class="kw">tidy</span>(lda_boris,<span class="dt">matrix=</span><span class="st">&quot;gamma&quot;</span>)</a>
+<a class="sourceLine" id="cb39-2" data-line-number="2">gamma.td.boris</a></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1365,7 +1525,7 @@ text1
 1
 </td>
 <td style="text-align:right;">
-0.000
+0
 </td>
 </tr>
 <tr>
@@ -1376,7 +1536,7 @@ text2
 1
 </td>
 <td style="text-align:right;">
-0.000
+0
 </td>
 </tr>
 <tr>
@@ -1387,7 +1547,7 @@ text3
 1
 </td>
 <td style="text-align:right;">
-0.000
+0
 </td>
 </tr>
 <tr>
@@ -1398,7 +1558,7 @@ text4
 1
 </td>
 <td style="text-align:right;">
-1.000
+0
 </td>
 </tr>
 <tr>
@@ -1409,7 +1569,7 @@ text5
 1
 </td>
 <td style="text-align:right;">
-0.000
+1
 </td>
 </tr>
 <tr>
@@ -1420,7 +1580,7 @@ text6
 1
 </td>
 <td style="text-align:right;">
-0.000
+1
 </td>
 </tr>
 <tr>
@@ -1431,7 +1591,7 @@ text7
 1
 </td>
 <td style="text-align:right;">
-0.037
+0
 </td>
 </tr>
 <tr>
@@ -1442,7 +1602,7 @@ text1
 2
 </td>
 <td style="text-align:right;">
-0.000
+1
 </td>
 </tr>
 <tr>
@@ -1453,7 +1613,7 @@ text2
 2
 </td>
 <td style="text-align:right;">
-0.000
+1
 </td>
 </tr>
 <tr>
@@ -1464,7 +1624,7 @@ text3
 2
 </td>
 <td style="text-align:right;">
-1.000
+0
 </td>
 </tr>
 <tr>
@@ -1475,7 +1635,7 @@ text4
 2
 </td>
 <td style="text-align:right;">
-0.000
+0
 </td>
 </tr>
 <tr>
@@ -1486,7 +1646,7 @@ text5
 2
 </td>
 <td style="text-align:right;">
-0.000
+0
 </td>
 </tr>
 <tr>
@@ -1497,7 +1657,7 @@ text6
 2
 </td>
 <td style="text-align:right;">
-0.000
+0
 </td>
 </tr>
 <tr>
@@ -1508,7 +1668,7 @@ text7
 2
 </td>
 <td style="text-align:right;">
-0.000
+0
 </td>
 </tr>
 <tr>
@@ -1519,7 +1679,7 @@ text1
 3
 </td>
 <td style="text-align:right;">
-0.000
+0
 </td>
 </tr>
 <tr>
@@ -1530,7 +1690,7 @@ text2
 3
 </td>
 <td style="text-align:right;">
-1.000
+0
 </td>
 </tr>
 <tr>
@@ -1541,7 +1701,7 @@ text3
 3
 </td>
 <td style="text-align:right;">
-0.000
+0
 </td>
 </tr>
 <tr>
@@ -1552,7 +1712,7 @@ text4
 3
 </td>
 <td style="text-align:right;">
-0.000
+1
 </td>
 </tr>
 <tr>
@@ -1563,7 +1723,7 @@ text5
 3
 </td>
 <td style="text-align:right;">
-0.000
+0
 </td>
 </tr>
 <tr>
@@ -1574,7 +1734,7 @@ text6
 3
 </td>
 <td style="text-align:right;">
-0.000
+0
 </td>
 </tr>
 <tr>
@@ -1585,7 +1745,7 @@ text7
 3
 </td>
 <td style="text-align:right;">
-0.000
+0
 </td>
 </tr>
 <tr>
@@ -1596,7 +1756,7 @@ text1
 4
 </td>
 <td style="text-align:right;">
-0.000
+0
 </td>
 </tr>
 <tr>
@@ -1607,7 +1767,7 @@ text2
 4
 </td>
 <td style="text-align:right;">
-0.000
+0
 </td>
 </tr>
 <tr>
@@ -1618,7 +1778,7 @@ text3
 4
 </td>
 <td style="text-align:right;">
-0.000
+1
 </td>
 </tr>
 <tr>
@@ -1629,7 +1789,7 @@ text4
 4
 </td>
 <td style="text-align:right;">
-0.000
+0
 </td>
 </tr>
 <tr>
@@ -1640,7 +1800,7 @@ text5
 4
 </td>
 <td style="text-align:right;">
-1.000
+0
 </td>
 </tr>
 <tr>
@@ -1651,7 +1811,7 @@ text6
 4
 </td>
 <td style="text-align:right;">
-0.034
+0
 </td>
 </tr>
 <tr>
@@ -1662,7 +1822,7 @@ text7
 4
 </td>
 <td style="text-align:right;">
-0.000
+0
 </td>
 </tr>
 <tr>
@@ -1673,7 +1833,7 @@ text1
 5
 </td>
 <td style="text-align:right;">
-1.000
+0
 </td>
 </tr>
 <tr>
@@ -1684,7 +1844,7 @@ text2
 5
 </td>
 <td style="text-align:right;">
-0.000
+0
 </td>
 </tr>
 <tr>
@@ -1695,7 +1855,7 @@ text3
 5
 </td>
 <td style="text-align:right;">
-0.000
+0
 </td>
 </tr>
 <tr>
@@ -1706,7 +1866,7 @@ text4
 5
 </td>
 <td style="text-align:right;">
-0.000
+0
 </td>
 </tr>
 <tr>
@@ -1717,7 +1877,7 @@ text5
 5
 </td>
 <td style="text-align:right;">
-0.000
+0
 </td>
 </tr>
 <tr>
@@ -1728,7 +1888,7 @@ text6
 5
 </td>
 <td style="text-align:right;">
-0.966
+0
 </td>
 </tr>
 <tr>
@@ -1739,29 +1899,29 @@ text7
 5
 </td>
 <td style="text-align:right;">
-0.963
+1
 </td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb33-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb33-3" data-line-number="3">gamma.td.boris <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb33-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(document,gamma,<span class="dt">fill=</span><span class="kw">factor</span>(topic))) <span class="op">+</span></a>
-<a class="sourceLine" id="cb33-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">show.legend =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb33-6" data-line-number="6"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>topic,<span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)<span class="op">+</span></a>
-<a class="sourceLine" id="cb33-7" data-line-number="7"><span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span></a>
-<a class="sourceLine" id="cb33-8" data-line-number="8"><span class="st">  </span><span class="kw">scale_x_reordered</span>()</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-30-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb40-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb40-3" data-line-number="3">gamma.td.boris <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb40-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(document,gamma,<span class="dt">fill=</span><span class="kw">factor</span>(topic))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb40-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">show.legend =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb40-6" data-line-number="6"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>topic,<span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb40-7" data-line-number="7"><span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span></a>
+<a class="sourceLine" id="cb40-8" data-line-number="8"><span class="st">  </span><span class="kw">scale_x_reordered</span>()</a></code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
-<div id="macron-2" class="section level2">
+<div id="macron-1" class="section level2">
 <h2><span class="header-section-number">5.2</span> Macron</h2>
 <div id="lsa-1" class="section level3">
 <h3><span class="header-section-number">5.2.1</span> LSA</h3>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">mmod&lt;-<span class="kw">textmodel_lsa</span>(corpus_macron.dfm,<span class="dt">nd=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">mmod&lt;-<span class="kw">textmodel_lsa</span>(corpus_macron.dfm,<span class="dt">nd=</span><span class="dv">3</span>)</a></code></pre></div>
 <p>To inspect the results, we can extract the matrices involved in the LSA decomposition</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">head</span>(mmod<span class="op">$</span>docs)</a></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">head</span>(mmod<span class="op">$</span>docs)</a></code></pre></div>
 <table>
 <tbody>
 <tr>
@@ -1808,8 +1968,8 @@ text3
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb36-2" data-line-number="2"><span class="kw">head</span>(mmod<span class="op">$</span>features)</a></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb43-2" data-line-number="2"><span class="kw">head</span>(mmod<span class="op">$</span>features)</a></code></pre></div>
 <table>
 <tbody>
 <tr>
@@ -1899,20 +2059,20 @@ virus
 </tbody>
 </table>
 <p>Often the first dimension in LSA is associated with the document lenght. To see if it is true, we build a scatter-plot between the document lengt and Dimension 1.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">ns_macron&lt;-<span class="kw">apply</span>(corpus_macron.dfm,<span class="dv">1</span>,sum) </a>
-<a class="sourceLine" id="cb37-2" data-line-number="2"><span class="kw">plot</span>(ns_macron<span class="op">~</span>mmod<span class="op">$</span>docs [,<span class="dv">1</span>])</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1">ns_macron&lt;-<span class="kw">apply</span>(corpus_macron.dfm,<span class="dv">1</span>,sum) </a>
+<a class="sourceLine" id="cb44-2" data-line-number="2"><span class="kw">plot</span>(ns_macron<span class="op">~</span>mmod<span class="op">$</span>docs [,<span class="dv">1</span>])</a></code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-41-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>We clearly observe that the dimension 1 is negatively correlated with the document lenght.</p>
 <p>Now in order to make the link between the topics and the documents and the topics with term, we use biplot</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">biplot</span>(<span class="dt">y=</span>mmod<span class="op">$</span>docs[,<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>],<span class="dt">x=</span>mmod<span class="op">$</span>features[,<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>],</a>
-<a class="sourceLine" id="cb38-2" data-line-number="2">       <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;grey&quot;</span>,<span class="st">&quot;red&quot;</span>),</a>
-<a class="sourceLine" id="cb38-3" data-line-number="3">       <span class="dt">xlab =</span> <span class="st">&quot;Dimension 2&quot;</span>,</a>
-<a class="sourceLine" id="cb38-4" data-line-number="4">       <span class="dt">ylab=</span><span class="st">&quot;Dimension 3&quot;</span>)</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-34-1.png" width="70%" style="display: block; margin: auto;" />
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">biplot</span>(<span class="dt">y=</span>mmod<span class="op">$</span>docs[,<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>],<span class="dt">x=</span>mmod<span class="op">$</span>features[,<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>],</a>
+<a class="sourceLine" id="cb45-2" data-line-number="2">       <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;grey&quot;</span>,<span class="st">&quot;red&quot;</span>),</a>
+<a class="sourceLine" id="cb45-3" data-line-number="3">       <span class="dt">xlab =</span> <span class="st">&quot;Dimension 2&quot;</span>,</a>
+<a class="sourceLine" id="cb45-4" data-line-number="4">       <span class="dt">ylab=</span><span class="st">&quot;Dimension 3&quot;</span>)</a></code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-42-1.png" width="70%" style="display: block; margin: auto;" />
 We repeat the same analysis with TF-IDF</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">mmod_<span class="dv">2</span>&lt;-<span class="st"> </span><span class="kw">textmodel_lsa</span>(corpus_macron.tfidf, <span class="dt">nd=</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb39-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb39-3" data-line-number="3"><span class="kw">head</span>(mmod_<span class="dv">2</span><span class="op">$</span>docs)</a></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">mmod_<span class="dv">2</span>&lt;-<span class="st"> </span><span class="kw">textmodel_lsa</span>(corpus_macron.tfidf, <span class="dt">nd=</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb46-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb46-3" data-line-number="3"><span class="kw">head</span>(mmod_<span class="dv">2</span><span class="op">$</span>docs)</a></code></pre></div>
 <table>
 <tbody>
 <tr>
@@ -1959,8 +2119,8 @@ text3
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb40-2" data-line-number="2"><span class="kw">head</span>(mmod_<span class="dv">2</span><span class="op">$</span>features)</a></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb47-2" data-line-number="2"><span class="kw">head</span>(mmod_<span class="dv">2</span><span class="op">$</span>features)</a></code></pre></div>
 <table>
 <tbody>
 <tr>
@@ -2053,14 +2213,14 @@ virus
 <div id="lda-1" class="section level3">
 <h3><span class="header-section-number">5.2.2</span> LDA</h3>
 <p>We now turn to the LDA. For illustration, we will make K=5 topis.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">K&lt;-<span class="dv">5</span></a>
-<a class="sourceLine" id="cb41-2" data-line-number="2">corpus_macron.dtm&lt;-<span class="st"> </span><span class="kw">convert</span>(corpus_macron.dfm, <span class="dt">to=</span><span class="st">&quot;topicmodels&quot;</span>)</a>
-<a class="sourceLine" id="cb41-3" data-line-number="3">lda_macron&lt;-<span class="st"> </span><span class="kw">LDA</span>(corpus_macron.dtm ,<span class="dt">k=</span>K)</a>
-<a class="sourceLine" id="cb41-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb41-5" data-line-number="5">lda_macron</a>
-<a class="sourceLine" id="cb41-6" data-line-number="6"><span class="co">#&gt; A LDA_VEM topic model with 5 topics.</span></a></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1">K&lt;-<span class="dv">5</span></a>
+<a class="sourceLine" id="cb48-2" data-line-number="2">corpus_macron.dtm&lt;-<span class="st"> </span><span class="kw">convert</span>(corpus_macron.dfm, <span class="dt">to=</span><span class="st">&quot;topicmodels&quot;</span>)</a>
+<a class="sourceLine" id="cb48-3" data-line-number="3">lda_macron&lt;-<span class="st"> </span><span class="kw">LDA</span>(corpus_macron.dtm ,<span class="dt">k=</span>K)</a>
+<a class="sourceLine" id="cb48-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb48-5" data-line-number="5">lda_macron</a>
+<a class="sourceLine" id="cb48-6" data-line-number="6"><span class="co">#&gt; A LDA_VEM topic model with 5 topics.</span></a></code></pre></div>
 <p>Top terms per topic and top topic per document can be easily obtained. Belo, the six top terms and the top topic are extracted.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">terms</span>(lda_macron,<span class="dv">6</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">terms</span>(lda_macron,<span class="dv">6</span>)</a></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -2093,13 +2253,53 @@ will
 will
 </td>
 <td style="text-align:left;">
-hospital
+will
+</td>
+<td style="text-align:left;">
+will
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+much
+</td>
+<td style="text-align:left;">
+know
+</td>
+<td style="text-align:left;">
+much
+</td>
+<td style="text-align:left;">
+also
+</td>
+<td style="text-align:left;">
+must
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+continue
+</td>
+<td style="text-align:left;">
+even
 </td>
 <td style="text-align:left;">
 take
 </td>
+<td style="text-align:left;">
+must
+</td>
+<td style="text-align:left;">
+virus
+</td>
 </tr>
 <tr>
+<td style="text-align:left;">
+government
+</td>
+<td style="text-align:left;">
+much
+</td>
 <td style="text-align:left;">
 also
 </td>
@@ -2107,100 +2307,60 @@ also
 much
 </td>
 <td style="text-align:left;">
-much
-</td>
-<td style="text-align:left;">
-compatriot
-</td>
-<td style="text-align:left;">
-must
+may
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
-must
-</td>
-<td style="text-align:left;">
-can
-</td>
-<td style="text-align:left;">
-also
-</td>
-<td style="text-align:left;">
-help
-</td>
-<td style="text-align:left;">
-care
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-much
-</td>
 <td style="text-align:left;">
 week
 </td>
 <td style="text-align:left;">
-take
+now
 </td>
 <td style="text-align:left;">
-provide
+even
 </td>
-<td style="text-align:left;">
-elect
-</td>
-</tr>
-<tr>
 <td style="text-align:left;">
 day
 </td>
 <td style="text-align:left;">
 come
 </td>
-<td style="text-align:left;">
-even
-</td>
-<td style="text-align:left;">
-possible
-</td>
-<td style="text-align:left;">
-line
-</td>
 </tr>
 <tr>
+<td style="text-align:left;">
+able
+</td>
+<td style="text-align:left;">
+work
+</td>
+<td style="text-align:left;">
+health
+</td>
 <td style="text-align:left;">
 us
 </td>
 <td style="text-align:left;">
-many
-</td>
-<td style="text-align:left;">
-protect
-</td>
-<td style="text-align:left;">
-government
-</td>
-<td style="text-align:left;">
-country
+can
 </td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb43-2" data-line-number="2"><span class="kw">topics</span>(lda_macron,<span class="dv">1</span>)  <span class="co">## To see the topics related to each document</span></a>
-<a class="sourceLine" id="cb43-3" data-line-number="3"><span class="co">#&gt; text1 text2 text3 </span></a>
-<a class="sourceLine" id="cb43-4" data-line-number="4"><span class="co">#&gt;     3     1     2</span></a></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb50-2" data-line-number="2"><span class="kw">topics</span>(lda_macron,<span class="dv">1</span>)  <span class="co">## To see the topics related to each document</span></a>
+<a class="sourceLine" id="cb50-3" data-line-number="3"><span class="co">#&gt; text1 text2 text3 </span></a>
+<a class="sourceLine" id="cb50-4" data-line-number="4"><span class="co">#&gt;     3     4     1</span></a></code></pre></div>
 <p>We now build the bar plot to inspect the per-topic-per-word probabilities (beta’s). We take the 10 top terms and rearrange the beta per topic according to this order.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb44-2" data-line-number="2">beta.td.macron&lt;-<span class="kw">tidy</span>(lda_macron,<span class="dt">matrix=</span><span class="st">&quot;beta&quot;</span>)</a>
-<a class="sourceLine" id="cb44-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb44-4" data-line-number="4">beta.top.term.macron&lt;-beta.td.macron <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb44-5" data-line-number="5"><span class="st">  </span><span class="kw">group_by</span>(topic) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb44-6" data-line-number="6"><span class="st">  </span><span class="kw">top_n</span>(<span class="dv">10</span>, beta) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb44-7" data-line-number="7"><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb44-8" data-line-number="8"><span class="st">  </span><span class="kw">arrange</span>(topic, <span class="op">-</span>beta)</a>
-<a class="sourceLine" id="cb44-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb44-10" data-line-number="10">beta.top.term.macron</a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb51-2" data-line-number="2">beta.td.macron&lt;-<span class="kw">tidy</span>(lda_macron,<span class="dt">matrix=</span><span class="st">&quot;beta&quot;</span>)</a>
+<a class="sourceLine" id="cb51-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb51-4" data-line-number="4">beta.top.term.macron&lt;-beta.td.macron <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb51-5" data-line-number="5"><span class="st">  </span><span class="kw">group_by</span>(topic) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb51-6" data-line-number="6"><span class="st">  </span><span class="kw">top_n</span>(<span class="dv">10</span>, beta) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb51-7" data-line-number="7"><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb51-8" data-line-number="8"><span class="st">  </span><span class="kw">arrange</span>(topic, <span class="op">-</span>beta)</a>
+<a class="sourceLine" id="cb51-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb51-10" data-line-number="10">beta.top.term.macron</a></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -2224,29 +2384,7 @@ beta
 will
 </td>
 <td style="text-align:right;">
-0.029
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-also
-</td>
-<td style="text-align:right;">
-0.016
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-must
-</td>
-<td style="text-align:right;">
-0.014
+0.021
 </td>
 </tr>
 <tr>
@@ -2257,6 +2395,17 @@ must
 much
 </td>
 <td style="text-align:right;">
+0.018
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+continue
+</td>
+<td style="text-align:right;">
 0.011
 </td>
 </tr>
@@ -2265,7 +2414,29 @@ much
 1
 </td>
 <td style="text-align:left;">
-day
+government
+</td>
+<td style="text-align:right;">
+0.010
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+week
+</td>
+<td style="text-align:right;">
+0.010
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+able
 </td>
 <td style="text-align:right;">
 0.009
@@ -2279,7 +2450,7 @@ day
 us
 </td>
 <td style="text-align:right;">
-0.008
+0.009
 </td>
 </tr>
 <tr>
@@ -2287,84 +2458,7 @@ us
 1
 </td>
 <td style="text-align:left;">
-protect
-</td>
-<td style="text-align:right;">
-0.008
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-one
-</td>
-<td style="text-align:right;">
-0.008
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-even
-</td>
-<td style="text-align:right;">
-0.008
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-service
-</td>
-<td style="text-align:right;">
-0.007
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-will
-</td>
-<td style="text-align:right;">
-0.046
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-much
-</td>
-<td style="text-align:right;">
-0.015
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-can
-</td>
-<td style="text-align:right;">
-0.010
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-week
+country
 </td>
 <td style="text-align:right;">
 0.009
@@ -2372,10 +2466,10 @@ week
 </tr>
 <tr>
 <td style="text-align:right;">
-2
+1
 </td>
 <td style="text-align:left;">
-come
+can
 </td>
 <td style="text-align:right;">
 0.008
@@ -2383,13 +2477,13 @@ come
 </tr>
 <tr>
 <td style="text-align:right;">
-2
+1
 </td>
 <td style="text-align:left;">
-many
+work
 </td>
 <td style="text-align:right;">
-0.008
+0.007
 </td>
 </tr>
 <tr>
@@ -2397,10 +2491,10 @@ many
 2
 </td>
 <td style="text-align:left;">
-may
+will
 </td>
 <td style="text-align:right;">
-0.008
+0.038
 </td>
 </tr>
 <tr>
@@ -2408,10 +2502,10 @@ may
 2
 </td>
 <td style="text-align:left;">
-continue
+know
 </td>
 <td style="text-align:right;">
-0.008
+0.018
 </td>
 </tr>
 <tr>
@@ -2419,10 +2513,76 @@ continue
 2
 </td>
 <td style="text-align:left;">
-day
+even
 </td>
 <td style="text-align:right;">
-0.008
+0.016
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+much
+</td>
+<td style="text-align:right;">
+0.014
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+now
+</td>
+<td style="text-align:right;">
+0.013
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+work
+</td>
+<td style="text-align:right;">
+0.013
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+vulnerable
+</td>
+<td style="text-align:right;">
+0.012
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+care
+</td>
+<td style="text-align:right;">
+0.012
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+action
+</td>
+<td style="text-align:right;">
+0.012
 </td>
 </tr>
 <tr>
@@ -2433,7 +2593,7 @@ day
 also
 </td>
 <td style="text-align:right;">
-0.007
+0.012
 </td>
 </tr>
 <tr>
@@ -2444,7 +2604,7 @@ also
 will
 </td>
 <td style="text-align:right;">
-0.049
+0.040
 </td>
 </tr>
 <tr>
@@ -2455,18 +2615,7 @@ will
 much
 </td>
 <td style="text-align:right;">
-0.018
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:left;">
-also
-</td>
-<td style="text-align:right;">
-0.014
+0.015
 </td>
 </tr>
 <tr>
@@ -2485,7 +2634,7 @@ take
 3
 </td>
 <td style="text-align:left;">
-even
+also
 </td>
 <td style="text-align:right;">
 0.012
@@ -2496,29 +2645,7 @@ even
 3
 </td>
 <td style="text-align:left;">
-protect
-</td>
-<td style="text-align:right;">
-0.010
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:left;">
-time
-</td>
-<td style="text-align:right;">
-0.010
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:left;">
-make
+even
 </td>
 <td style="text-align:right;">
 0.009
@@ -2529,7 +2656,40 @@ make
 3
 </td>
 <td style="text-align:left;">
-must
+health
+</td>
+<td style="text-align:right;">
+0.009
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+protect
+</td>
+<td style="text-align:right;">
+0.009
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+virus
+</td>
+<td style="text-align:right;">
+0.009
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+time
 </td>
 <td style="text-align:right;">
 0.008
@@ -2540,7 +2700,7 @@ must
 3
 </td>
 <td style="text-align:left;">
-health
+make
 </td>
 <td style="text-align:right;">
 0.008
@@ -2551,10 +2711,10 @@ health
 4
 </td>
 <td style="text-align:left;">
-hospital
+will
 </td>
 <td style="text-align:right;">
-0.021
+0.029
 </td>
 </tr>
 <tr>
@@ -2562,18 +2722,7 @@ hospital
 4
 </td>
 <td style="text-align:left;">
-compatriot
-</td>
-<td style="text-align:right;">
-0.017
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:left;">
-help
+also
 </td>
 <td style="text-align:right;">
 0.016
@@ -2584,18 +2733,7 @@ help
 4
 </td>
 <td style="text-align:left;">
-provide
-</td>
-<td style="text-align:right;">
-0.015
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:left;">
-possible
+must
 </td>
 <td style="text-align:right;">
 0.014
@@ -2606,29 +2744,7 @@ possible
 4
 </td>
 <td style="text-align:left;">
-government
-</td>
-<td style="text-align:right;">
-0.014
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:left;">
-virus
-</td>
-<td style="text-align:right;">
-0.012
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:left;">
-continue
+much
 </td>
 <td style="text-align:right;">
 0.011
@@ -2639,10 +2755,10 @@ continue
 4
 </td>
 <td style="text-align:left;">
-crisis
+day
 </td>
 <td style="text-align:right;">
-0.010
+0.009
 </td>
 </tr>
 <tr>
@@ -2650,10 +2766,54 @@ crisis
 4
 </td>
 <td style="text-align:left;">
-life
+us
 </td>
 <td style="text-align:right;">
-0.010
+0.008
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+protect
+</td>
+<td style="text-align:right;">
+0.008
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+one
+</td>
+<td style="text-align:right;">
+0.008
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+even
+</td>
+<td style="text-align:right;">
+0.008
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+go
+</td>
+<td style="text-align:right;">
+0.007
 </td>
 </tr>
 <tr>
@@ -2661,10 +2821,10 @@ life
 5
 </td>
 <td style="text-align:left;">
-take
+will
 </td>
 <td style="text-align:right;">
-0.029
+0.079
 </td>
 </tr>
 <tr>
@@ -2675,7 +2835,7 @@ take
 must
 </td>
 <td style="text-align:right;">
-0.026
+0.016
 </td>
 </tr>
 <tr>
@@ -2683,10 +2843,10 @@ must
 5
 </td>
 <td style="text-align:left;">
-care
+virus
 </td>
 <td style="text-align:right;">
-0.024
+0.016
 </td>
 </tr>
 <tr>
@@ -2694,10 +2854,10 @@ care
 5
 </td>
 <td style="text-align:left;">
-elect
+may
 </td>
 <td style="text-align:right;">
-0.024
+0.015
 </td>
 </tr>
 <tr>
@@ -2705,10 +2865,10 @@ elect
 5
 </td>
 <td style="text-align:left;">
-line
+come
 </td>
 <td style="text-align:right;">
-0.021
+0.013
 </td>
 </tr>
 <tr>
@@ -2716,21 +2876,10 @@ line
 5
 </td>
 <td style="text-align:left;">
-country
+can
 </td>
 <td style="text-align:right;">
-0.019
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-work
-</td>
-<td style="text-align:right;">
-0.018
+0.012
 </td>
 </tr>
 <tr>
@@ -2741,7 +2890,29 @@ work
 rule
 </td>
 <td style="text-align:right;">
-0.018
+0.012
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+day
+</td>
+<td style="text-align:right;">
+0.012
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+many
+</td>
+<td style="text-align:right;">
+0.012
 </td>
 </tr>
 <tr>
@@ -2752,32 +2923,21 @@ rule
 help
 </td>
 <td style="text-align:right;">
-0.016
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-live
-</td>
-<td style="text-align:right;">
-0.016
+0.011
 </td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb45-2" data-line-number="2">beta.top.term.macron <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb45-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">term=</span><span class="kw">reorder_within</span>(term, beta, topic)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb45-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(term,beta,<span class="dt">fill=</span><span class="kw">factor</span>(topic))) <span class="op">+</span></a>
-<a class="sourceLine" id="cb45-5" data-line-number="5"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>topic, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb45-6" data-line-number="6"><span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span></a>
-<a class="sourceLine" id="cb45-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_x_reordered</span>()</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">gamma.td.macron&lt;-<span class="st"> </span><span class="kw">tidy</span>(lda_macron,<span class="dt">matrix=</span><span class="st">&quot;gamma&quot;</span>)</a>
-<a class="sourceLine" id="cb46-2" data-line-number="2">gamma.td.macron</a></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb52-2" data-line-number="2">beta.top.term.macron <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb52-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">term=</span><span class="kw">reorder_within</span>(term, beta, topic)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb52-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(term,beta,<span class="dt">fill=</span><span class="kw">factor</span>(topic))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb52-5" data-line-number="5"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>topic, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb52-6" data-line-number="6"><span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span></a>
+<a class="sourceLine" id="cb52-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_x_reordered</span>()</a></code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-46-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">gamma.td.macron&lt;-<span class="st"> </span><span class="kw">tidy</span>(lda_macron,<span class="dt">matrix=</span><span class="st">&quot;gamma&quot;</span>)</a>
+<a class="sourceLine" id="cb53-2" data-line-number="2">gamma.td.macron</a></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -2812,7 +2972,7 @@ text2
 1
 </td>
 <td style="text-align:right;">
-1.000
+0.000
 </td>
 </tr>
 <tr>
@@ -2823,7 +2983,7 @@ text3
 1
 </td>
 <td style="text-align:right;">
-0.000
+0.638
 </td>
 </tr>
 <tr>
@@ -2834,7 +2994,7 @@ text1
 2
 </td>
 <td style="text-align:right;">
-0.000
+0.185
 </td>
 </tr>
 <tr>
@@ -2856,7 +3016,7 @@ text3
 2
 </td>
 <td style="text-align:right;">
-0.889
+0.000
 </td>
 </tr>
 <tr>
@@ -2867,7 +3027,7 @@ text1
 3
 </td>
 <td style="text-align:right;">
-0.782
+0.815
 </td>
 </tr>
 <tr>
@@ -2900,7 +3060,7 @@ text1
 4
 </td>
 <td style="text-align:right;">
-0.218
+0.000
 </td>
 </tr>
 <tr>
@@ -2911,7 +3071,7 @@ text2
 4
 </td>
 <td style="text-align:right;">
-0.000
+1.000
 </td>
 </tr>
 <tr>
@@ -2955,23 +3115,23 @@ text3
 5
 </td>
 <td style="text-align:right;">
-0.111
+0.362
 </td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb47-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb47-3" data-line-number="3">gamma.td.macron <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb47-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(document,gamma,<span class="dt">fill=</span><span class="kw">factor</span>(topic))) <span class="op">+</span></a>
-<a class="sourceLine" id="cb47-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">show.legend =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb47-6" data-line-number="6"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>topic,<span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)<span class="op">+</span></a>
-<a class="sourceLine" id="cb47-7" data-line-number="7"><span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span></a>
-<a class="sourceLine" id="cb47-8" data-line-number="8"><span class="st">  </span><span class="kw">scale_x_reordered</span>()</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb54-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb54-3" data-line-number="3">gamma.td.macron <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb54-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(document,gamma,<span class="dt">fill=</span><span class="kw">factor</span>(topic))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb54-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">show.legend =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb54-6" data-line-number="6"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>topic,<span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb54-7" data-line-number="7"><span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span></a>
+<a class="sourceLine" id="cb54-8" data-line-number="8"><span class="st">  </span><span class="kw">scale_x_reordered</span>()</a></code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-47-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
-<div id="comparison-2" class="section level2">
+<div id="comparison-1" class="section level2">
 <h2><span class="header-section-number">5.3</span> Comparison</h2>
 
 </div>

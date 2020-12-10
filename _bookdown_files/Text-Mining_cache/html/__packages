@@ -45,3 +45,5 @@ quanteda.textmodels
 topicmodels
 text2vec
 reshape2
+ranger
+DT
