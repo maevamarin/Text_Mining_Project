@@ -8,9 +8,10 @@ rmd_files: [
   "index.Rmd",
   "report/Introduction.Rmd",
   "report/EDA.Rmd",
-  "report/Similarities.rmd",
-  "report/Topic_modelling.rmd",
-  "report/Word_embedding.rmd",
+  "report/Sentiment.Rmd",
+  "report/Similarities.Rmd",
+  "report/Topic_modelling.Rmd",
+  "report/Word_embedding.Rmd",
   "report/Conclusion.Rmd",
   "report/references.Rmd"
 ]

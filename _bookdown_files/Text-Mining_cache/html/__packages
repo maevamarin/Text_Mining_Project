@@ -31,23 +31,20 @@ wordcloud2
 tidytext
 tokenizers
 quanteda
+sentimentr
 lexicon
 RColorBrewer
 NLP
 tm
 printr
+quanteda.textmodels
+topicmodels
+text2vec
+DT
 usethis
 devtools
 wordcloud
 janeaustenr
-sentimentr
-quanteda.textmodels
-topicmodels
-text2vec
 reshape2
-<<<<<<< HEAD
+gridExtra
 ranger
-=======
-corpus
->>>>>>> 2092689b879909b6518a3b123eb363f00aa91dd1
-DT

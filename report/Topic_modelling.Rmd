@@ -1,25 +1,37 @@
 # Topic Modelling
 
-In this chapter, we analzye the topics of the speechs of Boris Jonhson and Macron using LSA and LDA.
+In this chapter, we analzye the topics of the speechs of Boris Jonhson and Macron using 
+- LSA(Latent Semantic analysis). The core idea is to take a matrix of what we have — documents and terms — and decompose it into a separate   document-topic matrix and a topic-term matrix.
+ 
+- LDA(Latent Dirichlet Allocation).It uses dirichlet priors for the document-topic and word-topic distributions, lending itself to better generalization.
+
 
 ## Boris Johnson
 
 ### LSA
 
-First, we make the DTM matrix. We are goin to use 3 dimensions.
+First, we make the DTM matrix. We are goin to use 3 dimensions, it means 3 differents topics.
 
 ```{r,warning=FALSE}
 bmod<-textmodel_lsa(corpus_boris.dfm,nd=3)
-
 ```
 
-To inspect the results, we can extract the matrices involved in the LSA decomposition
+To inspect the results, we can extract the matrices involved in the LSA decomposition.
+In the firs table, each components measures the link between the document and the topic.
+In the second table, each component measure the link between the document and the term. 
+
+LSA is typical a reduction technique. Insetead of have N documents or M term, it is represented by K documents.
+
 ```{r,warning=FALSE}
-head(bmod$docs)
+p1<-head(bmod$docs)
 
-head(bmod$features)
+p2<-head(bmod$features)
+
+p1/p2
 
 ```
+
+
 Often the first dimension in LSA is associated with the document lenght. To see if it is true, we build a scatter-plot between the document lengt and Dimension 1.
 
 ```{r,warning=FALSE}
@@ -29,7 +41,20 @@ plot(ns~bmod$docs [,1])
 ```
 We clearly observe that the dimension 1 is negatively correlated with the document lenght.
 
-Now in order to make the link between the topics and the documents and the topics with term, we use biplot
+Now in order to make the link between the topics and the documents and the topics with term, we use biplot. We represent the dimension 2 ans 3, beacause often the first component bring often little information. 
+
+Reminders:
+
+The seven speech are class by chronological order:
+  * 09 March (text1)
+  * 12 March (text2)
+  * 16 March (text3)
+  * 18 March (text5)
+  * 19 March (text6)
+  * 20 March (text7)
+  * 22 March (text8)
+  
+It is  noticeable that the texts that are brought together over time are grouped together.And that the first speeches are the opposite of the last ones.
 
 ```{r,warning=FALSE}
 biplot(y=bmod$docs[,2:3],x=bmod$features[,2:3],
@@ -38,7 +63,7 @@ biplot(y=bmod$docs[,2:3],x=bmod$features[,2:3],
        ylab="Dimension 3")
 ```
 
-We repeat the same analysis with TF-IDF
+We repeat the same analysis with TF-IDF. The influence of small weighted-frequent tokens is reduced.
 
 ```{r,warning=FALSE}
 bmod_2<- textmodel_lsa(corpus_boris.tfidf, nd=3)
@@ -50,9 +75,9 @@ head(bmod_2$features)
 
 ### LDA
 
-We now turn to the LDA. For illustration, we will make K=5 topis. 
+We now turn to the LDA. For illustration, we will make K=3 topis. 
 ```{r,warning=FALSE}
-K<-5
+K<-3
 corpus_boris.dtm<- convert(corpus_boris.dfm, to="topicmodels")
 lda_boris<- LDA(corpus_boris.dtm ,k=K)
 
@@ -76,20 +101,23 @@ beta.top.term.boris<-beta.td.boris %>%
   ungroup() %>%
   arrange(topic, -beta)
 
-beta.top.term.boris
 
 beta.top.term.boris %>%
   mutate(term=reorder_within(term, beta, topic)) %>%
   ggplot(aes(term,beta,fill=factor(topic))) +
+   geom_col(show.legend = FALSE)+
   facet_wrap(~topic, scales = "free") +
   coord_flip()+
   scale_x_reordered()
 
 ```
 
+Now, we compute the gamma, it shows the proportion of each topic within each document. 
+In the below figure, we note that each document represented a text.The texts are very distinctive.
+
+
 ```{r,warning=FALSE}
 gamma.td.boris<- tidy(lda_boris,matrix="gamma")
-gamma.td.boris
 
 
 gamma.td.boris %>%
@@ -154,9 +182,6 @@ K<-5
 corpus_macron.dtm<- convert(corpus_macron.dfm, to="topicmodels")
 lda_macron<- LDA(corpus_macron.dtm ,k=K)
 
-lda_macron
-
-
 ```
 Top terms per topic and top topic per document can be easily obtained. Belo, the six top terms and the top topic are extracted.
 
@@ -177,21 +202,20 @@ beta.top.term.macron<-beta.td.macron %>%
   ungroup() %>%
   arrange(topic, -beta)
 
-beta.top.term.macron
-
 beta.top.term.macron %>%
   mutate(term=reorder_within(term, beta, topic)) %>%
   ggplot(aes(term,beta,fill=factor(topic))) +
+  geom_col(show.legend = FALSE)+
   facet_wrap(~topic, scales = "free") +
   coord_flip()+
   scale_x_reordered()
 
 ```
 
+Now, we compute the gamma, it shows the proportion of each topic within each document.  We note that text 1 is related to the topic 1 4 and 5. Th test 3 is related to the topic 2. And the text 2 is related to the topic 3.
+
 ```{r,warning=FALSE}
 gamma.td.macron<- tidy(lda_macron,matrix="gamma")
-gamma.td.macron
-
 
 gamma.td.macron %>%
   ggplot(aes(document,gamma,fill=factor(topic))) +
