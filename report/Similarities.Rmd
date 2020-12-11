@@ -1,5 +1,4 @@
 # Similarities
-
 ```{r}
 library(readr)
 library(quanteda)
