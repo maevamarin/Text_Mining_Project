@@ -111825,7 +111825,7 @@ Text7
 <a class="sourceLine" id="cb8-11" data-line-number="11"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Frequencies of the sentiments&quot;</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb8-12" data-line-number="12"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Sentiment&quot;</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb8-13" data-line-number="13"><span class="st"> </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> n), <span class="dt">size =</span> <span class="dv">3</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">vjust =</span> <span class="dv">0</span>, <span class="dt">position =</span> <span class="st">&quot;stack&quot;</span>)</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-231-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>By looking now at the discourses of Macron using th same method, we note the seemingly same frequencies of sentiments. His words appear to be carefully built and do not vary, perhaps to give the impression to have a stable and coherent speeches overtime.</p>
 <p>The categories of sentiments are quite similarly distributed: the speeches are positive marked by trust and anticipation.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">table</span>(macron_<span class="fl">2.</span>sent<span class="op">$</span>Document,macron_<span class="fl">2.</span>sent<span class="op">$</span>sentiment) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable_styling</span>() <span class="co"># sentiment terms per document</span></a></code></pre></div>
@@ -111987,7 +111987,7 @@ Text3
 <a class="sourceLine" id="cb10-11" data-line-number="11"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Frequencies of the sentiments&quot;</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb10-12" data-line-number="12"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Sentiment&quot;</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb10-13" data-line-number="13"><span class="st">    </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> n), <span class="dt">size =</span><span class="dv">3</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">vjust =</span> <span class="dv">0</span>, <span class="dt">position =</span> <span class="st">&quot;stack&quot;</span>)</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-232-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-34-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div id="with-quanteda" class="section level3">
 <h3><span class="header-section-number">4.1.1</span> With quanteda</h3>
 <p>In order to better analyse those results and fortify those insights, we double check with the dictionnary LSD2015. It is another dictionnary assigning a qualifier to terms. The difference with tidytext is essentially in the manipulation of the objects: it handles the “tokens” class and for this reason we have to recode our objects. The results are impacted by this different treatment and we expect slight changes.</p>
@@ -112165,7 +112165,7 @@ text7
 <a class="sourceLine" id="cb12-44" data-line-number="44"><span class="st">    </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> count), <span class="dt">size =</span><span class="dv">3</span>, <span class="dt">hjust =</span> <span class="dv">5</span>, <span class="dt">vjust =</span> <span class="dv">0</span>, <span class="dt">position =</span> <span class="st">&quot;stack&quot;</span>)</a>
 <a class="sourceLine" id="cb12-45" data-line-number="45"></a>
 <a class="sourceLine" id="cb12-46" data-line-number="46"><span class="kw">grid.arrange</span>(boris.plot.quanteda,macron.plot.quanteda)</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-233-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="value-based" class="section level3">
 <h3><span class="header-section-number">4.1.2</span> Value-based</h3>
@@ -112266,7 +112266,7 @@ abductions
 <a class="sourceLine" id="cb14-26" data-line-number="26"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Score value&quot;</span>)</a>
 <a class="sourceLine" id="cb14-27" data-line-number="27"></a>
 <a class="sourceLine" id="cb14-28" data-line-number="28"><span class="kw">grid.arrange</span>(boris.plot.afinn,macron.plot.afinn)</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-234-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-36-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="using-valence-shifters" class="section level3">
 <h3><span class="header-section-number">4.1.3</span> Using valence shifters</h3>
@@ -227658,7 +227658,7 @@ sentiment
 <a class="sourceLine" id="cb21-6" data-line-number="6"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Macron: Evolution of the sentiments </span><span class="ch">\n</span><span class="st">within speeches  using valence shifters&quot;</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb21-7" data-line-number="7"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Document&quot;</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb21-8" data-line-number="8"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Sentences in speeches&quot;</span>)</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-235-1.png" width="70%" style="display: block; margin: auto;" /><img src="Text-Mining_files/figure-html/unnamed-chunk-235-2.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;" /><img src="Text-Mining_files/figure-html/unnamed-chunk-37-2.png" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
 <a class="sourceLine" id="cb22-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb22-3" data-line-number="3"></a>

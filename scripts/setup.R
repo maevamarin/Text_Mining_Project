@@ -49,7 +49,7 @@ opts_chunk$set(
   message = FALSE,
   echo = TRUE,
   warning = FALSE,
-  cache = =TRUE
+  cache =TRUE
 )
 
 ######################################################
