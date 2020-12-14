@@ -238,22 +238,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1">p&lt;-<span class="dv">2</span> <span class="co">#word embedding dimension</span></a>
 <a class="sourceLine" id="cb50-2" data-line-number="2">speech.glove.boris&lt;-GlobalVectors<span class="op">$</span><span class="kw">new</span>(<span class="dt">rank =</span> p,<span class="dt">x_max =</span> <span class="dv">10</span>) <span class="co">#xmas is a neede technical option</span></a>
 <a class="sourceLine" id="cb50-3" data-line-number="3">speech.weC.boris&lt;-speech.glove.boris<span class="op">$</span><span class="kw">fit_transform</span>(speech.coo.boris)</a>
-<a class="sourceLine" id="cb50-4" data-line-number="4"><span class="co">#&gt; INFO  [09:58:13.605] epoch 1, loss 0.0334 </span></a>
-<a class="sourceLine" id="cb50-5" data-line-number="5"><span class="co">#&gt; INFO  [09:58:13.614] epoch 2, loss 0.0244 </span></a>
-<a class="sourceLine" id="cb50-6" data-line-number="6"><span class="co">#&gt; INFO  [09:58:13.621] epoch 3, loss 0.0223 </span></a>
-<a class="sourceLine" id="cb50-7" data-line-number="7"><span class="co">#&gt; INFO  [09:58:13.627] epoch 4, loss 0.0212 </span></a>
-<a class="sourceLine" id="cb50-8" data-line-number="8"><span class="co">#&gt; INFO  [09:58:13.633] epoch 5, loss 0.0203 </span></a>
-<a class="sourceLine" id="cb50-9" data-line-number="9"><span class="co">#&gt; INFO  [09:58:13.641] epoch 6, loss 0.0195 </span></a>
-<a class="sourceLine" id="cb50-10" data-line-number="10"><span class="co">#&gt; INFO  [09:58:13.656] epoch 7, loss 0.0187 </span></a>
-<a class="sourceLine" id="cb50-11" data-line-number="11"><span class="co">#&gt; INFO  [09:58:13.663] epoch 8, loss 0.0180 </span></a>
-<a class="sourceLine" id="cb50-12" data-line-number="12"><span class="co">#&gt; INFO  [09:58:13.670] epoch 9, loss 0.0173 </span></a>
-<a class="sourceLine" id="cb50-13" data-line-number="13"><span class="co">#&gt; INFO  [09:58:13.678] epoch 10, loss 0.0167</span></a></code></pre></div>
+<a class="sourceLine" id="cb50-4" data-line-number="4"><span class="co">#&gt; INFO  [11:40:27.549] epoch 1, loss 0.0340 </span></a>
+<a class="sourceLine" id="cb50-5" data-line-number="5"><span class="co">#&gt; INFO  [11:40:27.753] epoch 2, loss 0.0242 </span></a>
+<a class="sourceLine" id="cb50-6" data-line-number="6"><span class="co">#&gt; INFO  [11:40:27.796] epoch 3, loss 0.0222 </span></a>
+<a class="sourceLine" id="cb50-7" data-line-number="7"><span class="co">#&gt; INFO  [11:40:27.807] epoch 4, loss 0.0211 </span></a>
+<a class="sourceLine" id="cb50-8" data-line-number="8"><span class="co">#&gt; INFO  [11:40:27.821] epoch 5, loss 0.0202 </span></a>
+<a class="sourceLine" id="cb50-9" data-line-number="9"><span class="co">#&gt; INFO  [11:40:27.832] epoch 6, loss 0.0194 </span></a>
+<a class="sourceLine" id="cb50-10" data-line-number="10"><span class="co">#&gt; INFO  [11:40:27.842] epoch 7, loss 0.0185 </span></a>
+<a class="sourceLine" id="cb50-11" data-line-number="11"><span class="co">#&gt; INFO  [11:40:27.855] epoch 8, loss 0.0178 </span></a>
+<a class="sourceLine" id="cb50-12" data-line-number="12"><span class="co">#&gt; INFO  [11:40:27.871] epoch 9, loss 0.0171 </span></a>
+<a class="sourceLine" id="cb50-13" data-line-number="13"><span class="co">#&gt; INFO  [11:40:27.887] epoch 10, loss 0.0165</span></a></code></pre></div>
 <p>For illustration purpose, we now plot the 50 most used terms</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">n.w.boris&lt;-<span class="kw">apply</span>(corpus_boris.dfm,<span class="dv">2</span>,sum) <span class="co">#compute the number of times each term is used</span></a>
 <a class="sourceLine" id="cb51-2" data-line-number="2">index&lt;-<span class="kw">order</span>(n.w.boris,<span class="dt">decreasing =</span> <span class="ot">TRUE</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>]</a>
 <a class="sourceLine" id="cb51-3" data-line-number="3"><span class="kw">plot</span>(speech.weC.boris[index,],<span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,<span class="dt">xlab =</span> <span class="st">&quot;Dimension 1&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Dimendion 2&quot;</span>)</a>
 <a class="sourceLine" id="cb51-4" data-line-number="4"><span class="kw">text</span>(<span class="dt">x=</span>speech.weC.boris[index,],<span class="dt">labels =</span> <span class="kw">rownames</span>(speech.weC.boris[index,]))</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-64-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-88-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1">speech.dtm &lt;-<span class="st"> </span>corpus_boris.dfm</a>
 <a class="sourceLine" id="cb52-2" data-line-number="2">speech.rwmd.model.boris&lt;-RelaxedWordMoversDistance<span class="op">$</span><span class="kw">new</span>(corpus_boris.dfm,speech.weC.boris)</a>
 <a class="sourceLine" id="cb52-3" data-line-number="3">speech.rwms.boris&lt;-speech.rwmd.model.boris<span class="op">$</span><span class="kw">sim2</span>(corpus_boris.dfm)</a>
@@ -261,7 +261,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb52-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb52-6" data-line-number="6">speech.hc.boris&lt;-<span class="kw">hclust</span>(<span class="kw">as.dist</span>(speech.rwmd.boris))</a>
 <a class="sourceLine" id="cb52-7" data-line-number="7"><span class="kw">plot</span>(speech.hc.boris,<span class="dt">cex=</span><span class="fl">0.8</span>)</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-65-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-89-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>We can observe that there is some coherence within the groups in terms the date of the speech.</p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">speech.cl.boris&lt;-<span class="st"> </span><span class="kw">cutree</span>(speech.hc.boris,<span class="dt">k=</span><span class="dv">4</span>)</a>
 <a class="sourceLine" id="cb53-2" data-line-number="2">corpus_boris.dfm[speech.cl.boris<span class="op">==</span><span class="dv">1</span>,]</a>
@@ -282,22 +282,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">p&lt;-<span class="dv">2</span> <span class="co">#word embedding dimension</span></a>
 <a class="sourceLine" id="cb55-2" data-line-number="2">speech.glove.macron&lt;-GlobalVectors<span class="op">$</span><span class="kw">new</span>(<span class="dt">rank =</span> p,<span class="dt">x_max =</span> <span class="dv">10</span>) <span class="co">#xmas is a neede technical option</span></a>
 <a class="sourceLine" id="cb55-3" data-line-number="3">speech.weC.macron&lt;-speech.glove.macron<span class="op">$</span><span class="kw">fit_transform</span>(speech.coo.macron)</a>
-<a class="sourceLine" id="cb55-4" data-line-number="4"><span class="co">#&gt; INFO  [09:58:14.796] epoch 1, loss 0.0243 </span></a>
-<a class="sourceLine" id="cb55-5" data-line-number="5"><span class="co">#&gt; INFO  [09:58:14.808] epoch 2, loss 0.0176 </span></a>
-<a class="sourceLine" id="cb55-6" data-line-number="6"><span class="co">#&gt; INFO  [09:58:14.821] epoch 3, loss 0.0157 </span></a>
-<a class="sourceLine" id="cb55-7" data-line-number="7"><span class="co">#&gt; INFO  [09:58:14.834] epoch 4, loss 0.0147 </span></a>
-<a class="sourceLine" id="cb55-8" data-line-number="8"><span class="co">#&gt; INFO  [09:58:14.852] epoch 5, loss 0.0138 </span></a>
-<a class="sourceLine" id="cb55-9" data-line-number="9"><span class="co">#&gt; INFO  [09:58:14.863] epoch 6, loss 0.0129 </span></a>
-<a class="sourceLine" id="cb55-10" data-line-number="10"><span class="co">#&gt; INFO  [09:58:14.874] epoch 7, loss 0.0122 </span></a>
-<a class="sourceLine" id="cb55-11" data-line-number="11"><span class="co">#&gt; INFO  [09:58:14.884] epoch 8, loss 0.0116 </span></a>
-<a class="sourceLine" id="cb55-12" data-line-number="12"><span class="co">#&gt; INFO  [09:58:14.893] epoch 9, loss 0.0111 </span></a>
-<a class="sourceLine" id="cb55-13" data-line-number="13"><span class="co">#&gt; INFO  [09:58:14.901] epoch 10, loss 0.0107</span></a></code></pre></div>
+<a class="sourceLine" id="cb55-4" data-line-number="4"><span class="co">#&gt; INFO  [11:40:29.751] epoch 1, loss 0.0237 </span></a>
+<a class="sourceLine" id="cb55-5" data-line-number="5"><span class="co">#&gt; INFO  [11:40:29.770] epoch 2, loss 0.0177 </span></a>
+<a class="sourceLine" id="cb55-6" data-line-number="6"><span class="co">#&gt; INFO  [11:40:29.781] epoch 3, loss 0.0160 </span></a>
+<a class="sourceLine" id="cb55-7" data-line-number="7"><span class="co">#&gt; INFO  [11:40:29.792] epoch 4, loss 0.0150 </span></a>
+<a class="sourceLine" id="cb55-8" data-line-number="8"><span class="co">#&gt; INFO  [11:40:29.802] epoch 5, loss 0.0141 </span></a>
+<a class="sourceLine" id="cb55-9" data-line-number="9"><span class="co">#&gt; INFO  [11:40:29.829] epoch 6, loss 0.0132 </span></a>
+<a class="sourceLine" id="cb55-10" data-line-number="10"><span class="co">#&gt; INFO  [11:40:29.846] epoch 7, loss 0.0125 </span></a>
+<a class="sourceLine" id="cb55-11" data-line-number="11"><span class="co">#&gt; INFO  [11:40:29.864] epoch 8, loss 0.0119 </span></a>
+<a class="sourceLine" id="cb55-12" data-line-number="12"><span class="co">#&gt; INFO  [11:40:29.891] epoch 9, loss 0.0113 </span></a>
+<a class="sourceLine" id="cb55-13" data-line-number="13"><span class="co">#&gt; INFO  [11:40:29.901] epoch 10, loss 0.0109</span></a></code></pre></div>
 <p>For illustration purpose, we now plot the 50 most used terms</p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1">n.w.macron&lt;-<span class="kw">apply</span>(corpus_macron.dfm,<span class="dv">2</span>,sum) <span class="co">#compute the number of times each term is used</span></a>
 <a class="sourceLine" id="cb56-2" data-line-number="2">index&lt;-<span class="kw">order</span>(n.w.macron,<span class="dt">decreasing =</span> <span class="ot">TRUE</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>]</a>
 <a class="sourceLine" id="cb56-3" data-line-number="3"><span class="kw">plot</span>(speech.weC.macron[index,],<span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,<span class="dt">xlab =</span> <span class="st">&quot;Dimension 1&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Dimendion 2&quot;</span>)</a>
 <a class="sourceLine" id="cb56-4" data-line-number="4"><span class="kw">text</span>(<span class="dt">x=</span>speech.weC.macron[index,],<span class="dt">labels =</span> <span class="kw">rownames</span>(speech.weC.macron[index,]))</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-69-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-93-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1">speech.dtm.macron &lt;-<span class="st"> </span>corpus_macron.dfm</a>
 <a class="sourceLine" id="cb57-2" data-line-number="2">speech.rwmd.model.macron&lt;-RelaxedWordMoversDistance<span class="op">$</span><span class="kw">new</span>(corpus_macron.dfm,speech.weC.macron)</a>
 <a class="sourceLine" id="cb57-3" data-line-number="3">speech.rwms.macron&lt;-speech.rwmd.model.macron<span class="op">$</span><span class="kw">sim2</span>(corpus_macron.dfm)</a>
@@ -305,7 +305,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb57-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb57-6" data-line-number="6">speech.hc.macron&lt;-<span class="kw">hclust</span>(<span class="kw">as.dist</span>(speech.rwmd.macron))</a>
 <a class="sourceLine" id="cb57-7" data-line-number="7"><span class="kw">plot</span>(speech.hc.macron,<span class="dt">cex=</span><span class="fl">0.8</span>)</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-70-1.png" width="70%" style="display: block; margin: auto;" />
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-94-1.png" width="70%" style="display: block; margin: auto;" />
 We can observe that there is some coherence within the groups in terms the date of the speech.</p>
 <div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1">speech.cl.macron&lt;-<span class="st"> </span><span class="kw">cutree</span>(speech.hc.macron,<span class="dt">k=</span><span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb58-2" data-line-number="2">corpus_macron.dfm[speech.cl.macron<span class="op">==</span><span class="dv">1</span>,]</a>

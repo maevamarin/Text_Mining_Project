@@ -342,7 +342,7 @@ text6
 <p>Often the first dimension in LSA is associated with the document lenght. To see if it is true, we build a scatter-plot between the document lengt and Dimension 1.</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">ns&lt;-<span class="kw">apply</span>(corpus_boris.dfm,<span class="dv">1</span>,sum) </a>
 <a class="sourceLine" id="cb28-2" data-line-number="2"><span class="kw">plot</span>(ns<span class="op">~</span>bmod<span class="op">$</span>docs [,<span class="dv">1</span>])</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;" />
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-69-1.png" width="70%" style="display: block; margin: auto;" />
 We clearly observe that the dimension 1 is negatively correlated with the document lenght.</p>
 <p>Now in order to make the link between the topics and the documents and the topics with term, we use biplot. We represent the dimension 2 ans 3, beacause often the first component bring often little information.</p>
 <p>Reminders:</p>
@@ -359,7 +359,7 @@ We clearly observe that the dimension 1 is negatively correlated with the docume
 <a class="sourceLine" id="cb29-2" data-line-number="2">       <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;grey&quot;</span>,<span class="st">&quot;red&quot;</span>),</a>
 <a class="sourceLine" id="cb29-3" data-line-number="3">       <span class="dt">xlab =</span> <span class="st">&quot;Dimension 2&quot;</span>,</a>
 <a class="sourceLine" id="cb29-4" data-line-number="4">       <span class="dt">ylab=</span><span class="st">&quot;Dimension 3&quot;</span>)</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-46-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-70-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>We repeat the same analysis with TF-IDF. The influence of small weighted-frequent tokens is reduced.</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">bmod_<span class="dv">2</span>&lt;-<span class="st"> </span><span class="kw">textmodel_lsa</span>(corpus_boris.tfidf, <span class="dt">nd=</span><span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb30-2" data-line-number="2"></a>
@@ -574,62 +574,62 @@ will
 will
 </td>
 <td style="text-align:left;">
+now
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+much
+</td>
+<td style="text-align:left;">
+can
+</td>
+<td style="text-align:left;">
+go
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+want
+</td>
+<td style="text-align:left;">
+thing
+</td>
+<td style="text-align:left;">
 will
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-now
+spread
 </td>
 <td style="text-align:left;">
-much
+first
 </td>
 <td style="text-align:left;">
-go
+people
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
-go
-</td>
 <td style="text-align:left;">
 disease
 </td>
 <td style="text-align:left;">
+outbreak
+</td>
+<td style="text-align:left;">
 can
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-need
+school
 </td>
 <td style="text-align:left;">
-now
+virus
 </td>
 <td style="text-align:left;">
-want
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-make
-</td>
-<td style="text-align:left;">
-can
-</td>
-<td style="text-align:left;">
-people
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-can
-</td>
-<td style="text-align:left;">
-people
-</td>
-<td style="text-align:left;">
-know
+say
 </td>
 </tr>
 </tbody>
@@ -637,7 +637,7 @@ know
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"></a>
 <a class="sourceLine" id="cb34-2" data-line-number="2"><span class="kw">topics</span>(lda_boris,<span class="dv">1</span>)  <span class="co">## To see the topics related to each document</span></a>
 <a class="sourceLine" id="cb34-3" data-line-number="3"><span class="co">#&gt; text1 text2 text3 text4 text5 text6 text7 </span></a>
-<a class="sourceLine" id="cb34-4" data-line-number="4"><span class="co">#&gt;     1     2     1     1     3     3     3</span></a></code></pre></div>
+<a class="sourceLine" id="cb34-4" data-line-number="4"><span class="co">#&gt;     2     1     3     1     3     3     1</span></a></code></pre></div>
 <p>We now build the bar plot to inspect the per-topic-per-word probabilities (beta’s). We take the 10 top terms and rearrange the beta per topic according to this order.</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">beta.td.boris&lt;-<span class="kw">tidy</span>(lda_boris,<span class="dt">matrix=</span><span class="st">&quot;beta&quot;</span>)</a>
 <a class="sourceLine" id="cb35-2" data-line-number="2"></a>
@@ -655,7 +655,7 @@ know
 <a class="sourceLine" id="cb35-14" data-line-number="14"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>topic, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb35-15" data-line-number="15"><span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span></a>
 <a class="sourceLine" id="cb35-16" data-line-number="16"><span class="st">  </span><span class="kw">scale_x_reordered</span>()</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-50-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-74-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Now, we compute the gamma, it shows the proportion of each topic within each document.
 In the below figure, we note that each document represented a text.The texts are very distinctive.</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">gamma.td.boris&lt;-<span class="st"> </span><span class="kw">tidy</span>(lda_boris,<span class="dt">matrix=</span><span class="st">&quot;gamma&quot;</span>)</a>
@@ -667,7 +667,7 @@ In the below figure, we note that each document represented a text.The texts are
 <a class="sourceLine" id="cb36-7" data-line-number="7"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>topic,<span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)<span class="op">+</span></a>
 <a class="sourceLine" id="cb36-8" data-line-number="8"><span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span></a>
 <a class="sourceLine" id="cb36-9" data-line-number="9"><span class="st">  </span><span class="kw">scale_x_reordered</span>()</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-51-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-75-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="macron-2" class="section level2">
@@ -816,14 +816,14 @@ virus
 <p>Often the first dimension in LSA is associated with the document lenght. To see if it is true, we build a scatter-plot between the document lengt and Dimension 1.</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1">ns_macron&lt;-<span class="kw">apply</span>(corpus_macron.dfm,<span class="dv">1</span>,sum) </a>
 <a class="sourceLine" id="cb40-2" data-line-number="2"><span class="kw">plot</span>(ns_macron<span class="op">~</span>mmod<span class="op">$</span>docs [,<span class="dv">1</span>])</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-54-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-78-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>We clearly observe that the dimension 1 is negatively correlated with the document lenght.</p>
 <p>Now in order to make the link between the topics and the documents and the topics with term, we use biplot</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">biplot</span>(<span class="dt">y=</span>mmod<span class="op">$</span>docs[,<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>],<span class="dt">x=</span>mmod<span class="op">$</span>features[,<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>],</a>
 <a class="sourceLine" id="cb41-2" data-line-number="2">       <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;grey&quot;</span>,<span class="st">&quot;red&quot;</span>),</a>
 <a class="sourceLine" id="cb41-3" data-line-number="3">       <span class="dt">xlab =</span> <span class="st">&quot;Dimension 2&quot;</span>,</a>
 <a class="sourceLine" id="cb41-4" data-line-number="4">       <span class="dt">ylab=</span><span class="st">&quot;Dimension 3&quot;</span>)</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-55-1.png" width="70%" style="display: block; margin: auto;" />
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-79-1.png" width="70%" style="display: block; margin: auto;" />
 We repeat the same analysis with TF-IDF</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">mmod_<span class="dv">2</span>&lt;-<span class="st"> </span><span class="kw">textmodel_lsa</span>(corpus_macron.tfidf, <span class="dt">nd=</span><span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb42-2" data-line-number="2"></a>
@@ -996,19 +996,36 @@ Topic 5
 <tbody>
 <tr>
 <td style="text-align:left;">
-will
-</td>
-<td style="text-align:left;">
-will
-</td>
-<td style="text-align:left;">
-will
-</td>
-<td style="text-align:left;">
-will
-</td>
-<td style="text-align:left;">
 also
+</td>
+<td style="text-align:left;">
+will
+</td>
+<td style="text-align:left;">
+will
+</td>
+<td style="text-align:left;">
+will
+</td>
+<td style="text-align:left;">
+much
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+will
+</td>
+<td style="text-align:left;">
+much
+</td>
+<td style="text-align:left;">
+must
+</td>
+<td style="text-align:left;">
+must
+</td>
+<td style="text-align:left;">
+able
 </td>
 </tr>
 <tr>
@@ -1019,16 +1036,39 @@ much
 also
 </td>
 <td style="text-align:left;">
+many
+</td>
+<td style="text-align:left;">
+also
+</td>
+<td style="text-align:left;">
+make
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+service
+</td>
+<td style="text-align:left;">
 take
 </td>
+<td style="text-align:left;">
+also
+</td>
+<td style="text-align:left;">
+can
+</td>
+<td style="text-align:left;">
+people
+</td>
+</tr>
+<tr>
 <td style="text-align:left;">
 day
 </td>
 <td style="text-align:left;">
-will
+even
 </td>
-</tr>
-<tr>
 <td style="text-align:left;">
 can
 </td>
@@ -1036,16 +1076,16 @@ can
 much
 </td>
 <td style="text-align:left;">
-much
-</td>
-<td style="text-align:left;">
-us
-</td>
-<td style="text-align:left;">
-must
+ask
 </td>
 </tr>
 <tr>
+<td style="text-align:left;">
+one
+</td>
+<td style="text-align:left;">
+protect
+</td>
 <td style="text-align:left;">
 continue
 </td>
@@ -1053,47 +1093,7 @@ continue
 even
 </td>
 <td style="text-align:left;">
-day
-</td>
-<td style="text-align:left;">
-even
-</td>
-<td style="text-align:left;">
-much
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-must
-</td>
-<td style="text-align:left;">
-work
-</td>
-<td style="text-align:left;">
-can
-</td>
-<td style="text-align:left;">
-decision
-</td>
-<td style="text-align:left;">
-protect
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-come
-</td>
-<td style="text-align:left;">
-health
-</td>
-<td style="text-align:left;">
-month
-</td>
-<td style="text-align:left;">
-take
-</td>
-<td style="text-align:left;">
-can
+far
 </td>
 </tr>
 </tbody>
@@ -1101,7 +1101,7 @@ can
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"></a>
 <a class="sourceLine" id="cb46-2" data-line-number="2"><span class="kw">topics</span>(lda_macron,<span class="dv">1</span>)  <span class="co">## To see the topics related to each document</span></a>
 <a class="sourceLine" id="cb46-3" data-line-number="3"><span class="co">#&gt; text1 text2 text3 </span></a>
-<a class="sourceLine" id="cb46-4" data-line-number="4"><span class="co">#&gt;     2     5     1</span></a></code></pre></div>
+<a class="sourceLine" id="cb46-4" data-line-number="4"><span class="co">#&gt;     2     4     3</span></a></code></pre></div>
 <p>We now build the bar plot to inspect the per-topic-per-word probabilities (beta’s). We take the 10 top terms and rearrange the beta per topic according to this order.</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"></a>
 <a class="sourceLine" id="cb47-2" data-line-number="2">beta.td.macron&lt;-<span class="kw">tidy</span>(lda_macron,<span class="dt">matrix=</span><span class="st">&quot;beta&quot;</span>)</a>
@@ -1119,7 +1119,7 @@ can
 <a class="sourceLine" id="cb47-14" data-line-number="14"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>topic, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb47-15" data-line-number="15"><span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span></a>
 <a class="sourceLine" id="cb47-16" data-line-number="16"><span class="st">  </span><span class="kw">scale_x_reordered</span>()</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-59-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-83-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Now, we compute the gamma, it shows the proportion of each topic within each document. We note that text 1 is related to the topic 1 4 and 5. Th test 3 is related to the topic 2. And the text 2 is related to the topic 3.</p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1">gamma.td.macron&lt;-<span class="st"> </span><span class="kw">tidy</span>(lda_macron,<span class="dt">matrix=</span><span class="st">&quot;gamma&quot;</span>)</a>
 <a class="sourceLine" id="cb48-2" data-line-number="2"></a>
@@ -1129,7 +1129,7 @@ can
 <a class="sourceLine" id="cb48-6" data-line-number="6"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>topic,<span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)<span class="op">+</span></a>
 <a class="sourceLine" id="cb48-7" data-line-number="7"><span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span></a>
 <a class="sourceLine" id="cb48-8" data-line-number="8"><span class="st">  </span><span class="kw">scale_x_reordered</span>()</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-60-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-84-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="comparison-2" class="section level2">
