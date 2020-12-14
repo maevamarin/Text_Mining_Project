@@ -1,29 +1,15 @@
 # Sentiment Analysis
 
-## Sentiment analysis with the sentiment library "nrc" 
+## Analysis with the "nrc" library
 
 We use the "nrc"  dictionary to start our sentiment analysis on the discourses of our two politicians. It is a dictionnary qualifying tokens by specific sentiments and by labelling them "negative" or "positive".
+
 To do so, we will match the tokens of both corpuses with the dictionnary by applying an inner join. However, to use the inner_join function, we need a table object, what our objects are not primarily. We reload the data to create objects specific to this stage, boris_2 and macron_2, which are registered as tibble and allowing the use of the inner_join function.
-From the token list per document boris.tok, we join the corresponding qualifier in  nrc using inner_joint: 
+From the token list per document boris.tok, we join the corresponding qualifier in nrc using an inner_joint: 
 
-```{r}
-library(dplyr)
-library(tidyverse)
-library(tidytext)
-library(readr)
-library(kableExtra)
-library(gridExtra)
-library(quanteda)
-library(tm)
-library(quanteda.corpora)
-require(lubridate)
-library(sentimentr)
-library(lexicon)
-```
 
 
 ```{r}
-
 #####################################################################################################################################
 ##########################################  Let's start with the Boris Johnson's discourses    ######################################
 #####################################################################################################################################
@@ -37,6 +23,9 @@ boris_2<-as.tibble(
     boris20mars,
     boris22mars)) # trick to get a "tbl_df","tbl","data.frame" compatible with the inner_join function
 
+```
+
+```{r}
 DocumentB <- c("Text1","Text2","Text3","Text4","Text5","Text6","Text7") # adding a column "Document" to have a landmark for the tokens
 boris_2$Document <- DocumentB
 boris_2 <- boris_2[,c(2,1)]
@@ -76,20 +65,23 @@ macron_2.sent<- macron_2.tok %>%
 
 ```
 
-After doing our objects, we investigate which sentiment are present in Boris Johnson's discourses. To do so, we use a numerical and a graphical method.
+After creating our objects, we investigate which sentiment are present in Boris Johnson's discourses. To do so, we use a numerical and a graphical method.
 
-The numerical method is simply a matrix of the frequency of tokens identified to a certain sentiment. Remind that a word can have more than 1 sentiment, which can lead to slight an overestimation od the sentiment.
+The numerical method is simply a matrix of the frequency of tokens identified to a certain sentiment. Remind that a word can have more than 1 sentiment, which can lead to slight an overestimation of the sentiment.
 
-Below, the table presents positive discourses from the UK's First Minister which are mainly weighted by the sentiment "trust". We could have assumed that the discourse would be reassuring in order to avoid any panic due to the inedite circumstances of the covid. "Anticipation" is as well high, for the same reason (annoucement of the futures measures ans aaniticpations of the consequences, e.g.) 
+Below, the table \@ref(tab:kable-frequency-sentiment-per-word-boris) presents positive discourses from the UK's First Minister which are mainly weighted by the sentiment "trust". We could have assumed that the discourse would be reassuring in order to avoid any panic due to the inedite circumstances of the covid. "Anticipation" is as well high, for the same reason (annoucement of the futures measures ans aaniticpations of the consequences, e.g.) 
 
-However, postive sentiments are balanced by the relative high score of the fear, followed by disgust and anger.
-In absolute values, the most sentimental discourse was the second public word, on March 12th 2020.
+However, postive sentiments are balanced by the relative high score of the fear, followed by disgust and anger. In absolute values, the most sentimental discourse was the second public word, on March 12th 2020.
 
-The graphical representations of the sentiments among discourses enables a quick glimpse on these results.
+The graphical representations of the sentiments among discourses enables us a quick glimpse on these results.
 
-```{r}
+```{r kable-frequency-sentiment-per-word-boris, warning = FALSE}
 table(boris_2.sent$Document,boris_2.sent$sentiment) %>% kable() %>% kable_styling() # sentiment terms per document
+```
 
+The graphical representation of the sentiments among discourses enables us a quick glimpse on these results.
+
+```{r fig.cap="Boris Johnson: Graphical representation of the sentiment per text"}
 boris_2.sent %>% 
   group_by(Document,sentiment) %>% 
   summarize(n=n())%>%
@@ -98,7 +90,7 @@ boris_2.sent %>%
   geom_bar(stat="identity",alpha=0.8) +
   facet_wrap(~ Document) + 
   coord_flip() +
-  ggtitle("Graphical representation of the sentiment per text") +
+  ggtitle("Boris Johnson: Graphical representation of the sentiment per text") +
   xlab("Frequencies of the sentiments") +
   ylab("Sentiment") +
  geom_text(aes(label = n), size = 3, hjust = 1, vjust = 0, position = "stack")
@@ -106,13 +98,16 @@ boris_2.sent %>%
 ```
 
 
-By looking now at the discourses of Macron using th same method, we note the seemingly same frequencies of sentiments. His words appear to be carefully built and do not vary, perhaps to give the impression to have a stable and coherent speeches overtime.
+By looking now at the discourses of Macron using the same method, we note the seemingly same frequencies of sentiments in the table \@ref(tab:kable-frequency-sentiment-per-word-macron). His words appear to be carefully built and the variance is very low, perhaps to give the impression to have a stable and coherent speeches overtime.
 
 The categories of sentiments are quite similarly distributed: the speeches are positive marked by trust and anticipation.
 
-```{r}
+```{r kable-frequency-sentiment-per-word-macron}
 table(macron_2.sent$Document,macron_2.sent$sentiment) %>% kable() %>% kable_styling() # sentiment terms per document
+```
 
+
+```{r}
 macron_2.sent %>% 
   group_by(Document,sentiment) %>% 
   summarize(n=n())%>%
@@ -128,16 +123,16 @@ macron_2.sent %>%
 
 ```
 
-### With quanteda
+## Analysis with the LSD2015 dictionnary
 
-In order to better analyse those results and fortify those insights, we double check with the dictionnary LSD2015.  It is another dictionnary assigning a qualifier to terms. The difference with tidytext is essentially in the manipulation of the objects: it handles the "tokens" class and for this reason we have to recode our objects. The results are impacted by this different treatment and we expect slight changes. 
+In order to better analyse those results and fortify those insights, we double check with the dictionnary LSD2015. It is another dictionnary assigning a qualifier to terms. The difference with tidytext is essentially in the manipulation of the objects: it handles the "tokens" class and for this reason we have to recode our objects. The results are impacted by this different treatment and we do expect slight changes. 
 
-The results of Text 2 as the most positive and all the discourses as majoritarily positive are confirmed. For Macron's speeches, the proportions of sentiments differs: the first discourse is associated with more postive sentiment (224) relatively to proportion computed with the "nrc" dictionnary (193). However, the trend remains the same.
+As the figure \@ref(fig:plot-quanteda) shows, the results of Text 2 as the most positive and all the discourses as majoritarily positive are confirmed. For Macron's speeches, the proportions of sentiments differs: the first discourse is associated with more postive sentiment (224) relatively to proportion computed with the "nrc" dictionnary (193). However, the trend remains the same.
 
 We keep in mind that difference in length of texts explains the varying size of the bar, as previously. Anyway both findings converge to the same points.
 
 
-```{r}
+```{r plot-quanteda,fig.cap="Proportion of sentiment using the dictionnary LSD2015"}
 ######################################################################################################################################
 ##########################################  Let's start with the Johnson's discourses    ###########################################
 ######################################################################################################################################
@@ -195,14 +190,16 @@ grid.arrange(boris.plot.quanteda,macron.plot.quanteda)
 
 
 
-### Value-based
+## Analysis with the "afinn" dictionnary
 
- we use the "afinn" dictionnary which attributes a value to the word, taking into account the power conveyed by the term (value between 0 and 1) and its qualitative classification (positive or neagtive sign). The classification of the words was encoded differently than for the "nrc" dictionnary. We expect different score, but hopefully in the same direction. The results are derived from an average score of sentiment per document. Yet, for the Boris Johnson's speeches, the second discourse on the corona has a contradictory score: it belongs to the lowest scored text in positive sentiments.
- 
-We can thus observe the difference in encodage among dictionnaries used in Text Mining. The "afinn" dictionnarywas encoded by a Danish Professor, LSD2015 by two American professors, and "nrc" by a Canadian professors working in an Commision on Ethics. The categorization is subjective and lead to substantial differences.
+We now use a different approach: a quantitative way to assess the sentiment analysis. To do so, we use the "afinn" dictionnary which attributes a value to the word, taking into account the power conveyed by the term (value between 0 and 1) and its qualitative classification (positive or neagtive sign). The classification of the words was encoded differently than for the "nrc" dictionnary. Again, we do expect different scores, but hopefully in the same direction. 
+
+The results displayed by the figure  \@ref(fig:plot-afinn) are derived from an average score of sentiment per document. For the Boris Johnson's speeches, the second one has a contradictory score with the previous results: it belongs to the lowest scored text in positive sentiments.
+
+We can thus observe the difference in encodage among dictionnaries used in Text Mining. The "afinn" dictionnarywas encoded by a Danish Professor, LSD2015 by two American professors, and "nrc" by a Canadian professors working in an Commision on Ethics. The categorization is subjective and lead to substantial differences. Those results need to be mitigate by a last approach: the use of valence shifters.
 
 
-```{r}
+```{r plot-afinn,fig.cap="Graphical representation: Sentiment score per text by using afinn dictionnary"}
 ######################################################################################################################################
 ##########################################  Let's continue with the Johnson's discourses    ###########################################
 ######################################################################################################################################
@@ -230,7 +227,7 @@ macron.plot.afinn <- aggregate(value~Document, data =macron_2.sent,FUN=mean) %>%
   ggplot(aes(x=Document,y=value, fill = Document)) +
   geom_bar(stat="identity") +
   coord_flip() +
-  ggtitle("Graphical representation: Sentiment score per text by using afinn dictionnary") +
+  ggtitle("Macron: Sentiment score per text by using afinn dictionnary") +
   ylab("Document") +
   xlab("Score value")
 
@@ -238,20 +235,21 @@ grid.arrange(boris.plot.afinn,macron.plot.afinn)
 ```
 
 
-### Using valence shifters
+### Analysis using "nrc"" dictionnary and valence shifters
 
 
 The sentimentr library offers some function to compute sentiments integrating valence shiters. There are specific words which amplify or reduce the power of a word, even turn it into the reverse sentiment. We evaluate sentences here, and one important aspect is that it cannot be applied to a Bag Of Word model, since the word order is necessary.
 
-The valence shifters extract more acurately the sentiment ouf of the text, since it consider the sentiment conveyed by a sentence and not only words without context. We should take the insights given by valence shifters as the ultimate confirmation test for the previous results.
+The valence shifters extract more acurately the sentiment ouf of the text, since it consider the sentiment conveyed by a sentence and not only words without context. We should take the insights given by valence shifters as the ultimate confirmation test for the previous results. The results are displayed by the plot \@ref(fig:plot-valence-shifter).
 
 The second discourse of the Prime Minister here is one of the longest: it contains about 50 sentences and is only preceded by the fourth public word, on March 18th. It is the one varying the most in sentiment, what might explains the dffference in values observed between LSD2015&nrc with afinn dictionnary. The sixth one shows one positive peak, what correspond to the moment whn Boris Johnson strengthened the measures and made a speech to reassure UK citizen. He brought information with positive sentiments to unify the population under the new circumstances and to push the to obey by showing them the positive impact of respecting those stonger measures.
 
 Macron's speeches are well longer, three times more than Boris Johnson's ones, as we observe in the second plot. His words are generally more neutral but convey sometimes strong negative sentiments, like the 4th sentence. Actually, this sentence is not strongly negative but uses terms which are: "In the vast majority of cases, COVID-19 does not pose a threat, but the virus can have very serious consequences, especially for those of our fellow citizens who are elderly or suffer from chronic illnesses such as diabetes, obesity or cancer". The variation of the sentiments  is greater in the last allocution, on April 13th 2020.
+```{r results='hide'}
+sentiment(boris.text, question.weight = 0)
+```
 
-
-
-```{r}
+```{r plot-valence-shifter,fig.cap="Evolution of the sentiments within speeches  using valence shifters"}
 boris.text<-get_sentences(boris)
 boris.senti<-sentiment(boris.text)
 sentiment(boris.text, question.weight = 0)
@@ -282,16 +280,7 @@ macron.senti%>% group_by(element_id) %>%
   ggtitle("Macron: Evolution of the sentiments \nwithin speeches  using valence shifters") +
   ylab("Document") +
   xlab("Sentences in speeches")
-
-
 ```
 
 
-## Keyness 
 
-We would finish the sentiment analysis with a graphical representation of the speeches:
-```{r}
-
-
-
-```

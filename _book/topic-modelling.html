@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Topic Modelling | Dicours Analysis</title>
   <meta name="description" content="Chapter 6 Topic Modelling | Dicours Analysis" />
-  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Topic Modelling | Dicours Analysis" />
   <meta property="og:type" content="book" />
@@ -51,78 +51,54 @@
 
 <link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.15/datatables.js"></script>
+<script src="libs/datatables-binding-0.16/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
 <script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
 <link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 </style>
 
 </head>
@@ -167,11 +143,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.6.1" data-path="eda.html"><a href="eda.html#emmanuel-macron-3"><i class="fa fa-check"></i><b>3.6.1</b> Emmanuel Macron</a></li>
 <li class="chapter" data-level="3.6.2" data-path="eda.html"><a href="eda.html#boris-johnson-3"><i class="fa fa-check"></i><b>3.6.2</b> Boris Johnson</a></li>
 </ul></li>
-<li class="chapter" data-level="3.7" data-path="eda.html"><a href="eda.html#zipfs-law"><i class="fa fa-check"></i><b>3.7</b> Zipf’s Law</a><ul>
+<li class="chapter" data-level="3.7" data-path="eda.html"><a href="eda.html#zipfs-law"><i class="fa fa-check"></i><b>3.7</b> Zipf's Law</a><ul>
 <li class="chapter" data-level="3.7.1" data-path="eda.html"><a href="eda.html#emmanuel-macron-4"><i class="fa fa-check"></i><b>3.7.1</b> Emmanuel Macron</a></li>
 <li class="chapter" data-level="3.7.2" data-path="eda.html"><a href="eda.html#boris-johnson-4"><i class="fa fa-check"></i><b>3.7.2</b> Boris Johnson</a></li>
 </ul></li>
-<li class="chapter" data-level="3.8" data-path="eda.html"><a href="eda.html#yules-index"><i class="fa fa-check"></i><b>3.8</b> Yule’s index</a><ul>
+<li class="chapter" data-level="3.8" data-path="eda.html"><a href="eda.html#yules-index"><i class="fa fa-check"></i><b>3.8</b> Yule's index</a><ul>
 <li class="chapter" data-level="3.8.1" data-path="eda.html"><a href="eda.html#emmanuel-macron-5"><i class="fa fa-check"></i><b>3.8.1</b> Emmanuel Macron</a></li>
 <li class="chapter" data-level="3.8.2" data-path="eda.html"><a href="eda.html#boris-johnson-5"><i class="fa fa-check"></i><b>3.8.2</b> Boris Johnson</a></li>
 </ul></li>
@@ -181,36 +157,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html"><i class="fa fa-check"></i><b>4</b> Sentiment Analysis</a><ul>
-<li class="chapter" data-level="4.1" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html#sentiment-analysis-with-the-sentiment-library-nrc"><i class="fa fa-check"></i><b>4.1</b> Sentiment analysis with the sentiment library “nrc”</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html#with-quanteda"><i class="fa fa-check"></i><b>4.1.1</b> With quanteda</a></li>
-<li class="chapter" data-level="4.1.2" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html#value-based"><i class="fa fa-check"></i><b>4.1.2</b> Value-based</a></li>
-<li class="chapter" data-level="4.1.3" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html#using-valence-shifters"><i class="fa fa-check"></i><b>4.1.3</b> Using valence shifters</a></li>
+<li class="chapter" data-level="4.1" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html#analysis-with-the-nrc-library"><i class="fa fa-check"></i><b>4.1</b> Analysis with the &quot;nrc&quot; library</a></li>
+<li class="chapter" data-level="4.2" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html#analysis-with-the-lsd2015-dictionnary"><i class="fa fa-check"></i><b>4.2</b> Analysis with the LSD2015 dictionnary</a></li>
+<li class="chapter" data-level="4.3" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html#analysis-with-the-afinn-dictionnary"><i class="fa fa-check"></i><b>4.3</b> Analysis with the &quot;afinn&quot; dictionnary</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html#analysis-using-nrc-dictionnary-and-valence-shifters"><i class="fa fa-check"></i><b>4.3.1</b> Analysis using &quot;nrc&quot;&quot; dictionnary and valence shifters</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html#macron"><i class="fa fa-check"></i><b>4.2</b> Macron</a></li>
-<li class="chapter" data-level="4.3" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html#comparison"><i class="fa fa-check"></i><b>4.3</b> Comparison</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="similarities.html"><a href="similarities.html"><i class="fa fa-check"></i><b>5</b> Similarities</a><ul>
 <li class="chapter" data-level="5.1" data-path="similarities.html"><a href="similarities.html#boris"><i class="fa fa-check"></i><b>5.1</b> Boris</a></li>
-<li class="chapter" data-level="5.2" data-path="similarities.html"><a href="similarities.html#macron-1"><i class="fa fa-check"></i><b>5.2</b> Macron</a></li>
-<li class="chapter" data-level="5.3" data-path="similarities.html"><a href="similarities.html#comparison-1"><i class="fa fa-check"></i><b>5.3</b> Comparison</a></li>
+<li class="chapter" data-level="5.2" data-path="similarities.html"><a href="similarities.html#macron"><i class="fa fa-check"></i><b>5.2</b> Macron</a></li>
+<li class="chapter" data-level="5.3" data-path="similarities.html"><a href="similarities.html#comparison"><i class="fa fa-check"></i><b>5.3</b> Comparison</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="topic-modelling.html"><a href="topic-modelling.html"><i class="fa fa-check"></i><b>6</b> Topic Modelling</a><ul>
 <li class="chapter" data-level="6.1" data-path="topic-modelling.html"><a href="topic-modelling.html#boris-johnson-7"><i class="fa fa-check"></i><b>6.1</b> Boris Johnson</a><ul>
 <li class="chapter" data-level="6.1.1" data-path="topic-modelling.html"><a href="topic-modelling.html#lsa"><i class="fa fa-check"></i><b>6.1.1</b> LSA</a></li>
 <li class="chapter" data-level="6.1.2" data-path="topic-modelling.html"><a href="topic-modelling.html#lda"><i class="fa fa-check"></i><b>6.1.2</b> LDA</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="topic-modelling.html"><a href="topic-modelling.html#macron-2"><i class="fa fa-check"></i><b>6.2</b> Macron</a><ul>
+<li class="chapter" data-level="6.2" data-path="topic-modelling.html"><a href="topic-modelling.html#macron-1"><i class="fa fa-check"></i><b>6.2</b> Macron</a><ul>
 <li class="chapter" data-level="6.2.1" data-path="topic-modelling.html"><a href="topic-modelling.html#lsa-1"><i class="fa fa-check"></i><b>6.2.1</b> LSA</a></li>
 <li class="chapter" data-level="6.2.2" data-path="topic-modelling.html"><a href="topic-modelling.html#lda-1"><i class="fa fa-check"></i><b>6.2.2</b> LDA</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="topic-modelling.html"><a href="topic-modelling.html#comparison-2"><i class="fa fa-check"></i><b>6.3</b> Comparison</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="word-embedding.html"><a href="word-embedding.html"><i class="fa fa-check"></i><b>7</b> Word Embedding</a><ul>
 <li class="chapter" data-level="7.1" data-path="word-embedding.html"><a href="word-embedding.html#boris-johnson-8"><i class="fa fa-check"></i><b>7.1</b> Boris Johnson</a></li>
-<li class="chapter" data-level="7.2" data-path="word-embedding.html"><a href="word-embedding.html#macron-3"><i class="fa fa-check"></i><b>7.2</b> Macron</a></li>
-<li class="chapter" data-level="7.3" data-path="word-embedding.html"><a href="word-embedding.html#comparison-3"><i class="fa fa-check"></i><b>7.3</b> Comparison</a></li>
+<li class="chapter" data-level="7.2" data-path="word-embedding.html"><a href="word-embedding.html#macron-2"><i class="fa fa-check"></i><b>7.2</b> Macron</a></li>
+<li class="chapter" data-level="7.3" data-path="word-embedding.html"><a href="word-embedding.html#comparison-1"><i class="fa fa-check"></i><b>7.3</b> Comparison</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>8</b> Conclusion</a></li>
+<li class="chapter" data-level="8" data-path="supervised-learning.html"><a href="supervised-learning.html"><i class="fa fa-check"></i><b>8</b> Supervised learning</a><ul>
+<li class="chapter" data-level="8.1" data-path="supervised-learning.html"><a href="supervised-learning.html#lsa-2"><i class="fa fa-check"></i><b>8.1</b> LSA</a></li>
+<li class="chapter" data-level="8.2" data-path="supervised-learning.html"><a href="supervised-learning.html#random-forest"><i class="fa fa-check"></i><b>8.2</b> Random forest</a></li>
+<li class="chapter" data-level="8.3" data-path="supervised-learning.html"><a href="supervised-learning.html#improving-the-features"><i class="fa fa-check"></i><b>8.3</b> Improving the features</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>9</b> Conclusion</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
@@ -231,40 +209,59 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="topic-modelling" class="section level1">
 <h1><span class="header-section-number">Chapter 6</span> Topic Modelling</h1>
-<p>In this chapter, we analzye the topics of the speechs of Boris Jonhson and Macron using
-- LSA(Latent Semantic analysis). The core idea is to take a matrix of what we have — documents and terms — and decompose it into a separate document-topic matrix and a topic-term matrix.</p>
+<p>In this chapter, we analzye the topics of the speechs of Boris Jonhson and Macron using :</p>
 <ul>
-<li>LDA(Latent Dirichlet Allocation).It uses dirichlet priors for the document-topic and word-topic distributions, lending itself to better generalization.</li>
+<li><p>LSA(Latent Semantic analysis). The core idea is to take a matrix of what we have — documents and terms — and decompose it into a separate document-topic matrix and a topic-term matrix.</p></li>
+<li><p>LDA(Latent Dirichlet Allocation).It uses dirichlet priors for the document-topic and word-topic distributions, lending itself to better generalization.</p></li>
 </ul>
+<p>And then we will combine the two dataset and do the same analysis.</p>
 <div id="boris-johnson-7" class="section level2">
 <h2><span class="header-section-number">6.1</span> Boris Johnson</h2>
 <div id="lsa" class="section level3">
 <h3><span class="header-section-number">6.1.1</span> LSA</h3>
 <p>First, we make the DTM matrix. We are goin to use 3 dimensions, it means 3 differents topics.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">bmod&lt;-<span class="kw">textmodel_lsa</span>(corpus_boris.dfm,<span class="dt">nd=</span><span class="dv">3</span>)</a></code></pre></div>
-<p>To inspect the results, we can extract the matrices involved in the LSA decomposition.
-In the firs table, each components measures the link between the document and the topic.
-In the second table, each component measure the link between the document and the term.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bmod&lt;-<span class="kw">textmodel_lsa</span>(corpus_boris.dfm,<span class="dt">nd=</span><span class="dv">3</span>)</code></pre></div>
+<p>To inspect the results, we can extract the matrices involved in the LSA decomposition. In the firs table, each components measures the link between the document and the topic. In the second table, each component measure the link between the document and the term.</p>
 <p>LSA is typical a reduction technique. Insetead of have N documents or M term, it is represented by K documents.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">p1&lt;-<span class="kw">head</span>(bmod<span class="op">$</span>docs)</a>
-<a class="sourceLine" id="cb27-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb27-3" data-line-number="3">p2&lt;-<span class="kw">head</span>(bmod<span class="op">$</span>features)</a>
-<a class="sourceLine" id="cb27-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb27-5" data-line-number="5">p1<span class="op">/</span>p2</a></code></pre></div>
-<table>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+lsa_docs_boris&lt;-<span class="kw">head</span>(bmod$docs)
+lsa_docs_boris&lt;-<span class="kw">data.frame</span>(lsa_docs_boris)
+
+lsa_docs_boris%&gt;%
+<span class="st">  </span><span class="kw">kable</span>(<span class="dt">caption=</span><span class="st">&quot; Link between document and topic&quot;</span>) %&gt;%
+<span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>)</code></pre></div>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-43">Table 6.1: </span> Link between document and topic
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+X1
+</th>
+<th style="text-align:right;">
+X2
+</th>
+<th style="text-align:right;">
+X3
+</th>
+</tr>
+</thead>
 <tbody>
 <tr>
 <td style="text-align:left;">
 text1
 </td>
 <td style="text-align:right;">
-76.84
+-0.175
 </td>
 <td style="text-align:right;">
-29.30
+0.053
 </td>
 <td style="text-align:right;">
-28.31
+-0.148
 </td>
 </tr>
 <tr>
@@ -272,13 +269,13 @@ text1
 text2
 </td>
 <td style="text-align:right;">
-45.86
+-0.519
 </td>
 <td style="text-align:right;">
-9.62
+0.052
 </td>
 <td style="text-align:right;">
-20.76
+-0.813
 </td>
 </tr>
 <tr>
@@ -286,13 +283,13 @@ text2
 text3
 </td>
 <td style="text-align:right;">
-51.61
+-0.358
 </td>
 <td style="text-align:right;">
-31.59
+-0.737
 </td>
 <td style="text-align:right;">
--61.10
+0.101
 </td>
 </tr>
 <tr>
@@ -300,13 +297,13 @@ text3
 text4
 </td>
 <td style="text-align:right;">
-17.58
+-0.525
 </td>
 <td style="text-align:right;">
--12.42
+0.626
 </td>
 <td style="text-align:right;">
--30.74
+0.342
 </td>
 </tr>
 <tr>
@@ -314,13 +311,13 @@ text4
 text5
 </td>
 <td style="text-align:right;">
-33.10
+-0.299
 </td>
 <td style="text-align:right;">
--58.33
+-0.210
 </td>
 <td style="text-align:right;">
--9.25
+0.314
 </td>
 </tr>
 <tr>
@@ -328,42 +325,249 @@ text5
 text6
 </td>
 <td style="text-align:right;">
-7.55
+-0.356
 </td>
 <td style="text-align:right;">
--7.88
+-0.121
 </td>
 <td style="text-align:right;">
--8.59
+0.226
 </td>
 </tr>
 </tbody>
 </table>
-<p>Often the first dimension in LSA is associated with the document lenght. To see if it is true, we build a scatter-plot between the document lengt and Dimension 1.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">ns&lt;-<span class="kw">apply</span>(corpus_boris.dfm,<span class="dv">1</span>,sum) </a>
-<a class="sourceLine" id="cb28-2" data-line-number="2"><span class="kw">plot</span>(ns<span class="op">~</span>bmod<span class="op">$</span>docs [,<span class="dv">1</span>])</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;" />
-We clearly observe that the dimension 1 is negatively correlated with the document lenght.</p>
-<p>Now in order to make the link between the topics and the documents and the topics with term, we use biplot. We represent the dimension 2 ans 3, beacause often the first component bring often little information.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+
+<span class="kw">head</span>(bmod$features)</code></pre></div>
+<table>
+<tbody>
+<tr>
+<td style="text-align:left;">
+morning
+</td>
+<td style="text-align:right;">
+-0.002
+</td>
+<td style="text-align:right;">
+0.002
+</td>
+<td style="text-align:right;">
+-0.005
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+government's
+</td>
+<td style="text-align:right;">
+-0.011
+</td>
+<td style="text-align:right;">
+0.005
+</td>
+<td style="text-align:right;">
+-0.039
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cobr
+</td>
+<td style="text-align:right;">
+-0.007
+</td>
+<td style="text-align:right;">
+-0.023
+</td>
+<td style="text-align:right;">
+-0.002
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+emergency
+</td>
+<td style="text-align:right;">
+-0.030
+</td>
+<td style="text-align:right;">
+-0.050
+</td>
+<td style="text-align:right;">
+-0.011
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+committee
+</td>
+<td style="text-align:right;">
+-0.009
+</td>
+<td style="text-align:right;">
+0.004
+</td>
+<td style="text-align:right;">
+-0.034
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+coronavirus
+</td>
+<td style="text-align:right;">
+-0.047
+</td>
+<td style="text-align:right;">
+0.015
+</td>
+<td style="text-align:right;">
+-0.026
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+lsa_features_boris&lt;-<span class="kw">head</span>(bmod$features)
+lsa_features_boris&lt;-<span class="kw">data.frame</span>(lsa_features_boris)
+
+lsa_features_boris%&gt;%
+<span class="st">  </span><span class="kw">kable</span>(<span class="dt">caption=</span><span class="st">&quot; Link between document and terms&quot;</span>) %&gt;%
+<span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>)</code></pre></div>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-44">Table 6.2: </span> Link between document and terms
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+X1
+</th>
+<th style="text-align:right;">
+X2
+</th>
+<th style="text-align:right;">
+X3
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+morning
+</td>
+<td style="text-align:right;">
+-0.002
+</td>
+<td style="text-align:right;">
+0.002
+</td>
+<td style="text-align:right;">
+-0.005
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+government's
+</td>
+<td style="text-align:right;">
+-0.011
+</td>
+<td style="text-align:right;">
+0.005
+</td>
+<td style="text-align:right;">
+-0.039
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cobr
+</td>
+<td style="text-align:right;">
+-0.007
+</td>
+<td style="text-align:right;">
+-0.023
+</td>
+<td style="text-align:right;">
+-0.002
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+emergency
+</td>
+<td style="text-align:right;">
+-0.030
+</td>
+<td style="text-align:right;">
+-0.050
+</td>
+<td style="text-align:right;">
+-0.011
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+committee
+</td>
+<td style="text-align:right;">
+-0.009
+</td>
+<td style="text-align:right;">
+0.004
+</td>
+<td style="text-align:right;">
+-0.034
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+coronavirus
+</td>
+<td style="text-align:right;">
+-0.047
+</td>
+<td style="text-align:right;">
+0.015
+</td>
+<td style="text-align:right;">
+-0.026
+</td>
+</tr>
+</tbody>
+</table>
+<p>Often the first dimension in LSA is associated with the document lenght. To see if it is true, we build a scatter-plot between the document lengt and Dimension 1. As we observe in the figure <a href="topic-modelling.html#fig:lsaboris">6.1</a>, the dimension 1 is negatively correlated with the document lenght. Therefore the dimension 1 bring us not a lot of informations that we have already.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ns&lt;-<span class="kw">apply</span>(corpus_boris.dfm,<span class="dv">1</span>,sum) 
+<span class="kw">plot</span>(ns~bmod$docs [,<span class="dv">1</span>])</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:lsaboris"></span>
+<img src="Text-Mining_files/figure-html/lsaboris-1.png" alt="First dimension of the LSA - Boris Johnson" width="70%" />
+<p class="caption">
+Figure 6.1: First dimension of the LSA - Boris Johnson
+</p>
+</div>
+<p>We clearly observe that the dimension 1 is negatively correlated with the document lenght.</p>
+<p>Now in order to make the link between the topics and the documents and the topics with term, we use biplot. We represent the dimension 2 and 3, beacause often the first component bring often little information.</p>
 <p>Reminders:</p>
-<p>The seven speech are class by chronological order:
-* 09 March (text1)
-* 12 March (text2)
-* 16 March (text3)
-* 18 March (text5)
-* 19 March (text6)
-* 20 March (text7)
-* 22 March (text8)</p>
-<p>It is noticeable that the texts that are brought together over time are grouped together.And that the first speeches are the opposite of the last ones.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">biplot</span>(<span class="dt">y=</span>bmod<span class="op">$</span>docs[,<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>],<span class="dt">x=</span>bmod<span class="op">$</span>features[,<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>],</a>
-<a class="sourceLine" id="cb29-2" data-line-number="2">       <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;grey&quot;</span>,<span class="st">&quot;red&quot;</span>),</a>
-<a class="sourceLine" id="cb29-3" data-line-number="3">       <span class="dt">xlab =</span> <span class="st">&quot;Dimension 2&quot;</span>,</a>
-<a class="sourceLine" id="cb29-4" data-line-number="4">       <span class="dt">ylab=</span><span class="st">&quot;Dimension 3&quot;</span>)</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-46-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>The seven speech are class by chronological order: * 09 March (text1) * 12 March (text2) * 16 March (text3) * 18 March (text5) * 19 March (text6) * 20 March (text7) * 22 March (text8)</p>
+<p>It is noticeable that the texts that are brought together over time are grouped together.And that the first speeches are the opposite of the last ones as we observe in the figure <a href="topic-modelling.html#fig:biplotboris">6.2</a></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">biplot</span>(<span class="dt">y=</span>bmod$docs[,<span class="dv">2</span>:<span class="dv">3</span>],<span class="dt">x=</span>bmod$features[,<span class="dv">2</span>:<span class="dv">3</span>],
+       <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;grey&quot;</span>,<span class="st">&quot;red&quot;</span>),
+       <span class="dt">xlab =</span> <span class="st">&quot;Dimension 2&quot;</span>,
+       <span class="dt">ylab=</span><span class="st">&quot;Dimension 3&quot;</span>)</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:biplotboris"></span>
+<img src="Text-Mining_files/figure-html/biplotboris-1.png" alt="Biplot - Boris Johnson" width="70%" />
+<p class="caption">
+Figure 6.2: Biplot - Boris Johnson
+</p>
+</div>
 <p>We repeat the same analysis with TF-IDF. The influence of small weighted-frequent tokens is reduced.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">bmod_<span class="dv">2</span>&lt;-<span class="st"> </span><span class="kw">textmodel_lsa</span>(corpus_boris.tfidf, <span class="dt">nd=</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb30-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb30-3" data-line-number="3"><span class="kw">head</span>(bmod_<span class="dv">2</span><span class="op">$</span>docs)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bmod_2&lt;-<span class="st"> </span><span class="kw">textmodel_lsa</span>(corpus_boris.tfidf, <span class="dt">nd=</span><span class="dv">3</span>)
+
+<span class="kw">head</span>(bmod_2$docs)</code></pre></div>
 <table>
 <tbody>
 <tr>
@@ -452,8 +656,8 @@ text6
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="kw">head</span>(bmod_<span class="dv">2</span><span class="op">$</span>features)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="kw">head</span>(bmod_2$features)</code></pre></div>
 <table>
 <tbody>
 <tr>
@@ -472,7 +676,7 @@ morning
 </tr>
 <tr>
 <td style="text-align:left;">
-government’s
+government's
 </td>
 <td style="text-align:right;">
 -0.024
@@ -546,22 +750,30 @@ coronavirus
 <div id="lda" class="section level3">
 <h3><span class="header-section-number">6.1.2</span> LDA</h3>
 <p>We now turn to the LDA. For illustration, we will make K=3 topis.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">K&lt;-<span class="dv">3</span></a>
-<a class="sourceLine" id="cb32-2" data-line-number="2">corpus_boris.dtm&lt;-<span class="st"> </span><span class="kw">convert</span>(corpus_boris.dfm, <span class="dt">to=</span><span class="st">&quot;topicmodels&quot;</span>)</a>
-<a class="sourceLine" id="cb32-3" data-line-number="3">lda_boris&lt;-<span class="st"> </span><span class="kw">LDA</span>(corpus_boris.dtm ,<span class="dt">k=</span>K)</a></code></pre></div>
-<p>Top terms per topic and top topic per document can be easily obtained. Belo, the six top terms and the top topic are extracted.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw">terms</span>(lda_boris,<span class="dv">6</span>)</a></code></pre></div>
-<table>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">K&lt;-<span class="dv">3</span>
+corpus_boris.dtm&lt;-<span class="st"> </span><span class="kw">convert</span>(corpus_boris.dfm, <span class="dt">to=</span><span class="st">&quot;topicmodels&quot;</span>)
+lda_boris&lt;-<span class="st"> </span><span class="kw">LDA</span>(corpus_boris.dtm ,<span class="dt">k=</span>K)</code></pre></div>
+<p>In the table <a href="topic-modelling.html#tab:table-term-boris">6.3</a>, it is the list of the six most frequent term in each topic</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">terms&lt;-<span class="kw">terms</span>(lda_boris,<span class="dv">6</span>)
+terms&lt;-<span class="kw">data.frame</span>(terms)
+
+terms %&gt;%
+<span class="st">  </span><span class="kw">kable</span>(<span class="dt">caption=</span><span class="st">&quot;List of the terms present in each topic&quot;</span>) %&gt;%
+<span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>)</code></pre></div>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:table-term-boris">Table 6.3: </span>List of the terms present in each topic
+</caption>
 <thead>
 <tr>
 <th style="text-align:left;">
-Topic 1
+Topic.1
 </th>
 <th style="text-align:left;">
-Topic 2
+Topic.2
 </th>
 <th style="text-align:left;">
-Topic 3
+Topic.3
 </th>
 </tr>
 </thead>
@@ -585,18 +797,7 @@ now
 much
 </td>
 <td style="text-align:left;">
-go
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-go
-</td>
-<td style="text-align:left;">
-disease
-</td>
-<td style="text-align:left;">
-can
+want
 </td>
 </tr>
 <tr>
@@ -604,10 +805,21 @@ can
 need
 </td>
 <td style="text-align:left;">
+can
+</td>
+<td style="text-align:left;">
+go
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+go
+</td>
+<td style="text-align:left;">
 now
 </td>
 <td style="text-align:left;">
-want
+thank
 </td>
 </tr>
 <tr>
@@ -615,68 +827,154 @@ want
 make
 </td>
 <td style="text-align:left;">
-can
+people
 </td>
 <td style="text-align:left;">
-people
+can
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-can
+school
 </td>
 <td style="text-align:left;">
-people
+disease
 </td>
 <td style="text-align:left;">
-know
+day
 </td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb34-2" data-line-number="2"><span class="kw">topics</span>(lda_boris,<span class="dv">1</span>)  <span class="co">## To see the topics related to each document</span></a>
-<a class="sourceLine" id="cb34-3" data-line-number="3"><span class="co">#&gt; text1 text2 text3 text4 text5 text6 text7 </span></a>
-<a class="sourceLine" id="cb34-4" data-line-number="4"><span class="co">#&gt;     1     2     1     1     3     3     3</span></a></code></pre></div>
-<p>We now build the bar plot to inspect the per-topic-per-word probabilities (beta’s). We take the 10 top terms and rearrange the beta per topic according to this order.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">beta.td.boris&lt;-<span class="kw">tidy</span>(lda_boris,<span class="dt">matrix=</span><span class="st">&quot;beta&quot;</span>)</a>
-<a class="sourceLine" id="cb35-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb35-3" data-line-number="3">beta.top.term.boris&lt;-beta.td.boris <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb35-4" data-line-number="4"><span class="st">  </span><span class="kw">group_by</span>(topic) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb35-5" data-line-number="5"><span class="st">  </span><span class="kw">top_n</span>(<span class="dv">10</span>, beta) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb35-6" data-line-number="6"><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb35-7" data-line-number="7"><span class="st">  </span><span class="kw">arrange</span>(topic, <span class="op">-</span>beta)</a>
-<a class="sourceLine" id="cb35-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb35-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb35-10" data-line-number="10">beta.top.term.boris <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb35-11" data-line-number="11"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">term=</span><span class="kw">reorder_within</span>(term, beta, topic)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb35-12" data-line-number="12"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(term,beta,<span class="dt">fill=</span><span class="kw">factor</span>(topic))) <span class="op">+</span></a>
-<a class="sourceLine" id="cb35-13" data-line-number="13"><span class="st">   </span><span class="kw">geom_col</span>(<span class="dt">show.legend =</span> <span class="ot">FALSE</span>)<span class="op">+</span></a>
-<a class="sourceLine" id="cb35-14" data-line-number="14"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>topic, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb35-15" data-line-number="15"><span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span></a>
-<a class="sourceLine" id="cb35-16" data-line-number="16"><span class="st">  </span><span class="kw">scale_x_reordered</span>()</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-50-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>Now, we compute the gamma, it shows the proportion of each topic within each document.
-In the below figure, we note that each document represented a text.The texts are very distinctive.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">gamma.td.boris&lt;-<span class="st"> </span><span class="kw">tidy</span>(lda_boris,<span class="dt">matrix=</span><span class="st">&quot;gamma&quot;</span>)</a>
-<a class="sourceLine" id="cb36-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb36-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb36-4" data-line-number="4">gamma.td.boris <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb36-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(document,gamma,<span class="dt">fill=</span><span class="kw">factor</span>(topic))) <span class="op">+</span></a>
-<a class="sourceLine" id="cb36-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">show.legend =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb36-7" data-line-number="7"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>topic,<span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)<span class="op">+</span></a>
-<a class="sourceLine" id="cb36-8" data-line-number="8"><span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span></a>
-<a class="sourceLine" id="cb36-9" data-line-number="9"><span class="st">  </span><span class="kw">scale_x_reordered</span>()</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-51-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>In the table <a href="topic-modelling.html#tab:table-topic-boris">6.4</a>, you can observe which text is related to which topic.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## To see the topics related to each document
+
+topics&lt;-(<span class="kw">topics</span>(lda_boris,<span class="dv">1</span>))
+topics&lt;-<span class="kw">data.frame</span>(topics)
+
+topics%&gt;%
+<span class="st">  </span><span class="kw">kable</span>(<span class="dt">caption=</span><span class="st">&quot;Topics&quot;</span>) %&gt;%
+<span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>)</code></pre></div>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:table-topic-boris">Table 6.4: </span>Topics
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+topics
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+text1
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+text2
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+text3
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+text4
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+text5
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+text6
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+text7
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+</tbody>
+</table>
+<p>We now build the bar plot to inspect the per-topic-per-word probabilities (beta's). We take the 10 top terms and rearrange the beta per topic according to this order. We observe in the figure <a href="topic-modelling.html#fig:betaboris">6.3</a> that the topic 1 that the 2 first terms are &quot;now&quot; and &quot;go&quot;. We can image that the topic 1 is more focous on the urgency and on the keep going.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">beta.td.boris&lt;-<span class="kw">tidy</span>(lda_boris,<span class="dt">matrix=</span><span class="st">&quot;beta&quot;</span>)
+
+beta.top.term.boris&lt;-beta.td.boris %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(topic) %&gt;%
+<span class="st">  </span><span class="kw">top_n</span>(<span class="dv">10</span>, beta) %&gt;%
+<span class="st">  </span><span class="kw">ungroup</span>() %&gt;%
+<span class="st">  </span><span class="kw">arrange</span>(topic, -beta)
+
+
+beta.top.term.boris %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">term=</span><span class="kw">reorder_within</span>(term, beta, topic)) %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(term,beta,<span class="dt">fill=</span><span class="kw">factor</span>(topic))) +
+<span class="st">   </span><span class="kw">geom_col</span>(<span class="dt">show.legend =</span> <span class="ot">FALSE</span>)+
+<span class="st">  </span><span class="kw">facet_wrap</span>(~topic, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) +
+<span class="st">  </span><span class="kw">coord_flip</span>()+
+<span class="st">  </span><span class="kw">scale_x_reordered</span>()</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:betaboris"></span>
+<img src="Text-Mining_files/figure-html/betaboris-1.png" alt="Beta - Boris Johnson" width="70%" />
+<p class="caption">
+Figure 6.3: Beta - Boris Johnson
+</p>
+</div>
+<p>Now, we compute the gamma, it shows the proportion of each topic within each document, as you can observe in the figure <a href="topic-modelling.html#fig:gammaboris">6.4</a>. We note that each document represented a text.The texts are very distinctive.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gamma.td.boris&lt;-<span class="st"> </span><span class="kw">tidy</span>(lda_boris,<span class="dt">matrix=</span><span class="st">&quot;gamma&quot;</span>)
+
+
+gamma.td.boris %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(document,gamma,<span class="dt">fill=</span><span class="kw">factor</span>(topic))) +
+<span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">show.legend =</span> <span class="ot">FALSE</span>) +
+<span class="st">  </span><span class="kw">facet_wrap</span>(~topic,<span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)+
+<span class="st">  </span><span class="kw">coord_flip</span>()+
+<span class="st">  </span><span class="kw">scale_x_reordered</span>()</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:gammaboris"></span>
+<img src="Text-Mining_files/figure-html/gammaboris-1.png" alt="Gamma - Boris Johnson" width="70%" />
+<p class="caption">
+Figure 6.4: Gamma - Boris Johnson
+</p>
 </div>
 </div>
-<div id="macron-2" class="section level2">
+</div>
+<div id="macron-1" class="section level2">
 <h2><span class="header-section-number">6.2</span> Macron</h2>
 <div id="lsa-1" class="section level3">
 <h3><span class="header-section-number">6.2.1</span> LSA</h3>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">mmod&lt;-<span class="kw">textmodel_lsa</span>(corpus_macron.dfm,<span class="dt">nd=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mmod&lt;-<span class="kw">textmodel_lsa</span>(corpus_macron.dfm,<span class="dt">nd=</span><span class="dv">3</span>)</code></pre></div>
 <p>To inspect the results, we can extract the matrices involved in the LSA decomposition</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">head</span>(mmod<span class="op">$</span>docs)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(mmod$docs)</code></pre></div>
 <table>
 <tbody>
 <tr>
@@ -723,8 +1021,8 @@ text3
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb39-2" data-line-number="2"><span class="kw">head</span>(mmod<span class="op">$</span>features)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="kw">head</span>(mmod$features)</code></pre></div>
 <table>
 <tbody>
 <tr>
@@ -814,20 +1112,19 @@ virus
 </tbody>
 </table>
 <p>Often the first dimension in LSA is associated with the document lenght. To see if it is true, we build a scatter-plot between the document lengt and Dimension 1.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1">ns_macron&lt;-<span class="kw">apply</span>(corpus_macron.dfm,<span class="dv">1</span>,sum) </a>
-<a class="sourceLine" id="cb40-2" data-line-number="2"><span class="kw">plot</span>(ns_macron<span class="op">~</span>mmod<span class="op">$</span>docs [,<span class="dv">1</span>])</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-54-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ns_macron&lt;-<span class="kw">apply</span>(corpus_macron.dfm,<span class="dv">1</span>,sum) 
+<span class="kw">plot</span>(ns_macron~mmod$docs [,<span class="dv">1</span>])</code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-49-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>We clearly observe that the dimension 1 is negatively correlated with the document lenght.</p>
 <p>Now in order to make the link between the topics and the documents and the topics with term, we use biplot</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">biplot</span>(<span class="dt">y=</span>mmod<span class="op">$</span>docs[,<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>],<span class="dt">x=</span>mmod<span class="op">$</span>features[,<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>],</a>
-<a class="sourceLine" id="cb41-2" data-line-number="2">       <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;grey&quot;</span>,<span class="st">&quot;red&quot;</span>),</a>
-<a class="sourceLine" id="cb41-3" data-line-number="3">       <span class="dt">xlab =</span> <span class="st">&quot;Dimension 2&quot;</span>,</a>
-<a class="sourceLine" id="cb41-4" data-line-number="4">       <span class="dt">ylab=</span><span class="st">&quot;Dimension 3&quot;</span>)</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-55-1.png" width="70%" style="display: block; margin: auto;" />
-We repeat the same analysis with TF-IDF</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">mmod_<span class="dv">2</span>&lt;-<span class="st"> </span><span class="kw">textmodel_lsa</span>(corpus_macron.tfidf, <span class="dt">nd=</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb42-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb42-3" data-line-number="3"><span class="kw">head</span>(mmod_<span class="dv">2</span><span class="op">$</span>docs)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">biplot</span>(<span class="dt">y=</span>mmod$docs[,<span class="dv">2</span>:<span class="dv">3</span>],<span class="dt">x=</span>mmod$features[,<span class="dv">2</span>:<span class="dv">3</span>],
+       <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;grey&quot;</span>,<span class="st">&quot;red&quot;</span>),
+       <span class="dt">xlab =</span> <span class="st">&quot;Dimension 2&quot;</span>,
+       <span class="dt">ylab=</span><span class="st">&quot;Dimension 3&quot;</span>)</code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-50-1.png" width="70%" style="display: block; margin: auto;" /> We repeat the same analysis with TF-IDF</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mmod_2&lt;-<span class="st"> </span><span class="kw">textmodel_lsa</span>(corpus_macron.tfidf, <span class="dt">nd=</span><span class="dv">3</span>)
+
+<span class="kw">head</span>(mmod_2$docs)</code></pre></div>
 <table>
 <tbody>
 <tr>
@@ -874,8 +1171,8 @@ text3
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb43-2" data-line-number="2"><span class="kw">head</span>(mmod_<span class="dv">2</span><span class="op">$</span>features)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="kw">head</span>(mmod_2$features)</code></pre></div>
 <table>
 <tbody>
 <tr>
@@ -968,11 +1265,11 @@ virus
 <div id="lda-1" class="section level3">
 <h3><span class="header-section-number">6.2.2</span> LDA</h3>
 <p>We now turn to the LDA. For illustration, we will make K=5 topis.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1">K&lt;-<span class="dv">5</span></a>
-<a class="sourceLine" id="cb44-2" data-line-number="2">corpus_macron.dtm&lt;-<span class="st"> </span><span class="kw">convert</span>(corpus_macron.dfm, <span class="dt">to=</span><span class="st">&quot;topicmodels&quot;</span>)</a>
-<a class="sourceLine" id="cb44-3" data-line-number="3">lda_macron&lt;-<span class="st"> </span><span class="kw">LDA</span>(corpus_macron.dtm ,<span class="dt">k=</span>K)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">K&lt;-<span class="dv">5</span>
+corpus_macron.dtm&lt;-<span class="st"> </span><span class="kw">convert</span>(corpus_macron.dfm, <span class="dt">to=</span><span class="st">&quot;topicmodels&quot;</span>)
+lda_macron&lt;-<span class="st"> </span><span class="kw">LDA</span>(corpus_macron.dtm ,<span class="dt">k=</span>K)</code></pre></div>
 <p>Top terms per topic and top topic per document can be easily obtained. Belo, the six top terms and the top topic are extracted.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">terms</span>(lda_macron,<span class="dv">6</span>)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">terms</span>(lda_macron,<span class="dv">6</span>)</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1008,46 +1305,66 @@ will
 will
 </td>
 <td style="text-align:left;">
-also
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-much
-</td>
-<td style="text-align:left;">
-also
-</td>
-<td style="text-align:left;">
-take
-</td>
-<td style="text-align:left;">
-day
-</td>
-<td style="text-align:left;">
 will
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-can
+work
+</td>
+<td style="text-align:left;">
+go
+</td>
+<td style="text-align:left;">
+take
+</td>
+<td style="text-align:left;">
+also
 </td>
 <td style="text-align:left;">
 much
-</td>
-<td style="text-align:left;">
-much
-</td>
-<td style="text-align:left;">
-us
-</td>
-<td style="text-align:left;">
-must
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
+month
+</td>
+<td style="text-align:left;">
+way
+</td>
+<td style="text-align:left;">
+also
+</td>
+<td style="text-align:left;">
+must
+</td>
+<td style="text-align:left;">
+can
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+much
+</td>
+<td style="text-align:left;">
+even
+</td>
+<td style="text-align:left;">
+much
+</td>
+<td style="text-align:left;">
+much
+</td>
+<td style="text-align:left;">
 continue
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+many
+</td>
+<td style="text-align:left;">
+one
 </td>
 <td style="text-align:left;">
 even
@@ -1056,85 +1373,62 @@ even
 day
 </td>
 <td style="text-align:left;">
-even
-</td>
-<td style="text-align:left;">
-much
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 must
 </td>
-<td style="text-align:left;">
-work
-</td>
-<td style="text-align:left;">
-can
-</td>
-<td style="text-align:left;">
-decision
-</td>
-<td style="text-align:left;">
-protect
-</td>
 </tr>
 <tr>
 <td style="text-align:left;">
-come
+crisis
+</td>
+<td style="text-align:left;">
+ask
 </td>
 <td style="text-align:left;">
 health
 </td>
 <td style="text-align:left;">
-month
+protect
 </td>
 <td style="text-align:left;">
-take
-</td>
-<td style="text-align:left;">
-can
+week
 </td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb46-2" data-line-number="2"><span class="kw">topics</span>(lda_macron,<span class="dv">1</span>)  <span class="co">## To see the topics related to each document</span></a>
-<a class="sourceLine" id="cb46-3" data-line-number="3"><span class="co">#&gt; text1 text2 text3 </span></a>
-<a class="sourceLine" id="cb46-4" data-line-number="4"><span class="co">#&gt;     2     5     1</span></a></code></pre></div>
-<p>We now build the bar plot to inspect the per-topic-per-word probabilities (beta’s). We take the 10 top terms and rearrange the beta per topic according to this order.</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb47-2" data-line-number="2">beta.td.macron&lt;-<span class="kw">tidy</span>(lda_macron,<span class="dt">matrix=</span><span class="st">&quot;beta&quot;</span>)</a>
-<a class="sourceLine" id="cb47-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb47-4" data-line-number="4">beta.top.term.macron&lt;-beta.td.macron <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb47-5" data-line-number="5"><span class="st">  </span><span class="kw">group_by</span>(topic) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb47-6" data-line-number="6"><span class="st">  </span><span class="kw">top_n</span>(<span class="dv">10</span>, beta) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb47-7" data-line-number="7"><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb47-8" data-line-number="8"><span class="st">  </span><span class="kw">arrange</span>(topic, <span class="op">-</span>beta)</a>
-<a class="sourceLine" id="cb47-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb47-10" data-line-number="10">beta.top.term.macron <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb47-11" data-line-number="11"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">term=</span><span class="kw">reorder_within</span>(term, beta, topic)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb47-12" data-line-number="12"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(term,beta,<span class="dt">fill=</span><span class="kw">factor</span>(topic))) <span class="op">+</span></a>
-<a class="sourceLine" id="cb47-13" data-line-number="13"><span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">show.legend =</span> <span class="ot">FALSE</span>)<span class="op">+</span></a>
-<a class="sourceLine" id="cb47-14" data-line-number="14"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>topic, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb47-15" data-line-number="15"><span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span></a>
-<a class="sourceLine" id="cb47-16" data-line-number="16"><span class="st">  </span><span class="kw">scale_x_reordered</span>()</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-59-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>Now, we compute the gamma, it shows the proportion of each topic within each document. We note that text 1 is related to the topic 1 4 and 5. Th test 3 is related to the topic 2. And the text 2 is related to the topic 3.</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1">gamma.td.macron&lt;-<span class="st"> </span><span class="kw">tidy</span>(lda_macron,<span class="dt">matrix=</span><span class="st">&quot;gamma&quot;</span>)</a>
-<a class="sourceLine" id="cb48-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb48-3" data-line-number="3">gamma.td.macron <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb48-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(document,gamma,<span class="dt">fill=</span><span class="kw">factor</span>(topic))) <span class="op">+</span></a>
-<a class="sourceLine" id="cb48-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">show.legend =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb48-6" data-line-number="6"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>topic,<span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)<span class="op">+</span></a>
-<a class="sourceLine" id="cb48-7" data-line-number="7"><span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span></a>
-<a class="sourceLine" id="cb48-8" data-line-number="8"><span class="st">  </span><span class="kw">scale_x_reordered</span>()</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-60-1.png" width="70%" style="display: block; margin: auto;" /></p>
-</div>
-</div>
-<div id="comparison-2" class="section level2">
-<h2><span class="header-section-number">6.3</span> Comparison</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="kw">topics</span>(lda_macron,<span class="dv">1</span>)  ## To see the topics related to each document
+<span class="co">#&gt; text1 text2 text3 </span>
+<span class="co">#&gt;     3     4     5</span></code></pre></div>
+<p>We now build the bar plot to inspect the per-topic-per-word probabilities (beta's). We take the 10 top terms and rearrange the beta per topic according to this order.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+beta.td.macron&lt;-<span class="kw">tidy</span>(lda_macron,<span class="dt">matrix=</span><span class="st">&quot;beta&quot;</span>)
 
+beta.top.term.macron&lt;-beta.td.macron %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(topic) %&gt;%
+<span class="st">  </span><span class="kw">top_n</span>(<span class="dv">10</span>, beta) %&gt;%
+<span class="st">  </span><span class="kw">ungroup</span>() %&gt;%
+<span class="st">  </span><span class="kw">arrange</span>(topic, -beta)
+
+beta.top.term.macron %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">term=</span><span class="kw">reorder_within</span>(term, beta, topic)) %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(term,beta,<span class="dt">fill=</span><span class="kw">factor</span>(topic))) +
+<span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">show.legend =</span> <span class="ot">FALSE</span>)+
+<span class="st">  </span><span class="kw">facet_wrap</span>(~topic, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) +
+<span class="st">  </span><span class="kw">coord_flip</span>()+
+<span class="st">  </span><span class="kw">scale_x_reordered</span>()</code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-54-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Now, we compute the gamma, it shows the proportion of each topic within each document. We note that text 1 is related to the topic 1 4 and 5. Th test 3 is related to the topic 2. And the text 2 is related to the topic 3.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gamma.td.macron&lt;-<span class="st"> </span><span class="kw">tidy</span>(lda_macron,<span class="dt">matrix=</span><span class="st">&quot;gamma&quot;</span>)
+
+gamma.td.macron %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(document,gamma,<span class="dt">fill=</span><span class="kw">factor</span>(topic))) +
+<span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">show.legend =</span> <span class="ot">FALSE</span>) +
+<span class="st">  </span><span class="kw">facet_wrap</span>(~topic,<span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)+
+<span class="st">  </span><span class="kw">coord_flip</span>()+
+<span class="st">  </span><span class="kw">scale_x_reordered</span>()</code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-55-1.png" width="70%" style="display: block; margin: auto;" /></p>
+
+</div>
 </div>
 </div>
             </section>

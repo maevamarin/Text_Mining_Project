@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Similarities | Dicours Analysis</title>
   <meta name="description" content="Chapter 5 Similarities | Dicours Analysis" />
-  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Similarities | Dicours Analysis" />
   <meta property="og:type" content="book" />
@@ -51,78 +51,54 @@
 
 <link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.15/datatables.js"></script>
+<script src="libs/datatables-binding-0.16/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
 <script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
 <link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 </style>
 
 </head>
@@ -167,11 +143,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.6.1" data-path="eda.html"><a href="eda.html#emmanuel-macron-3"><i class="fa fa-check"></i><b>3.6.1</b> Emmanuel Macron</a></li>
 <li class="chapter" data-level="3.6.2" data-path="eda.html"><a href="eda.html#boris-johnson-3"><i class="fa fa-check"></i><b>3.6.2</b> Boris Johnson</a></li>
 </ul></li>
-<li class="chapter" data-level="3.7" data-path="eda.html"><a href="eda.html#zipfs-law"><i class="fa fa-check"></i><b>3.7</b> Zipf’s Law</a><ul>
+<li class="chapter" data-level="3.7" data-path="eda.html"><a href="eda.html#zipfs-law"><i class="fa fa-check"></i><b>3.7</b> Zipf's Law</a><ul>
 <li class="chapter" data-level="3.7.1" data-path="eda.html"><a href="eda.html#emmanuel-macron-4"><i class="fa fa-check"></i><b>3.7.1</b> Emmanuel Macron</a></li>
 <li class="chapter" data-level="3.7.2" data-path="eda.html"><a href="eda.html#boris-johnson-4"><i class="fa fa-check"></i><b>3.7.2</b> Boris Johnson</a></li>
 </ul></li>
-<li class="chapter" data-level="3.8" data-path="eda.html"><a href="eda.html#yules-index"><i class="fa fa-check"></i><b>3.8</b> Yule’s index</a><ul>
+<li class="chapter" data-level="3.8" data-path="eda.html"><a href="eda.html#yules-index"><i class="fa fa-check"></i><b>3.8</b> Yule's index</a><ul>
 <li class="chapter" data-level="3.8.1" data-path="eda.html"><a href="eda.html#emmanuel-macron-5"><i class="fa fa-check"></i><b>3.8.1</b> Emmanuel Macron</a></li>
 <li class="chapter" data-level="3.8.2" data-path="eda.html"><a href="eda.html#boris-johnson-5"><i class="fa fa-check"></i><b>3.8.2</b> Boris Johnson</a></li>
 </ul></li>
@@ -181,36 +157,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html"><i class="fa fa-check"></i><b>4</b> Sentiment Analysis</a><ul>
-<li class="chapter" data-level="4.1" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html#sentiment-analysis-with-the-sentiment-library-nrc"><i class="fa fa-check"></i><b>4.1</b> Sentiment analysis with the sentiment library “nrc”</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html#with-quanteda"><i class="fa fa-check"></i><b>4.1.1</b> With quanteda</a></li>
-<li class="chapter" data-level="4.1.2" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html#value-based"><i class="fa fa-check"></i><b>4.1.2</b> Value-based</a></li>
-<li class="chapter" data-level="4.1.3" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html#using-valence-shifters"><i class="fa fa-check"></i><b>4.1.3</b> Using valence shifters</a></li>
+<li class="chapter" data-level="4.1" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html#analysis-with-the-nrc-library"><i class="fa fa-check"></i><b>4.1</b> Analysis with the &quot;nrc&quot; library</a></li>
+<li class="chapter" data-level="4.2" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html#analysis-with-the-lsd2015-dictionnary"><i class="fa fa-check"></i><b>4.2</b> Analysis with the LSD2015 dictionnary</a></li>
+<li class="chapter" data-level="4.3" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html#analysis-with-the-afinn-dictionnary"><i class="fa fa-check"></i><b>4.3</b> Analysis with the &quot;afinn&quot; dictionnary</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html#analysis-using-nrc-dictionnary-and-valence-shifters"><i class="fa fa-check"></i><b>4.3.1</b> Analysis using &quot;nrc&quot;&quot; dictionnary and valence shifters</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html#macron"><i class="fa fa-check"></i><b>4.2</b> Macron</a></li>
-<li class="chapter" data-level="4.3" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html#comparison"><i class="fa fa-check"></i><b>4.3</b> Comparison</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="similarities.html"><a href="similarities.html"><i class="fa fa-check"></i><b>5</b> Similarities</a><ul>
 <li class="chapter" data-level="5.1" data-path="similarities.html"><a href="similarities.html#boris"><i class="fa fa-check"></i><b>5.1</b> Boris</a></li>
-<li class="chapter" data-level="5.2" data-path="similarities.html"><a href="similarities.html#macron-1"><i class="fa fa-check"></i><b>5.2</b> Macron</a></li>
-<li class="chapter" data-level="5.3" data-path="similarities.html"><a href="similarities.html#comparison-1"><i class="fa fa-check"></i><b>5.3</b> Comparison</a></li>
+<li class="chapter" data-level="5.2" data-path="similarities.html"><a href="similarities.html#macron"><i class="fa fa-check"></i><b>5.2</b> Macron</a></li>
+<li class="chapter" data-level="5.3" data-path="similarities.html"><a href="similarities.html#comparison"><i class="fa fa-check"></i><b>5.3</b> Comparison</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="topic-modelling.html"><a href="topic-modelling.html"><i class="fa fa-check"></i><b>6</b> Topic Modelling</a><ul>
 <li class="chapter" data-level="6.1" data-path="topic-modelling.html"><a href="topic-modelling.html#boris-johnson-7"><i class="fa fa-check"></i><b>6.1</b> Boris Johnson</a><ul>
 <li class="chapter" data-level="6.1.1" data-path="topic-modelling.html"><a href="topic-modelling.html#lsa"><i class="fa fa-check"></i><b>6.1.1</b> LSA</a></li>
 <li class="chapter" data-level="6.1.2" data-path="topic-modelling.html"><a href="topic-modelling.html#lda"><i class="fa fa-check"></i><b>6.1.2</b> LDA</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="topic-modelling.html"><a href="topic-modelling.html#macron-2"><i class="fa fa-check"></i><b>6.2</b> Macron</a><ul>
+<li class="chapter" data-level="6.2" data-path="topic-modelling.html"><a href="topic-modelling.html#macron-1"><i class="fa fa-check"></i><b>6.2</b> Macron</a><ul>
 <li class="chapter" data-level="6.2.1" data-path="topic-modelling.html"><a href="topic-modelling.html#lsa-1"><i class="fa fa-check"></i><b>6.2.1</b> LSA</a></li>
 <li class="chapter" data-level="6.2.2" data-path="topic-modelling.html"><a href="topic-modelling.html#lda-1"><i class="fa fa-check"></i><b>6.2.2</b> LDA</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="topic-modelling.html"><a href="topic-modelling.html#comparison-2"><i class="fa fa-check"></i><b>6.3</b> Comparison</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="word-embedding.html"><a href="word-embedding.html"><i class="fa fa-check"></i><b>7</b> Word Embedding</a><ul>
 <li class="chapter" data-level="7.1" data-path="word-embedding.html"><a href="word-embedding.html#boris-johnson-8"><i class="fa fa-check"></i><b>7.1</b> Boris Johnson</a></li>
-<li class="chapter" data-level="7.2" data-path="word-embedding.html"><a href="word-embedding.html#macron-3"><i class="fa fa-check"></i><b>7.2</b> Macron</a></li>
-<li class="chapter" data-level="7.3" data-path="word-embedding.html"><a href="word-embedding.html#comparison-3"><i class="fa fa-check"></i><b>7.3</b> Comparison</a></li>
+<li class="chapter" data-level="7.2" data-path="word-embedding.html"><a href="word-embedding.html#macron-2"><i class="fa fa-check"></i><b>7.2</b> Macron</a></li>
+<li class="chapter" data-level="7.3" data-path="word-embedding.html"><a href="word-embedding.html#comparison-1"><i class="fa fa-check"></i><b>7.3</b> Comparison</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>8</b> Conclusion</a></li>
+<li class="chapter" data-level="8" data-path="supervised-learning.html"><a href="supervised-learning.html"><i class="fa fa-check"></i><b>8</b> Supervised learning</a><ul>
+<li class="chapter" data-level="8.1" data-path="supervised-learning.html"><a href="supervised-learning.html#lsa-2"><i class="fa fa-check"></i><b>8.1</b> LSA</a></li>
+<li class="chapter" data-level="8.2" data-path="supervised-learning.html"><a href="supervised-learning.html#random-forest"><i class="fa fa-check"></i><b>8.2</b> Random forest</a></li>
+<li class="chapter" data-level="8.3" data-path="supervised-learning.html"><a href="supervised-learning.html#improving-the-features"><i class="fa fa-check"></i><b>8.3</b> Improving the features</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>9</b> Conclusion</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
@@ -231,57 +209,61 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="similarities" class="section level1">
 <h1><span class="header-section-number">Chapter 5</span> Similarities</h1>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw">library</span>(readr)</a>
-<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="kw">library</span>(quanteda)</a>
-<a class="sourceLine" id="cb21-3" data-line-number="3"><span class="kw">library</span>(knitr)</a>
-<a class="sourceLine" id="cb21-4" data-line-number="4"><span class="kw">library</span>(kableExtra)</a>
-<a class="sourceLine" id="cb21-5" data-line-number="5"><span class="kw">library</span>(reshape2)</a>
-<a class="sourceLine" id="cb21-6" data-line-number="6"><span class="kw">library</span>(ggplot2)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readr)
+<span class="kw">library</span>(quanteda)
+<span class="kw">library</span>(knitr)
+<span class="kw">library</span>(kableExtra)
+<span class="kw">library</span>(reshape2)
+<span class="kw">library</span>(ggplot2)</code></pre></div>
+<p>The aim of this part of the project is to compute the similarities and dissimilarities between the different doscuments for both Johnson and Macron. We will use here the previously cleaned and tokenised corpuses and the two TF-IDF matrices computed when performing the exploratory data analysis.</p>
+<p>The three metrics used are the following; the Jaccard Similarity (similarity measure), the Cosine Similarity (similarity measure) and the Euclidean Distance (dissimilarity measure, bounded by the largest distance that is present in the corpus, can therefore be rescaled to a similarity measure between 0 and 1, 1 being the largest distance in the corpus). In order to get a better visualisation of the three metrics, we used a heatmap representation (similarity = 0 --&gt; yellow and similarity = 1 --&gt; red).</p>
+<p>Actually, when looking at the various heatmaps drawn when running the code, all those similarity measures show the same results, there is not any large similarity between the different documents for Boris Johnson. The only cases on the heatmap that are red are the ones that are on the diagonal, which corresponds to the similarity of a given document and itself, which is equal to 1.</p>
 <div id="boris" class="section level2">
 <h2><span class="header-section-number">5.1</span> Boris</h2>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="co">## Jaccard Similarity</span></a>
-<a class="sourceLine" id="cb22-2" data-line-number="2">boris.jac &lt;-<span class="st"> </span><span class="kw">textstat_simil</span>(corpus_boris.tfidf, <span class="dt">method =</span> <span class="st">&quot;jaccard&quot;</span>, <span class="dt">margin =</span> <span class="st">&quot;documents&quot;</span>)</a>
-<a class="sourceLine" id="cb22-3" data-line-number="3"><span class="co">## Cosine Similarity</span></a>
-<a class="sourceLine" id="cb22-4" data-line-number="4">boris.cos &lt;-<span class="st"> </span><span class="kw">textstat_simil</span>(corpus_boris.tfidf, <span class="dt">method =</span> <span class="st">&quot;cosine&quot;</span>, <span class="dt">margin =</span> <span class="st">&quot;documents&quot;</span>)</a>
-<a class="sourceLine" id="cb22-5" data-line-number="5"><span class="co">## Euclidean Distance</span></a>
-<a class="sourceLine" id="cb22-6" data-line-number="6">boris.euc &lt;-<span class="st"> </span><span class="kw">textstat_dist</span>(corpus_boris.tfidf, <span class="dt">method =</span> <span class="st">&quot;euclidean&quot;</span>, <span class="dt">margin =</span> <span class="st">&quot;documents&quot;</span>)</a>
-<a class="sourceLine" id="cb22-7" data-line-number="7"><span class="co">## Jaccard Matrix</span></a>
-<a class="sourceLine" id="cb22-8" data-line-number="8">boris.jac.mat &lt;-<span class="st"> </span><span class="kw">melt</span>(<span class="kw">as.matrix</span>(boris.jac))</a>
-<a class="sourceLine" id="cb22-9" data-line-number="9"><span class="kw">ggplot</span>(<span class="dt">data=</span>boris.jac.mat, <span class="kw">aes</span>(<span class="dt">x=</span>Var1, <span class="dt">y=</span>Var2, <span class="dt">fill=</span>value)) <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_gradient2</span>(<span class="dt">low=</span><span class="st">&quot;yellow&quot;</span>, <span class="dt">high=</span><span class="st">&quot;red&quot;</span>, <span class="dt">mid=</span><span class="st">&quot;orange&quot;</span>, <span class="dt">midpoint =</span><span class="fl">0.5</span>, <span class="dt">limit=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">name=</span><span class="st">&quot;Jaccard&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_tile</span>()</a>
-<a class="sourceLine" id="cb22-10" data-line-number="10"><span class="co">## Cosine Matrix</span></a>
-<a class="sourceLine" id="cb22-11" data-line-number="11">boris.cos.mat &lt;-<span class="st"> </span><span class="kw">melt</span>(<span class="kw">as.matrix</span>(boris.cos))</a>
-<a class="sourceLine" id="cb22-12" data-line-number="12"><span class="kw">ggplot</span>(<span class="dt">data=</span>boris.cos.mat, <span class="kw">aes</span>(<span class="dt">x=</span>Var1, <span class="dt">y=</span>Var2, <span class="dt">fill=</span>value)) <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_gradient2</span>(<span class="dt">low=</span><span class="st">&quot;yellow&quot;</span>, <span class="dt">high=</span><span class="st">&quot;red&quot;</span>, <span class="dt">mid=</span><span class="st">&quot;orange&quot;</span>, <span class="dt">midpoint=</span><span class="fl">0.5</span>, <span class="dt">limit=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">name=</span><span class="st">&quot;Cosine&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_tile</span>()</a>
-<a class="sourceLine" id="cb22-13" data-line-number="13"><span class="co">## Euclidean Matrix</span></a>
-<a class="sourceLine" id="cb22-14" data-line-number="14">boris.euc.mat &lt;-<span class="st"> </span><span class="kw">melt</span>(<span class="kw">as.matrix</span>(boris.euc))</a>
-<a class="sourceLine" id="cb22-15" data-line-number="15">M &lt;-<span class="st"> </span><span class="kw">max</span>(boris.euc.mat<span class="op">$</span>value)</a>
-<a class="sourceLine" id="cb22-16" data-line-number="16">boris.euc.mat<span class="op">$</span>value.std &lt;-<span class="st"> </span>(M<span class="op">-</span>boris.euc.mat<span class="op">$</span>value)<span class="op">/</span>M</a>
-<a class="sourceLine" id="cb22-17" data-line-number="17"><span class="kw">ggplot</span>(<span class="dt">data=</span>boris.euc.mat, <span class="kw">aes</span>(<span class="dt">x=</span>Var1, <span class="dt">y=</span>Var2, <span class="dt">fill=</span>boris.euc.mat<span class="op">$</span>value.std)) <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_gradient2</span>(<span class="dt">low=</span><span class="st">&quot;yellow&quot;</span>, <span class="dt">high=</span><span class="st">&quot;red&quot;</span>, <span class="dt">mid=</span><span class="st">&quot;orange&quot;</span>, <span class="dt">midpoint=</span><span class="fl">0.5</span>, <span class="dt">limit=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="dt">name =</span><span class="st">&quot;Euclidean&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_tile</span>()</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;" /><img src="Text-Mining_files/figure-html/unnamed-chunk-39-2.png" width="70%" style="display: block; margin: auto;" /><img src="Text-Mining_files/figure-html/unnamed-chunk-39-3.png" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="co">## Clustering</span></a>
-<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="co">## Jaccard Method</span></a>
-<a class="sourceLine" id="cb23-3" data-line-number="3">boris.hc &lt;-<span class="st"> </span><span class="kw">hclust</span>(<span class="kw">dist</span>(boris.euc))</a>
-<a class="sourceLine" id="cb23-4" data-line-number="4">boris.hc &lt;-<span class="st"> </span><span class="kw">hclust</span>(<span class="kw">dist</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>boris.jac))</a>
-<a class="sourceLine" id="cb23-5" data-line-number="5"><span class="kw">plot</span>(boris.hc)</a>
-<a class="sourceLine" id="cb23-6" data-line-number="6"><span class="co">## Cosine Method</span></a>
-<a class="sourceLine" id="cb23-7" data-line-number="7">boris.hc &lt;-<span class="st"> </span><span class="kw">hclust</span>(<span class="kw">dist</span>(boris.euc))</a>
-<a class="sourceLine" id="cb23-8" data-line-number="8">boris.hc &lt;-<span class="st"> </span><span class="kw">hclust</span>(<span class="kw">dist</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>boris.cos))</a>
-<a class="sourceLine" id="cb23-9" data-line-number="9"><span class="kw">plot</span>(boris.hc)</a>
-<a class="sourceLine" id="cb23-10" data-line-number="10"><span class="co">## Dendrogram = Hierarchical Clustering</span></a>
-<a class="sourceLine" id="cb23-11" data-line-number="11">boris.clust &lt;-<span class="st"> </span><span class="kw">cutree</span>(boris.hc, <span class="dt">k=</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb23-12" data-line-number="12">boris.clust</a>
-<a class="sourceLine" id="cb23-13" data-line-number="13"><span class="co">#&gt; text1 text2 text3 text4 text5 text6 text7 </span></a>
-<a class="sourceLine" id="cb23-14" data-line-number="14"><span class="co">#&gt;     1     2     2     2     3     3     3</span></a>
-<a class="sourceLine" id="cb23-15" data-line-number="15"><span class="co">## K-means Method = Partitionning </span></a>
-<a class="sourceLine" id="cb23-16" data-line-number="16">boris.km &lt;-<span class="st"> </span><span class="kw">kmeans</span>(corpus_boris.tfidf, <span class="dt">centers=</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb23-17" data-line-number="17">boris.km<span class="op">$</span>cluster</a>
-<a class="sourceLine" id="cb23-18" data-line-number="18"><span class="co">#&gt; text1 text2 text3 text4 text5 text6 text7 </span></a>
-<a class="sourceLine" id="cb23-19" data-line-number="19"><span class="co">#&gt;     2     2     1     3     2     2     2</span></a>
-<a class="sourceLine" id="cb23-20" data-line-number="20"><span class="co">### Extracting the 10 most used words - Dendrogram</span></a>
-<a class="sourceLine" id="cb23-21" data-line-number="21"><span class="kw">data.frame</span>(</a>
-<a class="sourceLine" id="cb23-22" data-line-number="22">  <span class="dt">clust1 =</span> <span class="kw">names</span>(<span class="kw">sort</span>(<span class="kw">apply</span>(corpus_boris.tfidf[boris.clust<span class="op">==</span><span class="dv">1</span>,],<span class="dv">2</span>,sum), <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]),</a>
-<a class="sourceLine" id="cb23-23" data-line-number="23">  <span class="dt">clust2 =</span> <span class="kw">names</span>(<span class="kw">sort</span>(<span class="kw">apply</span>(corpus_boris.tfidf[boris.clust<span class="op">==</span><span class="dv">2</span>,],<span class="dv">2</span>,sum), <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]),</a>
-<a class="sourceLine" id="cb23-24" data-line-number="24">  <span class="dt">clust3 =</span> <span class="kw">names</span>(<span class="kw">sort</span>(<span class="kw">apply</span>(corpus_boris.tfidf[boris.clust<span class="op">==</span><span class="dv">3</span>,],<span class="dv">2</span>,sum), <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>])</a>
-<a class="sourceLine" id="cb23-25" data-line-number="25">)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Jaccard Similarity
+boris.jac &lt;-<span class="st"> </span><span class="kw">textstat_simil</span>(corpus_boris.tfidf, <span class="dt">method =</span> <span class="st">&quot;jaccard&quot;</span>, <span class="dt">margin =</span> <span class="st">&quot;documents&quot;</span>)
+## Cosine Similarity
+boris.cos &lt;-<span class="st"> </span><span class="kw">textstat_simil</span>(corpus_boris.tfidf, <span class="dt">method =</span> <span class="st">&quot;cosine&quot;</span>, <span class="dt">margin =</span> <span class="st">&quot;documents&quot;</span>)
+## Euclidean Distance
+boris.euc &lt;-<span class="st"> </span><span class="kw">textstat_dist</span>(corpus_boris.tfidf, <span class="dt">method =</span> <span class="st">&quot;euclidean&quot;</span>, <span class="dt">margin =</span> <span class="st">&quot;documents&quot;</span>)
+## Jaccard Matrix
+boris.jac.mat &lt;-<span class="st"> </span><span class="kw">melt</span>(<span class="kw">as.matrix</span>(boris.jac))
+<span class="kw">ggplot</span>(<span class="dt">data=</span>boris.jac.mat, <span class="kw">aes</span>(<span class="dt">x=</span>Var1, <span class="dt">y=</span>Var2, <span class="dt">fill=</span>value)) +<span class="st"> </span><span class="kw">scale_fill_gradient2</span>(<span class="dt">low=</span><span class="st">&quot;yellow&quot;</span>, <span class="dt">high=</span><span class="st">&quot;red&quot;</span>, <span class="dt">mid=</span><span class="st">&quot;orange&quot;</span>, <span class="dt">midpoint =</span><span class="fl">0.5</span>, <span class="dt">limit=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">name=</span><span class="st">&quot;Jaccard&quot;</span>) +<span class="st"> </span><span class="kw">geom_tile</span>()
+## Cosine Matrix
+boris.cos.mat &lt;-<span class="st"> </span><span class="kw">melt</span>(<span class="kw">as.matrix</span>(boris.cos))
+<span class="kw">ggplot</span>(<span class="dt">data=</span>boris.cos.mat, <span class="kw">aes</span>(<span class="dt">x=</span>Var1, <span class="dt">y=</span>Var2, <span class="dt">fill=</span>value)) +<span class="st"> </span><span class="kw">scale_fill_gradient2</span>(<span class="dt">low=</span><span class="st">&quot;yellow&quot;</span>, <span class="dt">high=</span><span class="st">&quot;red&quot;</span>, <span class="dt">mid=</span><span class="st">&quot;orange&quot;</span>, <span class="dt">midpoint=</span><span class="fl">0.5</span>, <span class="dt">limit=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">name=</span><span class="st">&quot;Cosine&quot;</span>) +<span class="st"> </span><span class="kw">geom_tile</span>()
+## Euclidean Matrix
+boris.euc.mat &lt;-<span class="st"> </span><span class="kw">melt</span>(<span class="kw">as.matrix</span>(boris.euc))
+M &lt;-<span class="st"> </span><span class="kw">max</span>(boris.euc.mat$value)
+boris.euc.mat$value.std &lt;-<span class="st"> </span>(M-boris.euc.mat$value)/M
+<span class="kw">ggplot</span>(<span class="dt">data=</span>boris.euc.mat, <span class="kw">aes</span>(<span class="dt">x=</span>Var1, <span class="dt">y=</span>Var2, <span class="dt">fill=</span>boris.euc.mat$value.std)) +<span class="st"> </span><span class="kw">scale_fill_gradient2</span>(<span class="dt">low=</span><span class="st">&quot;yellow&quot;</span>, <span class="dt">high=</span><span class="st">&quot;red&quot;</span>, <span class="dt">mid=</span><span class="st">&quot;orange&quot;</span>, <span class="dt">midpoint=</span><span class="fl">0.5</span>, <span class="dt">limit=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="dt">name =</span><span class="st">&quot;Euclidean&quot;</span>) +<span class="st"> </span><span class="kw">geom_tile</span>()</code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" /><img src="Text-Mining_files/figure-html/unnamed-chunk-38-2.png" width="70%" style="display: block; margin: auto;" /><img src="Text-Mining_files/figure-html/unnamed-chunk-38-3.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>We then used two different clustering methods, hierarchical clustering (dendrogram) and partitioning (K-means method). We see that the results are quite similar. When looking at the 10 most common words per cluster, there are some words that appear when using the first method and the second one.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Clustering
+## Jaccard Method
+boris.hc &lt;-<span class="st"> </span><span class="kw">hclust</span>(<span class="kw">dist</span>(boris.euc))
+boris.hc &lt;-<span class="st"> </span><span class="kw">hclust</span>(<span class="kw">dist</span>(<span class="dv">1</span> -<span class="st"> </span>boris.jac))
+<span class="kw">plot</span>(boris.hc)
+## Cosine Method
+boris.hc &lt;-<span class="st"> </span><span class="kw">hclust</span>(<span class="kw">dist</span>(boris.euc))
+boris.hc &lt;-<span class="st"> </span><span class="kw">hclust</span>(<span class="kw">dist</span>(<span class="dv">1</span> -<span class="st"> </span>boris.cos))
+<span class="kw">plot</span>(boris.hc)
+## Dendrogram = Hierarchical Clustering
+boris.clust &lt;-<span class="st"> </span><span class="kw">cutree</span>(boris.hc, <span class="dt">k=</span><span class="dv">3</span>)
+boris.clust
+<span class="co">#&gt; text1 text2 text3 text4 text5 text6 text7 </span>
+<span class="co">#&gt;     1     2     2     2     3     3     3</span>
+## K-means Method = Partitionning 
+boris.km &lt;-<span class="st"> </span><span class="kw">kmeans</span>(corpus_boris.tfidf, <span class="dt">centers=</span><span class="dv">3</span>)
+boris.km$cluster
+<span class="co">#&gt; text1 text2 text3 text4 text5 text6 text7 </span>
+<span class="co">#&gt;     2     2     1     3     2     2     2</span>
+### Extracting the 10 most used words - Dendrogram
+<span class="kw">data.frame</span>(
+  <span class="dt">clust1 =</span> <span class="kw">names</span>(<span class="kw">sort</span>(<span class="kw">apply</span>(corpus_boris.tfidf[boris.clust==<span class="dv">1</span>,],<span class="dv">2</span>,sum), <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)[<span class="dv">1</span>:<span class="dv">10</span>]),
+  <span class="dt">clust2 =</span> <span class="kw">names</span>(<span class="kw">sort</span>(<span class="kw">apply</span>(corpus_boris.tfidf[boris.clust==<span class="dv">2</span>,],<span class="dv">2</span>,sum), <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)[<span class="dv">1</span>:<span class="dv">10</span>]),
+  <span class="dt">clust3 =</span> <span class="kw">names</span>(<span class="kw">sort</span>(<span class="kw">apply</span>(corpus_boris.tfidf[boris.clust==<span class="dv">3</span>,],<span class="dv">2</span>,sum), <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)[<span class="dv">1</span>:<span class="dv">10</span>])
+)</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -409,12 +391,12 @@ huge
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="co">### Extracting the 10 most used words - K-Means</span></a>
-<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="kw">data.frame</span>(</a>
-<a class="sourceLine" id="cb24-3" data-line-number="3">  <span class="dt">clust1 =</span> <span class="kw">names</span>(<span class="kw">sort</span>(<span class="kw">apply</span>(corpus_boris.tfidf[boris.km<span class="op">$</span>cluster<span class="op">==</span><span class="dv">1</span>,],<span class="dv">2</span>,sum), <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]),</a>
-<a class="sourceLine" id="cb24-4" data-line-number="4">  <span class="dt">clust2 =</span> <span class="kw">names</span>(<span class="kw">sort</span>(<span class="kw">apply</span>(corpus_boris.tfidf[boris.km<span class="op">$</span>cluster<span class="op">==</span><span class="dv">2</span>,],<span class="dv">2</span>,sum), <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]),</a>
-<a class="sourceLine" id="cb24-5" data-line-number="5">  <span class="dt">clust3 =</span> <span class="kw">names</span>(<span class="kw">sort</span>(<span class="kw">apply</span>(corpus_boris.tfidf[boris.km<span class="op">$</span>cluster<span class="op">==</span><span class="dv">3</span>,],<span class="dv">2</span>,sum), <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>])</a>
-<a class="sourceLine" id="cb24-6" data-line-number="6">)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### Extracting the 10 most used words - K-Means
+<span class="kw">data.frame</span>(
+  <span class="dt">clust1 =</span> <span class="kw">names</span>(<span class="kw">sort</span>(<span class="kw">apply</span>(corpus_boris.tfidf[boris.km$cluster==<span class="dv">1</span>,],<span class="dv">2</span>,sum), <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)[<span class="dv">1</span>:<span class="dv">10</span>]),
+  <span class="dt">clust2 =</span> <span class="kw">names</span>(<span class="kw">sort</span>(<span class="kw">apply</span>(corpus_boris.tfidf[boris.km$cluster==<span class="dv">2</span>,],<span class="dv">2</span>,sum), <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)[<span class="dv">1</span>:<span class="dv">10</span>]),
+  <span class="dt">clust3 =</span> <span class="kw">names</span>(<span class="kw">sort</span>(<span class="kw">apply</span>(corpus_boris.tfidf[boris.km$cluster==<span class="dv">3</span>,],<span class="dv">2</span>,sum), <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)[<span class="dv">1</span>:<span class="dv">10</span>])
+)</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -542,30 +524,31 @@ downward
 </tr>
 </tbody>
 </table>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-40-1.png" width="70%" style="display: block; margin: auto;" /><img src="Text-Mining_files/figure-html/unnamed-chunk-40-2.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;" /><img src="Text-Mining_files/figure-html/unnamed-chunk-39-2.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>When computing document similarities for Macron, we also observe that the only elements on the heatmap that are represented by the red colour are situated on the digonal. However, we can notice a slight difference here compared to Johnson. We do observe that there is a small similarity between document 1 and document 2 for Macron. This is to say that he used the same tokens both in the first and the second document.</p>
 </div>
-<div id="macron-1" class="section level2">
+<div id="macron" class="section level2">
 <h2><span class="header-section-number">5.2</span> Macron</h2>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="co">## Jaccard Similarity</span></a>
-<a class="sourceLine" id="cb25-2" data-line-number="2">macron.jac &lt;-<span class="st"> </span><span class="kw">textstat_simil</span>(corpus_macron.tfidf, <span class="dt">method =</span> <span class="st">&quot;jaccard&quot;</span>, <span class="dt">margin =</span> <span class="st">&quot;documents&quot;</span>)</a>
-<a class="sourceLine" id="cb25-3" data-line-number="3"><span class="co">## Cosine Similarity</span></a>
-<a class="sourceLine" id="cb25-4" data-line-number="4">macron.cos &lt;-<span class="st"> </span><span class="kw">textstat_simil</span>(corpus_macron.tfidf, <span class="dt">method =</span> <span class="st">&quot;cosine&quot;</span>, <span class="dt">margin =</span> <span class="st">&quot;documents&quot;</span>)</a>
-<a class="sourceLine" id="cb25-5" data-line-number="5"><span class="co">## Euclidean Distance</span></a>
-<a class="sourceLine" id="cb25-6" data-line-number="6">macron.euc &lt;-<span class="st"> </span><span class="kw">textstat_dist</span>(corpus_macron.tfidf, <span class="dt">method =</span> <span class="st">&quot;euclidean&quot;</span>, <span class="dt">margin =</span> <span class="st">&quot;documents&quot;</span>)</a>
-<a class="sourceLine" id="cb25-7" data-line-number="7"><span class="co">## Jaccard Matrix</span></a>
-<a class="sourceLine" id="cb25-8" data-line-number="8">macron.jac.mat &lt;-<span class="st"> </span><span class="kw">melt</span>(<span class="kw">as.matrix</span>(macron.jac))</a>
-<a class="sourceLine" id="cb25-9" data-line-number="9"><span class="kw">ggplot</span>(<span class="dt">data=</span>macron.jac.mat, <span class="kw">aes</span>(<span class="dt">x=</span>Var1, <span class="dt">y=</span>Var2, <span class="dt">fill=</span>value)) <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_gradient2</span>(<span class="dt">low=</span><span class="st">&quot;yellow&quot;</span>, <span class="dt">high=</span><span class="st">&quot;red&quot;</span>, <span class="dt">mid=</span><span class="st">&quot;orange&quot;</span>, <span class="dt">midpoint =</span><span class="fl">0.5</span>, <span class="dt">limit=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">name=</span><span class="st">&quot;Jaccard&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_tile</span>()</a>
-<a class="sourceLine" id="cb25-10" data-line-number="10"><span class="co">## Cosine Matrix</span></a>
-<a class="sourceLine" id="cb25-11" data-line-number="11">macron.cos.mat &lt;-<span class="st"> </span><span class="kw">melt</span>(<span class="kw">as.matrix</span>(macron.cos))</a>
-<a class="sourceLine" id="cb25-12" data-line-number="12"><span class="kw">ggplot</span>(<span class="dt">data=</span>macron.cos.mat, <span class="kw">aes</span>(<span class="dt">x=</span>Var1, <span class="dt">y=</span>Var2, <span class="dt">fill=</span>value)) <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_gradient2</span>(<span class="dt">low=</span><span class="st">&quot;yellow&quot;</span>, <span class="dt">high=</span><span class="st">&quot;red&quot;</span>, <span class="dt">mid=</span><span class="st">&quot;orange&quot;</span>, <span class="dt">midpoint=</span><span class="fl">0.5</span>, <span class="dt">limit=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">name=</span><span class="st">&quot;Cosine&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_tile</span>()</a>
-<a class="sourceLine" id="cb25-13" data-line-number="13"><span class="co">## Euclidean Matrix</span></a>
-<a class="sourceLine" id="cb25-14" data-line-number="14">macron.euc.mat &lt;-<span class="st"> </span><span class="kw">melt</span>(<span class="kw">as.matrix</span>(macron.euc))</a>
-<a class="sourceLine" id="cb25-15" data-line-number="15">M &lt;-<span class="st"> </span><span class="kw">max</span>(macron.euc.mat<span class="op">$</span>value)</a>
-<a class="sourceLine" id="cb25-16" data-line-number="16">macron.euc.mat<span class="op">$</span>value.std &lt;-<span class="st"> </span>(M<span class="op">-</span>macron.euc.mat<span class="op">$</span>value)<span class="op">/</span>M</a>
-<a class="sourceLine" id="cb25-17" data-line-number="17"><span class="kw">ggplot</span>(<span class="dt">data=</span>macron.euc.mat, <span class="kw">aes</span>(<span class="dt">x=</span>Var1, <span class="dt">y=</span>Var2, <span class="dt">fill=</span>macron.euc.mat<span class="op">$</span>value.std)) <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_gradient2</span>(<span class="dt">low=</span><span class="st">&quot;yellow&quot;</span>, <span class="dt">high=</span><span class="st">&quot;red&quot;</span>, <span class="dt">mid=</span><span class="st">&quot;orange&quot;</span>, <span class="dt">midpoint=</span><span class="fl">0.5</span>, <span class="dt">limit=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="dt">name =</span><span class="st">&quot;Euclidean&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_tile</span>()</a></code></pre></div>
-<p><img src="Text-Mining_files/figure-html/unnamed-chunk-41-1.png" width="70%" style="display: block; margin: auto;" /><img src="Text-Mining_files/figure-html/unnamed-chunk-41-2.png" width="70%" style="display: block; margin: auto;" /><img src="Text-Mining_files/figure-html/unnamed-chunk-41-3.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Jaccard Similarity
+macron.jac &lt;-<span class="st"> </span><span class="kw">textstat_simil</span>(corpus_macron.tfidf, <span class="dt">method =</span> <span class="st">&quot;jaccard&quot;</span>, <span class="dt">margin =</span> <span class="st">&quot;documents&quot;</span>)
+## Cosine Similarity
+macron.cos &lt;-<span class="st"> </span><span class="kw">textstat_simil</span>(corpus_macron.tfidf, <span class="dt">method =</span> <span class="st">&quot;cosine&quot;</span>, <span class="dt">margin =</span> <span class="st">&quot;documents&quot;</span>)
+## Euclidean Distance
+macron.euc &lt;-<span class="st"> </span><span class="kw">textstat_dist</span>(corpus_macron.tfidf, <span class="dt">method =</span> <span class="st">&quot;euclidean&quot;</span>, <span class="dt">margin =</span> <span class="st">&quot;documents&quot;</span>)
+## Jaccard Matrix
+macron.jac.mat &lt;-<span class="st"> </span><span class="kw">melt</span>(<span class="kw">as.matrix</span>(macron.jac))
+<span class="kw">ggplot</span>(<span class="dt">data=</span>macron.jac.mat, <span class="kw">aes</span>(<span class="dt">x=</span>Var1, <span class="dt">y=</span>Var2, <span class="dt">fill=</span>value)) +<span class="st"> </span><span class="kw">scale_fill_gradient2</span>(<span class="dt">low=</span><span class="st">&quot;yellow&quot;</span>, <span class="dt">high=</span><span class="st">&quot;red&quot;</span>, <span class="dt">mid=</span><span class="st">&quot;orange&quot;</span>, <span class="dt">midpoint =</span><span class="fl">0.5</span>, <span class="dt">limit=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">name=</span><span class="st">&quot;Jaccard&quot;</span>) +<span class="st"> </span><span class="kw">geom_tile</span>()
+## Cosine Matrix
+macron.cos.mat &lt;-<span class="st"> </span><span class="kw">melt</span>(<span class="kw">as.matrix</span>(macron.cos))
+<span class="kw">ggplot</span>(<span class="dt">data=</span>macron.cos.mat, <span class="kw">aes</span>(<span class="dt">x=</span>Var1, <span class="dt">y=</span>Var2, <span class="dt">fill=</span>value)) +<span class="st"> </span><span class="kw">scale_fill_gradient2</span>(<span class="dt">low=</span><span class="st">&quot;yellow&quot;</span>, <span class="dt">high=</span><span class="st">&quot;red&quot;</span>, <span class="dt">mid=</span><span class="st">&quot;orange&quot;</span>, <span class="dt">midpoint=</span><span class="fl">0.5</span>, <span class="dt">limit=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">name=</span><span class="st">&quot;Cosine&quot;</span>) +<span class="st"> </span><span class="kw">geom_tile</span>()
+## Euclidean Matrix
+macron.euc.mat &lt;-<span class="st"> </span><span class="kw">melt</span>(<span class="kw">as.matrix</span>(macron.euc))
+M &lt;-<span class="st"> </span><span class="kw">max</span>(macron.euc.mat$value)
+macron.euc.mat$value.std &lt;-<span class="st"> </span>(M-macron.euc.mat$value)/M
+<span class="kw">ggplot</span>(<span class="dt">data=</span>macron.euc.mat, <span class="kw">aes</span>(<span class="dt">x=</span>Var1, <span class="dt">y=</span>Var2, <span class="dt">fill=</span>macron.euc.mat$value.std)) +<span class="st"> </span><span class="kw">scale_fill_gradient2</span>(<span class="dt">low=</span><span class="st">&quot;yellow&quot;</span>, <span class="dt">high=</span><span class="st">&quot;red&quot;</span>, <span class="dt">mid=</span><span class="st">&quot;orange&quot;</span>, <span class="dt">midpoint=</span><span class="fl">0.5</span>, <span class="dt">limit=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="dt">name =</span><span class="st">&quot;Euclidean&quot;</span>) +<span class="st"> </span><span class="kw">geom_tile</span>()</code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-40-1.png" width="70%" style="display: block; margin: auto;" /><img src="Text-Mining_files/figure-html/unnamed-chunk-40-2.png" width="70%" style="display: block; margin: auto;" /><img src="Text-Mining_files/figure-html/unnamed-chunk-40-3.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="comparison-1" class="section level2">
+<div id="comparison" class="section level2">
 <h2><span class="header-section-number">5.3</span> Comparison</h2>
 
 </div>
