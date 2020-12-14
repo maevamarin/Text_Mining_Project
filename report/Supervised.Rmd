@@ -3,6 +3,7 @@
 In this section, we use a supervised learner to develop a classifier of the Politicans' speeches. The aim of this section is to have a classification model able to correctly attribute a random speech to Boris Johnson or Emmanuel Macron. To do so,  we first combine the dataframe of Boris Johnson with the dataframe of Emmanuel Macron. Since those dataframes differ in number of speechs and in length, we divide the speeches into sentences, which would smooth difference between our two dependent outcome possibilities.
 
 ```{r,warning=FALSE}
+
 ##Boris Johnson
 boris_2<-as_tibble(c(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars)) %>%
   rename(
@@ -31,13 +32,15 @@ combine_tokens<- tokens(combine_corpus, remove_numbers = TRUE, remove_punct = TR
 
 ##combi Lemmatization
 
+
 combine_tokens <- tokens_replace(combine_tokens, pattern=hash_lemmas$token, replacement = hash_lemmas$lemma)
+
 
 ## Cleaning
 combine_tokens = combine_tokens %>% 
   tokens_tolower() %>% 
   tokens_remove(stopwords("english"))
-
+y
 y<-factor(docvars(combine_tokens,"author"))
 
 ```
@@ -88,8 +91,10 @@ confusionMatrix<-confusionMatrix(data=pred.te$predictions,reference = df.te$Clas
 confusionMatrix
 ```
 
+
 The model has an accuracy of 80.5%, which is  being satisfying: a model is said to be satisfactory enough when reaching 80% of accuracy. Boris Johnson being the positive class, the model overestimates the sentences belonging to Emmanuel Macrons's speeches (specificity: 95.1%), while greatly underestimate the sentences of Boris Jonhson (sensitivity: 51.9%). 
 The prediction quality is not balanced between the two classes and the model is not able to classify correctly. One of the solutions would be to attribute weights to the sentences in order to mitigate the unaccurate results.
+
 
 ## Improving the features
 

@@ -8,11 +8,11 @@ The speaches from Macron come from the website of the Embassy of France in Washi
 ### Emmanuel Macron
 
 We choose the 3 first speaches from Macron about the corona virus dating from the:
-* 12 March (text1)
-* 16 March (text2)
-* 13 April (text3)
+- 12 March (text1)
+- 16 March (text2)
+- 13 April (text3)
 
-```{r include=FALSE}
+```{r }
 # Data Acquisition Macron 
 
 macron12march <- read_html("https://franceintheus.org/spip.php?article9654") %>%
@@ -37,8 +37,8 @@ macron13april <- substr(macron13april, 117, 20000)
 macron <- corpus(c(macron12march,macron16march,macron13april))
 ```
 
-```{r, echo=FALSE}
-knitr::kable(summary(macron), caption = "Macron's speeches" ,align = "lccrr",digits = 4)
+```{r, summary-macron-speeches}
+kable(summary(macron), caption = "Macron's speeches characteristics" ,align = "lccrr",digits = 4)
 ```
 
 The first speach of Macron was quite long , 162 sentences and the two next were shorter: 107 sentences. Each speech consists approximatly of an average of 3200 words.
@@ -68,6 +68,7 @@ boris12mars<- read_html("https://www.gov.uk/government/speeches/pm-statement-on-
               html_text()
 boris12mars <- str_replace_all(boris12mars,"[\r\n\t]", ".")
 
+
 boris18mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-18-march-2020") %>%   
               html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
               html_text()
@@ -76,17 +77,21 @@ boris18mars <- str_replace_all(boris18mars,"[\r\n\t]", ".")
 boris9mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-9-march-2020") %>% 
               html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
               html_text()
+
 boris9mars <- str_replace_all(boris9mars,"[\r\n\t]", ".")
+
 
 boris19mars<- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-19-march-2020") %>% 
               html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
               html_text()
 boris19mars <- str_replace_all(boris19mars,"[\r\n\t]", ".")
 
+
 boris20mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-20-march-2020") %>% 
               html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
               html_text()
 boris20mars <- str_replace_all(boris20mars,"[\r\n\t]", ".")
+
 
 
 boris22mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-22-march-2020") %>% 
@@ -98,8 +103,10 @@ boris22mars <- str_replace_all(boris22mars,"[\r\n\t]", ".")
 boris<-corpus(c(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars))
 ```
 
-```{r, echo=FALSE}
-knitr::kable(summary(boris), caption = "Johnson's speeches" ,align = "lccrr",digits = 4)
+\@ref(tab:summary-boris-speeches)
+
+```{r summary-boris-speeches}
+kable(summary(boris), caption = "Johnson's speeches characteristics" ,align = "lccrr",digits = 4)
 ```
 
 Johnson made more speeches but shorter. His first speech was 609 words, then the following ones ranged from 793 to 1222 words.
@@ -108,9 +115,11 @@ Johnson made more speeches but shorter. His first speech was 609 words, then the
 
 Numbers, punctuation, symbols and separators are removed, as well as unimportant words. Moreover, we cast all letters to their corresponding lower case version.
 
+Here you can see the kept words words for each speech. 
+
 ### Emmanuel Macron
 
-```{r, echo=FALSE}
+```{r}
 
 ## Tokenization
 corpus_macron <- corpus(macron)
@@ -130,7 +139,7 @@ corpus_macron
 
 ### Boris Johnson
 
-```{r, echo=FALSE}
+```{r}
 
 ## Tokenization
 corpus_boris <- corpus(boris)
@@ -156,7 +165,7 @@ Now let's compute the word frequencies (TF) by documents. First, the tokens are 
 
 *Emmanuel Macron*
 
-```{r, echo=FALSE, warning=FALSE}
+```{r table-macrontidy}
 ## Document-Term Matrix DTM
 corpus_macron.dfm <- dfm(corpus_macron)
 
@@ -169,7 +178,7 @@ datatable(macron_tidy, class = "cell-border stripe")
 
 *Boris Johnson*
 
-```{r, echo=FALSE, warning=FALSE}
+```{r table-boristidy}
 
 ## Document-Term Matrix DTM
 corpus_boris.dfm <- dfm(corpus_boris)
@@ -187,8 +196,9 @@ We only keep the 15 most frequent words for redability purpose and create barplo
 #### All text confused
 
 *Emmanuel Macron*
+In the figure \@ref(fig:requent-macron); 
 
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
+```{r frequent-macron,fig.cap="15 most common words in Macron's speeches"}
 #top 15 
 macron_tidy %>%
   group_by(term) %>%
@@ -196,11 +206,12 @@ macron_tidy %>%
   top_n(15)  %>%
   ggplot(aes(x=count, y=term, fill = term)) +
   theme(legend.position = "none") +
-  ggtitle("15 most common words in Macron's speeches") +
   xlab("Frequency") + ylab("Words") +
   geom_bar(stat = "identity") +
   scale_y_reordered() 
+```
 
+```{r topppp-macron,fig.cap="Details of the more frequent words for Macron's speeches"}
 #top 16 mots plus utilisés par texte
 macron_count  = macron_tidy %>%
   group_by(term) %>%
@@ -211,7 +222,6 @@ macron_index = top_n(macron_count, 15)
 macron_tidy %>% filter(term %in% macron_index$term) %>%
   ggplot(aes(x=term, y = count, fill =term)) +
   geom_col()+
-  ggtitle("Details of the more frequent words") +
   xlab("Words") + ylab("Frequency") +
   coord_flip()+
   facet_wrap(~document, ncol=2) + 
@@ -220,7 +230,7 @@ macron_tidy %>% filter(term %in% macron_index$term) %>%
 
 *Boris Johnson*
 
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
+```{r frequent-johnson, fig.cap="15 most common words in Johnson's speeches"}
 #top 15
 boris_tidy %>%
   group_by(term) %>%
@@ -228,11 +238,13 @@ boris_tidy %>%
   top_n(15)  %>%
   ggplot(aes(x=count, y=term, fill =term)) +
   theme(legend.position = "none") +
-  ggtitle("15 most common words in Johnson's speeches") +
   xlab("Frequency") + ylab("Words") +
   geom_bar(stat = "identity") +
   scale_y_reordered() 
 
+```
+
+```{r topppp-Johnson, fig.cap="Details of the more frequent words for Johnson's speeches"}
 #top 16 mots plus utilisés par texte
 boris_count  = boris_tidy %>%
   group_by(term) %>%
@@ -243,7 +255,6 @@ boris_index = top_n(boris_count, 15)
 boris_tidy %>% filter(term %in% boris_index$term) %>%
    ggplot(aes(x=term, y = count, fill=term)) +
   geom_col()+
-  ggtitle("Details of the more frequent words") +
   xlab("Words") + ylab("Frequency") +
   coord_flip()+
   facet_wrap(~document, ncol=2)+ 
@@ -258,7 +269,7 @@ Now we want to know which are the most frequent terms for each speach.
 
 *Emmanuel Macron*
 
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
+```{r top-Macron, fig.cap="15 most common words in each speach of Macron"}
 #top 15 par texte 
 macron_tidy %>%
   group_by(document) %>%
@@ -267,7 +278,6 @@ macron_tidy %>%
   mutate(document = factor(as.numeric(document), levels = 1:17)) %>%
   ggplot(aes(reorder_within(term, count, document), count, fill =term)) +
   theme(legend.position = "none") +
-  ggtitle("15 most common words in each speach of Macron") +
   xlab("Words") + ylab("Frequency") +
   geom_bar(stat = "identity") +
   scale_x_reordered() +
@@ -277,7 +287,7 @@ macron_tidy %>%
 
 *Boris Johnson*
 
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
+```{r top-Johnson, fig.cap="15 most common words in each speach of Johnson"}
 #top 15 par texte
 boris_tidy %>%
   group_by(document) %>%
@@ -286,12 +296,11 @@ boris_tidy %>%
   mutate(document = factor(as.numeric(document), levels = 1:17)) %>%
   ggplot(aes(reorder_within(term, count, document), count, fill =term)) +
   theme(legend.position = "none") +
-  ggtitle("15 most common words in Boris Johnson's speeches") +
   xlab("Words") + ylab("Frequency") +
   geom_bar(stat = "identity") +
   scale_x_reordered() +
   coord_flip() +
-  facet_wrap(~ document, scales = "free")
+  facet_wrap(~ document, scales = "free") 
 ```
 
 
@@ -301,7 +310,7 @@ Now we repeat the same analysis using the TF-IDF.
 
 ### Emmanuel Macron
 
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
+```{r tfidf-Macron, fig.cap="Most specific word for each Emmanuel Macron's speeches"}
 ## TFIDF no point when just on document, maybe add when combining texts
 corpus_macron.tfidf <- dfm_tfidf(corpus_macron.dfm)
 
@@ -311,7 +320,6 @@ macron_index_tfidf = tidy(corpus_macron.tfidf) %>% group_by(document) %>% top_n(
 tidy(corpus_macron.tfidf) %>% filter(term %in% macron_index_tfidf$term) %>%
   ggplot( aes(term, count, fill=term)) +
   xlab("Words") + ylab("Frequency") +
-  ggtitle("Most specific word for each Emmanuel Macron's speeches") +
   geom_col()+
   coord_flip()+
   facet_wrap(~document, ncol=2)+ 
@@ -321,7 +329,7 @@ tidy(corpus_macron.tfidf) %>% filter(term %in% macron_index_tfidf$term) %>%
 
 ### Boris Johnson
 
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
+```{r tfidf-Johnson, fig.cap="Most specific word for each Emmanuel Johnson's speeches"}
 ## TFIDF no point when just on document, maybe add when combining texts
 corpus_boris.tfidf <- dfm_tfidf(corpus_boris.dfm)
 
@@ -331,12 +339,10 @@ boris_index_tfidf = tidy(corpus_boris.tfidf) %>% group_by(document) %>% top_n(1)
 tidy(corpus_boris.tfidf) %>% filter(term %in% boris_index_tfidf$term) %>%
   ggplot( aes(term, count,fill=term)) +
   xlab("Words") + ylab("Frequency") +
-  ggtitle("Most specific word for each Boris Johnson's speeches") +
   geom_col()+
   coord_flip()+
   facet_wrap(~document, ncol=2)+ 
-   guides(fill=FALSE, color=FALSE)
-
+   guides(fill=FALSE, color=FALSE) 
 ```
 
 ## Cloud of Words
@@ -345,60 +351,56 @@ tidy(corpus_boris.tfidf) %>% filter(term %in% boris_index_tfidf$term) %>%
 
 *Emmanuel macron*
 
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
-textplot_wordcloud(corpus_macron.dfm, color=brewer.pal(8, "Dark2"))
+```{r cloud-macron, fig.cap="Cloud od Words of Macron's speach with DFM"}
+textplot_wordcloud(corpus_macron.dfm, color=brewer.pal(8, "Dark2")) 
 ```
 
 *Boris Johnson*
 
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
-textplot_wordcloud(corpus_boris.dfm, color=brewer.pal(8, "Dark2"))
+```{r cloud-Johnson, fig.cap="Cloud od Words of Johnson's speach with DFM"}
+textplot_wordcloud(corpus_boris.dfm, color=brewer.pal(8, "Dark2")) 
 ```
 
 ### Using  TF-IDF
 
 *Emmanuel macron*
 
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
+```{r cloud-Macrontfidf, fig.cap="Cloud od Words of Johnson's speach with TI-IDF"}
 textplot_wordcloud(corpus_macron.tfidf, color=brewer.pal(8, "Dark2"))
 ```
 
 *Boris Johnson*
 
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
-textplot_wordcloud(corpus_boris.tfidf, color=brewer.pal(8, "Dark2"))
+```{r cloud-Johnsontfidf, fig.cap="Cloud od Words of Johnson's speach with TI-IDF"}
+textplot_wordcloud(corpus_boris.tfidf, color=brewer.pal(8, "Dark2")) 
 ```
 
 ## Lexical Divesity Token Type Ratio TTR
 
-<<<<<<< HEAD
-A TTR is comprised beetween o and 1.When equal to 1 it correspond to a rich diversity, every token is from a different type. In opposit if equal to 0, it mean a poor diversity ( he use only one word).
-=======
+
 A TTR is comprised beetween 0 and 1. When equal to 1, it corresponds to a rich lexical diversity, this is to say that each token is from a different type. In opposite, if equal to 0, it mean that the corpus presents a poor lexical diversity (if he would use one word only).
->>>>>>> cdb8205bf944b22974ea5a2f9f9f909e555ece8f
+
 
 ### Emmanuel Macron 
 
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
+```{r}
 N.macron <- ntoken(corpus_macron)
 V.macron <- ntype(corpus_macron)
 TTR.macron <- V.macron/N.macron
-knitr::kable(TTR.macron, caption = "Lexical diversity of Macron." ,align = "lccrr",digits = 4) ###the text is quite poor, as TTR is of 0.4
+kable(TTR.macron, caption = "Lexical diversity of Macron." ,align = "lccrr",digits = 4) ###the text is quite poor, as TTR is of 0.4
 
 ```
-
 
 Macron has a mean TTR of 0,45, which is quite poor.
 
 ### Boris Johnson
 
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
+```{r}
 ## Lexical Divesity Token Type Ratio TTR
 N.boris <- ntoken(corpus_boris)
 V.boris <- ntype(corpus_boris)
 TTR.boris <- V.boris/N.boris
-knitr::kable(TTR.boris, caption = "Lexical diversity of Johnson." ,align = "lccrr",digits = 4) ###the text is quite rich, as TTR is of 0.6
-
+kable(TTR.boris, caption = "Lexical diversity of Johnson." ,align = "lccrr",digits = 4) ###the text is quite rich, as TTR is of 0.6
 ```
 
 Johnson has quite a richer vocabulary, an average of 0,6 over the different corpuses.
@@ -411,22 +413,26 @@ Using a log-log relation, this gives us a linear regression.
 
 ### Emmanuel Macron 
 
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
+```{r zip-Macron, fig.cap="Zipf's law for Macron"}
 corpus_macron_freq <- textstat_frequency(corpus_macron.dfm)
 
 
-ggplot(corpus_macron_freq,aes(x = rank, y = frequency, label=feature)) + geom_point(size=2, alpha =1) + theme_bw() + geom_text(aes(label=feature),hjust=0, vjust=0) + xlim(0,20)
+ggplot(corpus_macron_freq,aes(x = rank, y = frequency, label=feature)) + geom_point(size=2, alpha =1) + theme_bw() + geom_text(aes(label=feature),hjust=0, vjust=0) + xlim(0,20) 
+```
 
-plot(log(frequency)~log(rank), data=corpus_macron_freq, pch=20)
+```{r log-Macron, fig.cap="log-log relation"}
+plot(log(frequency)~log(rank), data=corpus_macron_freq, pch=20)  
 ```
 
 ### Boris Johnson
 
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
+```{r zip-Johnson, fig.cap="Zipf's law for Johnson"}
 corpus_boris_freq <- textstat_frequency(corpus_boris.dfm)
 
 ggplot(corpus_boris_freq,aes(x = rank, y = frequency, label=feature)) + geom_point(size=2, alpha =1) + theme_bw() + geom_text(aes(label=feature),hjust=0, vjust=0) + xlim(0,20)
+```
 
+```{r log-Johnson, fig.cap="log-log relation"}
 plot(log(frequency)~log(rank), data=corpus_boris_freq, pch=20)
 ```
 
@@ -436,24 +442,24 @@ A larger index means more diversity.
 
 ### Emmanuel Macron 
 
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
+```{r yules-Macron, fig.cap="Yule's index for Macron"}
 textstat_lexdiv(corpus_macron.dfm, measure = "I") %>% 
   ggplot(aes(x=reorder(document,I), y=I))+
   geom_point()+
   coord_flip()+
   xlab("Text")+
-  ylab("Yule's index")
+  ylab("Yule's index") 
 ```
 
 ### Boris Johnson
 
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
+```{r yules-Johnson, fig.cap="Yule's index for Johnson"}
 textstat_lexdiv(corpus_boris.dfm, measure = "I") %>% 
   ggplot(aes(x=reorder(document,I), y=I))+
   geom_point()+
   coord_flip()+
   xlab("Text")+
-  ylab("Yule's index")
+  ylab("Yule's index") 
 ```
 
 
@@ -463,23 +469,23 @@ It is the Moving Average Type-Token Ratio.
 
 ### Emmanuel Macron 
 
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+```{r mattr-macron, fig.cap="MATTR for Macron"}
 textstat_lexdiv(corpus_macron, measure = "MATTR", MATTR_window = 10)  %>%
   ggplot(aes(x=reorder(document,MATTR), y=MATTR))+
   geom_point()+
   coord_flip()+
   xlab("Text")+
-  ylab("MATTR")
+  ylab("MATTR") 
 ```
 
 ### Boris Johnson
 
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
+```{r mattr-Johnson, fig.cap="MATTR for Johnson"}
 textstat_lexdiv(corpus_boris, measure = "MATTR", MATTR_window = 10)  %>%
   ggplot(aes(x=reorder(document,MATTR), y=MATTR))+
   geom_point()+
   coord_flip()+
   xlab("Text")+
-  ylab("MATTR")
-
+  ylab("MATTR") 
 ```

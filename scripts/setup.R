@@ -11,9 +11,21 @@ packages <- c(
   "ggrepel", "gghighlight", "patchwork", "maps", # for plotting
   "knitr", "kableExtra", "bookdown", "rmarkdown", # for the report
   "randomForest","janitor","caret","pdftools","rvest","wordcloud2","tidytext","tokenizers","quanteda","sentimentr",
-  "stringr","lexicon","RColorBrewer","tm","printr","ggplot2","quanteda.textmodels","topicmodels","text2vec", "DT","ranger")
+  "stringr","lexicon","RColorBrewer","tm","printr","ggplot2","quanteda.textmodels","topicmodels","text2vec", "DT","ranger","wordcloud")
+
 
 purrr::walk(packages, library, character.only = TRUE)
+
+
+# load the required dictionnary
+
+get_sentiments("nrc")     # load the sentiment library "nrc"
+get_sentiments("afinn")
+library(lexicon)
+
+lexicon::hash_sentiment_jockers_rinker
+lexicon::hash_valence_shifters
+
 
 # automatically create a bib database for R packages
 write_bib(.packages(), here::here("packages.bib"))
@@ -69,3 +81,4 @@ pval_star <- function (p, cutoffs = c(0.05, 0.01, 0.001)) {
                                              " ***")))
   }
 }
+
