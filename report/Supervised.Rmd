@@ -1,6 +1,6 @@
 # Supervised learning
 
-In this section, we use supervised learning to develop a classifier of speech. The final aim is to be able to classify a speech from Boris Johnson or Emmanuel Macron. Therefore we are going to combine the dataframe of Boris with the dataframe of Macron. And because we don't have enough text, we are going to split the text into sentence in order to have enough data.
+In this section, we use a supervised learner to develop a classifier of the Politicans' speeches. The aim of this section is to have a classification model able to correctly attribute a random speech to Boris Johnson or Emmanuel Macron. To do so,  we first combine the dataframe of Boris Johnson with the dataframe of Emmanuel Macron. Since those dataframes differ in number of speechs and in length, we divide the speeches into sentences, which would smooth difference between our two dependent outcome possibilities.
 
 ```{r,warning=FALSE}
 ##Boris Johnson
@@ -52,9 +52,7 @@ combine.dfm
 
 ## LSA
 
-Because of the huge number of tokens, the feature matrix hence obtained may be too big to train a model in a reasonable amount of time. We thus apply a reduction dimension technoque in order to obtain less feature but still kepp the relevant informations. LSA is perfect to this. 
-As a first trialm we target 30 dimensions ( 30 subjects)
-
+Because of the huge number of tokens, the feature matrix obtained may be too big to train a model in a reasonable amount of time. We thus apply a reduction dimension technque in order to obtain less features while keeping the relevant information. LSA is the perfect technique to achieve this. We target 30 dimensions (30 subjects)
 ```{r,warning=FALSE}
 
 combine_corpus.dfm <- dfm(combine_corpus)
@@ -64,12 +62,11 @@ cmod<-textmodel_lsa(combine_corpus.dfm,nd=30)
 
 ## Random forest
 
-First we need to shape the data in a dataframe. We separate the text into sentence in order to have a more consistent and robust dataframe.
-Then we call for the training. In this simple context, in order to illustrate the concepts without too long computation times, we will limit ourselves to just one training set and one test set in a 08/02 pattern. 
-
-
+After preparing our data to be used by the learner, we decide to run a random forest, which is a robust method to find the best classification model by computing a large set of classification tree to obtain the most pertinent values of classification criterias.
+After building our model, we create a training and a test sets. In this simple context, in order to illustrate the concepts without too long computation times, we will limit ourselves to just one training set and one test set by applying the Pareto law 80-20. 
 
 ```{r,warning=FALSE}
+set.seed(782)
 df<-data.frame(Class=y, x=cmod$docs)
 index.tr<-sample(size = round(0.8*length(y)),x=c(1:length(y)),replace = FALSE)
 
@@ -83,17 +80,22 @@ pred.te<-predict(combine.fit,df.te)
 
 ```
 
-In order to see the prediction quality of the model, we call the confusionMatrix function in the caret package
+In order to see the prediction quality of the model, we call the confusionMatrix function in the caret package:
 
 ```{r,warning=FALSE}
-confusionMatrix(data=pred.te$predictions,reference = df.te$Class)
 
+confusionMatrix<-confusionMatrix(data=pred.te$predictions,reference = df.te$Class)
+confusionMatrix
 ```
- We see an accuracy of 69.9%. Also a sensitivity of 40.4% and a specificity of 86.2%. The prediction quality is not well balanced between the 2 class. The model struggle to predict the negative class, which is Macron. It is probably because we there is less data of Macron. 
+
+The model has an accuracy of 80.5%, which is  being satisfying: a model is said to be satisfactory enough when reaching 80% of accuracy. Boris Johnson being the positive class, the model overestimates the sentences belonging to Emmanuel Macrons's speeches (specificity: 95.1%), while greatly underestimate the sentences of Boris Jonhson (sensitivity: 51.9%). 
+The prediction quality is not balanced between the two classes and the model is not able to classify correctly. One of the solutions would be to attribute weights to the sentences in order to mitigate the unaccurate results.
 
 ## Improving the features
 
-```{r,warning=FALSE}
+\@ref(fig:accuracy)
+
+```{r accuracy,fig.cap="Accuracy"}
 nd.vec<-c(2,5,25,50,100,500,1000)
 acc.vec<-numeric(length(nd.vec))
 for (j in 1:length(nd.vec)) {
@@ -116,7 +118,7 @@ plot(acc.vec~nd.vec,type="b")
 We can see that 100 is the best choice among the ones we tried. 
 
 ```{r,warning=FALSE}
-
+set.seed(788)
 combine_corpus.dfm <- dfm(combine_corpus)
 cmod<-textmodel_lsa(combine_corpus.dfm,nd=100)
 
@@ -131,8 +133,8 @@ combine.fit<-ranger(class~.,
                     data = df.tr)
 pred.te<-predict(combine.fit,df.te)
 
-confusionMatrix(data=pred.te$predictions,reference = df.te$class)
-
+confusionmatrix_2<-confusionMatrix(data=pred.te$predictions,reference = df.te$class)
+confusionmatrix_2
 ```
 
-We clearly improve the accruacy in adding more dimensions 
+By re-running the same model but by increasing dimensions rather than weighting the sentences, we observe an increase in accuracy (+3.97%), however the over-/underestimation of the speeches remains. Sensitivity has improved by 18.50% but the learner has a still a poor prediction ability, in spite of the increase of the dimensions.

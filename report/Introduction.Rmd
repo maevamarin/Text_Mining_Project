@@ -2,18 +2,6 @@
 
 ## Overview and Motivation
 
+The aim of our project in to analyse the discourses of presidents Boris Johnson and Emmanuel Macron and to see if there is any major differences in terms of the vocabulary used, the lengths of the speeches and the sentiments related to the various speeches.
 
-## Data loadind
-
-```{r data, echo=TRUE}
-# Boris Johnson's speech of March 16th
-
-boris16mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-16-march-2020")%>%            html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
-  html_text()
-
-macron <- read_html("https://franceintheus.org/spip.php?article9654") %>%
-           html_nodes("div.texte") %>%
-          html_text()
-
-```
-
+We proceeded in the following order, we first cleaned the data, using tokenisation and cleaning methods, we then tried to find statistical pattern using frequencies and scoring models and we then tried to interpret the results using a sentiment analysis. We need to highlight here that we used several methods, such as dimension reduction techniques and machine learning algorithms.

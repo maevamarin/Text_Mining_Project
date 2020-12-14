@@ -243,6 +243,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb23-4" data-line-number="4"><span class="kw">library</span>(kableExtra)</a>
 <a class="sourceLine" id="cb23-5" data-line-number="5"><span class="kw">library</span>(reshape2)</a>
 <a class="sourceLine" id="cb23-6" data-line-number="6"><span class="kw">library</span>(ggplot2)</a></code></pre></div>
+<p>The aim of this part of the project is to compute the similarities and dissimilarities between the different doscuments for both Johnson and Macron. We will use here the previously cleaned and tokenised corpuses and the two TF-IDF matrices computed when performing the exploratory data analysis.</p>
+<p>The three metrics used are the following; the Jaccard Similarity (similarity measure), the Cosine Similarity (similarity measure) and the Euclidean Distance (dissimilarity measure, bounded by the largest distance that is present in the corpus, can therefore be rescaled to a similarity measure between 0 and 1, 1 being the largest distance in the corpus). In order to get a better visualisation of the three metrics, we used a heatmap representation (similarity = 0 –&gt; yellow and similarity = 1 –&gt; red).</p>
+<p>Actually, when looking at the various heatmaps drawn when running the code, all those similarity measures show the same results, there is not any large similarity between the different documents for Boris Johnson. The only cases on the heatmap that are red are the ones that are on the diagonal, which corresponds to the similarity of a given document and itself, which is equal to 1.</p>
 <div id="boris" class="section level2">
 <h2><span class="header-section-number">5.1</span> Boris</h2>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="co">## Jaccard Similarity</span></a>
@@ -263,6 +266,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb24-16" data-line-number="16">boris.euc.mat<span class="op">$</span>value.std &lt;-<span class="st"> </span>(M<span class="op">-</span>boris.euc.mat<span class="op">$</span>value)<span class="op">/</span>M</a>
 <a class="sourceLine" id="cb24-17" data-line-number="17"><span class="kw">ggplot</span>(<span class="dt">data=</span>boris.euc.mat, <span class="kw">aes</span>(<span class="dt">x=</span>Var1, <span class="dt">y=</span>Var2, <span class="dt">fill=</span>boris.euc.mat<span class="op">$</span>value.std)) <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_gradient2</span>(<span class="dt">low=</span><span class="st">&quot;yellow&quot;</span>, <span class="dt">high=</span><span class="st">&quot;red&quot;</span>, <span class="dt">mid=</span><span class="st">&quot;orange&quot;</span>, <span class="dt">midpoint=</span><span class="fl">0.5</span>, <span class="dt">limit=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="dt">name =</span><span class="st">&quot;Euclidean&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_tile</span>()</a></code></pre></div>
 <p><img src="Text-Mining_files/figure-html/unnamed-chunk-41-1.png" width="70%" style="display: block; margin: auto;" /><img src="Text-Mining_files/figure-html/unnamed-chunk-41-2.png" width="70%" style="display: block; margin: auto;" /><img src="Text-Mining_files/figure-html/unnamed-chunk-41-3.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>We then used two different clustering methods, hierarchical clustering (dendrogram) and partitioning (K-means method). We see that the results are quite similar. When looking at the 10 most common words per cluster, there are some words that appear when using the first method and the second one.</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="co">## Clustering</span></a>
 <a class="sourceLine" id="cb25-2" data-line-number="2"><span class="co">## Jaccard Method</span></a>
 <a class="sourceLine" id="cb25-3" data-line-number="3">boris.hc &lt;-<span class="st"> </span><span class="kw">hclust</span>(<span class="kw">dist</span>(boris.euc))</a>
@@ -549,6 +553,7 @@ downward
 </tbody>
 </table>
 <p><img src="Text-Mining_files/figure-html/unnamed-chunk-42-1.png" width="70%" style="display: block; margin: auto;" /><img src="Text-Mining_files/figure-html/unnamed-chunk-42-2.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>When computing document similarities for Macron, we also observe that the only elements on the heatmap that are represented by the red colour are situated on the digonal. However, we can notice a slight difference here compared to Johnson. We do observe that there is a small similarity between document 1 and document 2 for Macron. This is to say that he used the same tokens both in the first and the second document.</p>
 </div>
 <div id="macron" class="section level2">
 <h2><span class="header-section-number">5.2</span> Macron</h2>
