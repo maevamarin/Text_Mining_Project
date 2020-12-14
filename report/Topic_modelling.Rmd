@@ -226,3 +226,83 @@ gamma.td.macron %>%
 ```
 
 ## Combine
+
+We combine the speeches of both author in a same dataframe and we divide the text into sentence to have a bigger dataframe.
+Now we have 730 differents sentences.
+
+### LSA
+
+Because of the huge number of tokens, the feature matrix hence obtained may be too big to train a model in a reasonable amount of time. We thus apply a reduction dimension technoque in order to obtain less feature but still kepp the relevant informations. LSA is perfect to this. 
+As a first trialm we target 30 dimensions ( 30 subjects)
+
+```{r,warning=FALSE}
+
+combine_corpus.dfm <- dfm(combine_corpus)
+cmod<-textmodel_lsa(combine_corpus.dfm,nd=30)
+
+head(cmod$docs)
+```
+
+
+```{r,warning=FALSE}
+
+
+p3<-head(cmod$docs)
+
+p4<-head(cmod$features)
+p3/p4
+```
+Often the first dimension in LSA is associated with the document lenght. To see if it is true, we build a scatter-plot between the document lengt and Dimension 1.
+
+```{r,warning=FALSE}
+ns_combine<-apply(combine_corpus.dfm,1,sum) 
+plot(ns_combine~cmod$docs [,1])
+
+```
+```{r,warning=FALSE}
+biplot(y=cmod$docs[,2:3],x=cmod$features[,2:3],
+       col=c("grey","red"),
+       xlab = "Dimension 2",
+       ylab="Dimension 3")
+```
+
+### LDA
+
+We now turn to the LDA. For illustration, we will make K=3 topis. 
+```{r,warning=FALSE}
+K<-3
+combine_corpus.dtm<- convert(combine_corpus.dfm, to="topicmodels")
+lda_combine<- LDA(combine_corpus.dtm ,k=K)
+
+```
+
+
+Top terms per topic and top topic per document can be easily obtained. Belo, the six top terms and the top topic are extracted.
+
+```{r,warning=FALSE}
+terms(lda_combine,6)
+
+topics(lda_combine,1)  ## To see the topics related to each document
+```
+
+
+We now build the bar plot to inspect the per-topic-per-word probabilities (beta's). We take the 10 top terms and rearrange the beta per topic according to this order. 
+```{r,warning=FALSE}
+
+beta.td.combine<-tidy(lda_combine,matrix="beta")
+
+beta.top.term.combine<-beta.td.combine %>%
+  group_by(topic) %>%
+  top_n(10, beta) %>%
+  ungroup() %>%
+  arrange(topic, -beta)
+
+beta.top.term.combine %>%
+  mutate(term=reorder_within(term, beta, topic)) %>%
+  ggplot(aes(term,beta,fill=factor(topic))) +
+  geom_col(show.legend = FALSE)+
+  facet_wrap(~topic, scales = "free") +
+  coord_flip()+
+  scale_x_reordered()
+
+```

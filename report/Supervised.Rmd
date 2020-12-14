@@ -1,5 +1,18 @@
 # Supervised learning
 
+
+## LSA
+
+Because of the huge number of tokens, the feature matrix hence obtained may be too big to train a model in a reasonable amount of time. We thus apply a reduction dimension technoque in order to obtain less feature but still kepp the relevant informations. LSA is perfect to this. 
+As a first trialm we target 30 dimensions ( 30 subjects)
+
+```{r,warning=FALSE}
+
+combine_corpus.dfm <- dfm(combine_corpus)
+cmod<-textmodel_lsa(combine_corpus.dfm,nd=30)
+
+```
+
 ## Random forest
 
 First we need to shape the data in a dataframe. We separate the text into sentence in order to have a more consistent and robust dataframe.
@@ -33,8 +46,6 @@ combine <- rbind(boris_2_sentence, macron_2_sentence)
 combine_corpus<-corpus(combine)
 combine_tokens<- tokens(combine_corpus, remove_numbers = TRUE, remove_punct = TRUE, remove_symbols = TRUE, remove_separators = TRUE)
 
-combine_corpus_dataframe<-data_frame(combine_corpus)
-combine_sentence<-tokenize_sentences(boris_supervised$text)
 ##combi Lemmatization
 
 combine_tokens <- tokens_replace(combine_tokens, pattern=hash_lemmas$token, replacement = hash_lemmas$lemma)
@@ -57,7 +68,7 @@ combine.dfm
 ```
 
 ```{r,warning=FALSE}
-df<-data.frame(Class=y, x=combine)
+df<-data.frame(Class=y, x=cmod$docs)
 index.tr<-sample(size = round(0.8*length(y)),x=c(1:length(y)),replace = FALSE)
 
 df.tr<-df[index.tr,]
@@ -78,3 +89,50 @@ library(caret)
 confusionMatrix(data=pred.te$predictions,reference = df.te$Class)
 
 ```
+ We see an accuracy of 69.9%. Also a sensitivity of 40.4% and a specificity of 86.2%. The prediction quality is not well balanced between the 2 class. The model struggle to predict the negative class, which is Macron. It is probably because we there is less data of Macron. 
+
+## Improving the features
+
+```{r,warning=FALSE}
+nd.vec<-c(2,5,25,50,100,500,1000)
+acc.vec<-numeric(length(nd.vec))
+for (j in 1:length(nd.vec)) {
+  cmod<-textmodel_lsa(combine_corpus.dfm,nd=nd.vec[j])
+  df<-data.frame(class=y,x=cmod$docs)
+  df.tr<-df[index.tr,]
+  df.te<-df[-index.tr,]
+  
+  combine.fit<-ranger(class~.,
+                    data = df.tr)
+pred.te<-predict(combine.fit,df.te)
+acc.vec[j]<-confusionMatrix(data=pred.te$predictions,reference = df.te$class)$overall[1]
+  
+}
+acc.vec
+
+plot(acc.vec~nd.vec,type="b")
+
+```
+We can see that 100 is the best choice among the ones we tried. 
+
+```{r,warning=FALSE}
+
+combine_corpus.dfm <- dfm(combine_corpus)
+cmod<-textmodel_lsa(combine_corpus.dfm,nd=100)
+
+df<-data.frame(class=y, x=cmod$docs)
+index.tr<-sample(size = round(0.8*length(y)),x=c(1:length(y)),replace = FALSE)
+
+df.tr<-df[index.tr,]
+df.te<-df[-index.tr,]
+
+
+combine.fit<-ranger(class~.,
+                    data = df.tr)
+pred.te<-predict(combine.fit,df.te)
+
+confusionMatrix(data=pred.te$predictions,reference = df.te$class)
+
+```
+
+We clearly improve the accruacy in adding more dimensions 
