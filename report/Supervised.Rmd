@@ -6,8 +6,7 @@ First we need to shape tje data in a dataframe. Then we call for the training. I
 
 ```{r,warning=FALSE}
 # Add the speecher of each dataframe
-
-
+library(quanteda)
 boris_2<-as_tibble(c(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars)) %>%
   rename(
   text=value)
@@ -28,18 +27,18 @@ combine <- rbind(boris_supervised, macron_supervised)
 combine_corpus<-corpus(combine)
 combine_tokens<- tokens(combine_corpus, remove_numbers = TRUE, remove_punct = TRUE, remove_symbols = TRUE, remove_separators = TRUE)
 ##combi Lemmatization
-combine_tokens <- tokens_replace(combine_tokens, pattern=hash_lemmas$token, replacement = hash_lemmas$lemma)
+combine_tokens <- tokens_replace(combine_tokens, pattern= hash_lemmas$token, replacement = hash_lemmas$lemma )
 
 ## Cleaning
 combine_tokens = combine_tokens %>% 
   tokens_tolower() %>% 
   tokens_remove(stopwords("english"))
-
+y
 y<-factor(docvars(combine_tokens,"author"))
 
 ```
 
-Now, we build the featues. To this aim, we first compute the DTM matrix.
+Now, we build the features. To this aim, we first compute the DTM matrix.
 
 ```{r,warning=FALSE}
 combine.dfm<-dfm(combine_tokens)
@@ -67,5 +66,28 @@ In order to see the prediction quality of the model, we call the confusionMatrix
 ```{r,warning=FALSE}
 library(caret)
 confusionMatrix(data=pred.te$predictions,reference = df.te$Class)
+
+```
+
+
+
+
+
+Test with sentences (Eugégé bidouille un truc)
+```{r,warning=FALSE}
+library(randomForest)
+library(nnet)
+## Prediction
+index.tr <- sample(1:nrow(totalcorpus), size = 0.8 * length(totalcorpus), replace = FALSE)
+
+totalcorpus.tr <- totalcorpus[index.tr,]    # Creation of my training set
+totalcorpus.te <- totalcorpus[-index.tr,]   # Creation of my testing set
+
+nn1 <- nnet(Document~sentence_doc, data=totalcorpus.tr, size=2)
+
+
+total.speeches.rg <- ranger(Document ~ sentence_doc, data = totalcorpus.tr)
+pred.iris <- predict(rg.iris, data = iris.test)
+table(iris.test$Species, pred.iris$predictions)
 
 ```
