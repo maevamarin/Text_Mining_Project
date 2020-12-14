@@ -3,6 +3,7 @@
 In this section, we use supervised learning to develop a classifier of speech. The final aim is to be able to classify a speech from Boris Johnson or Emmanuel Macron. Therefore we are going to combine the dataframe of Boris with the dataframe of Macron. And because we don't have enough text, we are going to split the text into sentence in order to have enough data.
 
 ```{r,warning=FALSE}
+
 ##Boris Johnson
 boris_2<-as_tibble(c(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars)) %>%
   rename(
@@ -31,18 +32,24 @@ combine_tokens<- tokens(combine_corpus, remove_numbers = TRUE, remove_punct = TR
 
 ##combi Lemmatization
 
+
 combine_tokens <- tokens_replace(combine_tokens, pattern=hash_lemmas$token, replacement = hash_lemmas$lemma)
+
 
 ## Cleaning
 combine_tokens = combine_tokens %>% 
   tokens_tolower() %>% 
   tokens_remove(stopwords("english"))
-
+y
 y<-factor(docvars(combine_tokens,"author"))
 
 ```
 
+
+
+
 Then, we build the featues. To this aim, we first compute the DTM matrix.
+
 
 ```{r,warning=FALSE}
 combine.dfm<-dfm(combine_tokens)
@@ -89,6 +96,9 @@ In order to see the prediction quality of the model, we call the confusionMatrix
 confusionMatrix(data=pred.te$predictions,reference = df.te$Class)
 
 ```
+
+
+
  We see an accuracy of 69.9%. Also a sensitivity of 40.4% and a specificity of 86.2%. The prediction quality is not well balanced between the 2 class. The model struggle to predict the negative class, which is Macron. It is probably because we there is less data of Macron. 
 
 ## Improving the features
@@ -136,3 +146,4 @@ confusionMatrix(data=pred.te$predictions,reference = df.te$class)
 ```
 
 We clearly improve the accruacy in adding more dimensions 
+

@@ -18,19 +18,19 @@ We choose the 3 first speaches from Macron about the corona virus dating from th
 macron12march <- read_html("https://franceintheus.org/spip.php?article9654") %>%
   html_nodes("div.texte") %>%
   html_text()
-macron12march <- str_replace_all(macron12march,"[\r\n\t]", "")
+macron12march <- str_replace_all(macron12march,"[\r\n\t]", ".")
 macron12march <- substr(macron12march, 178, 20197)
 
 macron16march <- read_html("https://franceintheus.org/spip.php?article9659#1") %>%
   html_nodes("div.texte") %>%
   html_text()
-macron16march <- macron16march <- str_replace_all(macron16march,"[\r\n\t]", "")
+macron16march <- macron16march <- str_replace_all(macron16march,"[\r\n\t]", ".")
 macron16march <- substr(macron16march, 131, 15719)
 
 macron13april <- read_html("https://franceintheus.org/spip.php?article9710") %>%
   html_nodes("div.texte") %>%
   html_text() 
-macron13april <- macron13april <- str_replace_all(macron13april,"[\r\n\t]", "")
+macron13april <- macron13april <- str_replace_all(macron13april,"[\r\n\t]", ".")
 macron13april <- substr(macron13april, 117, 20000)
 
 
@@ -61,38 +61,62 @@ We choose the 7 first speaches of president Johnson about the corona virus datin
 boris16mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-16-march-2020") %>%
                 html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>% 
                 html_text()
+<<<<<<< HEAD
 boris16mars <- str_replace_all(boris16mars,"[\r\n\t]", " .")
+=======
+boris16mars <- str_replace_all(boris16mars,"[\r\n\t]", ".")
+>>>>>>> 29935c5794a00d63f04fc627797334b4417963c0
 
 boris12mars<- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-12-march-2020") %>%   
               html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
               html_text()
+<<<<<<< HEAD
 boris12mars <- str_replace_all(boris12mars,"[\r\n\t]", " .")
+=======
+boris12mars <- str_replace_all(boris12mars,"[\r\n\t]", ".")
+>>>>>>> 29935c5794a00d63f04fc627797334b4417963c0
 
 boris18mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-18-march-2020") %>%   
               html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
               html_text()
+<<<<<<< HEAD
 boris18mars <- str_replace_all(boris18mars,"[\r\n\t]", " .")
+=======
+boris18mars <- str_replace_all(boris18mars,"[\r\n\t]", ".")
+>>>>>>> 29935c5794a00d63f04fc627797334b4417963c0
 
 boris9mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-9-march-2020") %>% 
               html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
               html_text()
+<<<<<<< HEAD
 boris9mars <- str_replace_all(boris9mars,"[\r\n\t]", " .")
+=======
+boris9mars <- str_replace_all(boris9mars,"[\r\n\t]", ".")
+>>>>>>> 29935c5794a00d63f04fc627797334b4417963c0
 
 boris19mars<- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-19-march-2020") %>% 
               html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
               html_text()
+<<<<<<< HEAD
 boris19mars <- str_replace_all(boris19mars,"[\r\n\t]", " .")
+=======
+boris19mars <- str_replace_all(boris19mars,"[\r\n\t]", ".")
+>>>>>>> 29935c5794a00d63f04fc627797334b4417963c0
 
 boris20mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-20-march-2020") %>% 
               html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
               html_text()
+<<<<<<< HEAD
 boris20mars <- str_replace_all(boris20mars,"[\r\n\t]", " .")
+=======
+boris20mars <- str_replace_all(boris20mars,"[\r\n\t]", ".")
+>>>>>>> 29935c5794a00d63f04fc627797334b4417963c0
 
 
 boris22mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-22-march-2020") %>% 
               html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
               html_text()
-boris22mars <- str_replace_all(boris22mars,"[\r\n\t]", " ")
+boris22mars <- str_replace_all(boris22mars,"[\r\n\t]", ".")
 
 
 boris<-corpus(c(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars))
@@ -373,6 +397,11 @@ textplot_wordcloud(corpus_boris.tfidf, color=brewer.pal(8, "Dark2"))
 ## Lexical Divesity Token Type Ratio TTR
 
 
+<<<<<<< HEAD
+=======
+A TTR is comprised beetween o and 1.When equal to 1 it correspond to a rich diversity, every token is from a different type. In opposit if equal to 0, it mean a poor diversity ( he use only one word).
+
+>>>>>>> 29935c5794a00d63f04fc627797334b4417963c0
 A TTR is comprised beetween 0 and 1. When equal to 1, it corresponds to a rich lexical diversity, this is to say that each token is from a different type. In opposite, if equal to 0, it mean that the corpus presents a poor lexical diversity (if he would use one word only).
 
 

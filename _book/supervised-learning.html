@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 Supervised learning | Dicours Analysis</title>
   <meta name="description" content="Chapter 8 Supervised learning | Dicours Analysis" />
-  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 Supervised learning | Dicours Analysis" />
   <meta property="og:type" content="book" />
@@ -49,78 +49,60 @@
 
 
 
+<<<<<<< HEAD
 <script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+=======
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
+>>>>>>> 29935c5794a00d63f04fc627797334b4417963c0
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.15/datatables.js"></script>
+<script src="libs/datatables-binding-0.16/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
 <script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
 <link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 </style>
 
 </head>
@@ -165,11 +147,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.6.1" data-path="eda.html"><a href="eda.html#emmanuel-macron-3"><i class="fa fa-check"></i><b>3.6.1</b> Emmanuel Macron</a></li>
 <li class="chapter" data-level="3.6.2" data-path="eda.html"><a href="eda.html#boris-johnson-3"><i class="fa fa-check"></i><b>3.6.2</b> Boris Johnson</a></li>
 </ul></li>
-<li class="chapter" data-level="3.7" data-path="eda.html"><a href="eda.html#zipfs-law"><i class="fa fa-check"></i><b>3.7</b> Zipf’s Law</a><ul>
+<li class="chapter" data-level="3.7" data-path="eda.html"><a href="eda.html#zipfs-law"><i class="fa fa-check"></i><b>3.7</b> Zipf's Law</a><ul>
 <li class="chapter" data-level="3.7.1" data-path="eda.html"><a href="eda.html#emmanuel-macron-4"><i class="fa fa-check"></i><b>3.7.1</b> Emmanuel Macron</a></li>
 <li class="chapter" data-level="3.7.2" data-path="eda.html"><a href="eda.html#boris-johnson-4"><i class="fa fa-check"></i><b>3.7.2</b> Boris Johnson</a></li>
 </ul></li>
-<li class="chapter" data-level="3.8" data-path="eda.html"><a href="eda.html#yules-index"><i class="fa fa-check"></i><b>3.8</b> Yule’s index</a><ul>
+<li class="chapter" data-level="3.8" data-path="eda.html"><a href="eda.html#yules-index"><i class="fa fa-check"></i><b>3.8</b> Yule's index</a><ul>
 <li class="chapter" data-level="3.8.1" data-path="eda.html"><a href="eda.html#emmanuel-macron-5"><i class="fa fa-check"></i><b>3.8.1</b> Emmanuel Macron</a></li>
 <li class="chapter" data-level="3.8.2" data-path="eda.html"><a href="eda.html#boris-johnson-5"><i class="fa fa-check"></i><b>3.8.2</b> Boris Johnson</a></li>
 </ul></li>
@@ -179,10 +161,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html"><i class="fa fa-check"></i><b>4</b> Sentiment Analysis</a><ul>
-<li class="chapter" data-level="4.1" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html#sentiment-analysis-with-the-sentiment-library-nrc"><i class="fa fa-check"></i><b>4.1</b> Sentiment analysis with the sentiment library “nrc”</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html#with-quanteda"><i class="fa fa-check"></i><b>4.1.1</b> With quanteda</a></li>
-<li class="chapter" data-level="4.1.2" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html#value-based"><i class="fa fa-check"></i><b>4.1.2</b> Value-based</a></li>
-<li class="chapter" data-level="4.1.3" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html#using-valence-shifters"><i class="fa fa-check"></i><b>4.1.3</b> Using valence shifters</a></li>
+<li class="chapter" data-level="4.1" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html#analysis-with-the-nrc-library"><i class="fa fa-check"></i><b>4.1</b> Analysis with the &quot;nrc&quot; library</a></li>
+<li class="chapter" data-level="4.2" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html#analysis-with-the-lsd2015-dictionnary"><i class="fa fa-check"></i><b>4.2</b> Analysis with the LSD2015 dictionnary</a></li>
+<li class="chapter" data-level="4.3" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html#analysis-with-the-afinn-dictionnary"><i class="fa fa-check"></i><b>4.3</b> Analysis with the &quot;afinn&quot; dictionnary</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="sentiment-analysis.html"><a href="sentiment-analysis.html#analysis-using-nrc-dictionnary-and-valence-shifters"><i class="fa fa-check"></i><b>4.3.1</b> Analysis using &quot;nrc&quot;&quot; dictionnary and valence shifters</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="similarities.html"><a href="similarities.html"><i class="fa fa-check"></i><b>5</b> Similarities</a><ul>
@@ -231,6 +213,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="supervised-learning" class="section level1">
 <h1><span class="header-section-number">Chapter 8</span> Supervised learning</h1>
+<<<<<<< HEAD
 <p>In this section, we use supervised learning to develop a classifier of speech. The final aim is to be able to classify a speech from Boris Johnson or Emmanuel Macron. Therefore we are going to combine the dataframe of Boris with the dataframe of Macron. And because we don’t have enough text, we are going to split the text into sentence in order to have enough data.</p>
 <div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1"><span class="co">##Boris Johnson</span></a>
 <a class="sourceLine" id="cb89-2" data-line-number="2">boris_<span class="dv">2</span>&lt;-<span class="kw">as_tibble</span>(<span class="kw">c</span>(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars)) <span class="op">%&gt;%</span></a>
@@ -340,10 +323,307 @@ Then we call for the training. In this simple context, in order to illustrate th
 <a class="sourceLine" id="cb93-26" data-line-number="26"><span class="co">#&gt;                                         </span></a>
 <a class="sourceLine" id="cb93-27" data-line-number="27"><span class="co">#&gt;        &#39;Positive&#39; Class : Boris Johnson </span></a>
 <a class="sourceLine" id="cb93-28" data-line-number="28"><span class="co">#&gt; </span></a></code></pre></div>
+=======
+<p>In this section, we use supervised learning to develop a classifier of speech. The final aim is to be able to classify a speech from Boris Johnson or Emmanuel Macron. Therefore we are going to combine the dataframe of Boris with the dataframe of Macron. And because we don't have enough text, we are going to split the text into sentence in order to have enough data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+##Boris Johnson
+boris_2&lt;-<span class="kw">as_tibble</span>(<span class="kw">c</span>(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars)) %&gt;%
+<span class="st">  </span><span class="kw">rename</span>(
+  <span class="dt">text=</span>value)
+author=<span class="st">&quot;Boris Johnson&quot;</span>
+boris_supervised&lt;-<span class="st"> </span><span class="kw">cbind</span>(boris_2, author)
+
+boris_2_sentence&lt;-<span class="kw">get_sentences</span>(boris_supervised)
+##Emmanuel Macron
+Macron_2&lt;-<span class="kw">as_tibble</span>(<span class="kw">c</span>(macron12march,macron16march,macron13april)) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">rename</span>(
+    <span class="dt">text =</span> value)
+
+author=<span class="st">&quot;Macron&quot;</span>
+macron_supervised&lt;-<span class="st"> </span><span class="kw">cbind</span>(Macron_2, author)
+
+macron_2_sentence&lt;-<span class="kw">get_sentences</span>(macron_supervised)
+
+##Combine the 2 dataframes
+combine &lt;-<span class="st"> </span><span class="kw">rbind</span>(boris_2_sentence, macron_2_sentence)
+
+
+## Tokenization
+combine_corpus&lt;-<span class="kw">corpus</span>(combine)
+combine_tokens&lt;-<span class="st"> </span><span class="kw">tokens</span>(combine_corpus, <span class="dt">remove_numbers =</span> <span class="ot">TRUE</span>, <span class="dt">remove_punct =</span> <span class="ot">TRUE</span>, <span class="dt">remove_symbols =</span> <span class="ot">TRUE</span>, <span class="dt">remove_separators =</span> <span class="ot">TRUE</span>)
+
+##combi Lemmatization
+
+
+combine_tokens &lt;-<span class="st"> </span><span class="kw">tokens_replace</span>(combine_tokens, <span class="dt">pattern=</span>hash_lemmas$token, <span class="dt">replacement =</span> hash_lemmas$lemma)
+
+
+## Cleaning
+combine_tokens =<span class="st"> </span>combine_tokens %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">tokens_tolower</span>() %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">tokens_remove</span>(<span class="kw">stopwords</span>(<span class="st">&quot;english&quot;</span>))
+y
+<span class="co">#&gt;   [1] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt;   [5] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt;   [9] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt;  [13] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt;  [17] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt;  [21] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt;  [25] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt;  [29] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt;  [33] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt;  [37] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt;  [41] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt;  [45] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt;  [49] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt;  [53] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt;  [57] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt;  [61] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt;  [65] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt;  [69] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt;  [73] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt;  [77] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt;  [81] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt;  [85] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt;  [89] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt;  [93] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt;  [97] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [101] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [105] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [109] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [113] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [117] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [121] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [125] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [129] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [133] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [137] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [141] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [145] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [149] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [153] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [157] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [161] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [165] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [169] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [173] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [177] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [181] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [185] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [189] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [193] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [197] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [201] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [205] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [209] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [213] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [217] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [221] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [225] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [229] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [233] Boris Johnson Boris Johnson Boris Johnson Boris Johnson</span>
+<span class="co">#&gt; [237] Boris Johnson Boris Johnson Boris Johnson Macron       </span>
+<span class="co">#&gt; [241] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [245] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [249] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [253] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [257] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [261] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [265] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [269] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [273] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [277] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [281] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [285] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [289] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [293] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [297] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [301] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [305] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [309] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [313] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [317] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [321] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [325] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [329] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [333] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [337] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [341] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [345] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [349] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [353] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [357] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [361] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [365] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [369] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [373] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [377] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [381] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [385] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [389] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [393] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [397] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [401] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [405] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [409] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [413] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [417] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [421] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [425] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [429] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [433] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [437] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [441] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [445] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [449] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [453] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [457] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [461] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [465] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [469] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [473] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [477] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [481] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [485] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [489] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [493] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [497] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [501] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [505] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [509] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [513] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [517] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [521] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [525] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [529] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [533] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [537] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [541] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [545] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [549] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [553] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [557] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [561] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [565] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [569] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [573] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [577] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [581] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [585] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [589] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [593] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [597] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [601] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [605] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [609] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [613] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [617] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [621] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [625] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [629] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [633] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [637] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [641] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [645] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [649] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [653] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [657] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [661] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [665] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [669] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [673] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [677] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [681] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [685] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [689] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [693] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [697] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [701] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [705] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [709] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [713] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [717] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [721] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [725] Macron        Macron        Macron        Macron       </span>
+<span class="co">#&gt; [729] Macron        Macron       </span>
+<span class="co">#&gt; Levels: Boris Johnson Macron</span>
+y&lt;-<span class="kw">factor</span>(<span class="kw">docvars</span>(combine_tokens,<span class="st">&quot;author&quot;</span>))</code></pre></div>
+<p>Then, we build the featues. To this aim, we first compute the DTM matrix.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">combine.dfm&lt;-<span class="kw">dfm</span>(combine_tokens)
+combine.dfm
+<span class="co">#&gt; Document-feature matrix of: 771 documents, 1,691 features (99.4% sparse) and 3 docvars.</span>
+<span class="co">#&gt;        features</span>
+<span class="co">#&gt; docs    morning meeting government&#39;s cobr emergency committee</span>
+<span class="co">#&gt;   text1       0       0            0    0         0         0</span>
+<span class="co">#&gt;   text2       1       0            1    1         1         1</span>
+<span class="co">#&gt;   text3       0       0            0    0         0         0</span>
+<span class="co">#&gt;   text4       0       0            0    0         0         0</span>
+<span class="co">#&gt;   text5       0       0            0    0         0         0</span>
+<span class="co">#&gt;   text6       0       0            0    0         0         0</span>
+<span class="co">#&gt;        features</span>
+<span class="co">#&gt; docs    coronavirus outbreak first scotland</span>
+<span class="co">#&gt;   text1           0        0     0        0</span>
+<span class="co">#&gt;   text2           1        1     0        0</span>
+<span class="co">#&gt;   text3           0        0     3        1</span>
+<span class="co">#&gt;   text4           0        0     0        0</span>
+<span class="co">#&gt;   text5           0        0     0        0</span>
+<span class="co">#&gt;   text6           1        0     0        0</span>
+<span class="co">#&gt; [ reached max_ndoc ... 765 more documents, reached max_nfeat ... 1,681 more features ]</span></code></pre></div>
+<div id="lsa-2" class="section level2">
+<h2><span class="header-section-number">8.1</span> LSA</h2>
+<p>Because of the huge number of tokens, the feature matrix hence obtained may be too big to train a model in a reasonable amount of time. We thus apply a reduction dimension technoque in order to obtain less feature but still kepp the relevant informations. LSA is perfect to this. As a first trialm we target 30 dimensions ( 30 subjects)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+combine_corpus.dfm &lt;-<span class="st"> </span><span class="kw">dfm</span>(combine_corpus)
+cmod&lt;-<span class="kw">textmodel_lsa</span>(combine_corpus.dfm,<span class="dt">nd=</span><span class="dv">30</span>)</code></pre></div>
+</div>
+<div id="random-forest" class="section level2">
+<h2><span class="header-section-number">8.2</span> Random forest</h2>
+<p>First we need to shape the data in a dataframe. We separate the text into sentence in order to have a more consistent and robust dataframe. Then we call for the training. In this simple context, in order to illustrate the concepts without too long computation times, we will limit ourselves to just one training set and one test set in a 08/02 pattern.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df&lt;-<span class="kw">data.frame</span>(<span class="dt">Class=</span>y, <span class="dt">x=</span>cmod$docs)
+index.tr&lt;-<span class="kw">sample</span>(<span class="dt">size =</span> <span class="kw">round</span>(<span class="fl">0.8</span>*<span class="kw">length</span>(y)),<span class="dt">x=</span><span class="kw">c</span>(<span class="dv">1</span>:<span class="kw">length</span>(y)),<span class="dt">replace =</span> <span class="ot">FALSE</span>)
+
+df.tr&lt;-df[index.tr,]
+df.te&lt;-df[-index.tr,]
+
+
+combine.fit&lt;-<span class="kw">ranger</span>(Class~.,
+                    <span class="dt">data =</span> df.tr)
+pred.te&lt;-<span class="kw">predict</span>(combine.fit,df.te)</code></pre></div>
+<p>In order to see the prediction quality of the model, we call the confusionMatrix function in the caret package</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">confusionMatrix</span>(<span class="dt">data=</span>pred.te$predictions,<span class="dt">reference =</span> df.te$Class)
+<span class="co">#&gt; Confusion Matrix and Statistics</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;                Reference</span>
+<span class="co">#&gt; Prediction      Boris Johnson Macron</span>
+<span class="co">#&gt;   Boris Johnson            29      7</span>
+<span class="co">#&gt;   Macron                   30     88</span>
+<span class="co">#&gt;                                         </span>
+<span class="co">#&gt;                Accuracy : 0.76          </span>
+<span class="co">#&gt;                  95% CI : (0.684, 0.825)</span>
+<span class="co">#&gt;     No Information Rate : 0.617         </span>
+<span class="co">#&gt;     P-Value [Acc &gt; NIR] : 0.000121      </span>
+<span class="co">#&gt;                                         </span>
+<span class="co">#&gt;                   Kappa : 0.451         </span>
+<span class="co">#&gt;                                         </span>
+<span class="co">#&gt;  Mcnemar&#39;s Test P-Value : 0.000298      </span>
+<span class="co">#&gt;                                         </span>
+<span class="co">#&gt;             Sensitivity : 0.492         </span>
+<span class="co">#&gt;             Specificity : 0.926         </span>
+<span class="co">#&gt;          Pos Pred Value : 0.806         </span>
+<span class="co">#&gt;          Neg Pred Value : 0.746         </span>
+<span class="co">#&gt;              Prevalence : 0.383         </span>
+<span class="co">#&gt;          Detection Rate : 0.188         </span>
+<span class="co">#&gt;    Detection Prevalence : 0.234         </span>
+<span class="co">#&gt;       Balanced Accuracy : 0.709         </span>
+<span class="co">#&gt;                                         </span>
+<span class="co">#&gt;        &#39;Positive&#39; Class : Boris Johnson </span>
+<span class="co">#&gt; </span></code></pre></div>
+>>>>>>> 29935c5794a00d63f04fc627797334b4417963c0
 <p>We see an accuracy of 69.9%. Also a sensitivity of 40.4% and a specificity of 86.2%. The prediction quality is not well balanced between the 2 class. The model struggle to predict the negative class, which is Macron. It is probably because we there is less data of Macron.</p>
 </div>
 <div id="improving-the-features" class="section level2">
 <h2><span class="header-section-number">8.3</span> Improving the features</h2>
+<<<<<<< HEAD
 <div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" data-line-number="1">nd.vec&lt;-<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">25</span>,<span class="dv">50</span>,<span class="dv">100</span>,<span class="dv">500</span>,<span class="dv">1000</span>)</a>
 <a class="sourceLine" id="cb94-2" data-line-number="2">acc.vec&lt;-<span class="kw">numeric</span>(<span class="kw">length</span>(nd.vec))</a>
 <a class="sourceLine" id="cb94-3" data-line-number="3"><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(nd.vec)) {</a>
@@ -407,6 +687,70 @@ We can see that 100 is the best choice among the ones we tried.</p>
 <a class="sourceLine" id="cb95-41" data-line-number="41"><span class="co">#&gt;                                         </span></a>
 <a class="sourceLine" id="cb95-42" data-line-number="42"><span class="co">#&gt;        &#39;Positive&#39; Class : Boris Johnson </span></a>
 <a class="sourceLine" id="cb95-43" data-line-number="43"><span class="co">#&gt; </span></a></code></pre></div>
+=======
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nd.vec&lt;-<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">25</span>,<span class="dv">50</span>,<span class="dv">100</span>,<span class="dv">500</span>,<span class="dv">1000</span>)
+acc.vec&lt;-<span class="kw">numeric</span>(<span class="kw">length</span>(nd.vec))
+for (j in <span class="dv">1</span>:<span class="kw">length</span>(nd.vec)) {
+  cmod&lt;-<span class="kw">textmodel_lsa</span>(combine_corpus.dfm,<span class="dt">nd=</span>nd.vec[j])
+  df&lt;-<span class="kw">data.frame</span>(<span class="dt">class=</span>y,<span class="dt">x=</span>cmod$docs)
+  df.tr&lt;-df[index.tr,]
+  df.te&lt;-df[-index.tr,]
+  
+  combine.fit&lt;-<span class="kw">ranger</span>(class~.,
+                    <span class="dt">data =</span> df.tr)
+pred.te&lt;-<span class="kw">predict</span>(combine.fit,df.te)
+acc.vec[j]&lt;-<span class="kw">confusionMatrix</span>(<span class="dt">data=</span>pred.te$predictions,<span class="dt">reference =</span> df.te$class)$overall[<span class="dv">1</span>]
+  
+}
+acc.vec
+<span class="co">#&gt; [1] 0.740 0.721 0.766 0.747 0.766 0.740 0.747</span>
+
+<span class="kw">plot</span>(acc.vec~nd.vec,<span class="dt">type=</span><span class="st">&quot;b&quot;</span>)</code></pre></div>
+<p><img src="Text-Mining_files/figure-html/unnamed-chunk-73-1.png" width="70%" style="display: block; margin: auto;" /> We can see that 100 is the best choice among the ones we tried.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+combine_corpus.dfm &lt;-<span class="st"> </span><span class="kw">dfm</span>(combine_corpus)
+cmod&lt;-<span class="kw">textmodel_lsa</span>(combine_corpus.dfm,<span class="dt">nd=</span><span class="dv">100</span>)
+
+df&lt;-<span class="kw">data.frame</span>(<span class="dt">class=</span>y, <span class="dt">x=</span>cmod$docs)
+index.tr&lt;-<span class="kw">sample</span>(<span class="dt">size =</span> <span class="kw">round</span>(<span class="fl">0.8</span>*<span class="kw">length</span>(y)),<span class="dt">x=</span><span class="kw">c</span>(<span class="dv">1</span>:<span class="kw">length</span>(y)),<span class="dt">replace =</span> <span class="ot">FALSE</span>)
+
+df.tr&lt;-df[index.tr,]
+df.te&lt;-df[-index.tr,]
+
+
+combine.fit&lt;-<span class="kw">ranger</span>(class~.,
+                    <span class="dt">data =</span> df.tr)
+pred.te&lt;-<span class="kw">predict</span>(combine.fit,df.te)
+
+<span class="kw">confusionMatrix</span>(<span class="dt">data=</span>pred.te$predictions,<span class="dt">reference =</span> df.te$class)
+<span class="co">#&gt; Confusion Matrix and Statistics</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;                Reference</span>
+<span class="co">#&gt; Prediction      Boris Johnson Macron</span>
+<span class="co">#&gt;   Boris Johnson            37      4</span>
+<span class="co">#&gt;   Macron                   25     88</span>
+<span class="co">#&gt;                                        </span>
+<span class="co">#&gt;                Accuracy : 0.812        </span>
+<span class="co">#&gt;                  95% CI : (0.741, 0.87)</span>
+<span class="co">#&gt;     No Information Rate : 0.597        </span>
+<span class="co">#&gt;     P-Value [Acc &gt; NIR] : 1.05e-08     </span>
+<span class="co">#&gt;                                        </span>
+<span class="co">#&gt;                   Kappa : 0.586        </span>
+<span class="co">#&gt;                                        </span>
+<span class="co">#&gt;  Mcnemar&#39;s Test P-Value : 0.000204     </span>
+<span class="co">#&gt;                                        </span>
+<span class="co">#&gt;             Sensitivity : 0.597        </span>
+<span class="co">#&gt;             Specificity : 0.957        </span>
+<span class="co">#&gt;          Pos Pred Value : 0.902        </span>
+<span class="co">#&gt;          Neg Pred Value : 0.779        </span>
+<span class="co">#&gt;              Prevalence : 0.403        </span>
+<span class="co">#&gt;          Detection Rate : 0.240        </span>
+<span class="co">#&gt;    Detection Prevalence : 0.266        </span>
+<span class="co">#&gt;       Balanced Accuracy : 0.777        </span>
+<span class="co">#&gt;                                        </span>
+<span class="co">#&gt;        &#39;Positive&#39; Class : Boris Johnson</span>
+<span class="co">#&gt; </span></code></pre></div>
+>>>>>>> 29935c5794a00d63f04fc627797334b4417963c0
 <p>We clearly improve the accruacy in adding more dimensions</p>
 
 </div>

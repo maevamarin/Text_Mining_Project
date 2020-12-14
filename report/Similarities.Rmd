@@ -1,21 +1,13 @@
 # Similarities
-```{r}
-library(readr)
-library(quanteda)
-library(knitr)
-library(kableExtra)
-library(reshape2)
-library(ggplot2)
-```
 
 The aim of this part of the project is to compute the similarities and dissimilarities between the different doscuments for both Johnson and Macron. We will use here the previously cleaned and tokenised corpuses and the two TF-IDF matrices computed when performing the exploratory data analysis.
 
-The three metrics used are the following; the Jaccard Similarity (similarity measure), the Cosine Similarity (similarity measure) and the Euclidean Distance (dissimilarity measure, bounded by the largest distance that is present in the corpus, can therefore be rescaled to a similarity measure between 0 and 1, 1 being the largest distance in the corpus). In order to get a better visualisation of the three metrics, we used a heatmap representation (similarity = 0 --> yellow and similarity = 1 --> red).
+The three metrics used are the following; the Jaccard Similarity (similarity measure) \@ref(fig:similunb), the Cosine Similarity (similarity measure) \@ref(fig:simildeuxb) and the Euclidean Distance \@ref(fig:similtroisb) (dissimilarity measure, bounded by the largest distance that is present in the corpus, can therefore be rescaled to a similarity measure between 0 and 1, 1 being the largest distance in the corpus). In order to get a better visualisation of the three metrics, we used a heatmap representation (similarity = 0 --> yellow and similarity = 1 --> red).
 
 Actually, when looking at the various heatmaps drawn when running the code, all those similarity measures show the same results, there is not any large similarity between the different documents for Boris Johnson. The only cases on the heatmap that are red are the ones that are on the diagonal, which corresponds to the similarity of a given document and itself, which is equal to 1.
 
 ## Boris
-```{r}
+```{r, similunb, fig.cap="Jaccard Similarity - Boris Johnson"}
 ## Jaccard Similarity
 boris.jac <- textstat_simil(corpus_boris.tfidf, method = "jaccard", margin = "documents")
 ## Cosine Similarity
@@ -25,9 +17,15 @@ boris.euc <- textstat_dist(corpus_boris.tfidf, method = "euclidean", margin = "d
 ## Jaccard Matrix
 boris.jac.mat <- melt(as.matrix(boris.jac))
 ggplot(data=boris.jac.mat, aes(x=Var1, y=Var2, fill=value)) + scale_fill_gradient2(low="yellow", high="red", mid="orange", midpoint =0.5, limit=c(0,1), name="Jaccard") + geom_tile()
+```
+
+```{r, simildeuxb, fig.cap="Cosine Similarity - Boris Johnson"}
 ## Cosine Matrix
 boris.cos.mat <- melt(as.matrix(boris.cos))
 ggplot(data=boris.cos.mat, aes(x=Var1, y=Var2, fill=value)) + scale_fill_gradient2(low="yellow", high="red", mid="orange", midpoint=0.5, limit=c(0,1), name="Cosine") + geom_tile()
+```
+
+```{r, similtroisb, fig.cap="Euclidean Distance - Boris Johnson"}
 ## Euclidean Matrix
 boris.euc.mat <- melt(as.matrix(boris.euc))
 M <- max(boris.euc.mat$value)
@@ -35,9 +33,9 @@ boris.euc.mat$value.std <- (M-boris.euc.mat$value)/M
 ggplot(data=boris.euc.mat, aes(x=Var1, y=Var2, fill=boris.euc.mat$value.std)) + scale_fill_gradient2(low="yellow", high="red", mid="orange", midpoint=0.5, limit=c(0,1),name ="Euclidean") + geom_tile()
 ```
 
-We then used two different clustering methods, hierarchical clustering (dendrogram) and partitioning (K-means method). We see that the results are quite similar. When looking at the 10 most common words per cluster, there are some words that appear when using the first method and the second one.
+We then used two different clustering methods, hierarchical clustering (dendrogram) \@ref(fig:clustun) and partitioning (K-means method) \@ref(fig:clustdeux). We see that the results are quite similar. When looking at the 10 most common words per cluster, there are some words that appear when using the first method and the second one.
 
-```{r}
+```{r,clustun,fig.cap="Dendrogram - Hierarchical Clustering"}
 ## Clustering
 ## Jaccard Method
 boris.hc <- hclust(dist(boris.euc))
@@ -50,28 +48,36 @@ plot(boris.hc)
 ## Dendrogram = Hierarchical Clustering
 boris.clust <- cutree(boris.hc, k=3)
 boris.clust
+```
+
+```{r,clustdeux,fig.cap="K-Means Method - Hierarchical Clustering"}
 ## K-means Method = Partitionning 
 boris.km <- kmeans(corpus_boris.tfidf, centers=3)
 boris.km$cluster
+```
+
+```{r,clusttrois,fig.cap="Dendrogram - 10 Most Used Words"}
 ### Extracting the 10 most used words - Dendrogram
 data.frame(
   clust1 = names(sort(apply(corpus_boris.tfidf[boris.clust==1,],2,sum), decreasing = TRUE)[1:10]),
   clust2 = names(sort(apply(corpus_boris.tfidf[boris.clust==2,],2,sum), decreasing = TRUE)[1:10]),
   clust3 = names(sort(apply(corpus_boris.tfidf[boris.clust==3,],2,sum), decreasing = TRUE)[1:10])
 )
+```
+
+```{r,clustquatre,fig.cap="K-Means - 10 Most Used Words"}
 ### Extracting the 10 most used words - K-Means
 data.frame(
   clust1 = names(sort(apply(corpus_boris.tfidf[boris.km$cluster==1,],2,sum), decreasing = TRUE)[1:10]),
   clust2 = names(sort(apply(corpus_boris.tfidf[boris.km$cluster==2,],2,sum), decreasing = TRUE)[1:10]),
   clust3 = names(sort(apply(corpus_boris.tfidf[boris.km$cluster==3,],2,sum), decreasing = TRUE)[1:10])
 )
-
 ```
 
 When computing document similarities for Macron, we also observe that the only elements on the heatmap that are represented by the red colour are situated on the digonal. However, we can notice a slight difference here compared to Johnson. We do observe that there is a small similarity between document 1 and document 2 for Macron. This is to say that he used the same tokens both in the first and the second document.
 
 ## Macron
-```{r}
+```{r, similunm, fig.cap="Jaccard Similarity - Emmanuel Macron"}
 ## Jaccard Similarity
 macron.jac <- textstat_simil(corpus_macron.tfidf, method = "jaccard", margin = "documents")
 ## Cosine Similarity
@@ -81,9 +87,15 @@ macron.euc <- textstat_dist(corpus_macron.tfidf, method = "euclidean", margin = 
 ## Jaccard Matrix
 macron.jac.mat <- melt(as.matrix(macron.jac))
 ggplot(data=macron.jac.mat, aes(x=Var1, y=Var2, fill=value)) + scale_fill_gradient2(low="yellow", high="red", mid="orange", midpoint =0.5, limit=c(0,1), name="Jaccard") + geom_tile()
+```
+
+```{r, simildeuxm, fig.cap="Cosine Similarity - Emmanuel Macron"}
 ## Cosine Matrix
 macron.cos.mat <- melt(as.matrix(macron.cos))
 ggplot(data=macron.cos.mat, aes(x=Var1, y=Var2, fill=value)) + scale_fill_gradient2(low="yellow", high="red", mid="orange", midpoint=0.5, limit=c(0,1), name="Cosine") + geom_tile()
+```
+
+```{r, similtroism, fig.cap="Euclidean Distance - Emmanuel Macron"}
 ## Euclidean Matrix
 macron.euc.mat <- melt(as.matrix(macron.euc))
 M <- max(macron.euc.mat$value)
@@ -91,4 +103,3 @@ macron.euc.mat$value.std <- (M-macron.euc.mat$value)/M
 ggplot(data=macron.euc.mat, aes(x=Var1, y=Var2, fill=macron.euc.mat$value.std)) + scale_fill_gradient2(low="yellow", high="red", mid="orange", midpoint=0.5, limit=c(0,1),name ="Euclidean") + geom_tile()
 ```
 
-## Comparison
