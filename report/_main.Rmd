@@ -1,0 +1,1504 @@
+# Conclusion
+
+
+<!--chapter:end:Conclusion.Rmd-->
+
+# EDA
+
+## Data Acquisition
+
+To download the different speaches, we scrap the speaches from two different websites.
+The speaches from Macron come from the website of the Embassy of France in Washington DC (USA) and regarding Boris Johnson's speaches, they come from the official website of the governement of the United-Kingdom.
+
+### Emmanuel Macron
+
+We choose the 3 first speaches from Macron about the corona virus dating from the:
+- 12 March (text1)
+- 16 March (text2)
+* 13 April (text3)
+
+```{r }
+# Data Acquisition Macron 
+
+macron12march <- read_html("https://franceintheus.org/spip.php?article9654") %>%
+  html_nodes("div.texte") %>%
+  html_text()
+macron12march <- str_replace_all(macron12march,"[\r\n\t]", "")
+macron12march <- substr(macron12march, 178, 20197)
+
+macron16march <- read_html("https://franceintheus.org/spip.php?article9659#1") %>%
+  html_nodes("div.texte") %>%
+  html_text()
+macron16march <- macron16march <- str_replace_all(macron16march,"[\r\n\t]", "")
+macron16march <- substr(macron16march, 131, 15719)
+
+macron13april <- read_html("https://franceintheus.org/spip.php?article9710") %>%
+  html_nodes("div.texte") %>%
+  html_text() 
+macron13april <- macron13april <- str_replace_all(macron13april,"[\r\n\t]", "")
+macron13april <- substr(macron13april, 117, 20000)
+
+
+macron <- corpus(c(macron12march,macron16march,macron13april))
+```
+
+```{r, echo=FALSE}
+knitr::kable(summary(macron), caption = "Macron's speeches" ,align = "lccrr",digits = 4)
+```
+
+The first speach of Macron was quite long , 162 sentences and the two next were shorter: 107 sentences. Each speech consists approximatly of an average of 3200 words.
+
+### Boris Johnson
+
+We choose the 7 first speaches of president Johnson about the corona virus dating from the:
+  * 09 March (text1)
+  * 12 March (text2)
+  * 16 March (text3)
+  * 18 March (text5)
+  * 19 March (text6)
+  * 20 March (text7)
+  * 22 March (text8)
+
+```{r include=FALSE}
+
+# Data Acquisition Boris
+
+boris16mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-16-march-2020") %>%
+                html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>% 
+                html_text()
+boris16mars <- str_replace_all(boris16mars,"[\r\n\t]", " .")
+
+boris12mars<- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-12-march-2020") %>%   
+              html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
+              html_text()
+boris12mars <- str_replace_all(boris12mars,"[\r\n\t]", " .")
+
+boris18mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-18-march-2020") %>%   
+              html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
+              html_text()
+boris18mars <- str_replace_all(boris18mars,"[\r\n\t]", " .")
+
+boris9mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-9-march-2020") %>% 
+              html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
+              html_text()
+boris9mars <- str_replace_all(boris9mars,"[\r\n\t]", " .")
+
+boris19mars<- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-19-march-2020") %>% 
+              html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
+              html_text()
+boris19mars <- str_replace_all(boris19mars,"[\r\n\t]", " .")
+
+boris20mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-20-march-2020") %>% 
+              html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
+              html_text()
+boris20mars <- str_replace_all(boris20mars,"[\r\n\t]", " .")
+
+
+boris22mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-22-march-2020") %>% 
+              html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
+              html_text()
+boris22mars <- str_replace_all(boris22mars,"[\r\n\t]", " ")
+
+
+boris<-corpus(c(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars))
+```
+
+```{r, echo=FALSE}
+knitr::kable(summary(boris), caption = "Johnson's speeches" ,align = "lccrr",digits = 4)
+```
+
+Johnson made more speeches but shorter. His first speech was 609 words, then the following ones ranged from 793 to 1222 words.
+
+## Tokenisation, Lemmatization & Cleaning
+
+Numbers, punctuation, symbols and separators are removed, as well as unimportant words. Moreover, we cast all letters to their corresponding lower case version.
+
+### Emmanuel Macron
+
+```{r, echo=FALSE}
+
+## Tokenization
+corpus_macron <- corpus(macron)
+corpus_macron <- tokens(corpus_macron, remove_numbers = TRUE, remove_punct = TRUE, remove_symbols = TRUE, remove_separators = TRUE)
+
+## Lemmatization
+corpus_macron <- tokens_replace(corpus_macron, pattern=hash_lemmas$token, replacement = hash_lemmas$lemma)
+
+## Cleaning
+corpus_macron=corpus_macron %>% 
+  tokens_tolower() %>% 
+  tokens_remove(stopwords("english")) 
+
+corpus_macron
+
+```
+
+### Boris Johnson
+
+```{r, echo=FALSE}
+
+## Tokenization
+corpus_boris <- corpus(boris)
+corpus_boris <- tokens(corpus_boris, remove_numbers = TRUE, remove_punct = TRUE, remove_symbols = TRUE, remove_separators = TRUE)
+
+## Lemmatization
+corpus_boris <- tokens_replace(corpus_boris, pattern=hash_lemmas$token, replacement = hash_lemmas$lemma)
+
+## Cleaning
+corpus_boris = corpus_boris %>% 
+  tokens_tolower() %>% 
+  tokens_remove(stopwords("english")) 
+
+corpus_boris
+
+```
+
+## Document-Term Matrix DTM
+
+Now let's compute the word frequencies (TF) by documents. First, the tokens are grouped by the indicator Document, which allows to count the words by documents. 
+
+### Table
+
+*Emmanuel Macron*
+
+```{r, echo=FALSE, warning=FALSE}
+## Document-Term Matrix DTM
+corpus_macron.dfm <- dfm(corpus_macron)
+
+macron_dtm <- VectorSource(corpus_macron) %>% VCorpus() %>%  DocumentTermMatrix(control=list(removePunctuation=TRUE, removeNumbers=TRUE, stopwords=TRUE))
+macron_tidy <- tidy(macron_dtm)
+
+datatable(macron_tidy, class = "cell-border stripe")
+
+```
+
+*Boris Johnson*
+
+```{r, echo=FALSE, warning=FALSE}
+
+## Document-Term Matrix DTM
+corpus_boris.dfm <- dfm(corpus_boris)
+
+boris_dtm <- VectorSource(corpus_boris) %>% VCorpus() %>%  DocumentTermMatrix(control=list(removePunctuation=TRUE, removeNumbers=TRUE, stopwords=TRUE))
+boris_tidy <- tidy(boris_dtm)
+
+datatable(boris_tidy, class = "cell-border stripe")
+```
+
+### Most frequent words
+
+We only keep the 15 most frequent words for redability purpose and create barplots using ggplot and geom_col. The facetwrap function split the barplots per Document.
+
+#### All text confused
+
+*Emmanuel Macron*
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+#top 15 
+macron_tidy %>%
+  group_by(term) %>%
+  summarise("count"=sum(`count`)) %>%
+  top_n(15)  %>%
+  ggplot(aes(x=count, y=term, fill = term)) +
+  theme(legend.position = "none") +
+  ggtitle("15 most common words in Macron's speeches") +
+  xlab("Frequency") + ylab("Words") +
+  geom_bar(stat = "identity") +
+  scale_y_reordered() 
+
+#top 16 mots plus utilisés par texte
+macron_count  = macron_tidy %>%
+  group_by(term) %>%
+  summarise("count"=sum(`count`))
+
+macron_index = top_n(macron_count, 15)
+
+macron_tidy %>% filter(term %in% macron_index$term) %>%
+  ggplot(aes(x=term, y = count, fill =term)) +
+  geom_col()+
+  ggtitle("Details of the more frequent words") +
+  xlab("Words") + ylab("Frequency") +
+  coord_flip()+
+  facet_wrap(~document, ncol=2) + 
+   guides(fill=FALSE, color=FALSE) 
+```
+
+*Boris Johnson*
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+#top 15
+boris_tidy %>%
+  group_by(term) %>%
+  summarise("count"=sum(`count`)) %>%
+  top_n(15)  %>%
+  ggplot(aes(x=count, y=term, fill =term)) +
+  theme(legend.position = "none") +
+  ggtitle("15 most common words in Johnson's speeches") +
+  xlab("Frequency") + ylab("Words") +
+  geom_bar(stat = "identity") +
+  scale_y_reordered() 
+
+#top 16 mots plus utilisés par texte
+boris_count  = boris_tidy %>%
+  group_by(term) %>%
+  summarise("count"=sum(`count`))
+
+boris_index = top_n(boris_count, 15)
+
+boris_tidy %>% filter(term %in% boris_index$term) %>%
+   ggplot(aes(x=term, y = count, fill=term)) +
+  geom_col()+
+  ggtitle("Details of the more frequent words") +
+  xlab("Words") + ylab("Frequency") +
+  coord_flip()+
+  facet_wrap(~document, ncol=2)+ 
+   guides(fill=FALSE, color=FALSE)
+```
+
+We see that the list of the 15 most frequent terms is due to doc 2 ,4 and 3. 
+
+#### Per text 
+
+Now we want to know which are the most frequent terms for each speach.
+
+*Emmanuel Macron*
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+#top 15 par texte 
+macron_tidy %>%
+  group_by(document) %>%
+  top_n(15) %>%
+  ungroup() %>%
+  mutate(document = factor(as.numeric(document), levels = 1:17)) %>%
+  ggplot(aes(reorder_within(term, count, document), count, fill =term)) +
+  theme(legend.position = "none") +
+  ggtitle("15 most common words in each speach of Macron") +
+  xlab("Words") + ylab("Frequency") +
+  geom_bar(stat = "identity") +
+  scale_x_reordered() +
+  coord_flip() +
+  facet_wrap(~ document, scales = "free")
+```
+
+*Boris Johnson*
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+#top 15 par texte
+boris_tidy %>%
+  group_by(document) %>%
+  top_n(15) %>%
+  ungroup() %>%
+  mutate(document = factor(as.numeric(document), levels = 1:17)) %>%
+  ggplot(aes(reorder_within(term, count, document), count, fill =term)) +
+  theme(legend.position = "none") +
+  ggtitle("15 most common words in Boris Johnson's speeches") +
+  xlab("Words") + ylab("Frequency") +
+  geom_bar(stat = "identity") +
+  scale_x_reordered() +
+  coord_flip() +
+  facet_wrap(~ document, scales = "free")
+```
+
+
+## TF-IDF
+
+Now we repeat the same analysis using the TF-IDF.
+
+### Emmanuel Macron
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+## TFIDF no point when just on document, maybe add when combining texts
+corpus_macron.tfidf <- dfm_tfidf(corpus_macron.dfm)
+
+#tfidf
+macron_index_tfidf = tidy(corpus_macron.tfidf) %>% group_by(document) %>% top_n(1)
+
+tidy(corpus_macron.tfidf) %>% filter(term %in% macron_index_tfidf$term) %>%
+  ggplot( aes(term, count, fill=term)) +
+  xlab("Words") + ylab("Frequency") +
+  ggtitle("Most specific word for each Emmanuel Macron's speeches") +
+  geom_col()+
+  coord_flip()+
+  facet_wrap(~document, ncol=2)+ 
+   guides(fill=FALSE, color=FALSE)
+
+```
+
+### Boris Johnson
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+## TFIDF no point when just on document, maybe add when combining texts
+corpus_boris.tfidf <- dfm_tfidf(corpus_boris.dfm)
+
+#tfidf
+boris_index_tfidf = tidy(corpus_boris.tfidf) %>% group_by(document) %>% top_n(1)
+
+tidy(corpus_boris.tfidf) %>% filter(term %in% boris_index_tfidf$term) %>%
+  ggplot( aes(term, count,fill=term)) +
+  xlab("Words") + ylab("Frequency") +
+  ggtitle("Most specific word for each Boris Johnson's speeches") +
+  geom_col()+
+  coord_flip()+
+  facet_wrap(~document, ncol=2)+ 
+   guides(fill=FALSE, color=FALSE)
+
+```
+
+## Cloud of Words
+
+### Usind DFM
+
+*Emmanuel macron*
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+textplot_wordcloud(corpus_macron.dfm, color=brewer.pal(8, "Dark2"))
+```
+
+*Boris Johnson*
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+textplot_wordcloud(corpus_boris.dfm, color=brewer.pal(8, "Dark2"))
+```
+
+### Using  TF-IDF
+
+*Emmanuel macron*
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+textplot_wordcloud(corpus_macron.tfidf, color=brewer.pal(8, "Dark2"))
+```
+
+*Boris Johnson*
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+textplot_wordcloud(corpus_boris.tfidf, color=brewer.pal(8, "Dark2"))
+```
+
+## Lexical Divesity Token Type Ratio TTR
+
+<<<<<<< HEAD
+A TTR is comprised beetween o and 1.When equal to 1 it correspond to a rich diversity, every token is from a different type. In opposit if equal to 0, it mean a poor diversity ( he use only one word).
+=======
+A TTR is comprised beetween 0 and 1. When equal to 1, it corresponds to a rich lexical diversity, this is to say that each token is from a different type. In opposite, if equal to 0, it mean that the corpus presents a poor lexical diversity (if he would use one word only).
+>>>>>>> cdb8205bf944b22974ea5a2f9f9f909e555ece8f
+
+### Emmanuel Macron 
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+N.macron <- ntoken(corpus_macron)
+V.macron <- ntype(corpus_macron)
+TTR.macron <- V.macron/N.macron
+knitr::kable(TTR.macron, caption = "Lexical diversity of Macron." ,align = "lccrr",digits = 4) ###the text is quite poor, as TTR is of 0.4
+
+```
+
+
+Macron has a mean TTR of 0,45, which is quite poor.
+
+### Boris Johnson
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+## Lexical Divesity Token Type Ratio TTR
+N.boris <- ntoken(corpus_boris)
+V.boris <- ntype(corpus_boris)
+TTR.boris <- V.boris/N.boris
+knitr::kable(TTR.boris, caption = "Lexical diversity of Johnson." ,align = "lccrr",digits = 4) ###the text is quite rich, as TTR is of 0.6
+
+```
+
+Johnson has quite a richer vocabulary, an average of 0,6 over the different corpuses.
+
+## Zipf's Law
+
+Now, we illustrate the Zipf's law on the discourses. The terms are ranked by their corresponding frequency (rank=1 for the most frequent), then plotted versus tehir rank. This is easily obtained using quanteda.
+
+Using a log-log relation, this gives us a linear regression.
+
+### Emmanuel Macron 
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+corpus_macron_freq <- textstat_frequency(corpus_macron.dfm)
+
+
+ggplot(corpus_macron_freq,aes(x = rank, y = frequency, label=feature)) + geom_point(size=2, alpha =1) + theme_bw() + geom_text(aes(label=feature),hjust=0, vjust=0) + xlim(0,20)
+
+plot(log(frequency)~log(rank), data=corpus_macron_freq, pch=20)
+```
+
+### Boris Johnson
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+corpus_boris_freq <- textstat_frequency(corpus_boris.dfm)
+
+ggplot(corpus_boris_freq,aes(x = rank, y = frequency, label=feature)) + geom_point(size=2, alpha =1) + theme_bw() + geom_text(aes(label=feature),hjust=0, vjust=0) + xlim(0,20)
+
+plot(log(frequency)~log(rank), data=corpus_boris_freq, pch=20)
+```
+
+## Yule's index
+
+A larger index means more diversity.
+
+### Emmanuel Macron 
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+textstat_lexdiv(corpus_macron.dfm, measure = "I") %>% 
+  ggplot(aes(x=reorder(document,I), y=I))+
+  geom_point()+
+  coord_flip()+
+  xlab("Text")+
+  ylab("Yule's index")
+```
+
+### Boris Johnson
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+textstat_lexdiv(corpus_boris.dfm, measure = "I") %>% 
+  ggplot(aes(x=reorder(document,I), y=I))+
+  geom_point()+
+  coord_flip()+
+  xlab("Text")+
+  ylab("Yule's index")
+```
+
+
+## MATTR
+
+It is the Moving Average Type-Token Ratio. 
+
+### Emmanuel Macron 
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+textstat_lexdiv(corpus_macron, measure = "MATTR", MATTR_window = 10)  %>%
+  ggplot(aes(x=reorder(document,MATTR), y=MATTR))+
+  geom_point()+
+  coord_flip()+
+  xlab("Text")+
+  ylab("MATTR")
+```
+
+### Boris Johnson
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+textstat_lexdiv(corpus_boris, measure = "MATTR", MATTR_window = 10)  %>%
+  ggplot(aes(x=reorder(document,MATTR), y=MATTR))+
+  geom_point()+
+  coord_flip()+
+  xlab("Text")+
+  ylab("MATTR")
+
+```
+
+<!--chapter:end:EDA.Rmd-->
+
+# Introduction
+
+## Overview and Motivation
+
+
+## Data loadind
+
+```{r data, echo=TRUE}
+# Boris Johnson's speech of March 16th
+
+boris16mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-16-march-2020")%>%            html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
+  html_text()
+
+macron <- read_html("https://franceintheus.org/spip.php?article9654") %>%
+           html_nodes("div.texte") %>%
+          html_text()
+
+```
+
+
+<!--chapter:end:Introduction.Rmd-->
+
+`r if (knitr:::is_html_output()) '
+# References {-}
+'`
+
+
+<!--chapter:end:references.Rmd-->
+
+# Sentiment Analysis
+
+## Sentiment analysis with the sentiment library "nrc" 
+
+We use the "nrc"  dictionary to start our sentiment analysis on the discourses of our two politicians. It is a dictionnary qualifying tokens by specific sentiments and by labelling them "negative" or "positive".
+To do so, we will match the tokens of both corpuses with the dictionnary by applying an inner join. However, to use the inner_join function, we need a table object, what our objects are not primarily. We reload the data to create objects specific to this stage, boris_2 and macron_2, which are registered as tibble and allowing the use of the inner_join function.
+From the token list per document boris.tok, we join the corresponding qualifier in  nrc using inner_joint: 
+
+```{r}
+library(dplyr)
+library(tidyverse)
+library(tidytext)
+library(readr)
+library(kableExtra)
+library(gridExtra)
+```
+
+
+```{r}
+
+#####################################################################################################################################
+##########################################  Let's start with the Boris Johnson's discourses    ######################################
+#####################################################################################################################################
+
+boris_2<-as.tibble(
+  c(boris9mars,
+    boris12mars,
+    boris16mars,
+    boris18mars,
+    boris19mars,
+    boris20mars,
+    boris22mars)) # trick to get a "tbl_df","tbl","data.frame" compatible with the inner_join function
+
+DocumentB <- c("Text1","Text2","Text3","Text4","Text5","Text6","Text7") # adding a column "Document" to have a landmark for the tokens
+boris_2$Document <- DocumentB
+boris_2 <- boris_2[,c(2,1)]
+
+boris_2.tok <- unnest_tokens(boris_2, 
+                             output="word", 
+                             input="value", 
+                             to_lower=TRUE, 
+                             strip_punct=TRUE, 
+                             strip_numeric=TRUE) # unnest tokens of the table
+
+get_sentiments("nrc")     # load the sentiment library "nrc"
+boris_2.sent<- boris_2.tok %>% 
+  inner_join(get_sentiments("nrc")) # do the inner join to merge the two tables
+
+######################################################################################################################################
+##########################################  Let's continue with the Macron's discourses    ###########################################
+######################################################################################################################################
+
+macron_2<-as.tibble(
+  c(macron12march,
+    macron13april,
+    macron16march))         # trick to get a "tbl_df","tbl","data.frame" compatible with the inner_join function
+DocumentM <- c("Text1","Text2","Text3") # adding a column "Document" to have a landmark for the tokens
+macron_2$Document <- DocumentM
+macron_2 <- macron_2[,c(2,1)]
+
+macron_2.tok <- unnest_tokens(macron_2, 
+                             output="word", 
+                             input="value", 
+                             to_lower=TRUE, 
+                             strip_punct=TRUE, 
+                             strip_numeric=TRUE) # unnest tokens of the table
+
+macron_2.sent<- macron_2.tok %>% 
+  inner_join(get_sentiments("nrc")) # do the inner join to merge the two tables
+
+
+```
+
+After doing our objects, we investigate which sentiment are present in Boris Johnson's discourses. To do so, we use a numerical and a graphical method.
+
+The numerical method is simply a matrix of the frequency of tokens identified to a certain sentiment. Remind that a word can have more than 1 sentiment, which can lead to slight an overestimation od the sentiment.
+
+Below, the table presents positive discourses from the UK's First Minister which are mainly weighted by the sentiment "trust". We could have assumed that the discourse would be reassuring in order to avoid any panic due to the inedite circumstances of the covid. "Anticipation" is as well high, for the same reason (annoucement of the futures measures ans aaniticpations of the consequences, e.g.) 
+
+However, postive sentiments are balanced by the relative high score of the fear, followed by disgust and anger.
+In absolute values, the most sentimental discourse was the second public word, on March 12th 2020.
+
+The graphical representations of the sentiments among discourses enables a quick glimpse on these results.
+
+```{r}
+table(boris_2.sent$Document,boris_2.sent$sentiment) %>% kable() %>% kable_styling() # sentiment terms per document
+
+boris_2.sent %>% 
+  group_by(Document,sentiment) %>% 
+  summarize(n=n())%>%
+  mutate(freq=n/sum(n)) %>%
+  ggplot(aes(x=sentiment,y=freq,fill=sentiment)) +
+  geom_bar(stat="identity",alpha=0.8) +
+  facet_wrap(~ Document) + 
+  coord_flip() +
+  ggtitle("Graphical representation of the sentiment per text") +
+  xlab("Frequencies of the sentiments") +
+  ylab("Sentiment") +
+ geom_text(aes(label = n), size = 3, hjust = 1, vjust = 0, position = "stack")
+
+```
+
+
+By looking now at the discourses of Macron using th same method, we note the seemingly same frequencies of sentiments. His words appear to be carefully built and do not vary, perhaps to give the impression to have a stable and coherent speeches overtime.
+
+The categories of sentiments are quite similarly distributed: the speeches are positive marked by trust and anticipation.
+
+```{r}
+table(macron_2.sent$Document,macron_2.sent$sentiment) %>% kable() %>% kable_styling() # sentiment terms per document
+
+macron_2.sent %>% 
+  group_by(Document,sentiment) %>% 
+  summarize(n=n())%>%
+  mutate(freq=n/sum(n)) %>%
+  ggplot(aes(x=sentiment,y=freq,fill=sentiment)) +
+  geom_bar(stat="identity",alpha=0.8) +
+  facet_wrap(~ Document) + 
+  coord_flip() +
+  ggtitle("Graphical representation of the sentiment per text") +
+  xlab("Frequencies of the sentiments") +
+  ylab("Sentiment") +
+    geom_text(aes(label = n), size =3, hjust = 1, vjust = 0, position = "stack")
+
+```
+
+### With quanteda
+
+In order to better analyse those results and fortify those insights, we double check with the dictionnary LSD2015.  It is another dictionnary assigning a qualifier to terms. The difference with tidytext is essentially in the manipulation of the objects: it handles the "tokens" class and for this reason we have to recode our objects. The results are impacted by this different treatment and we expect slight changes. 
+
+The results of Text 2 as the most positive and all the discourses as majoritarily positive are confirmed. For Macron's speeches, the proportions of sentiments differs: the first discourse is associated with more postive sentiment (224) relatively to proportion computed with the "nrc" dictionnary (193). However, the trend remains the same.
+
+We keep in mind that difference in length of texts explains the varying size of the bar, as previously. Anyway both findings converge to the same points.
+
+
+```{r}
+######################################################################################################################################
+##########################################  Let's start with the Johnson's discourses    ###########################################
+######################################################################################################################################
+library(quanteda)
+library(lexicon)
+library(tm)
+boris.cp<-corpus(c(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars))
+summary(boris.cp)
+
+boris.tk<-tokens(boris.cp,
+                 remove_numbers = TRUE,
+                 remove_punct = TRUE,
+                 remove_symbols = TRUE,
+                 remove_separators = TRUE)
+
+boris.tk<-tokens_tolower(boris.tk)
+boris.tk<- tokens_replace(boris.tk,pattern = hash_lemmas$token, replacement = hash_lemmas$lemma)
+boris.tk<-boris.tk %>%
+  tokens_remove(stopwords("english"))
+
+boris.sent<- tokens_lookup(boris.tk,dictionary = data_dictionary_LSD2015) %>% dfm() %>% tidy 
+boris.plot.quanteda <- ggplot(boris.sent, aes( x = document, y = count, fill = term)) +
+  geom_bar(stat = "identity") + coord_flip() +
+  ggtitle("Johnson: Proportion of sentiment using the dictionnary LSD2015") +
+  xlab("Document") +
+  ylab("Number of terms attributed to negative and positive sentiments") +
+    geom_text(aes(label = count), size =3, hjust = 5, vjust = 0, position = "stack")
+
+
+
+######################################################################################################################################
+##########################################  Let's continue with the Macron's discourses    ###########################################
+######################################################################################################################################
+macron.cp<-corpus(c(macron12march,macron13april,macron16march))
+macron.tk<-tokens(macron.cp,
+                 remove_numbers = TRUE,
+                 remove_punct = TRUE,
+                 remove_symbols = TRUE,
+                 remove_separators = TRUE)
+
+macron.tk<-tokens_tolower(macron.tk)
+macron.tk<- tokens_replace(macron.tk,pattern = hash_lemmas$token, replacement = hash_lemmas$lemma)
+macron.tk<-macron.tk %>%
+  tokens_remove(stopwords("english"))
+
+macron.sent<- tokens_lookup(macron.tk,dictionary = data_dictionary_LSD2015) %>% dfm() %>% tidy 
+macron.plot.quanteda<- ggplot(macron.sent, aes( x = document, y = count, fill = term)) +
+  geom_bar(stat = "identity") + coord_flip() +
+  ggtitle("Macron: Proportion of sentiment using the dictionnary LSD2015") +
+  xlab("Document") +
+  ylab("Number of terms attributed to negative and positive sentiments") +
+    geom_text(aes(label = count), size =3, hjust = 5, vjust = 0, position = "stack")
+
+grid.arrange(boris.plot.quanteda,macron.plot.quanteda)
+
+```
+
+
+
+### Value-based
+
+ we use the "afinn" dictionnary which attributes a value to the word, taking into account the power conveyed by the term (value between 0 and 1) and its qualitative classification (positive or neagtive sign). The classification of the words was encoded differently than for the "nrc" dictionnary. We expect different score, but hopefully in the same direction. The results are derived from an average score of sentiment per document. Yet, for the Boris Johnson's speeches, the second discourse on the corona has a contradictory score: it belongs to the lowest scored text in positive sentiments.
+ 
+We can thus observe the difference in encodage among dictionnaries used in Text Mining. The "afinn" dictionnarywas encoded by a Danish Professor, LSD2015 by two American professors
+
+
+```{r}
+######################################################################################################################################
+##########################################  Let's continue with the Johnson's discourses    ###########################################
+######################################################################################################################################
+
+head(get_sentiments("afinn"))
+boris_2.sent <- boris_2.tok %>%
+  inner_join(get_sentiments("afinn"))
+
+boris.plot.afinn<-aggregate(value~Document, data =boris_2.sent,FUN=mean) %>%
+  ggplot(aes(x=Document,y=value, fill = Document)) +
+  geom_bar(stat="identity") +
+  coord_flip() +
+  ggtitle("Johnson: Sentiment score per text by using afinn dictionnary") +
+  ylab("Document") +
+  xlab("Score value")
+
+######################################################################################################################################
+##########################################  Let's continue with the Macron's discourses    ###########################################
+######################################################################################################################################
+
+
+macron_2.sent <- macron_2.tok %>%
+  inner_join(get_sentiments("afinn"))
+
+macron.plot.afinn <- aggregate(value~Document, data =macron_2.sent,FUN=mean) %>%
+  ggplot(aes(x=Document,y=value, fill = Document)) +
+  geom_bar(stat="identity") +
+  coord_flip() +
+  ggtitle("Graphical representation: Sentiment score per text by using afinn dictionnary") +
+  ylab("Document") +
+  xlab("Score value")
+
+grid.arrange(boris.plot.afinn,macron.plot.afinn)
+```
+
+
+### Using valence shifters
+
+
+The sentimentr library offers some function to compute sentiments integrating valence shiters. There are specific words which amplify or reduce the power of a word, even turn it into the reverse sentiment. We evaluate sentences here, and one important aspect is that it cannot be applied to a Bag Of Word model, since the word order is necessary.
+
+The valence shifters extract more acurately the sentiment ouf of the text, since it consider the sentiment conveyed by a sentence and not only words without context. We should take the insights given by valence shifters as the ultimate confirmation test for the previous results.
+
+The second discourse of the Prime Minister here is one of the longest: it contains about 50 sentences and is only preceded by the fourth public word, on March 18th. It is the one varying the most in sentiment, what might explains the dffference in values observed between LSD2015&nrc with afinn dictionnary. The sixth one shows one positive peak, what correspond to the moment whn Boris Johnson strengthened the measures and made a speech to reassure UK citizen. He brought information with positive sentiments to unify the population under the new circumstances and to push the to obey by showing them the positive impact of respecting those stonger measures.
+
+Macron's speeches are well longer, three times more than Boris Johnson's ones, as we observe in the second plot. His words are generally more neutral but convey sometimes strong negative sentiments, like the 4th sentence. Actually, this sentence is not strongly negative but uses terms which are: "In the vast majority of cases, COVID-19 does not pose a threat, but the virus can have very serious consequences, especially for those of our fellow citizens who are elderly or suffer from chronic illnesses such as diabetes, obesity or cancer". The variation of the sentiments  is greater in the last allocution, on April 13th 2020.
+
+
+
+```{r}
+library(sentimentr)
+library(lexicon)
+
+lexicon::hash_sentiment_jockers_rinker
+lexicon::hash_valence_shifters
+
+boris.text<-get_sentences(boris)
+boris.senti<-sentiment(boris.text)
+sentiment(boris.text, question.weight = 0)
+boris.senti<-as_tibble(boris.senti)
+boris.senti
+boris.senti%>% group_by(element_id) %>%
+  ggplot(aes(x=sentence_id,y=sentiment, col = element_id )) +
+  geom_line() +
+  facet_wrap(~element_id) +
+  ggtitle("Johnson: Evolution of the sentiments \nwithin speeches using valence shifters") +
+  ylab("Document") +
+  xlab("Sentences in speeches")
+
+######################################################################################################################################
+##########################################  Let's continue with the Macron's discourses    ###########################################
+######################################################################################################################################
+
+macron.text<-get_sentences(macron)
+macron.senti<-sentiment(macron.text)
+sentiment(macron.text, question.weight = 0)
+macron.senti<-as_tibble(macron.senti)
+macron.senti
+
+macron.senti%>% group_by(element_id) %>%
+  ggplot(aes(x=sentence_id,y=sentiment, col = element_id )) +
+  geom_line() +
+  facet_wrap(~element_id) +
+  ggtitle("Macron: Evolution of the sentiments \nwithin speeches  using valence shifters") +
+  ylab("Document") +
+  xlab("Sentences in speeches")
+
+
+```
+
+```{r}
+library(tidyverse)
+
+
+boris.sentences.text1 <- data.frame(unlist(boris.text[1])) # create a data frame for each lots of sequnces
+boris.sentences.text2 <- data.frame(unlist(boris.text[2]))
+boris.sentences.text3 <- data.frame(unlist(boris.text[3]))
+boris.sentences.text4 <- data.frame(unlist(boris.text[4]))
+boris.sentences.text5 <- data.frame(unlist(boris.text[5]))
+boris.sentences.text6 <- data.frame(unlist(boris.text[6]))
+boris.sentences.text7 <- data.frame(unlist(boris.text[7]))
+
+b.stc.txt1 <- boris.sentences.text1 %>% filter(unlist.boris.text.1..!=".") # cleaning the sentences
+b.stc.txt2 <- boris.sentences.text2 %>% filter(unlist.boris.text.2..!=".") 
+b.stc.txt3 <- boris.sentences.text3 %>% filter(unlist.boris.text.3..!=".") 
+b.stc.txt4 <- boris.sentences.text4 %>% filter(unlist.boris.text.4..!=".") 
+b.stc.txt5 <- boris.sentences.text5 %>% filter(unlist.boris.text.5..!=".") 
+b.stc.txt6 <- boris.sentences.text6 %>% filter(unlist.boris.text.6..!=".") 
+b.stc.txt7 <- boris.sentences.text7 %>% filter(unlist.boris.text.7..!=".") 
+length(b.stc.txt1$unlist.boris.text.1..)
+
+identical(b.stc.txt1, b.stc.txt2)
+
+xB1<-rep("Boris Johnson - Text 1",21) 
+xB2<-rep("Boris Johnson - Text 2",49)
+xB3<-rep("Boris Johnson - Text 3",42)
+xB4<-rep("Boris Johnson - Text 4",51)
+xB5<-rep("Boris Johnson - Text 5",45)
+xB6<-rep("Boris Johnson - Text 6",42)
+xB7<-rep("Boris Johnson - Text 7",33)
+
+b.stc.txt1cbind<-cbind(xB1,b.stc.txt1)
+b.stc.txt2cbind<-cbind(xB2,b.stc.txt2)
+b.stc.txt3cbind<-cbind(xB3,b.stc.txt3)
+b.stc.txt4cbind<-cbind(xB4,b.stc.txt4)
+b.stc.txt5cbind<-cbind(xB5,b.stc.txt5)
+b.stc.txt6cbind<-cbind(xB6,b.stc.txt6)
+b.stc.txt7cbind<-cbind(xB7,b.stc.txt7)
+library(dplyr)
+
+
+a<-rename(b.stc.txt1cbind,sentence_doc = unlist.boris.text.1..) # renaming the first column 
+b<-rename(b.stc.txt2cbind,sentence_doc = unlist.boris.text.2..)
+c<-rename(b.stc.txt3cbind,sentence_doc = unlist.boris.text.3..)
+d<-rename(b.stc.txt4cbind,sentence_doc = unlist.boris.text.4..)
+e<-rename(b.stc.txt5cbind,sentence_doc = unlist.boris.text.5..)
+f<-rename(b.stc.txt6cbind,sentence_doc = unlist.boris.text.6..)
+g<-rename(b.stc.txt7cbind,sentence_doc = unlist.boris.text.7..)
+
+aa<-rename(a,Document =xB1) # renaming the second column
+bb<-rename(b,Document =xB2)
+cc<-rename(c,Document =xB3)
+dd<-rename(d,Document =xB4) 
+ee<-rename(e,Document =xB5)
+ff<-rename(f,Document =xB6)
+gg<-rename(g,Document =xB7)
+
+
+borisfinal <-rbind(aa,bb,cc,dd,ee,ff,gg) # binding all together
+
+
+## Macron
+macron.sentences.text1 <- data.frame(unlist(macron.text[1])) # create a data frame for each lots of sequnces
+macron.sentences.text2 <- data.frame(unlist(macron.text[2]))
+macron.sentences.text3 <- data.frame(unlist(macron.text[3]))
+
+m<-length(macron.sentences.text2$unlist.macron.text.2..)
+o<-length(macron.sentences.text3$unlist.macron.text.3..)
+
+xM1<-rep("Emmanuel Macron - Text 1",185)                    # create the vector of document names
+xM2<-rep("Emmanuel Macron - Text 2",m)
+xM3<-rep("Emmanuel Macron - Text 3",o)
+
+m.stc.txt1cbind<-cbind( xM1, macron.sentences.text1)        # binding vector of document names with the tables of sentences
+m.stc.txt2cbind<-cbind( xM2, macron.sentences.text2)
+m.stc.txt3cbind<-cbind( xM3, macron.sentences.text3)
+
+h<-rename(m.stc.txt1cbind,sentence_doc = unlist.macron.text.1..) # renaming the first column 
+i<-rename(m.stc.txt2cbind,sentence_doc = unlist.macron.text.2..)
+j<-rename(m.stc.txt3cbind,sentence_doc = unlist.macron.text.3..)
+
+hh<-rename(h,Document =xM1) # renaming the second column
+ii<-rename(i,Document =xM2)
+jj<-rename(j,Document =xM3)
+
+macronfinal <-rbind(hh,ii,jj) # binding all together
+
+totalcorpus <- rbind(borisfinal,macronfinal)
+View(totalcorpus)
+```
+
+<!--chapter:end:Sentiment.Rmd-->
+
+# Similarities
+```{r}
+library(readr)
+library(quanteda)
+library(knitr)
+library(kableExtra)
+library(reshape2)
+library(ggplot2)
+```
+
+The aim of this part of the project is to compute the similarities and dissimilarities between the different doscuments for both Johnson and Macron. We will use here the previously cleaned and tokenised corpuses and the two TF-IDF matrices computed when performing the exploratory data analysis.
+
+The three metrics used are the following; the Jaccard Similarity (similarity measure), the Cosine Similarity (similarity measure) and the Euclidean Distance (dissimilarity measure, bounded by the largest distance that is present in the corpus, can therefore be rescaled to a similarity measure between 0 and 1, 1 being the largest distance in the corpus). In order to get a better visualisation of the three metrics, we used a heatmap representation (similarity = 0 --> yellow and similarity = 1 --> red).
+
+Actually, when looking at the various heatmaps drawn when running the code, all those similarity measures show the same results, there is not any large similarity between the different documents for Boris Johnson. The only cases on the heatmap that are red are the ones that are on the diagonal, which corresponds to the similarity of a given document and itself, which is equal to 1.
+
+## Boris
+```{r}
+## Jaccard Similarity
+boris.jac <- textstat_simil(corpus_boris.tfidf, method = "jaccard", margin = "documents")
+## Cosine Similarity
+boris.cos <- textstat_simil(corpus_boris.tfidf, method = "cosine", margin = "documents")
+## Euclidean Distance
+boris.euc <- textstat_dist(corpus_boris.tfidf, method = "euclidean", margin = "documents")
+## Jaccard Matrix
+boris.jac.mat <- melt(as.matrix(boris.jac))
+ggplot(data=boris.jac.mat, aes(x=Var1, y=Var2, fill=value)) + scale_fill_gradient2(low="yellow", high="red", mid="orange", midpoint =0.5, limit=c(0,1), name="Jaccard") + geom_tile()
+## Cosine Matrix
+boris.cos.mat <- melt(as.matrix(boris.cos))
+ggplot(data=boris.cos.mat, aes(x=Var1, y=Var2, fill=value)) + scale_fill_gradient2(low="yellow", high="red", mid="orange", midpoint=0.5, limit=c(0,1), name="Cosine") + geom_tile()
+## Euclidean Matrix
+boris.euc.mat <- melt(as.matrix(boris.euc))
+M <- max(boris.euc.mat$value)
+boris.euc.mat$value.std <- (M-boris.euc.mat$value)/M
+ggplot(data=boris.euc.mat, aes(x=Var1, y=Var2, fill=boris.euc.mat$value.std)) + scale_fill_gradient2(low="yellow", high="red", mid="orange", midpoint=0.5, limit=c(0,1),name ="Euclidean") + geom_tile()
+```
+
+We then used two different clustering methods, hierarchical clustering (dendrogram) and partitioning (K-means method). We see that the results are quite similar. When looking at the 10 most common words per cluster, there are some words that appear when using the first method and the second one.
+
+```{r}
+## Clustering
+## Jaccard Method
+boris.hc <- hclust(dist(boris.euc))
+boris.hc <- hclust(dist(1 - boris.jac))
+plot(boris.hc)
+## Cosine Method
+boris.hc <- hclust(dist(boris.euc))
+boris.hc <- hclust(dist(1 - boris.cos))
+plot(boris.hc)
+## Dendrogram = Hierarchical Clustering
+boris.clust <- cutree(boris.hc, k=3)
+boris.clust
+## K-means Method = Partitionning 
+boris.km <- kmeans(corpus_boris.tfidf, centers=3)
+boris.km$cluster
+### Extracting the 10 most used words - Dendrogram
+data.frame(
+  clust1 = names(sort(apply(corpus_boris.tfidf[boris.clust==1,],2,sum), decreasing = TRUE)[1:10]),
+  clust2 = names(sort(apply(corpus_boris.tfidf[boris.clust==2,],2,sum), decreasing = TRUE)[1:10]),
+  clust3 = names(sort(apply(corpus_boris.tfidf[boris.clust==3,],2,sum), decreasing = TRUE)[1:10])
+)
+### Extracting the 10 most used words - K-Means
+data.frame(
+  clust1 = names(sort(apply(corpus_boris.tfidf[boris.km$cluster==1,],2,sum), decreasing = TRUE)[1:10]),
+  clust2 = names(sort(apply(corpus_boris.tfidf[boris.km$cluster==2,],2,sum), decreasing = TRUE)[1:10]),
+  clust3 = names(sort(apply(corpus_boris.tfidf[boris.km$cluster==3,],2,sum), decreasing = TRUE)[1:10])
+)
+
+```
+
+When computing document similarities for Macron, we also observe that the only elements on the heatmap that are represented by the red colour are situated on the digonal. However, we can notice a slight difference here compared to Johnson. We do observe that there is a small similarity between document 1 and document 2 for Macron. This is to say that he used the same tokens both in the first and the second document.
+
+## Macron
+```{r}
+## Jaccard Similarity
+macron.jac <- textstat_simil(corpus_macron.tfidf, method = "jaccard", margin = "documents")
+## Cosine Similarity
+macron.cos <- textstat_simil(corpus_macron.tfidf, method = "cosine", margin = "documents")
+## Euclidean Distance
+macron.euc <- textstat_dist(corpus_macron.tfidf, method = "euclidean", margin = "documents")
+## Jaccard Matrix
+macron.jac.mat <- melt(as.matrix(macron.jac))
+ggplot(data=macron.jac.mat, aes(x=Var1, y=Var2, fill=value)) + scale_fill_gradient2(low="yellow", high="red", mid="orange", midpoint =0.5, limit=c(0,1), name="Jaccard") + geom_tile()
+## Cosine Matrix
+macron.cos.mat <- melt(as.matrix(macron.cos))
+ggplot(data=macron.cos.mat, aes(x=Var1, y=Var2, fill=value)) + scale_fill_gradient2(low="yellow", high="red", mid="orange", midpoint=0.5, limit=c(0,1), name="Cosine") + geom_tile()
+## Euclidean Matrix
+macron.euc.mat <- melt(as.matrix(macron.euc))
+M <- max(macron.euc.mat$value)
+macron.euc.mat$value.std <- (M-macron.euc.mat$value)/M
+ggplot(data=macron.euc.mat, aes(x=Var1, y=Var2, fill=macron.euc.mat$value.std)) + scale_fill_gradient2(low="yellow", high="red", mid="orange", midpoint=0.5, limit=c(0,1),name ="Euclidean") + geom_tile()
+```
+
+## Comparison
+
+<!--chapter:end:Similarities.Rmd-->
+
+# Supervised learning
+
+In this section, we use supervised learning to develop a classifier of speech. The final aim is to be able to classify a speech from Boris Johnson or Emmanuel Macron. Therefore we are going to combine the dataframe of Boris with the dataframe of Macron. And because we don't have enough text, we are going to split the text into sentence in order to have enough data.
+
+```{r,warning=FALSE}
+##Boris Johnson
+boris_2<-as_tibble(c(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars)) %>%
+  rename(
+  text=value)
+author="Boris Johnson"
+boris_supervised<- cbind(boris_2, author)
+
+boris_2_sentence<-get_sentences(boris_supervised)
+##Emmanuel Macron
+Macron_2<-as_tibble(c(macron12march,macron16march,macron13april)) %>% 
+  rename(
+    text = value)
+
+author="Macron"
+macron_supervised<- cbind(Macron_2, author)
+
+macron_2_sentence<-get_sentences(macron_supervised)
+
+##Combine the 2 dataframes
+combine <- rbind(boris_2_sentence, macron_2_sentence)
+
+
+## Tokenization
+combine_corpus<-corpus(combine)
+combine_tokens<- tokens(combine_corpus, remove_numbers = TRUE, remove_punct = TRUE, remove_symbols = TRUE, remove_separators = TRUE)
+
+##combi Lemmatization
+
+combine_tokens <- tokens_replace(combine_tokens, pattern=hash_lemmas$token, replacement = hash_lemmas$lemma)
+
+## Cleaning
+combine_tokens = combine_tokens %>% 
+  tokens_tolower() %>% 
+  tokens_remove(stopwords("english"))
+
+y<-factor(docvars(combine_tokens,"author"))
+
+```
+
+Then, we build the featues. To this aim, we first compute the DTM matrix.
+
+```{r,warning=FALSE}
+combine.dfm<-dfm(combine_tokens)
+combine.dfm
+
+```
+
+## LSA
+
+Because of the huge number of tokens, the feature matrix hence obtained may be too big to train a model in a reasonable amount of time. We thus apply a reduction dimension technoque in order to obtain less feature but still kepp the relevant informations. LSA is perfect to this. 
+As a first trialm we target 30 dimensions ( 30 subjects)
+
+```{r,warning=FALSE}
+
+combine_corpus.dfm <- dfm(combine_corpus)
+cmod<-textmodel_lsa(combine_corpus.dfm,nd=30)
+
+```
+
+## Random forest
+
+First we need to shape the data in a dataframe. We separate the text into sentence in order to have a more consistent and robust dataframe.
+Then we call for the training. In this simple context, in order to illustrate the concepts without too long computation times, we will limit ourselves to just one training set and one test set in a 08/02 pattern. 
+
+
+
+```{r,warning=FALSE}
+df<-data.frame(Class=y, x=cmod$docs)
+index.tr<-sample(size = round(0.8*length(y)),x=c(1:length(y)),replace = FALSE)
+
+df.tr<-df[index.tr,]
+df.te<-df[-index.tr,]
+
+
+combine.fit<-ranger(Class~.,
+                    data = df.tr)
+pred.te<-predict(combine.fit,df.te)
+
+```
+
+In order to see the prediction quality of the model, we call the confusionMatrix function in the caret package
+
+```{r,warning=FALSE}
+confusionMatrix(data=pred.te$predictions,reference = df.te$Class)
+
+```
+ We see an accuracy of 69.9%. Also a sensitivity of 40.4% and a specificity of 86.2%. The prediction quality is not well balanced between the 2 class. The model struggle to predict the negative class, which is Macron. It is probably because we there is less data of Macron. 
+
+## Improving the features
+
+```{r,warning=FALSE}
+nd.vec<-c(2,5,25,50,100,500,1000)
+acc.vec<-numeric(length(nd.vec))
+for (j in 1:length(nd.vec)) {
+  cmod<-textmodel_lsa(combine_corpus.dfm,nd=nd.vec[j])
+  df<-data.frame(class=y,x=cmod$docs)
+  df.tr<-df[index.tr,]
+  df.te<-df[-index.tr,]
+  
+  combine.fit<-ranger(class~.,
+                    data = df.tr)
+pred.te<-predict(combine.fit,df.te)
+acc.vec[j]<-confusionMatrix(data=pred.te$predictions,reference = df.te$class)$overall[1]
+  
+}
+acc.vec
+
+plot(acc.vec~nd.vec,type="b")
+
+```
+We can see that 100 is the best choice among the ones we tried. 
+
+```{r,warning=FALSE}
+
+combine_corpus.dfm <- dfm(combine_corpus)
+cmod<-textmodel_lsa(combine_corpus.dfm,nd=100)
+
+df<-data.frame(class=y, x=cmod$docs)
+index.tr<-sample(size = round(0.8*length(y)),x=c(1:length(y)),replace = FALSE)
+
+df.tr<-df[index.tr,]
+df.te<-df[-index.tr,]
+
+
+combine.fit<-ranger(class~.,
+                    data = df.tr)
+pred.te<-predict(combine.fit,df.te)
+
+confusionMatrix(data=pred.te$predictions,reference = df.te$class)
+
+```
+
+We clearly improve the accruacy in adding more dimensions 
+
+<!--chapter:end:Supervised.Rmd-->
+
+# Topic Modelling
+
+In this chapter, we analzye the topics of the speechs of Boris Jonhson and Macron using :
+
+- LSA(Latent Semantic analysis). The core idea is to take a matrix of what we have — documents and terms — and decompose it into a separate   document-topic matrix and a topic-term matrix.
+ 
+- LDA(Latent Dirichlet Allocation).It uses dirichlet priors for the document-topic and word-topic distributions, lending itself to better generalization.
+
+And then we will combine the two dataset and do the same analysis.
+
+## Boris Johnson
+
+### LSA
+
+First, we make the DTM matrix. We are goin to use 3 dimensions, it means 3 differents topics.
+
+```{r,warning=FALSE}
+bmod<-textmodel_lsa(corpus_boris.dfm,nd=3)
+```
+
+To inspect the results, we can extract the matrices involved in the LSA decomposition.
+In the firs table, each components measures the link between the document and the topic.
+In the second table, each component measure the link between the document and the term. 
+
+LSA is typical a reduction technique. Insetead of have N documents or M term, it is represented by K documents.
+
+```{r,warning=FALSE}
+
+lsa_docs_boris<-head(bmod$docs)
+lsa_docs_boris<-data.frame(lsa_docs_boris)
+
+lsa_docs_boris%>%
+  kable(caption=" Link between document and topic") %>%
+  kable_styling(bootstrap_options = "striped")
+
+
+head(bmod$features)
+
+```
+```{r,warning=FALSE}
+
+lsa_features_boris<-head(bmod$features)
+lsa_features_boris<-data.frame(lsa_features_boris)
+
+lsa_features_boris%>%
+  kable(caption=" Link between document and terms") %>%
+  kable_styling(bootstrap_options = "striped")
+
+
+```
+
+
+
+Often the first dimension in LSA is associated with the document lenght. To see if it is true, we build a scatter-plot between the document lengt and Dimension 1.
+As we observe in the figure \@ref(fig:lsaboris), the dimension 1 is negatively correlated with the document lenght.
+Therefore the dimension 1 bring us not a lot of informations that we have already.
+
+
+```{r lsaboris,fig.cap="First dimension of the LSA - Boris Johnson"}
+ns<-apply(corpus_boris.dfm,1,sum) 
+plot(ns~bmod$docs [,1])
+```
+We clearly observe that the dimension 1 is negatively correlated with the document lenght.
+
+Now in order to make the link between the topics and the documents and the topics with term, we use biplot. We represent the dimension 2 and 3, beacause often the first component bring often little information. 
+
+Reminders:
+
+The seven speech are class by chronological order:
+  * 09 March (text1)
+  * 12 March (text2)
+  * 16 March (text3)
+  * 18 March (text5)
+  * 19 March (text6)
+  * 20 March (text7)
+  * 22 March (text8)
+  
+It is  noticeable that the texts that are brought together over time are grouped together.And that the first speeches are the opposite of the last ones as we observe in the figure \@ref(fig:biplotboris)
+
+```{r biplotboris,fig.cap="Biplot - Boris Johnson"}
+biplot(y=bmod$docs[,2:3],x=bmod$features[,2:3],
+       col=c("grey","red"),
+       xlab = "Dimension 2",
+       ylab="Dimension 3")
+```
+
+We repeat the same analysis with TF-IDF. The influence of small weighted-frequent tokens is reduced.
+
+```{r,warning=FALSE}
+bmod_2<- textmodel_lsa(corpus_boris.tfidf, nd=3)
+
+head(bmod_2$docs)
+
+head(bmod_2$features)
+```
+
+### LDA
+
+We now turn to the LDA. For illustration, we will make K=3 topis. 
+```{r,warning=FALSE}
+K<-3
+corpus_boris.dtm<- convert(corpus_boris.dfm, to="topicmodels")
+lda_boris<- LDA(corpus_boris.dtm ,k=K)
+
+```
+
+
+In the table \@ref(tab:table-term-boris), it is the list of the six most frequent term in each topic
+```{r table-term-boris,warning=FALSE}
+terms<-terms(lda_boris,6)
+terms<-data.frame(terms)
+
+terms %>%
+  kable(caption="List of the terms present in each topic") %>%
+  kable_styling(bootstrap_options = "striped")
+
+```
+
+In the table \@ref(tab:table-topic-boris), you can observe which text is related to which topic.
+
+```{r table-topic-boris,warning=FALSE}
+## To see the topics related to each document
+
+topics<-(topics(lda_boris,1))
+topics<-data.frame(topics)
+
+topics%>%
+  kable(caption="Topics") %>%
+  kable_styling(bootstrap_options = "striped")
+
+
+```
+
+We now build the bar plot to inspect the per-topic-per-word probabilities (beta's). We take the 10 top terms and rearrange the beta per topic according to this order. We observe in the figure \@ref(fig:betaboris) that the topic 1 that the 2 first terms are "now" and "go". We can image that the topic 1 is more focous on the urgency and on the keep going.
+```{r betaboris,fig.cap="Beta - Boris Johnson"}
+beta.td.boris<-tidy(lda_boris,matrix="beta")
+
+beta.top.term.boris<-beta.td.boris %>%
+  group_by(topic) %>%
+  top_n(10, beta) %>%
+  ungroup() %>%
+  arrange(topic, -beta)
+
+
+beta.top.term.boris %>%
+  mutate(term=reorder_within(term, beta, topic)) %>%
+  ggplot(aes(term,beta,fill=factor(topic))) +
+   geom_col(show.legend = FALSE)+
+  facet_wrap(~topic, scales = "free") +
+  coord_flip()+
+  scale_x_reordered()
+
+```
+
+Now, we compute the gamma, it shows the proportion of each topic within each document, as you can observe in the figure \@ref(fig:gammaboris). We note that each document represented a text.The texts are very distinctive.
+
+
+```{r gammaboris,fig.cap="Gamma - Boris Johnson"}
+gamma.td.boris<- tidy(lda_boris,matrix="gamma")
+
+
+gamma.td.boris %>%
+  ggplot(aes(document,gamma,fill=factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~topic,scales = "free")+
+  coord_flip()+
+  scale_x_reordered()
+```
+
+## Macron
+
+### LSA
+
+```{r,warning=FALSE}
+mmod<-textmodel_lsa(corpus_macron.dfm,nd=3)
+
+```
+
+To inspect the results, we can extract the matrices involved in the LSA decomposition
+```{r,warning=FALSE}
+head(mmod$docs)
+
+head(mmod$features)
+
+```
+
+Often the first dimension in LSA is associated with the document lenght. To see if it is true, we build a scatter-plot between the document lengt and Dimension 1.
+
+```{r,warning=FALSE}
+ns_macron<-apply(corpus_macron.dfm,1,sum) 
+plot(ns_macron~mmod$docs [,1])
+
+```
+
+We clearly observe that the dimension 1 is negatively correlated with the document lenght.
+
+Now in order to make the link between the topics and the documents and the topics with term, we use biplot
+
+```{r,warning=FALSE}
+biplot(y=mmod$docs[,2:3],x=mmod$features[,2:3],
+       col=c("grey","red"),
+       xlab = "Dimension 2",
+       ylab="Dimension 3")
+```
+We repeat the same analysis with TF-IDF
+
+```{r,warning=FALSE}
+mmod_2<- textmodel_lsa(corpus_macron.tfidf, nd=3)
+
+head(mmod_2$docs)
+
+head(mmod_2$features)
+```
+
+
+### LDA
+
+We now turn to the LDA. For illustration, we will make K=5 topis. 
+```{r,warning=FALSE}
+K<-5
+corpus_macron.dtm<- convert(corpus_macron.dfm, to="topicmodels")
+lda_macron<- LDA(corpus_macron.dtm ,k=K)
+
+```
+Top terms per topic and top topic per document can be easily obtained. Belo, the six top terms and the top topic are extracted.
+
+```{r,warning=FALSE}
+terms(lda_macron,6)
+
+topics(lda_macron,1)  ## To see the topics related to each document
+```
+
+We now build the bar plot to inspect the per-topic-per-word probabilities (beta's). We take the 10 top terms and rearrange the beta per topic according to this order. 
+```{r,warning=FALSE}
+
+beta.td.macron<-tidy(lda_macron,matrix="beta")
+
+beta.top.term.macron<-beta.td.macron %>%
+  group_by(topic) %>%
+  top_n(10, beta) %>%
+  ungroup() %>%
+  arrange(topic, -beta)
+
+beta.top.term.macron %>%
+  mutate(term=reorder_within(term, beta, topic)) %>%
+  ggplot(aes(term,beta,fill=factor(topic))) +
+  geom_col(show.legend = FALSE)+
+  facet_wrap(~topic, scales = "free") +
+  coord_flip()+
+  scale_x_reordered()
+
+```
+
+Now, we compute the gamma, it shows the proportion of each topic within each document.  We note that text 1 is related to the topic 1 4 and 5. Th test 3 is related to the topic 2. And the text 2 is related to the topic 3.
+
+```{r,warning=FALSE}
+gamma.td.macron<- tidy(lda_macron,matrix="gamma")
+
+gamma.td.macron %>%
+  ggplot(aes(document,gamma,fill=factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~topic,scales = "free")+
+  coord_flip()+
+  scale_x_reordered()
+```
+
+
+<!--chapter:end:Topic_modelling.Rmd-->
+
+# Word Embedding
+
+## Boris Johnson
+
+Here, we compute the co-occurence matrix. We use the fcm function from quanteda. We use a window lenght 5. 
+
+
+```{r,warning=FALSE}
+speech.coo.boris<-fcm(corpus_boris,context="window",window=5, tri=FALSE)
+```
+
+```{r,warning=FALSE}
+p<-2 #word embedding dimension
+speech.glove.boris<-GlobalVectors$new(rank = p,x_max = 10) #xmas is a neede technical option
+speech.weC.boris<-speech.glove.boris$fit_transform(speech.coo.boris)
+```
+For illustration purpose, we now plot the 50 most used terms
+
+```{r,warning=FALSE}
+n.w.boris<-apply(corpus_boris.dfm,2,sum) #compute the number of times each term is used
+index<-order(n.w.boris,decreasing = TRUE)[1:50]
+plot(speech.weC.boris[index,],type = "n",xlab = "Dimension 1", ylab = "Dimendion 2")
+text(x=speech.weC.boris[index,],labels = rownames(speech.weC.boris[index,]))
+```
+
+```{r,warning=FALSE}
+speech.dtm <- corpus_boris.dfm
+speech.rwmd.model.boris<-RelaxedWordMoversDistance$new(corpus_boris.dfm,speech.weC.boris)
+speech.rwms.boris<-speech.rwmd.model.boris$sim2(corpus_boris.dfm)
+speech.rwmd.boris<-speech.rwmd.model.boris$dist2(corpus_boris.dfm)
+
+speech.hc.boris<-hclust(as.dist(speech.rwmd.boris))
+plot(speech.hc.boris,cex=0.8)
+
+```
+
+We can observe that there is some coherence within the groups in terms the date of the speech. 
+
+```{r,warning=FALSE}
+speech.cl.boris<- cutree(speech.hc.boris,k=4)
+corpus_boris.dfm[speech.cl.boris==1,]
+```
+
+
+
+## Macron
+
+```{r,warning=FALSE}
+speech.coo.macron<-fcm(corpus_macron,context="window",window=5, tri=FALSE)
+```
+
+```{r,warning=FALSE}
+p<-2 #word embedding dimension
+speech.glove.macron<-GlobalVectors$new(rank = p,x_max = 10) #xmas is a neede technical option
+speech.weC.macron<-speech.glove.macron$fit_transform(speech.coo.macron)
+```
+
+For illustration purpose, we now plot the 50 most used terms
+
+```{r,warning=FALSE}
+n.w.macron<-apply(corpus_macron.dfm,2,sum) #compute the number of times each term is used
+index<-order(n.w.macron,decreasing = TRUE)[1:50]
+plot(speech.weC.macron[index,],type = "n",xlab = "Dimension 1", ylab = "Dimendion 2")
+text(x=speech.weC.macron[index,],labels = rownames(speech.weC.macron[index,]))
+```
+
+
+```{r,warning=FALSE}
+speech.dtm.macron <- corpus_macron.dfm
+speech.rwmd.model.macron<-RelaxedWordMoversDistance$new(corpus_macron.dfm,speech.weC.macron)
+speech.rwms.macron<-speech.rwmd.model.macron$sim2(corpus_macron.dfm)
+speech.rwmd.macron<-speech.rwmd.model.macron$dist2(corpus_macron.dfm)
+
+speech.hc.macron<-hclust(as.dist(speech.rwmd.macron))
+plot(speech.hc.macron,cex=0.8)
+
+```
+We can observe that there is some coherence within the groups in terms the date of the speech. 
+
+```{r,warning=FALSE}
+speech.cl.macron<- cutree(speech.hc.macron,k=2)
+corpus_macron.dfm[speech.cl.macron==1,]
+```
+
+## Comparison
+
+
+
+<!--chapter:end:Word_embedding.Rmd-->
+

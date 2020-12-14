@@ -11,7 +11,7 @@ packages <- c(
   "ggrepel", "gghighlight", "patchwork", "maps", # for plotting
   "knitr", "kableExtra", "bookdown", "rmarkdown", # for the report
   "randomForest","janitor","caret","pdftools","rvest","wordcloud2","tidytext","tokenizers","quanteda","sentimentr",
-  "stringr","lexicon","RColorBrewer","tm","printr","ggplot2","quanteda.textmodels","topicmodels","text2vec", "DT")
+  "stringr","lexicon","RColorBrewer","tm","printr","ggplot2","quanteda.textmodels","topicmodels","text2vec", "DT","ranger")
 
 purrr::walk(packages, library, character.only = TRUE)
 
@@ -48,7 +48,8 @@ opts_chunk$set(
   fig.show = "hold",
   message = FALSE,
   echo = TRUE,
-  warning = FALSE
+  warning = FALSE,
+  cache =TRUE
 )
 
 ######################################################
