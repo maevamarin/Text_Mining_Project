@@ -61,38 +61,38 @@ We choose the 7 first speaches of president Johnson about the corona virus datin
 boris16mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-16-march-2020") %>%
                 html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>% 
                 html_text()
-boris16mars <- str_replace_all(boris16mars,"[\r\n\t]", ". ")
+boris16mars <- str_replace_all(boris16mars,"[\r\n\t]", " ")
 
 boris12mars<- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-12-march-2020") %>%   
               html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
               html_text()
-boris12mars <- str_replace_all(boris12mars,"[\r\n\t]", ". ")
+boris12mars <- str_replace_all(boris12mars,"[\r\n\t]", " ")
 
 boris18mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-18-march-2020") %>%   
               html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
               html_text()
-boris18mars <- str_replace_all(boris18mars,"[\r\n\t]", ". ")
+boris18mars <- str_replace_all(boris18mars,"[\r\n\t]", " ")
 
 boris9mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-9-march-2020") %>% 
               html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
               html_text()
-boris9mars <- str_replace_all(boris9mars,"[\r\n\t]", ". ")
+boris9mars <- str_replace_all(boris9mars,"[\r\n\t]", " ")
 
 boris19mars<- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-19-march-2020") %>% 
               html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
               html_text()
-boris19mars <- str_replace_all(boris19mars,"[\r\n\t]", ". ")
+boris19mars <- str_replace_all(boris19mars,"[\r\n\t]", " ")
 
 boris20mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-20-march-2020") %>% 
               html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
               html_text()
-boris20mars <- str_replace_all(boris20mars,"[\r\n\t]", ". ")
+boris20mars <- str_replace_all(boris20mars,"[\r\n\t]", " ")
 
 
 boris22mars <- read_html("https://www.gov.uk/government/speeches/pm-statement-on-coronavirus-22-march-2020") %>% 
               html_nodes(xpath="//*[@id='content']/div[3]/div[1]/div[1]/div[2]/div") %>%
               html_text()
-boris22mars <- str_replace_all(boris22mars,"[\r\n\t]", ". ")
+boris22mars <- str_replace_all(boris22mars,"[\r\n\t]", " ")
 
 
 boris<-corpus(c(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars))
@@ -387,11 +387,8 @@ knitr::kable(TTR.macron, caption = "Lexical diversity of Macron." ,align = "lccr
 
 ```
 
-<<<<<<< HEAD
-Macron have a mean TTR of 0,45 which is quite poor.
-=======
+
 Macron has a mean TTR of 0,45, which is quite poor.
->>>>>>> cdb8205bf944b22974ea5a2f9f9f909e555ece8f
 
 ### Boris Johnson
 
@@ -404,11 +401,7 @@ knitr::kable(TTR.boris, caption = "Lexical diversity of Johnson." ,align = "lccr
 
 ```
 
-<<<<<<< HEAD
-Johnson have quite a rich vocabulary, a mean of 0,6.
-=======
 Johnson has quite a richer vocabulary, an average of 0,6 over the different corpuses.
->>>>>>> cdb8205bf944b22974ea5a2f9f9f909e555ece8f
 
 ## Zipf's Law
 

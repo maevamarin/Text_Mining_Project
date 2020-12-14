@@ -1,19 +1,17 @@
 # Supervised learning
 
-## Random forest
-
-First we need to shape tje data in a dataframe. Then we call for the training. In this simple context, in order to illustrate the concepts without too long computation times, we will limit ourselves to just one training set and one test set in a 08/02 pattern. 
+In this section, we use supervised learning to develop a classifier of speech. The final aim is to be able to classify a speech from Boris Johnson or Emmanuel Macron. Therefore we are going to combine the dataframe of Boris with the dataframe of Macron. And because we don't have enough text, we are going to split the text into sentence in order to have enough data.
 
 ```{r,warning=FALSE}
-# Add the speecher of each dataframe
-
-
+##Boris Johnson
 boris_2<-as_tibble(c(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,boris20mars,boris22mars)) %>%
   rename(
   text=value)
 author="Boris Johnson"
 boris_supervised<- cbind(boris_2, author)
 
+boris_2_sentence<-get_sentences(boris_supervised)
+##Emmanuel Macron
 Macron_2<-as_tibble(c(macron12march,macron16march,macron13april)) %>% 
   rename(
     text = value)
@@ -21,13 +19,18 @@ Macron_2<-as_tibble(c(macron12march,macron16march,macron13april)) %>%
 author="Macron"
 macron_supervised<- cbind(Macron_2, author)
 
-combine <- rbind(boris_supervised, macron_supervised)
+macron_2_sentence<-get_sentences(macron_supervised)
+
+##Combine the 2 dataframes
+combine <- rbind(boris_2_sentence, macron_2_sentence)
 
 
 ## Tokenization
 combine_corpus<-corpus(combine)
 combine_tokens<- tokens(combine_corpus, remove_numbers = TRUE, remove_punct = TRUE, remove_symbols = TRUE, remove_separators = TRUE)
+
 ##combi Lemmatization
+
 combine_tokens <- tokens_replace(combine_tokens, pattern=hash_lemmas$token, replacement = hash_lemmas$lemma)
 
 ## Cleaning
@@ -39,7 +42,7 @@ y<-factor(docvars(combine_tokens,"author"))
 
 ```
 
-Now, we build the featues. To this aim, we first compute the DTM matrix.
+Then, we build the featues. To this aim, we first compute the DTM matrix.
 
 ```{r,warning=FALSE}
 combine.dfm<-dfm(combine_tokens)
@@ -47,25 +50,89 @@ combine.dfm
 
 ```
 
+## LSA
+
+Because of the huge number of tokens, the feature matrix hence obtained may be too big to train a model in a reasonable amount of time. We thus apply a reduction dimension technoque in order to obtain less feature but still kepp the relevant informations. LSA is perfect to this. 
+As a first trialm we target 30 dimensions ( 30 subjects)
+
 ```{r,warning=FALSE}
-df<-data.frame(Class=y, x=combine)
+
+combine_corpus.dfm <- dfm(combine_corpus)
+cmod<-textmodel_lsa(combine_corpus.dfm,nd=30)
+
+```
+
+## Random forest
+
+First we need to shape the data in a dataframe. We separate the text into sentence in order to have a more consistent and robust dataframe.
+Then we call for the training. In this simple context, in order to illustrate the concepts without too long computation times, we will limit ourselves to just one training set and one test set in a 08/02 pattern. 
+
+
+
+```{r,warning=FALSE}
+df<-data.frame(Class=y, x=cmod$docs)
 index.tr<-sample(size = round(0.8*length(y)),x=c(1:length(y)),replace = FALSE)
 
 df.tr<-df[index.tr,]
 df.te<-df[-index.tr,]
 
-library(ranger)
 
 combine.fit<-ranger(Class~.,
                     data = df.tr)
 pred.te<-predict(combine.fit,df.te)
 
 ```
+
 In order to see the prediction quality of the model, we call the confusionMatrix function in the caret package
 
-
 ```{r,warning=FALSE}
-library(caret)
 confusionMatrix(data=pred.te$predictions,reference = df.te$Class)
 
 ```
+ We see an accuracy of 69.9%. Also a sensitivity of 40.4% and a specificity of 86.2%. The prediction quality is not well balanced between the 2 class. The model struggle to predict the negative class, which is Macron. It is probably because we there is less data of Macron. 
+
+## Improving the features
+
+```{r,warning=FALSE}
+nd.vec<-c(2,5,25,50,100,500,1000)
+acc.vec<-numeric(length(nd.vec))
+for (j in 1:length(nd.vec)) {
+  cmod<-textmodel_lsa(combine_corpus.dfm,nd=nd.vec[j])
+  df<-data.frame(class=y,x=cmod$docs)
+  df.tr<-df[index.tr,]
+  df.te<-df[-index.tr,]
+  
+  combine.fit<-ranger(class~.,
+                    data = df.tr)
+pred.te<-predict(combine.fit,df.te)
+acc.vec[j]<-confusionMatrix(data=pred.te$predictions,reference = df.te$class)$overall[1]
+  
+}
+acc.vec
+
+plot(acc.vec~nd.vec,type="b")
+
+```
+We can see that 100 is the best choice among the ones we tried. 
+
+```{r,warning=FALSE}
+
+combine_corpus.dfm <- dfm(combine_corpus)
+cmod<-textmodel_lsa(combine_corpus.dfm,nd=100)
+
+df<-data.frame(class=y, x=cmod$docs)
+index.tr<-sample(size = round(0.8*length(y)),x=c(1:length(y)),replace = FALSE)
+
+df.tr<-df[index.tr,]
+df.te<-df[-index.tr,]
+
+
+combine.fit<-ranger(class~.,
+                    data = df.tr)
+pred.te<-predict(combine.fit,df.te)
+
+confusionMatrix(data=pred.te$predictions,reference = df.te$class)
+
+```
+
+We clearly improve the accruacy in adding more dimensions 
