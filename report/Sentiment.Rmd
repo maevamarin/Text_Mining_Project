@@ -326,7 +326,7 @@ b.stc.txt2cbind<-cbind(xB2,b.stc.txt2)
 b.stc.txt3cbind<-cbind(xB3,b.stc.txt3)
 b.stc.txt4cbind<-cbind(xB4,b.stc.txt4)
 b.stc.txt5cbind<-cbind(xB5,b.stc.txt5)
-b.stc.txt6cbind<-cbind(xB6,b.stb.stc.txt6)
+b.stc.txt6cbind<-cbind(xB6,b.stc.txt6)
 b.stc.txt7cbind<-cbind(xB7,b.stc.txt7)
 library(dplyr)
 

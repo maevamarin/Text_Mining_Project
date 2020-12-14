@@ -2,7 +2,8 @@
 
 ## Random forest
 
-First we need to shape tje data in a dataframe. Then we call for the training. In this simple context, in order to illustrate the concepts without too long computation times, we will limit ourselves to just one training set and one test set in a 08/02 pattern. 
+First we need to shape the data in a dataframe. We separate the text into sentence in order to have a more consistent and robust dataframe.
+Then we call for the training. In this simple context, in order to illustrate the concepts without too long computation times, we will limit ourselves to just one training set and one test set in a 08/02 pattern. 
 
 ```{r,warning=FALSE}
 # Add the speecher of each dataframe
@@ -14,6 +15,8 @@ boris_2<-as_tibble(c(boris9mars,boris12mars,boris16mars,boris18mars,boris19mars,
 author="Boris Johnson"
 boris_supervised<- cbind(boris_2, author)
 
+boris_2_sentence<-get_sentences(boris_supervised)
+
 Macron_2<-as_tibble(c(macron12march,macron16march,macron13april)) %>% 
   rename(
     text = value)
@@ -21,13 +24,19 @@ Macron_2<-as_tibble(c(macron12march,macron16march,macron13april)) %>%
 author="Macron"
 macron_supervised<- cbind(Macron_2, author)
 
-combine <- rbind(boris_supervised, macron_supervised)
+macron_2_sentence<-get_sentences(macron_supervised)
+
+combine <- rbind(boris_2_sentence, macron_2_sentence)
 
 
 ## Tokenization
 combine_corpus<-corpus(combine)
 combine_tokens<- tokens(combine_corpus, remove_numbers = TRUE, remove_punct = TRUE, remove_symbols = TRUE, remove_separators = TRUE)
+
+combine_corpus_dataframe<-data_frame(combine_corpus)
+combine_sentence<-tokenize_sentences(boris_supervised$text)
 ##combi Lemmatization
+
 combine_tokens <- tokens_replace(combine_tokens, pattern=hash_lemmas$token, replacement = hash_lemmas$lemma)
 
 ## Cleaning

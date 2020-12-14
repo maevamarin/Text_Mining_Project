@@ -225,4 +225,4 @@ gamma.td.macron %>%
   scale_x_reordered()
 ```
 
-## Comparison
+## Combine
