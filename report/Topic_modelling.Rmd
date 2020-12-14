@@ -19,12 +19,12 @@ bmod<-textmodel_lsa(corpus_boris.dfm,nd=3)
 ```
 
 To inspect the results, we can extract the matrices involved in the LSA decomposition.
-In the firs table, each components measures the link between the document and the topic.
-In the second table, each component measure the link between the document and the term. 
+In the firs table, each components measures the link between the document and the topic.\@ref(tab:table-docs-boris)
+In the second table, each component measure the link between the document and the term. \@ref(tab:table-features-boris)
 
 LSA is typical a reduction technique. Insetead of have N documents or M term, it is represented by K documents.
 
-```{r,warning=FALSE}
+```{r table-docs-boris,warning=FALSE}
 
 lsa_docs_boris<-head(bmod$docs)
 lsa_docs_boris<-data.frame(lsa_docs_boris)
@@ -34,10 +34,8 @@ lsa_docs_boris%>%
   kable_styling(bootstrap_options = "striped")
 
 
-head(bmod$features)
-
 ```
-```{r,warning=FALSE}
+```{r table-features-boris,warning=FALSE}
 
 lsa_features_boris<-head(bmod$features)
 lsa_features_boris<-data.frame(lsa_features_boris)
@@ -86,13 +84,40 @@ biplot(y=bmod$docs[,2:3],x=bmod$features[,2:3],
 
 We repeat the same analysis with TF-IDF. The influence of small weighted-frequent tokens is reduced.
 
-```{r,warning=FALSE}
+
+In the firs table \@ref(tab:table-docs-boris-2), each components measures the link between the document and the topic.
+In the second table \@ref(tab:table-features-boris-2) each component measure the link between the document and the term
+
+
+```{r table-docs-boris-2,warning=FALSE}
 bmod_2<- textmodel_lsa(corpus_boris.tfidf, nd=3)
 
-head(bmod_2$docs)
+lsa_docs_boris_2<-head(bmod_2$docs)
+lsa_docs_boris_2<-data.frame(lsa_docs_boris_2)
 
-head(bmod_2$features)
+lsa_docs_boris_2%>%
+  kable(caption=" Link between document and topic") %>%
+  kable_styling(bootstrap_options = "striped")
+
+
 ```
+
+
+```{r table-features-boris-2,warning=FALSE}
+
+lsa_features_boris_2<-head(bmod_2$features)
+lsa_features_boris_2<-data.frame(lsa_features_boris_2)
+
+lsa_features_boris_2%>%
+  kable(caption=" Link between document and terms") %>%
+  kable_styling(bootstrap_options = "striped")
+
+
+
+```
+
+
+
 
 ### LDA
 
@@ -177,26 +202,49 @@ mmod<-textmodel_lsa(corpus_macron.dfm,nd=3)
 ```
 
 To inspect the results, we can extract the matrices involved in the LSA decomposition
-```{r,warning=FALSE}
-head(mmod$docs)
 
-head(mmod$features)
+
+\@ref(tab:table-term-macron)
+\@ref(tab:table-features-macron)
+
+```{r table-term-macron,warning=FALSE}
+
+lsa_docs_macron<-head(mmod$docs)
+lsa_docs_macron<-data.frame(lsa_docs_macron)
+
+lsa_docs_macron%>%
+  kable(caption=" Link between document and topic") %>%
+  kable_styling(bootstrap_options = "striped")
 
 ```
+
+```{r table-features-macron,warning=FALSE}
+
+lsa_features_macron<-head(mmod$features)
+lsa_features_macron<-data.frame(lsa_features_macron)
+
+lsa_features_macron%>%
+  kable(caption=" Link between document and terms") %>%
+  kable_styling(bootstrap_options = "striped")
+
+
+```
+
+
 
 Often the first dimension in LSA is associated with the document lenght. To see if it is true, we build a scatter-plot between the document lengt and Dimension 1.
 
-```{r,warning=FALSE}
+
+```{r lsamacron,fig.cap="First dimension of the LSA - Emmanuel Macron"}
 ns_macron<-apply(corpus_macron.dfm,1,sum) 
 plot(ns_macron~mmod$docs [,1])
-
 ```
 
-We clearly observe that the dimension 1 is negatively correlated with the document lenght.
+We clearly observe that the dimension 1 is negatively correlated with the document lenght, as we observe in the figure \@ref(fig:lsamacron).
 
-Now in order to make the link between the topics and the documents and the topics with term, we use biplot
+Now in order to make the link between the topics and the documents and the topics with term, we use biplot \@ref(fig:biplotmacron).
 
-```{r,warning=FALSE}
+```{r biplotmacron,fig.cap="Biplot - Emmanuel Macron"}
 biplot(y=mmod$docs[,2:3],x=mmod$features[,2:3],
        col=c("grey","red"),
        xlab = "Dimension 2",
@@ -204,14 +252,27 @@ biplot(y=mmod$docs[,2:3],x=mmod$features[,2:3],
 ```
 We repeat the same analysis with TF-IDF
 
-```{r,warning=FALSE}
+\@ref(tab:table-term-macron-2)
+
+```{r table-term-macron-2}
 mmod_2<- textmodel_lsa(corpus_macron.tfidf, nd=3)
 
-head(mmod_2$docs)
+lsa_docs_macron_2<-head(mmod_2$docs)
+lsa_docs_macron_2<-data.frame(lsa_docs_macron_2)
 
-head(mmod_2$features)
+lsa_docs_macron_2%>%
+  kable(caption=" Link between document and topic") %>%
+  kable_styling(bootstrap_options = "striped")
 ```
 
+```{r table-term-macron-2}
+lsa_features_macron_2<-head(mmod_2$features)
+lsa_features_macron_2<-data.frame(lsa_features_macron_2)
+
+lsa_features_macron_2%>%
+  kable(caption=" Link between document and terms") %>%
+  kable_styling(bootstrap_options = "striped")
+```
 
 ### LDA
 
@@ -298,6 +359,8 @@ ns_combine<-apply(combine_corpus.dfm,1,sum)
 plot(ns_combine~cmod$docs [,1])
 
 ```
+
+
 ```{r,warning=FALSE}
 biplot(y=cmod$docs[,2:3],x=cmod$features[,2:3],
        col=c("grey","red"),
@@ -318,8 +381,17 @@ lda_combine<- LDA(combine_corpus.dtm ,k=K)
 
 Top terms per topic and top topic per document can be easily obtained. Belo, the six top terms and the top topic are extracted.
 
-```{r,warning=FALSE}
-terms(lda_combine,6)
+\@ref(tab:table-term-combine)
+
+```{r table-term-combine,warning=FALSE}
+
+terms_combine<-terms(lda_combine,6)
+terms_combine<-data.frame(terms_combine)
+
+terms_combine %>%
+  kable(caption="List of the terms present in each topic") %>%
+  kable_styling(bootstrap_options = "striped")
+
 
 topics(lda_combine,1)  ## To see the topics related to each document
 ```
